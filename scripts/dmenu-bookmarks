@@ -1,0 +1,8 @@
+#!/bin/sh
+# Open URLs from bookmarks file
+
+# Print site names, then get URL based on the name. Exit if empty
+name=$(awk -F '-' '{print $1}' ~/.config/bookmarks | dmenu -i -p "Site:")
+[ -z "$name" ] && exit
+
+grep "$name" ~/.config/bookmarks | cut -d '-' -f 2- | xsel -ib && notify-send "󰖟 $name" "Copied to clipboard"

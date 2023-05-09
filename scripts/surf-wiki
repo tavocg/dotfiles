@@ -1,0 +1,8 @@
+#!/bin/sh
+# Lookup wikipedia url query
+# Requires surf & dmenu
+
+query=$(dmenu -p "Search wikipedia:" < /dev/null | sed 's/\s/%20/g' | sed 's/#/%23/g')
+[ -z "$query" ] && exit
+
+surf "wikipedia.org/w/index.php?search=$query"

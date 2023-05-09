@@ -1,0 +1,12 @@
+#!/bin/sh
+# Get current ISO for
+# various linux distros
+
+case $1 in
+    debian) links "https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/" ;;
+    ubuntu) links "https://ubuntu.com/download/desktop/" ;;
+    arch) links "https://geo.mirror.pkgbuild.com/iso/" ;;
+    mint) links "https://mirrors.edge.kernel.org/linuxmint/stable/" ;;
+    void) links "https://repo-default.voidlinux.org/live/current/" ;;
+    *) echo "Usage: wget-iso <arch/mint/void...>" ;;
+esac

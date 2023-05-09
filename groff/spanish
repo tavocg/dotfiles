@@ -1,0 +1,23 @@
+\" Redefinición de registros comunes
+\" para títulos y fechas en español.
+
+.ds DY \n[dy] de \*[MO] de \n[year]
+
+.ds ABSTRACT RESUMEN
+
+.ds TOC Tabla de contenido
+
+.ds MONTH1 enero
+.ds MONTH2 febrero
+.ds MONTH3 marzo
+.ds MONTH4 abril
+.ds MONTH5 mayo
+.ds MONTH6 junio
+.ds MONTH7 julio
+.ds MONTH8 agosto
+.ds MONTH9 septiembre
+.ds MONTH10 octubre
+.ds MONTH11 noviembre
+.ds MONTH12 diciembre
+
+.ds REFERENCES Referencias

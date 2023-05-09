@@ -1,0 +1,14 @@
+#!/bin/sh
+# I needed this to replace env variables
+# for easier macro sourcing
+
+soelim -I ~/.config/groff/ "$1" | refer -p ~/.config/groff/bibliography |
+    groff -mspdf -T pdf -U -ketpj
+
+# Preprocessors
+# [-k (preconv)]
+# [-e (eqn)]
+# [-t (tbl)]
+# [-p (pic)]
+# [-G (grap)]
+# [-j (chem) (messes up spacing)]

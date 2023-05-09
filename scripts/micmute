@@ -1,0 +1,7 @@
+#!/bin/sh
+# Mute
+
+amixer -q set Capture toggle
+
+# Restart statusbar module (dwm & dwmblocks)
+kill -45 "$(pidof dwmblocks)"

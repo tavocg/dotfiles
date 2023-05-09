@@ -1,0 +1,5 @@
+#!/bin/sh
+# Flashes USB devices
+# Requires 'pv'
+
+pv $1 > $2 && sync && echo "Done!" && sync

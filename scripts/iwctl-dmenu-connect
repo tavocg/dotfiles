@@ -1,0 +1,25 @@
+#!/bin/sh
+# 'iwd' connect helper using dmenu
+
+# Possibly very convoluted way of fetching SSIDs
+network=$(iwctl station wlan0 get-networks | cut -d " " -f 7-21 | tail +5 | awk '{if(NF>0) {print $0}}' | awk -F "  " '{print $1}' | dmenu -p "Connect:")
+[ -z "$network" ] && exit # Exit if empty SSID
+
+# Attempt connection
+iwctl station wlan0 connect --dont-ask "$network"
+sleep 2 # Bit of grace time
+# Exit with notification if $network is shown on status
+iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "直  Wireless Network" "Connected to $network" && exit
+
+# Try connecting with passphrase
+pass=$(dmenu -p "Passphrase:" -P < /dev/null)
+# Test for empty password, exit if true
+[ -z "$pass" ] && notify-send "直  Wireless Network" "Invalid password: Empty" && exit
+# Attempt conection with provided pass, notify and exit on success
+iwctl --passphrase="$pass" station wlan0 connect --dont-ask "$network"
+sleep 2 # Bit of grace time
+# Exit with notification if $network is shown on status
+iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "直  Wireless Network" "Connected to $network" && exit
+
+# Notify unsuccessful operation
+notify-send "直  Wireless Network" "Operation unsuccessful"

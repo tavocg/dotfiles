@@ -1,0 +1,93 @@
+\" Markdown-like syntax for custom headings
+\" and other text formatting options.
+
+\" --- Headings ---
+.de #
+.   nf
+.   NH
+.   ps 16
+.   ad l
+.   XN "\\$1"
+\h'0n'\v'-1.2n'\
+\l'\\n(.lu\(ul'\
+\m[default]
+.   ps 10
+.   sp -.2
+.   fi
+..
+.de ##
+.   nf
+.   NH 2
+.   ps 13
+.   ad l
+.   XN "\\$1"
+.   ps 10
+.   sp -.2
+\h'0n'\v'-1.2n'
+.   fi
+..
+.de ###
+.   nf
+.   RS
+.   NH 3
+.   ps 11
+.   ad l
+.   XN "\\$1"
+.   RE
+.   ps 10
+.   sp -.2
+\h'0n'\v'-1.2n'
+.   fi
+..
+.de ####
+.   nf
+.   RS
+.   NH 4
+.   ps 11
+.   ad l
+.   XN "\\$1"
+.   RE
+.   ps 10
+.   sp -.2
+\h'0n'\v'-1.2n'
+.   fi
+..
+.de #####
+.   nf
+.   RS
+.   NH 5
+.   ps 11
+.   ad l
+.   XN "\\$1"
+.   RE
+.   ps 10
+.   sp -.2
+\h'0n'\v'-1.2n'
+.   fi
+..
+
+\" --- Lists ---
+.de *
+.   IP \(bu 2
+\\$1
+..
+.de +
+.   IP \(bu 2
+\\$1
+..
+.de -
+.   IP \(bu 2
+\\$1
+..
+
+\" --- Block quotes ---
+.de >
+.   QP
+.   I
+.   ad b
+..
+
+\" --- Horizontal rule ---
+.de ---
+\l'\\n(.lu\(ul'
+..

@@ -1,0 +1,66 @@
+#!/bin/sh
+# ffmpeg compression & encoding for multiple use cases
+: "${modes:=youtube small}"
+
+help() {
+    printf "\n\033[1m"Usage:"\033[0m\n"
+    printf "    ffmpeg-compress [Video] [Preset] [optional:resolution@framerate]"
+    printf "\n\033[1m"Presets:"\033[0m\n"
+    for mode in "$modes" ; do printf "    $mode" ; done
+    echo
+    exit
+}
+
+input="$1"          # Filename
+suffix=${input##*.} # Suffix
+preset="$2"         # Preset
+# File and/or mode not given
+[ -z "$preset" ] && help
+
+res=${3%%@*}        # Resolution from 3rd argument
+frm=${3##*@}        # Framerate from 3rd argument
+# (File's current settings otherwise)
+[ -z "$res" ] && res=$(ffmpeg -i "$input" 2>&1 | grep -oP 'Stream .*, \K[0-9]+x[0-9]+')
+[ -z "$frm" ] && frm=$(ffmpeg -i "$input" 2>&1 | sed -n "s/.*, \(.*\) tbr.*/\1/p")
+
+# YouTube
+# Use parameters found in 'https://support.google.com/youtube/answer/1722171#zippy='
+# and 'https://gist.github.com/mikoim/27e4e0dc64e384adbcb91ff10a2d3678'
+# to determine proper youtube upload encoding.
+encode_youtube() {
+output=${input%".$suffix"}-encode-yt.mp4
+ffmpeg -i "$input" \
+    -movflags faststart \
+    -c:v libx264 \
+    -profile:v high \
+    -bf 2 \
+    -g 30 \
+    -crf 24 \
+    -pix_fmt yuv420p \
+    -c:a aac \
+    -profile:a aac_low \
+    -b:a 384k \
+    "$output"
+}
+
+# Sensible settings for good quality
+# while encoding a smaller file size
+compress_small() {
+output=${input%".$suffix"}-compress-small.mp4
+ffmpeg -i "$input" \
+    -profile:v baseline \
+    -pix_fmt yuv420p \
+    -movflags faststart \
+    -vcodec libx264 \
+    -crf 28 \
+    -c:a aac \
+    -b:a 128k \
+    "$output"
+}
+
+# Run chosen preset, exit if there's an error in process
+[ "$preset" = "youtube" ] && encode_youtube
+[ "$preset" = "small" ] && compress_small
+
+# Given preset was not found
+echo "'$preset' is not a valid preset" && help

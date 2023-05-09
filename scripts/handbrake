@@ -1,0 +1,4 @@
+#!/bin/sh
+# Default command is ghb for some reason
+
+ghb

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Get current keyboard layout
+
+setxkbmap -query | grep layout | awk '{print $2}'

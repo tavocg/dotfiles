@@ -1,0 +1,6 @@
+#!/bin/sh
+# Increases volume by 5%,
+# then restarts statusbar module
+
+amixer set Master 5%+ unmute
+kill -44 "$(pidof dwmblocks)"

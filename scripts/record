@@ -1,0 +1,52 @@
+#!/bin/sh
+# Uses 'ffmpeg' to record monitor, by default grabs monitor most to the left
+comm="ffmpeg"
+res=$(xrandr --current | grep -o "[0-9]*x[0-9]*+0+0" | cut -d "+" -f 1)
+
+# Record microphone
+mic=$(pactl list short sources | cut -f 2 | grep input | dmenu -i -p "Mic:")
+[ -n "$mic" ] && recmic="-f pulse -ac 1 -i $mic" && audio="$recmic"
+
+# Record system audio
+opt=$(printf "Yes\nNo" | dmenu -p "Desktop audio?")
+[ "$opt" = "Yes" ] && recsysaudio="-f pulse -ac 1 -i default.monitor" && audio="$recsysaudio"
+
+# Record both
+[ \( -n "$recmic" \) -a \( -n "$recsysaudio" \) ] &&
+    audio="\
+    "$recmic" \
+    "$recsysaudio" \
+    -map 0 \
+    -filter_complex "[1:a][2:a]amerge=inputs=2[a]" \
+    -map "[a]" -ac 2 \
+    "
+
+# cuda encoding (faster, less cpu, smaller file)
+recscreen_nvenc() {
+comm="$comm \
+    -hwaccel cuda -hwaccel_output_format cuda \
+    -video_size $res -framerate 60 \
+    -f x11grab -i $DISPLAY.0+0,0 \
+    "$audio" \
+    -c:v h264_nvenc \
+    -b:v 16M \
+    "
+}
+
+# CPU encoding, this is the best config I found for 1080p
+recscreen() {
+comm="$comm \
+    -video_size $res -framerate 60 \
+    -f x11grab -i $DISPLAY.0+0,0 \
+    "$audio" \
+    -c:v libx264rgb \
+    -crf 20 \
+    -preset veryfast \
+    "
+}
+
+# Use cuda if available
+type nvidia-smi 2>/dev/null && recscreen_nvenc || recscreen
+
+# Run in current dir and save with 2nd argument's name
+$comm "$1"

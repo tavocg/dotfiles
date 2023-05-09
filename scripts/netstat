@@ -1,0 +1,17 @@
+#!/bin/sh
+# Modified version of Luke Smith's network usage script
+
+# Print cache so it doesn't get stuck in dwmblocks
+cat "$XDG_CACHE_HOME"/netstat
+
+# Store transferred and recieved bytes
+rstart="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+tstart="$(($(cat /sys/class/net/[ew]*/statistics/tx_bytes | paste -sd '+')))"
+sleep 1
+rend="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
+tend="$(($(cat /sys/class/net/[ew]*/statistics/tx_bytes | paste -sd '+')))"
+
+# Format correctly and print
+dow=$(printf "%2sB\n" "$(numfmt --to=iec $(($rend-$rstart)))" | sed 's/ //g')
+up=$(printf "%2sB\n" "$(numfmt --to=iec $(($tend-$tstart)))" | sed 's/ //g')
+printf "%2s" "$dow|$up" > "$XDG_CACHE_HOME"/netstat

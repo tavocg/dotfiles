@@ -1,0 +1,3 @@
+#!/bin/sh
+# Restart pipewire
+systemctl --user restart pipewire

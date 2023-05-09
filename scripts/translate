@@ -1,0 +1,13 @@
+#!/bin/sh
+# Translate easily
+
+if [ "$1" = "" ] && [ "$2" = "" ] || [ "$1" = "-h" ] ; then
+    # If no text or/nor mode, and/or -h flag is given, print usage, then exit
+    echo "Modes:\n$(apertium -l)\n\nUsage:\n  translate '<text>' '<mode>'"
+elif [ -n "$1" ] && [ "$2" = "" ] ; then
+    # If no mode is given, assume read stdin
+    apertium "$1"
+elif [ -n "$1" ] && [ -n "$2" ] ; then
+    # Else, just translate text using specified mode
+    echo "$1" | apertium "$2"
+fi

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+case $2 in
+    *.tar.bz2)  tar cvjSf "$2" "$1"  ;;
+    *.tar.zst)  t2sz "$1" -o "$2"    ;;
+    *.tar.xz)   tar cfJ "$2" "$1"    ;;
+    *.tar.gz)   tar czf "$2" "$1"    ;;
+    *.tbz2)     echo "Unknown"       ;;
+    *.tar)      tar cf "$2" "$1"     ;;
+    *.rar)      rar a "$2" "$1"      ;;
+    *.zip)      zip -r "$2" "$1"     ;;
+    *.deb)      echo "Unknown"       ;;
+    *.bz2)      bzip2 -zk "$1"       ;;
+    *.tgz)      tar cvzf "$2" "$1"   ;;
+    *.7z)       7za a "$2" "$1"      ;;
+    *.gz)       gzip "$1"            ;;
+    *.xz)       xz $1                ;;
+    *) echo "Usage: compress <file/dir/tarball> <archive.eg>" ;;
+esac
+

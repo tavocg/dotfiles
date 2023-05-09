@@ -1,0 +1,11 @@
+#!/bin/sh
+# Set default input device
+
+# Get proper name from sources
+input=$(pactl list short sources | cut -f 2 | grep input | dmenu -i -p "Input:")
+
+# Set audio device, notify command success
+pactl set-default-source "$input" && notify-send "󰕾 Default Input" "Set to '$input'" || notify-send "󰕾 Default Input" "Didn't change"
+
+# Reload statusbar volume module (dwm & dwmblocks)
+kill -45 "$(pidof dwmblocks)"

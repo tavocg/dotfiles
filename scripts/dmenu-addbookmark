@@ -1,0 +1,14 @@
+#!/bin/sh
+# Get URL from clipboard
+# and save as a bookmark
+
+bookmark="$(xsel -ob)"
+
+if grep -q "$bookmark" "$HOME/.config/bookmarks" ; then
+    notify-send "Bookmarks" "Already bookmarked"
+else
+    name="$(dmenu -p 'Bookmark name:' < /dev/null)"
+    entry="$name-$bookmark"
+    echo "$entry" >> "$HOME/.config/bookmarks"
+    notify-send "Bookmarks" "Added $entry"
+fi

@@ -1,0 +1,41 @@
+#!/bin/bash
+# Goes through music library and tags songs
+#
+# WARNING:
+# Running this script can mess up
+# your tags, use at your own risk
+#
+# Usage:
+# cd into your LIBRARY and make
+# sure the structure is as follows:
+# LIBRARY/Artist/Album_(Year)/XX-Song.mp3
+#
+# ** XX stands for track position in album
+#     'Single' album songs also need tracknumber
+#     such as 01-Song.mp3
+#
+# ** It is not exclusive to mp3,
+#     just change the codec when it appears
+#     to opus, flac, etc.
+#
+# ** I also saved a yt-dlp-get-album
+#     command that adds tracknumber for you
+#     in the format required above
+
+for artist in * ; do
+    properartist=${artist//[_]/" "}
+    for album in $artist/* ; do
+        properalbum=$(echo "${album//[_]/" "}" | cut -d "/" -f 2 | awk 'NF{NF-=1};1' )
+        year=$(echo "${album//[_]/" "}" | cut -d "/" -f 2 | grep -o "[0-9][0-9][0-9][0-9]")
+        id3tag -a "$properartist" "$album"/*
+        id3tag -A "$properalbum" "$album"/*
+        id3tag -y "$year" "$album"/*
+        for song in "$album"/* ; do
+            propersong=$(echo "${song//[_]/" "}" | cut -d "/" -f 3 | sed 's/.mp3//g' | sed 's/[0-9][0-9]-//g' )
+            tracknum=$(echo "${song//[_]/" "}" | cut -d "/" -f 3 | sed 's/.mp3//g' | cut -d "-" -f 1)
+            tracktot=$(ls "$album" | wc -l )
+            id3tag -s "$propersong" "$song"
+            id3tag -t "$tracknum" -T "$tracktot" "$song"
+        done ;
+    done ;
+done ;

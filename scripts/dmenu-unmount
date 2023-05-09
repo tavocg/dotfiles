@@ -1,0 +1,11 @@
+#!/bin/sh
+# Unmount devices based on LABEL,
+# will not work with uuid or other
+# disk identification method
+
+# Get LABEL of disk and device name
+disk=$(blkid | grep -wv primary | cut -d '=' -f 2 | cut -d '"' -f2 | dmenu -p "Unmount: ")
+device=$(blkid | grep "$disk" | cut -d ':' -f 1 | cut -d '/' -f 3)
+
+# Attempt to unmount $device and notify success of command
+umount /dev/"$device" && notify-send "$disk" "Unmounted" || notify-send "$disk" "Operation unsuccessful"

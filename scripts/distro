@@ -1,0 +1,24 @@
+#!/bin/sh
+# Shamefully stolen from 6kg@github
+
+# Get distro (either arch or debian)
+for os in /etc/os-release /usr/lib/os-release; do
+	# some POSIX shells exit when trying to source a file that doesn't exist
+	[ -f $os ] && . $os && break
+done
+
+eq() # equals  |  [ a = b ] with globbing
+{
+case $1 in
+    $2) ;;
+    *) return 1;;
+esac
+}
+
+while read -r line; do
+    eq "$line" 'PPid*' && ppid=${line##*:?} && break
+done < "/proc/${ppid:-$PPID}/status"
+
+[ "$ID" ] || { set -- $line; ID="$1 $2"; }
+
+echo $ID

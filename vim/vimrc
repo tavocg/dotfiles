@@ -1,0 +1,87 @@
+" tavo custom vimrc file
+set clipboard=unnamedplus
+set shellcmdflag=-ic
+set encoding=utf-8
+set relativenumber
+set shiftwidth=4
+set cursorline
+set ignorecase
+set smartcase
+set expandtab
+set tabstop=4
+set wildmenu
+set hlsearch
+set swapfile
+set undofile
+set mouse=a
+set showcmd
+set number
+
+" notes
+autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
+" groff
+autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR>
+autocmd FileType groff noremap <buffer> <F9> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR> :![ "$(pidof -x 'zathura')" = "" ] && zathura --fork %:r.pdf<CR> && disown
+au BufNewFile,BufRead *.ms set filetype=groff
+" LaTeX
+autocmd FileType tex noremap <buffer> <C-c> :w<CR> :!latex %<CR> :!pdflatex %<CR>
+autocmd FileType bib noremap <buffer> <C-c> :w<CR> :!bibtex %<CR>
+" Python
+autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
+" NERDTree
+nnoremap <C-t> :NERDTreeToggle<CR>
+" Global keybindings
+noremap <F5> :setlocal spell! spelllang=en<CR>
+noremap <F6> :setlocal spell! spelllang=es<CR>
+noremap exec !!$SHELL<CR>
+noremap <C-n> /@@@<CR>
+noremap <tab> :bn<CR>
+noremap <C-c> :bd<CR>
+noremap <C-s> :w<CR>
+noremap <Space> za
+
+" Enabling .config
+let rtp=&runtimepath
+set runtimepath=~/.config/vim
+let &runtimepath.=','.rtp.',~/.config/vim/after'
+set directory=~/.config/vim/swap//,.,~/tmp,/var/tmp,/tmp
+set backupdir=~/.config/vim/backup//,.,~/tmp,~/
+set spellfile=~/.config/vim/spell/en.utf-8.add
+set viminfo+=n~/.config/vim/viminfo
+set viewdir=~/.config/vim/view/
+set undodir=~/.config/vim/undo//,.
+
+" Plugins
+if empty(glob('~/.config/vim/autoload/plug.vim'))
+   silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
+     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+   autocmd VimEnter * PlugInstall --sync | source '~/.config/vim/vimrc'
+endif
+
+call plug#begin()
+Plug 'https://github.com/vim-airline/vim-airline-themes'
+Plug 'https://github.com/vim-airline/vim-airline'
+Plug 'https://github.com/preservim/nerdtree'
+Plug 'https://github.com/morhetz/gruvbox'
+Plug 'junegunn/goyo.vim'
+call plug#end()
+
+" Theme
+let g:gruvbox_contrast_hard=1
+let g:gruvbox_italic=1
+set background=dark
+colorscheme gruvbox
+
+" Airline
+let g:airline#extensions#tabline#buffer_min_count = 2
+let g:airline#extensions#tabline#enabled = 1
+set ttimeout ttimeoutlen=0
+set laststatus=2
+set noshowmode
+
+" Goyo
+map gy :Goyo<CR>
+autocmd! User GoyoLeave highlight Normal ctermbg=NONE
+
+autocmd BufWinLeave bibliography zM | mkview
+autocmd BufWinEnter bibliography silent loadview

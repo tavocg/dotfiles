@@ -1,0 +1,14 @@
+#!/bin/sh
+# Fetch YouTube playlists as music albums
+# with track numbering and mp3 encoding
+#
+# ** To change enconding,
+# modify $codec variable
+
+# Show usage and exit if no URL is given
+[ -z "$1" ] && echo 'Usage: yt-dlp-get-album <"URL">' && exit
+
+codec="mp3"
+URL="$1"
+
+yt-dlp -x -o "%(playlist_index)s-%(title)s.%(ext)s" --audio-format $codec "$URL"

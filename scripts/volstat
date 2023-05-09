@@ -1,0 +1,15 @@
+#!/bin/sh
+# Fetch current audio levels
+# (in current default output)
+
+# Get volume levels
+vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
+
+# If device is off (muted), notify mute, print volume otherwise
+if amixer scontents | grep "Playback" | grep -q "\[off\]"; then
+    echo " M"
+    notify-send -u low --replace-id=10 "󰖁 Volume" "Mute"
+else
+    echo "$vol"
+    notify-send -u low --replace-id=10 "󰕾 Volume" "$vol"
+fi

@@ -1,0 +1,23 @@
+\" Quality of life utilities
+\" for easier eqn usage.
+
+\" --- Define register ---
+.nr eqn 0 1
+
+.EQ
+delim $$
+define . '~ \[md] ~'
+define * '~ \[mu] ~'
+define +- '~ \[+-] ~'
+define -+ '~ + bar ~'
+define and '~ \[AN] ~'
+define div '~ \[di] ~'
+define grad '\[gr]'
+
+define vec %
+"$1" sup fwd -70 up 40 size 5.5 \[->] ""
+%
+define circumflex %
+size 8 "$1" sup fwd -29 up 5 size 6 \[ha]
+%
+.EN

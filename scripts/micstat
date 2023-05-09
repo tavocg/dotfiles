@@ -1,0 +1,15 @@
+#!/bin/sh
+# Fetch current mic levels
+# (in current default Capture)
+
+# Get volume levels
+vol=$(amixer | grep "Capture" | grep -o '[0-9]*[0-9]%' | tail -n 1)
+
+# If device is off (muted), notify mute, print volume otherwise
+if amixer scontents | grep "Capture" | grep -q "\[off\]"; then
+    echo " M"
+    notify-send -u low --replace-id=11 " Microphone" "Mute"
+else
+    echo "$vol"
+    notify-send -u low --replace-id=11 " Microphone" "$vol"
+fi

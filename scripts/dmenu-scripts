@@ -1,0 +1,4 @@
+#!/bin/sh
+# Run chosen script from custom directory
+
+$(ls ~/.config/scripts/ | dmenu -i -p "Script:")

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+while true; do
+    printf '%s\r' "$(date '+%I:%M:%S %p')" ;
+    sleep 1 ;
+done

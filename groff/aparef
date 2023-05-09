@@ -1,0 +1,8 @@
+\" Apa format for citation
+\" and references section
+
+.R1
+label "(A.n|Q) ', ' (D.y|D)"; bracket-label " (" ) "; "
+no-label-in-reference
+accumulate
+.R2

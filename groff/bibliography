@@ -1,0 +1,255 @@
+%K sample_id
+%L sample_reference
+%A sample_author
+%Q sample_no_author
+%T sample_title
+%B sample_article
+%V sample_volume
+%D sample_date
+%C sample_place
+%E sample_editorial
+%I sample_institution
+%P sample_page_or_range
+%J sample_journal
+%N sample_journal_issue_number
+%R sample_technical_report_number
+%S sample_series_name
+%O sample_other_info
+%X sample_anotation
+  ___   ___   ___
+ / _ \ / _ \ / _ \
+| | | | | | | | | |
+| |_| | |_| | |_| |
+ \___/ \___/ \___/
+-----------------------------------------------
+Computer science, information and general works
+
+000 ---------- Computer science, knowledge and systems
+
+010 ---------- Bibliographies
+
+020 ---------- Library and information sciences
+
+030 ---------- Encyclopedias and books of facts
+
+040 ---------- Unassigned (formerly Biographies)
+
+050 ---------- Magazines, journals and serials
+
+%K estadoeducacion
+%A Programa Estado de la Nación
+%T Estado de la Eduación
+%D 2021
+%C San José, C.R.
+
+060 ---------- Associations, organizations and museums
+
+070 ---------- News media, journalism and publishing
+
+080 ---------- Quotations
+
+090 ---------- Manuscripts and rare books
+
+ _  ___   ___
+/ |/ _ \ / _ \
+| | | | | | | |
+| | |_| | |_| |
+|_|\___/ \___/
+-------------------------
+Philosophy and psychology
+
+100 ---------- Philosophy
+
+110 ---------- Metaphysics
+
+120 ---------- Epistemology
+
+130 ---------- Parapsychology and occultism
+
+140 ---------- Philosophical schools of thought
+
+150 ---------- Psychology
+
+160 ---------- Philosophical logic
+
+170 ---------- Ethics
+
+180 ---------- Ancient, medieval, and Eastern philosophy
+
+190 ---------- Modern Western philosophy (19th-century, 20th-century)
+
+ ____   ___   ___
+|___ \ / _ \ / _ \
+  __) | | | | | | |
+ / __/| |_| | |_| |
+|_____|\___/ \___/
+--------
+Religion
+
+ _____  ___   ___
+|___ / / _ \ / _ \
+  |_ \| | | | | | |
+ ___) | |_| | |_| |
+|____/ \___/ \___/
+---------------
+Social sciences
+
+300 ---------- Social sciences, sociology and anthropology
+
+310 ---------- Statistics
+
+320 ---------- Political science
+
+330 ---------- Economics
+
+%K padrerico
+%T Padre Rico, Padre Pobre
+%A Kiyosaki, R. T.
+%A Lechter, S. L.
+%D 1997
+
+%K richdad
+%T Rich Dad Poor Dad
+%A Kiyosaki, R. T.
+%A Lechter, S. L.
+%D 1997
+
+340 ---------- Law
+
+350 ---------- Public administration and military science
+
+360 ---------- Social problems and social services
+
+370 ---------- Education
+
+380 ---------- Commerce, communications and transportation
+
+390 ---------- Customs, etiquette and folklore
+
+ ____   ___   ___
+| ___| / _ \ / _ \
+|___ \| | | | | | |
+ ___) | |_| | |_| |
+|____/ \___/ \___/
+--------
+Language
+
+ _  _    ___   ___
+| || |  / _ \ / _ \
+| || |_| | | | | | |
+|__   _| |_| | |_| |
+   |_|  \___/ \___/
+-------
+Science
+
+500 ---------- Science
+
+510 ---------- Mathematics
+
+%K calcstewart
+%T Single variable calculus: Early transcendentals
+%A Stewart, J.
+%D 2015
+%E Cengage Learning
+%O 8th Edition
+
+%K calcstewartes
+%T Cálculo en una variable: Trascendentes tempranas
+%A Stewart, J.
+%D 2015
+%E Cengage Learning
+%O Octava Edición
+
+520 ---------- Astronomy
+
+530 ---------- Physics
+
+540 ---------- Chemistry
+
+550 ---------- Earth sciences and geology
+
+560 ---------- Fossils and prehistoric life
+
+570 ---------- Biology
+
+580 ---------- Plants
+
+590 ---------- Animals (Zoology)
+
+  __    ___   ___
+ / /_  / _ \ / _ \
+| '_ \| | | | | | |
+| (_) | |_| | |_| |
+ \___/ \___/ \___/
+----------
+Technology
+
+ _____ ___   ___
+|___  / _ \ / _ \
+   / / | | | | | |
+  / /| |_| | |_| |
+ /_/  \___/ \___/
+-------------------
+Arts and recreation
+
+  ___   ___   ___
+ ( _ ) / _ \ / _ \
+ / _ \| | | | | | |
+| (_) | |_| | |_| |
+ \___/ \___/ \___/
+----------
+Literature
+
+800 ---------- Literature, rhetoric and criticism
+
+810 ---------- American literature in English
+
+820 ---------- English and Old English literatures
+
+830 ---------- German and related literatures
+
+840 ---------- French and related literatures
+
+850 ---------- Italian, Romanian and related literatures
+
+860 ---------- Spanish, Portuguese, Galician literatures
+
+%K quijote
+%T El ingenioso hidalgo don Quijote de la Mancha
+%A de Cervantes Saavedra, M.
+%D 1605-1615
+
+%K quixote
+%T The Ingenious Gentleman Don Quixote of La Mancha
+%A de Cervantes Saavedra, M.
+%D 1605-1615
+
+870 ---------- Latin and Italic literatures
+
+880 ---------- Classical and modern Greek literatures
+
+890 ---------- Other literatures
+
+  ___   ___   ___
+ / _ \ / _ \ / _ \
+| (_) | | | | | | |
+ \__, | |_| | |_| |
+   /_/ \___/ \___/
+---------------------
+History and geography
+
+  ___  _   _               
+ / _ \| |_| |__   ___ _ __ 
+| | | | __| '_ \ / _ \ '__|
+| |_| | |_| | | |  __/ |
+ \___/ \__|_| |_|\___|_|
+-----
+Other
+
+%K calc3jesus
+%A Sánchez Guevara, J.
+%T MA1003 Cálculo III Curso Completo
+%D 2020
+%E YouTube
+%O https://www.youtube.com/playlist?list=PLiInVAfgkMKAnP__6E92iRU9vpMwuHtQM
+

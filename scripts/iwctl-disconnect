@@ -1,0 +1,5 @@
+#!/bin/sh
+# Depends on script that grabs network name
+
+# Executes and notifies command success
+iwctl station wlan0 disconnect "$iwdstat" && notify-send "直  Wireless Network" "Disconnected" || "直  Wireless Network" "Operation unsuccessful"

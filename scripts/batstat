@@ -1,0 +1,16 @@
+#!/bin/sh
+# Battery indicator for dwmblocks
+
+# Save charge % and status to this variables
+bat=$(grep "[0-9]" /sys/class/power_supply/BAT0/capacity)
+stat=$(cat /sys/class/power_supply/BAT0/status)
+
+# Append charging indicator if status file indicates such state
+# Print only charge % otherwise
+[ "$stat" = "Charging" ] &&
+    echo "$bat% " && exit ||
+    echo "$bat%"
+
+# Warning when battery is under 10% capacity and not charging
+[ $((bat)) -lt 15 ] && [ "$stat" != "Charging" ] &&
+    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"

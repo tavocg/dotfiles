@@ -1,0 +1,13 @@
+#!/bin/sh
+# Copy snippets to clipboard
+
+# Snippets directory
+snippets=~/.config/snippets
+# Select using dmenu, copy if successful
+snippet=$(ls "$snippets" | dmenu -p "Snippet:")
+
+# Exit if empty
+[ -z "$snippet" ] && exit
+
+# Copy to clipboard and notify otherwise
+cat "$snippets"/"$snippet" | xsel -ib && notify-send "Snippet" "'$snippet' copied to clipboard!"

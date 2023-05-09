@@ -1,0 +1,7 @@
+#!/bin/sh
+# Mute
+
+amixer -q set Master toggle
+
+# Restart statusbar module (dwm & dwmblocks)
+kill -44 "$(pidof dwmblocks)"

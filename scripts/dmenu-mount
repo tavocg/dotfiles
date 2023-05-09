@@ -1,0 +1,11 @@
+#!/bin/sh
+# Mount devices based on LABEL,
+# will not work with uuid or other
+# disk identification method
+
+# Get LABEL of disk and device name
+disk=$(blkid | grep -wv primary | cut -d '=' -f 2 | cut -d '"' -f2 | dmenu -p "Mount: ")
+device=$(blkid | grep "$disk" | cut -d ':' -f 1 | cut -d '/' -f 3)
+
+# Attempt to mount $device and notify success of command
+mount /dev/"$device" && notify-send "$disk" "Mounted" || notify-send "$disk" "Operation unsuccessful"
