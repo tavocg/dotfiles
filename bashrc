@@ -52,6 +52,7 @@ alias \
 # Useful variables
 export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
+    QT_QPA_PLATFORMTHEME="qt6ct" \
     DATE=$(date -I) \
 
 # Clipboard config
