@@ -1,6 +1,7 @@
 #!/bin/sh
-#
-git -C "$1" remote update
+# Check for new commits in remote
+
+git -C "$1" remote update > /dev/null 2>&1
 
 commits=$(git -C "$1" status | grep -o "[0-9*]\scommit" | cut -d " " -f 1)
 [ -z "$commits" ] && exit
