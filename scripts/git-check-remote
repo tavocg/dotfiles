@@ -1,9 +1,17 @@
 #!/bin/sh
 # Check for new commits in remote
 
-git -C "$1" remote update > /dev/null 2>&1
+# Git folders to check for new commits
+set -- $HOME/Documents $HOME/.config
+total=0
 
-commits=$(git -C "$1" status | grep -o "[0-9*]\scommit" | cut -d " " -f 1)
-[ -z "$commits" ] && exit
+for repo in $@ ; do
+    git -C "$repo" remote update > /dev/null 2>&1
+    commits=$(git -C "$repo" status | grep -o "[0-9*]\scommit" | cut -d " " -f 1)
+    [ -n "$commits" ] && total=$(($total+$commits))
+done
 
-printf "󰊢 $commits"
+[ "$total" = 0 ] && exit
+
+printf "󰊢 $total"
+kill -54 "$(pidof dwmblocks)"
