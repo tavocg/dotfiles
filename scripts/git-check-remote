@@ -1,0 +1,8 @@
+#!/bin/sh
+#
+git -C "$1" remote update
+
+commits=$(git -C "$1" status | grep -o "[0-9*]\scommit" | cut -d " " -f 1)
+[ -z "$commits" ] && exit
+
+printf "󰊢 $commits"
