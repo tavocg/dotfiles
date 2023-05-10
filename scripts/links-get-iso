@@ -3,7 +3,7 @@
 # various linux distros
 
 case $1 in
-    debian) links "https://cdimage.debian.org/cdimage/unofficial/non-free/cd-including-firmware/" ;;
+    debian) links "https://cdimage.debian.org/cdimage/weekly-builds/amd64/iso-cd/" ;;
     ubuntu) links "https://ubuntu.com/download/desktop/" ;;
     arch) links "https://geo.mirror.pkgbuild.com/iso/" ;;
     mint) links "https://mirrors.edge.kernel.org/linuxmint/stable/" ;;
