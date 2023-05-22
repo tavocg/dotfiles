@@ -12,6 +12,6 @@ rend="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
 tend="$(($(cat /sys/class/net/[ew]*/statistics/tx_bytes | paste -sd '+')))"
 
 # Format correctly and print
-dow=$(printf "%2sB\n" "$(numfmt --to=iec $(($rend-$rstart)))" | sed 's/ //g')
-up=$(printf "%2sB\n" "$(numfmt --to=iec $(($tend-$tstart)))" | sed 's/ //g')
-printf "%2s" "$dow|$up" > "$XDG_CACHE_HOME"/netstat
+dow=$(printf "%2sB\n" "$(numfmt --to=iec $(($rend-$rstart)))")
+up=$(printf "%2sB\n" "$(numfmt --to=iec $(($tend-$tstart)))")
+printf "$dow|$up" | sed 's/ //g' > "$XDG_CACHE_HOME"/netstat
