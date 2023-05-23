@@ -1,0 +1,11 @@
+#!/bin/sh
+# OTP script for 'pass'
+
+# Ask for password name in vault
+password=$(find ~/.password-store/ -type f -name '*.gpg' | sed 's/.*\/\(.*\)\.gpg$/\1/' | fzf)
+
+# Exit if none chosen
+[ -z "$password" ] && exit
+
+# Otherwise, copy to clipboard and notify OTP
+pass otp "$password"

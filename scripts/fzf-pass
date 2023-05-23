@@ -1,0 +1,12 @@
+#!/bin/sh
+# Script for 'pass'
+
+# Ask for password name in vault
+password=$(find ~/.password-store/ -type f -name '*.gpg' |
+	sed 's/.*\/\(.*\)\.gpg$/\1/' | fzf)
+
+# Exit if none chosen
+[ -z "$password" ] && exit
+
+# If chosen, copy to clipboard, and notify
+pass show "$password"
