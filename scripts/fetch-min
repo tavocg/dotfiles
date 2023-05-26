@@ -10,12 +10,12 @@ for os in /etc/os-release /usr/lib/os-release; do
 done
 
 ## Kernel
-read -r _ _ version _ < /proc/version
+[ -d "/proc/version" ] && read -r _ _ version _ < /proc/version
 kernel=${version%%-*}
 
 ## Uptime
 # the simple math is shamefully stolen from aosync
-IFS=. read -r uptime _ < /proc/uptime
+[ -d "/proc/uptime" ] && IFS=. read -r uptime _ < /proc/uptime
 d=$((uptime / 60 / 60 / 24))
 up=$(printf %02d:%02d $((uptime / 60 / 60 % 24)) $((uptime / 60 % 60)))
 [ "$d" -gt 0 ] && up="${d}d $up"
