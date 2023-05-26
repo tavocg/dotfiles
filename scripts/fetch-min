@@ -1,11 +1,5 @@
 #!/bin/sh
-#
-#    fet.sh
-#  a fetch in pure POSIX shell
-#
-# by 6kg@github
-#
-# Modified by me
+# fast, cross-platform
 
 ## Distro
 # freedesktop.org/software/systemd/man/os-release.html
@@ -15,6 +9,10 @@ for os in /etc/os-release /usr/lib/os-release; do
 	[ -f $os ] && . $os && break
 done
 
+## Kernel
+read -r _ _ version _ < /proc/version
+kernel=${version%%-*}
+
 ## Uptime
 # the simple math is shamefully stolen from aosync
 IFS=. read -r uptime _ < /proc/uptime
@@ -22,49 +20,19 @@ d=$((uptime / 60 / 60 / 24))
 up=$(printf %02d:%02d $((uptime / 60 / 60 % 24)) $((uptime / 60 % 60)))
 [ "$d" -gt 0 ] && up="${d}d $up"
 
-## Packages
-# clean environment, then make every file in the dir an argument,
-# then save the argument count to $pkgs
-set --
-# kiss, arch, debian, void, gentoo
-for i in '/var/db/kiss/installed/*'  '/var/lib/pacman/local/[0-9a-z]*' \
-'/var/lib/dpkg/info/*.list'  '/var/db/xbps/.*'  '/var/db/pkg/*/*'; do
-    set -- $i
-    [ $# -gt 1 ] && pkgs="$#" && break
-done
-
-[ -d "/var/db/kiss" ] && pkgs="$pkgs (kiss)"
-[ -d "/var/lib/pacman" ] && pkgs="$pkgs (pacman)"
-[ -d "/var/lib/dpkg" ] && pkgs="$pkgs (dpkg)"
-[ -d "/var/db/xbps" ] && pkgs="$pkgs (xbps)"
-[ -d "/var/db/pkg" ] && pkgs="$pkgs (emerge)"
-
-## Packages - other package managers
-# flatpak
-set --
-which flatpak > /dev/null 2>&1 && pkgs="$pkgs $(flatpak list | wc -l) (flatpak)"
-# nix-env
-set --
-which nix-env > /dev/null 2>&1 && pkgs="$pkgs $(ls /nix/store | wc -l) (nix-env)"
-
-
-col() {
-	printf '  '
-	for i in 1 2 3 4 5 6; do
-		printf '\033[9%sm%s' "$i" "${colourblocks:-▅▅}"
-	done
-	printf '\033[0m\n'
-}
-
 print() {
 	[ "$2" ] && printf '\033[9%sm%6s\033[0m%b%s\n' \
-		"${accent:-4}" "$1" "${separator:- ~ }" "$2"
+		"${accent:-4}" "$1" "${separator:- }" "$2"
 }
 
-print os "$ID"
-print sh "$SHELL"
-print up "$up"
-print kern "$(uname -r)"
-print pkgs "$pkgs"
-print term "$TERM"
-col
+print dist "$ID"
+print kern "$kernel"
+print shll "${SHELL##*/}"
+print uptm "$up"
+
+# Colors
+printf '  '
+for i in 1 2 3 4 5 6; do
+    printf '\033[9%sm%s' "$i" "${colourblocks:-▅▅}"
+done
+printf '\033[0m\n'
