@@ -92,3 +92,14 @@ systemsettingsrc
 touchpadxlibinputrc
 trashrc
 xsettingsd
+.gsd-keyboard.settings-ported
+GNOME-xdg-terminals.list
+bitstower-markets
+dleyna-renderer-service.conf
+enchant
+gnome-control-center
+gnome-initial-setup-done
+gsconnect
+ibus
+xdg-terminals.list
+yelp
