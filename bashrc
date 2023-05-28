@@ -1,8 +1,11 @@
 #!/bin/bash
 # tavo custom bashrc file
 
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
 # Prompt
-PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;1;38;5;123m\]@\[\e[0;1;38;5;159m\]\h \[\e[0;1;97m\]\w\[\e[0;1;91m\]]\n \[\e[0;38;5;247m\]$ \[\e[0m\]'
+PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;0;38;5;123m\]@\[\e[0;0;38;5;159m\]\h \[\e[0;38;5;247m\]\w\[\e[0;1;91m\]]\n \[\e[0;38;5;247m\]$ \[\e[0m\]'
 PROMPT_COMMAND="echo"                           # Line jump after every command
 
 # General configs
@@ -95,4 +98,4 @@ type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target &&
     exec startx
 fi
 
-fetch-min
+[ "/usr/local/bin/afetch" ] && afetch || fetch min

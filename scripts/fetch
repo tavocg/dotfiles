@@ -3,9 +3,9 @@
 #    fet.sh
 #  a fetch in pure POSIX shell
 #
-# by 6kg@github
-#
-# Modified by me
+
+[ "$1" = "" ] && mode=""
+[ "$1" = "min" ] && mode="min"
 
 # supress errors
 exec 2>/dev/null
@@ -28,6 +28,7 @@ for os in /etc/os-release /usr/lib/os-release; do
 	# some POSIX shells exit when trying to source a file that doesn't exist
 	[ -f $os ] && . $os && break
 done
+[ -e "/data/data/com.termux" ] && ID="android $(getprop ro.build.version.release)"
 
 if [ -e /proc/$$/comm ]; then
 	## Terminal
@@ -63,7 +64,7 @@ if [ -e /proc/$$/comm ]; then
 			read -r c < "$i"
 			case $c in
 				*bar*|*rc) ;;
-				awesome|xmonad*|qtile|sway|i3|[bfo]*box|dwm|*wm) wm=${c%%-*}; break;;
+				dwm|awesome|xmonad*|qtile|sway|i3|[bfo]*box|*wm) wm=${c%%-*}; break;;
 			esac
 		done
 
@@ -92,7 +93,7 @@ if [ -e /proc/$$/comm ]; then
 
 	## Kernel
 	read -r _ _ version _ < /proc/version
-	kernel=${version}
+	kernel=${version%%-*}
 	eq "$version" '*Microsoft*' && ID="fake $ID"
 
 	## Motherboard // laptop
@@ -123,13 +124,13 @@ if [ -e /proc/$$/comm ]; then
     [ -d "/var/db/xbps" ] && pkgs="$pkgs (xbps)"
     [ -d "/var/db/pkg" ] && pkgs="$pkgs (emerge)"
 
-    ## Packages - other package managers
-    # flatpak
-    set --
-    which flatpak > /dev/null 2>&1 && pkgs="$pkgs $(flatpak list | wc -l) (flatpak)"
-    # nix-env
-    set --
-    which nix-env > /dev/null 2>&1 && pkgs="$pkgs $(ls /nix/store | wc -l) (nix-env)"
+	set --
+    # Universal formats
+    for i in '/var/lib/flatpak/exports/bin/* /var/lib/flatpak/runtime/*' ; do
+		set -- $i
+		[ $# -gt 2 ] && flatpak=$# && break
+    done
+    [ "$flatpak" ] && pkgs="$pkgs $flatpak (flatpak)"
 
 	read -r host < /proc/sys/kernel/hostname
 elif [ -f /var/run/dmesg.boot ]; then
@@ -255,29 +256,40 @@ col() {
 	printf '\033[0m\n'
 }
 
+
 print() {
-	[ "$2" ] && printf '\033[9%sm%6s\033[0m%b%s\n' \
-		"${accent:-4}" "$1" "${separator:- ~ }" "$2"
+    [ "$2" ] && printf '\033[1m  %b\033[0m %b%s\n' \
+        "$1" "$2"
 }
 
-# default value
-: "${info:=n user os sh wm up gtk cpu mem host kern pkgs term col}"
 
-for i in $info; do
-	case $i in
-		n) echo;;
-		os) print os "$ID";;
-		sh) print sh "$SHELL";;
-		wm) print wm "$wm";;
-		up) print up "$up";;
-		gtk) print gtk "$gtk";;
-		cpu) print cpu "$vendor$cpu";;
-		mem) print mem "$mem";;
-		host) print host "$model";;
-		kern) print kern "$kernel";;
-		pkgs) print pkgs "$pkgs";;
-		term) print term "$TERM";;
-		user) printf '%7s@%s\n' "$USER" "$host";;
-		col) col;;
-	esac
-done
+full() {
+    echo
+    print DIST "$ID"
+    print KERN "$kernel"
+    print PKGS "$pkgs"
+    print TERM "$term"
+    print SHLL "${SHELL##*/}"
+    print WDMG "${wm##*/}"
+    print THME "${gtk# }"
+    print HOST "$model"
+    print PCSR "$vendor$cpu"
+    print MMRY "$mem"
+    print UPTM "$up"
+    col
+}
+
+min() {
+    echo
+    print DIST "$ID"
+    print KERN "$kernel"
+    print PKGS "$pkgs"
+    print TERM "$term"
+    print SHLL "${SHELL##*/}"
+    print WDMG "${wm##*/}"
+    print UPTM "$up"
+    col
+}
+
+[ "$mode" = "" ] && full
+[ "$mode" = "min" ] && min
