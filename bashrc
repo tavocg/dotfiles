@@ -29,8 +29,6 @@ export \
 
 # Aliases
 alias \
-    note="cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md" \
-    notes="cd ~/Documents/notes && ls" \
     prt="cd $HOME/Pictures/Screenshots/ && ls" \
     bkg="cd $HOME/Pictures/Backgrounds/ && ls" \
     tmp="cd $HOME/Desktop/temp/ && ls" \
@@ -77,6 +75,33 @@ export \
     VIDEO="mpv" \
 
 # Functions
+fzf_list_dir() {
+# Fun POSIX way of listing stuff
+for entry in * ; do
+    # If 'entry' is a directory, append '/'
+    test "${entry#*.*}" = "$entry" && entry="$entry/"
+    echo $entry
+done | fzf
+}
+
+note() {
+# Just edit today's note if no argument is given
+[ -z "$1" ] && cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md && exit
+# 'list' arg will list notes wither with fzf or regular ls
+if [ "$1" = "list" ] ; then
+    cd ~/Documents/notes 
+    # If fzf is present, list notes
+    if [ -e '/usr/bin/fzf' ] ; then
+        while test "${note#*.md}" = "$note" && cd "$note" && ; do
+            ls
+        done
+        note=$(fzf_list_dir)
+    # Regular ls otherwise
+    else ; ls
+    fi
+fi
+}
+
 follow() { # cd if found after 'which' command
 [ -z "$1" ] && echo "Usage: follow <command>" ||
     cd "$(which $1 | sed s/$1//g)"
