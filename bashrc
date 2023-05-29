@@ -29,19 +29,21 @@ export \
 
 # Aliases
 alias \
-    prt="cd $HOME/Pictures/Screenshots/ ; ls" \
-    bkg="cd $HOME/Pictures/Backgrounds/ ; ls" \
-    tmp="cd $HOME/Desktop/temp/ ; ls" \
-    www="cd $HOME/Desktop/www/ ; ls" \
-    src="cd $HOME/.local/src/ ; ls" \
-    doc="cd $HOME/Documents/ ; ls" \
-    dow="cd $HOME/Downloads/ ; ls" \
-    img="cd $HOME/Pictures/ ; ls" \
-    dsk="cd $HOME/Desktop/ ; ls" \
-    cfg="cd $HOME/.config/ ; ls" \
-    vid="cd $HOME/Videos/ ; ls" \
-    mus="cd $HOME/Music/ ; ls" \
-    ent="cd /mnt/Entr/ ; ls" \
+    note="cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md" \
+    notes="cd ~/Documents/notes && ls" \
+    prt="cd $HOME/Pictures/Screenshots/ && ls" \
+    bkg="cd $HOME/Pictures/Backgrounds/ && ls" \
+    tmp="cd $HOME/Desktop/temp/ && ls" \
+    www="cd $HOME/Desktop/www/ && ls" \
+    src="cd $HOME/.local/src/ && ls" \
+    doc="cd $HOME/Documents/ && ls" \
+    dow="cd $HOME/Downloads/ && ls" \
+    img="cd $HOME/Pictures/ && ls" \
+    dsk="cd $HOME/Desktop/ && ls" \
+    cfg="cd $HOME/.config/ && ls" \
+    vid="cd $HOME/Videos/ && ls" \
+    mus="cd $HOME/Music/ && ls" \
+    ent="cd /mnt/Entr/ && ls" \
     ls="exa -al --group-directories-first" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \

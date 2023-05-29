@@ -1,6 +1,0 @@
-#!/bin/sh
-# Auto start (or edit) .md note in
-# ~/Documents/notes in a vim buffer
-# using current date in ISO format
-
-cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md
