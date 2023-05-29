@@ -10,5 +10,6 @@ password=$(find ~/.password-store/ -type f -name '*.gpg' | sed 's/.*\/\(.*\)\.gp
 # Otherwise, copy to clipboard and notify OTP
 pass otp "$password" | while read -r OUTPUT; do
     echo $OUTPUT | xsel -ib
+    xdotool type "$OUTPUT"
     notify-send " $password" "$OUTPUT"
 done

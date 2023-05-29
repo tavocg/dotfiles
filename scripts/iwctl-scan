@@ -2,4 +2,4 @@
 # Shortcut for scanning networks
 
 # Attempt to scan networks, notify operation success
-iwctl station wlan0 scan && notify-send "直  Wireless Network" "Scanning..." || notify-send "󰖩  Wireless Network" "Operation unsuccessful"
+iwctl station wlan0 scan && notify-send "󰖩  Wireless Network" "Scanning..." || notify-send "󰖩  Wireless Network" "Operation unsuccessful"

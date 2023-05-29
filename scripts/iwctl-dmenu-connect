@@ -9,17 +9,17 @@ network=$(iwctl station wlan0 get-networks | cut -d " " -f 7-21 | tail +5 | awk 
 iwctl station wlan0 connect --dont-ask "$network"
 sleep 2 # Bit of grace time
 # Exit with notification if $network is shown on status
-iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "直  Wireless Network" "Connected to $network" && exit
+iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "󰖩  Wireless Network" "Connected to $network" && exit
 
 # Try connecting with passphrase
 pass=$(dmenu -p "Passphrase:" -P < /dev/null)
 # Test for empty password, exit if true
-[ -z "$pass" ] && notify-send "直  Wireless Network" "Invalid password: Empty" && exit
+[ -z "$pass" ] && notify-send "󰖩  Wireless Network" "Invalid password: Empty" && exit
 # Attempt conection with provided pass, notify and exit on success
 iwctl --passphrase="$pass" station wlan0 connect --dont-ask "$network"
 sleep 2 # Bit of grace time
 # Exit with notification if $network is shown on status
-iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "直  Wireless Network" "Connected to $network" && exit
+iwctl station wlan0 show | grep "network" | awk '{print $3}' | grep -q "$network" && notify-send "󰖩  Wireless Network" "Connected to $network" && exit
 
 # Notify unsuccessful operation
-notify-send "直  Wireless Network" "Operation unsuccessful"
+notify-send "󰖩  Wireless Network" "Operation unsuccessful"
