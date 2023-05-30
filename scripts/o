@@ -1,0 +1,36 @@
+#!/bin/sh
+# Open files
+file="$1"
+
+# If executable, run 'file' and exit
+file "$file" | grep -q "shell" && "$EDITOR" "$file" && exit
+file "$file" | grep -q "executable" && file "$file" && exit
+
+# If directory, list contents
+[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) && exit
+
+case $file in
+    # Images
+    *.jpeg) "$IMAGE" "$file" ;;
+    *.png) "$IMAGE" "$file" ;;
+    *.jpg) "$IMAGE" "$file" ;;
+    *.gif) "$IMAGE" "$file" ;;
+    *.svg) "$IMAGE" "$file" ;;
+    # Videos
+    *.webm) "$VIDEO" "$file" ;;
+    *.mp4) "$VIDEO" "$file" ;;
+    *.flv) "$VIDEO" "$file" ;;
+    *.mkv) "$VIDEO" "$file" ;;
+    *.avi) "$VIDEO" "$file" ;;
+    *.m4v) "$VIDEO" "$file" ;;
+    # Audio
+    *.flac) "$VIDEO" "$file" ;;
+    *.mp3) "$VIDEO" "$file" ;;
+    *.ogg) "$VIDEO" "$file" ;;
+    # Documents
+    *.pdf) "$READER" "$file" ;;
+    *.csv) libreoffice "$file" ;;
+    # Other
+    *.html) "$BROWSER" "$file";;
+    *) ! [ -d "$file" ] && "$EDITOR" "$file" ;;
+esac

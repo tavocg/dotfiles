@@ -2,11 +2,39 @@
 # Preview files & dirs
 file="$1"
 
+# Helps with fzf_nav visualization
+rfile() {
+    file "$1" | sed 's/,\s/\n/g'
+}
+
+# If executable, run 'file' and exit
+file "$file" | grep -q "executable" && rfile "$file" && exit
+
 # If directory, list contents
-[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first)
+[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) && exit
 
 case $file in
-    *.csv) column -s, -t < "$file" ;;
-    *.html) links -dump "$file" ;;
+    # Images
+    *.jpeg) rfile "$file" ;;
+    *.png) rfile "$file" ;;
+    *.jpg) rfile "$file" ;;
+    *.gif) rfile "$file" ;;
+    *.svg) rfile "$file" ;;
+    # Videos
+    *.webm) rfile "$file" ;;
+    *.mp4) rfile "$file" ;;
+    *.flv) rfile "$file" ;;
+    *.mkv) rfile "$file" ;;
+    *.avi) rfile "$file" ;;
+    *.m4v) rfile "$file" ;;
+    # Audio
+    *.flac) rfile "$file" ;;
+    *.mp3) rfile "$file" ;;
+    *.ogg) rfile "$file" ;;
+    # Documents
+    *.pdf) pdftotext "$file" - || file "$file" ;;
+    *.csv) column -s, -t < "$file" || cat "$file" ;;
+    # Other
+    *.html) links -dump "$file" || cat "$file" ;;
     *) ! [ -d "$file" ] && head -n 47 "$file" && printf "\n\n  ..." ;;
 esac

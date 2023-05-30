@@ -116,4 +116,4 @@ type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target &&
     exec startx
 fi
 
-[ -e "/usr/local/bin/afetch" ] && afetch || fetch min
+[ -e "/usr/bin/afetch" ] && afetch || fetch min
