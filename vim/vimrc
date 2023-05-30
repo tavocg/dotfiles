@@ -83,5 +83,5 @@ set noshowmode
 map gy :Goyo<CR>
 autocmd! User GoyoLeave highlight Normal ctermbg=NONE
 
-autocmd BufWinLeave bibliography zM | mkview
-autocmd BufWinEnter bibliography silent loadview
+autocmd BufWinLeave bibliography,bashrc zM | mkview
+autocmd BufWinEnter bibliography,bashrc silent loadview

@@ -1,6 +1,5 @@
 #!/bin/bash
 # tavo custom bashrc file
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -42,9 +41,12 @@ alias \
     vid="cd $HOME/Videos/ && ls" \
     mus="cd $HOME/Music/ && ls" \
     ent="cd /mnt/Entr/ && ls" \
+    fzfscripts="fzf_nav /home/$(whoami)/.config/scripts" \
     ls="exa -al --group-directories-first" \
+    fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
+    notes="note list" \
     def="dict" \
     calc="bc -l" \
     cp="cp -iv" \
@@ -58,11 +60,11 @@ export \
     QT_QPA_PLATFORMTHEME="qt6ct" \
     DATE=$(date -I) \
 
-# Clipboard config
+# DE opts
+# Clipboard
 export \
     CM_SELECTIONS="clipboard" \
     CM_MAX_CLIPS=10 \
-
 # Default programs
 export \
     OPENER="xdg-open" \
@@ -74,48 +76,37 @@ export \
     IMAGE="sxiv" \
     VIDEO="mpv" \
 
-# Functions
-fzf_list_dir() {
+# Functions & binds
+fzf_nav() {
+[ -d "$1" ] && cd "$1"
 # Fun POSIX way of listing stuff
-for entry in * ; do
-    # If 'entry' is a directory, append '/'
-    test "${entry#*.*}" = "$entry" && entry="$entry/"
-    echo $entry
-done | fzf
+while true ; do
+    opt=$(for entry in * ; do
+        [ -d "$entry" ] && entry="$entry/"
+        [ "$entry" = "*" ] && entry=""
+        echo "$entry"
+    done)
+    opt=$(printf "../\n$opt" | fzf --cycle --reverse --padding 2% --preview 'p {}')
+    [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
+done
+ls
+[ -n "$opt" ] && printf "\nOpen $opt? [y/N]: " && read -r open || return 0
+[ "$open" = "y" ] && o "$opt"
 }
+bind '"\C-n":"fzf_nav\C-m"'
 
 note() {
 # Just edit today's note if no argument is given
 [ -z "$1" ] && cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md && exit
-# 'list' arg will list notes wither with fzf or regular ls
+# 'list' arg will list notes either with fzf or regular ls
 if [ "$1" = "list" ] ; then
-    cd ~/Documents/notes 
-    # If fzf is present, list notes
-    if [ -e '/usr/bin/fzf' ] ; then
-        while test "${note#*.md}" = "$note" && cd "$note" && ; do
-            ls
-        done
-        note=$(fzf_list_dir)
-    # Regular ls otherwise
-    else ; ls
-    fi
+    cd ~/Documents/notes
+    # If fzf is present, use it, ls otherwise
+    [ -e '/usr/bin/fzf' ] || ls && fzf_nav
 fi
 }
 
-follow() { # cd if found after 'which' command
-[ -z "$1" ] && echo "Usage: follow <command>" ||
-    cd "$(which $1 | sed s/$1//g)"
-}
-
-follow-edit() { # open in $EDITOR
-[ -z "$1" ] && echo "Usage: follow <command>" ||
-    $EDITOR "$(which $1)"
-}
-
-quitcd() { # cd into NNN's exported dir: Ctrl + G
-cd $(grep -oP '"\K[^"\047]+(?=["\047])' ~/.config/nnn/.lastd)
-}
-bind '"\C-g":"quitcd\C-m"'
+bind '"\C-e":"fzfscripts\C-m"'
 
 # Autostart dwm after tty login
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

@@ -1,0 +1,12 @@
+#!/bin/sh
+# Preview files & dirs
+file="$1"
+
+# If directory, list contents
+[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first)
+
+case $file in
+    *.csv) column -s, -t < "$file" ;;
+    *.html) links -dump "$file" ;;
+    *) ! [ -d "$file" ] && head -n 47 "$file" && printf "\n\n  ..." ;;
+esac
