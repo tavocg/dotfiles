@@ -93,6 +93,7 @@ if [ -e /proc/$$/comm ]; then
 
 	## Kernel
 	read -r _ _ version _ < /proc/version
+    [ -z "$version" ] && version=$(uname -r)
 	kernel=${version%%-*}
 	eq "$version" '*Microsoft*' && ID="fake $ID"
 
