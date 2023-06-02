@@ -91,8 +91,8 @@ while true ; do
     [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
 done
 ls
-[ -n "$opt" ] && printf "\nOpen $opt? [y/N]: " && read -r open || return 0
-[ "$open" = "y" ] && o "$opt"
+[ -n "$opt" ] && printf "\nOpen $opt? [Y/n]: " && read -r open || return 0
+[ "$open" != "n" ] && o "$opt" || return 0
 }
 bind '"\C-n":"fzf_nav\C-m"'
 

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+currweek="# Week $(date '+%U')"
+
+if $(head -n1 ~/Documents/notes/note-todo.md | grep -q "^$currweek") ; then
+    bat -pp ~/Documents/notes/note-todo.md
+else
+    sed -i "1s/^/$currweek\n/" ~/Documents/notes/note-todo.md
+    "$EDITOR" ~/Documents/notes/note-todo.md
+fi
+
