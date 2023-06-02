@@ -43,6 +43,7 @@ alias \
     ent="cd /mnt/Entr/ && ls" \
     fzfscripts="fzf_nav /home/$(whoami)/.config/scripts" \
     ls="exa -al --group-directories-first" \
+    sched="cat ~/Documents/schedule.txt" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
