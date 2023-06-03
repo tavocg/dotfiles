@@ -62,13 +62,16 @@ call plug#begin()
 Plug 'https://github.com/vim-airline/vim-airline-themes'
 Plug 'https://github.com/vim-airline/vim-airline'
 Plug 'https://github.com/preservim/nerdtree'
+Plug 'https://github.com/morhetz/gruvbox'
 Plug 'junegunn/goyo.vim'
-Plug 'dracula/vim'
+"Plug 'dracula/vim'
 call plug#end()
 
 " Theme
+let g:gruvbox_contrast_hard=1
+let g:gruvbox_italic=1
 set background=dark
-colorscheme dracula
+colorscheme gruvbox
 
 " Airline
 let g:airline#extensions#tabline#buffer_min_count = 2
