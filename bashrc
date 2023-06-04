@@ -41,7 +41,7 @@ alias \
     vid="cd $HOME/Videos/ && ls" \
     mus="cd $HOME/Music/ && ls" \
     ent="cd /mnt/Entr/ && ls" \
-    fzfscripts="fzf_nav /home/$(whoami)/.config/scripts" \
+    fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \
     ls="exa -al --group-directories-first" \
     sched="cat ~/Documents/schedule.txt" \
     fzf="fzf --cycle --reverse" \
@@ -107,7 +107,7 @@ if [ "$1" = "list" ] ; then
 fi
 }
 
-bind '"\C-e":"fzfscripts\C-m"'
+bind '"\C-e":"fzf-scripts\C-m"'
 
 # Autostart dwm after tty login
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
