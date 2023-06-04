@@ -1,7 +1,7 @@
 #!/bin/sh
 
 scrot -s "$HOME/.local/cache/barcode-%Y-%m-%d.png" || exit
-zbarimg "$HOME/.local/cache/barcode-"*
+zbarimg -q "$HOME/.local/cache/barcode-"*
 
 # Delete created files
 rm -rf $HOME/.local/cache/barcode-*.png
