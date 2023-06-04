@@ -1,0 +1,3 @@
+#!/bin/sh
+
+$(ls ~/.config/scripts/ | dmenu -i -p "Script:")
