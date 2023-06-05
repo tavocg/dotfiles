@@ -45,6 +45,7 @@ alias \
     ls="exa -al --group-directories-first" \
     sched="cat ~/Documents/schedule.txt" \
     fzf="fzf --cycle --reverse" \
+    newsboat="newsboat -u ~/Documents/personal/rss" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
     notes="note list" \
