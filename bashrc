@@ -45,7 +45,6 @@ alias \
     ent="cd /mnt/Entr/ && ls" \
     fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \
     ls="exa -al --group-directories-first" \
-    sched="cat ~/Documents/schedule.txt" \
     fzf="fzf --cycle --reverse" \
     newsboat="newsboat -u ~/Documents/personal/rss" \
     diff="diff --color=auto" \
@@ -62,6 +61,7 @@ alias \
 export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     QT_QPA_PLATFORMTHEME="qt6ct" \
+    WEEK=$(date '+%U') \
     DATE=$(date -I) \
 
 # DE opts
