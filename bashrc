@@ -56,6 +56,7 @@ alias \
     mv="mv -iv" \
     rm="rm -iv" \
     vim="nvim" \
+    dino="GTK_THEME=Adwaita:dark dino" \
 
 # Useful variables
 export \
