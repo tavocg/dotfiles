@@ -7,8 +7,6 @@
 PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;0;38;5;123m\]@\[\e[0;0;38;5;159m\]\h \[\e[0;38;5;247m\]\w\[\e[0;1;91m\]]\n \[\e[0;38;5;247m\]$ \[\e[0m\]'
 PROMPT_COMMAND="echo"                           # Line jump after every command
 
-[ -e "/usr/local/bin/afetch" ] && afetch || fetch min
-
 # General configs
 PATH="$HOME/.config/scripts${PATH:+:${PATH}}"   # Enables custom scripts dir
 bind "set completion-ignore-case on"            # Case insensitive TAB complete
@@ -120,3 +118,6 @@ type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target &&
     amixer
     exec startx
 fi
+
+# nice login prompt
+[ -e "/usr/local/bin/afetch" ] && afetch || fetch min
