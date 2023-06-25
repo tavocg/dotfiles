@@ -84,11 +84,7 @@ fzf_nav() {
 [ -d "$1" ] && cd "$1"
 # Fun POSIX way of listing stuff
 while true ; do
-    opt=$(for entry in * ; do
-        [ -d "$entry" ] && entry="$entry/"
-        [ "$entry" = "*" ] && entry=""
-        echo "$entry"
-    done)
+    opt=$(/usr/bin/ls -AF1 --group-directories-first)
     opt=$(printf "../\n$opt" | fzf --cycle --reverse --padding 2% --preview 'p {}')
     [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
 done
