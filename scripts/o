@@ -7,7 +7,7 @@ file "$file" | grep -q "shell" && "$EDITOR" "$file" && exit
 file "$file" | grep -q "executable" && file "$file" && exit
 
 # If directory, list contents
-[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) && exit
+[ -d "$file" ] && (cd "$file" && /usr/bin/ls -AF1 --color --group-directories-first) && exit
 
 case $file in
     # Images
