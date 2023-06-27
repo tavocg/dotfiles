@@ -117,4 +117,8 @@ type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target &&
 fi
 
 # nice login prompt
-[ -e "/usr/bin/afetch" ] && afetch || fetch min
+if [ -e "/usr/bin/afetch" -o -e "/usr/local/bin/afetch" ] ; then
+    afetch
+else
+    fetch min
+fi
