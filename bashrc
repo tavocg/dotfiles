@@ -36,6 +36,7 @@ alias \
     doc="cd $HOME/Documents/ && ls" \
     dow="cd $HOME/Downloads/ && ls" \
     img="cd $HOME/Pictures/ && ls" \
+    prj="cd $HOME/Projects/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
     cfg="cd $HOME/.config/ && ls" \
     vid="cd $HOME/Videos/ && ls" \
