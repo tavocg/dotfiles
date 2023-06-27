@@ -118,3 +118,9 @@ okularpartrc
 spectaclerc
 webengineurlinterceptoradblockrc
 kalendaracrc
+akonadi-migrationrc
+akonadi/
+akonadi_indexing_agentrc
+chromium/
+okularrc
+plasmanotifyrc
