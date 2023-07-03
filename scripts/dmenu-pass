@@ -9,5 +9,4 @@ password=$(find ~/.password-store/ -type f -name '*.gpg' |
 [ -z "$password" ] && exit
 
 # If chosen, use xdotool to type it
-pass=$(pass show "$password" | head -1)
-xdotool type "$pass" && [ -e /usr/bin/notify-send ] && notify-send " $password" "Successfully decrypted"
+xdotool type "$(pass $password | head -1)" && [ -e /usr/bin/notify-send ] && notify-send " $password" "Successfully decrypted"
