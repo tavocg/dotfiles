@@ -55,12 +55,12 @@ alias \
     mv="mv -iv" \
     rm="rm -iv" \
     vim="nvim" \
-    dino="GTK_THEME=Adwaita:dark dino" \
 
 # Useful variables
 export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     QT_QPA_PLATFORMTHEME="qt6ct" \
+    GTK_THEME="Materia:dark" \
     WEEK=$(date '+%U') \
     DATE=$(date -I) \
 

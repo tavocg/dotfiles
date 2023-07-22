@@ -1,6 +1,6 @@
-directory.default.set = /mnt/Entr/Z-rtorrent/downloads
-session.path.set = /mnt/Entr/Z-rtorrent/session
-schedule2 = watch_directory,5,5,load.start=/mnt/Entr/Z-rtorrent/watch/*.torrent
+directory.default.set = /home/tavo/Downloads/rtorrent/downloads
+session.path.set = /home/tavo/Downloads/rtorrent/session
+schedule2 = watch_directory,5,5,load.start=/home/tavo/Downloads/rtorrent/watch/*.torrent
 
 dht.mode.set = on
 dht.port.set = 6881
