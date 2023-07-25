@@ -109,9 +109,9 @@ copy_output() {
 history 50 | sed 's/[0-9]*\s\s//g' | tac | dmenu -i -p "Copy output:" | $SHELL | xsel -ib
 }
 
+bind '"\C-e":"dragon -x \*\C-m"'
 bind '"\C-y":"copy_output\C-m"'
-bind '"\C-e":"fzf-scripts\C-m"'
-bind '"\C-n":"fzf_nav\C-m"'
+bind '"\C-f":"fzf_nav\C-m"'
 
 # Autostart dwm after tty login
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
