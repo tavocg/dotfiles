@@ -93,7 +93,6 @@ ls
 [ -n "$opt" ] && printf "\nOpen $opt? [Y/n]: " && read -r open || return 0
 [ "$open" != "n" ] && o "$opt" || return 0
 }
-bind '"\C-n":"fzf_nav\C-m"'
 
 note() {
 # Just edit today's note if no argument is given
@@ -106,7 +105,13 @@ if [ "$1" = "list" ] ; then
 fi
 }
 
+copy_output() {
+history 50 | sed 's/[0-9]*\s\s//g' | tac | dmenu -i -p "Copy output:" | $SHELL | xsel -ib
+}
+
+bind '"\C-y":"copy_output\C-m"'
 bind '"\C-e":"fzf-scripts\C-m"'
+bind '"\C-n":"fzf_nav\C-m"'
 
 # Autostart dwm after tty login
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
