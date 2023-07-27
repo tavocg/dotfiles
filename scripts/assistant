@@ -17,6 +17,7 @@ INVIDIOUS_INSTANCE="https://vid.puffyan.us"
 
 # Read SPEECH
 mkdir -p $CACHE
+notify-send -t 4000 " Listening..."
 ffmpeg -y \
     -f alsa \
     -i default \
@@ -54,6 +55,34 @@ mpv "https://youtube.com/$( \
 
 # Main Menu
 CMD=$(echo "$SPEECH" | cut -d ' ' -f 1)
-[ "$CMD" = "play" ] && play
-[ "$CMD" = "watch" ] && watch
-[ "$CMD" = "stop" ] && killall mpv
+case "$CMD" in
+    "play") play ;;
+    "watch") watch ;;
+    "stop") killall mpv ;;
+    *) notify-send "Assistant:" "I couldn't understand!" ;;
+esac
+
+# Alternative to watch function,
+# without invidious instance (slower).
+#
+# watch() { # Watch a video
+# killall mpv
+# notify-send "  Loading" "${SPEECH##*watch}"
+# QUERY="${SPEECH##*watch}"
+# mpv "https://youtube.com/watch\?v=$( \
+#     yt-dlp ytsearch:"$QUERY" --get-id
+#     )"
+# }
+
+# Alternative to play function,
+# with INVIDIOUS instance (slower).
+#
+# play() { # Play a song
+# killall mpv
+# notify-send "󰝚  Playing" "${SPEECH##*play}"
+# QUERY="song audio ${SPEECH##*play}"
+# mpv "https://youtube.com/$( \
+#     curl -s "$INVIDIOUS_INSTANCE/search?q=$QUERY" |
+#     grep -Eo "watch\?v=.{11}" | head -n 1 \
+#     )"
+# }
