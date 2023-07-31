@@ -3,5 +3,21 @@
 # Depends on 'community/brightnessctl'
 
 brightness=$(brightnessctl s 5%+ | grep -o "[0-9]*%")
+brightness="${brightness%\%*}" # Remove percentage sign
 
-notify-send -u low --replace-id=10 "󰃞 Brightness" "$brightness"
+case 1 in
+    $((brightness >= 100)) ) bar="━━━━━━━━━━" ;;
+    $((brightness >= 90))  ) bar="━━━━━━━━━─" ;;
+    $((brightness >= 80))  ) bar="━━━━━━━━──" ;;
+    $((brightness >= 70))  ) bar="━━━━━━━───" ;;
+    $((brightness >= 60))  ) bar="━━━━━━────" ;;
+    $((brightness >= 50))  ) bar="━━━━━─────" ;;
+    $((brightness >= 40))  ) bar="━━━━──────" ;;
+    $((brightness >= 30))  ) bar="━━━───────" ;;
+    $((brightness >= 20))  ) bar="━━────────" ;;
+    $((brightness >= 10))  ) bar="━─────────" ;;
+    $((brightness >= 0))   ) bar="──────────" ;;
+    $((brightness = 0))    ) bar="──────────" ;;
+esac
+
+notify-send -u low --replace-id=10 "󰃞 Brightness" "$bar"

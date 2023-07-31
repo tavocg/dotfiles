@@ -1,5 +1,10 @@
 #!/bin/sh
 # Get current keyboard layout
 
-setxkbmap -query | grep layout | awk '{print $2}' |
-    sed 's/latam/la/'
+layout="$( \
+    setxkbmap -query | grep layout | awk '{print $2}' |
+    sed 's/latam/la/' \
+    )"
+
+echo "$layout"
+notify-send -u low --replace-id=12 "󰌌 Layout" "$layout"

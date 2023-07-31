@@ -59,7 +59,7 @@ alias \
 # Useful variables
 export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
-    QT_QPA_PLATFORMTHEME="qt6ct" \
+    QT_QPA_PLATFORMTHEME="qt5ct" \
     GTK_THEME="Materia:dark" \
     WEEK=$(date '+%U') \
     DATE=$(date -I) \

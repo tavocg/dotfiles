@@ -4,7 +4,7 @@
 
 bookmark="$(xsel -ob)"
 
-if grep -q "$bookmark" "$HOME/.config/bookmarks" ; then
+if grep -q "$bookmark" "$HOME/Documents/bookmarks" ; then
     notify-send "Bookmarks" "Already bookmarked"
 else
     name="$(dmenu -p 'Bookmark name:' < /dev/null)"
