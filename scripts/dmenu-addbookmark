@@ -5,10 +5,10 @@
 bookmark="$(xsel -ob)"
 
 if grep -q "$bookmark" "$HOME/Documents/bookmarks" ; then
-    notify-send "Bookmarks" "Already bookmarked"
+    notify-send "󰃀 Bookmarks" "Already bookmarked"
 else
     name="$(dmenu -p 'Bookmark name:' < /dev/null)"
     entry="$name-$bookmark"
-    echo "$entry" >> "$HOME/.config/bookmarks"
-    notify-send "Bookmarks" "Added $entry"
+    echo "$entry" >> "$HOME/Documents/bookmarks"
+    notify-send "󰃀 Bookmarks" "Added $entry"
 fi
