@@ -10,5 +10,5 @@ else
     name="$(dmenu -p 'Bookmark name:' < /dev/null)"
     entry="$name-$bookmark"
     echo "$entry" >> "$HOME/Documents/bookmarks"
-    notify-send "󰃀 Bookmarks" "Added $entry"
+    notify-send "󰃀 Bookmarks" "Added '$entry'"
 fi
