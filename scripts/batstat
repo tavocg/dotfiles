@@ -5,11 +5,23 @@
 bat=$(grep "[0-9]" /sys/class/power_supply/BAT0/capacity)
 stat=$(cat /sys/class/power_supply/BAT0/status)
 
-# Append charging indicator if status file indicates such state
-# Print only charge % otherwise
-[ "$stat" = "Charging" ] &&
-    echo "$bat% " && exit ||
-    echo "$bat%"
+case 1 in
+    $((bat >= 98))  ) bar="━━━━━━━━━━" ;;
+    $((bat >= 90))  ) bar="━━━━━━━━━─" ;;
+    $((bat >= 80))  ) bar="━━━━━━━━──" ;;
+    $((bat >= 70))  ) bar="━━━━━━━───" ;;
+    $((bat >= 60))  ) bar="━━━━━━────" ;;
+    $((bat >= 50))  ) bar="━━━━━─────" ;;
+    $((bat >= 40))  ) bar="━━━━──────" ;;
+    $((bat >= 30))  ) bar="━━━───────" ;;
+    $((bat >= 20))  ) bar="━━────────" ;;
+    $((bat >= 10))  ) bar="━!────────" ;;
+    $((bat >= 0))   ) bar="CHARGE NOW" ;;
+esac
+
+# Charging indicator if status file indicates such state
+[ "$stat" != "Charging" ] && icon="󰁹" || icon=""
+echo "$icon $bar"
 
 # Warning when battery is under 10% capacity and not charging
 [ $((bat)) -lt 15 ] && [ "$stat" != "Charging" ] &&

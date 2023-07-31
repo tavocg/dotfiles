@@ -1,15 +1,34 @@
 #!/bin/sh
-# Fetch current audio levels
+# Fetch current audio level
 # (in current default output)
 
-# Get volume levels
+# Get volume level
 vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
+vol="${vol%\%*}" # Remove percentage sign
 
 # If device is off (muted), notify mute, print volume otherwise
 if amixer scontents | grep "Playback" | grep -q "\[off\]"; then
-    echo " M"
+    echo "󰖁 ──────────"
     notify-send -u low --replace-id=10 "󰖁 Volume" "Mute"
-else
-    echo "$vol"
-    notify-send -u low --replace-id=10 "󰕾 Volume" "$vol"
+    exit
 fi
+
+# Define bar progress with volume
+case 1 in
+    $((vol >= 100)) ) bar="━━━━━━━━━━" ;;
+    $((vol >= 90))  ) bar="━━━━━━━━━─" ;;
+    $((vol >= 80))  ) bar="━━━━━━━━──" ;;
+    $((vol >= 70))  ) bar="━━━━━━━───" ;;
+    $((vol >= 60))  ) bar="━━━━━━────" ;;
+    $((vol >= 50))  ) bar="━━━━━─────" ;;
+    $((vol >= 40))  ) bar="━━━━──────" ;;
+    $((vol >= 30))  ) bar="━━━───────" ;;
+    $((vol >= 20))  ) bar="━━────────" ;;
+    $((vol >= 10))  ) bar="━─────────" ;;
+    $((vol >= 0))   ) bar="──────────" ;;
+    $((vol = 0))    ) bar="──────────" ;;
+esac
+
+# Print and notify
+echo "󰕾 $bar"
+notify-send -u low --replace-id=10 "󰕾 Volume" "$bar"

@@ -1,17 +1,47 @@
 #!/bin/sh
-# Modified version of Luke Smith's network usage script
 
-# Print cache so it doesn't get stuck in dwmblocks
-cat "$XDG_CACHE_HOME"/netstat
+int() { # Type of interface & status
 
-# Store transferred and recieved bytes
-rstart="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
-tstart="$(($(cat /sys/class/net/[ew]*/statistics/tx_bytes | paste -sd '+')))"
-sleep 1
-rend="$(($(cat /sys/class/net/[ew]*/statistics/rx_bytes | paste -sd '+')))"
-tend="$(($(cat /sys/class/net/[ew]*/statistics/tx_bytes | paste -sd '+')))"
+    # If active ethernet, just exit with icon
+    grep -xq 'up' /sys/class/net/e*/operstate 2>/dev/null && echo "󰛳" && return 0
 
-# Format correctly and print
-dow=$(printf "%2sB\n" "$(numfmt --to=iec $(($rend-$rstart)))")
-up=$(printf "%2sB\n" "$(numfmt --to=iec $(($tend-$tstart)))")
-printf "$dow|$up" | sed 's/ //g' > "$XDG_CACHE_HOME"/netstat
+    # If active WiFi, print link strength
+    if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
+        strength="$(awk 'NR==3 {printf("%.0f\n",$3*10/7)}' /proc/net/wireless)"
+        case 1 in
+            $((strength >= 100)) ) bar="━━━━━━━━━━" ;;
+            $((strength >= 90))  ) bar="━━━━━━━━━─" ;;
+            $((strength >= 80))  ) bar="━━━━━━━━──" ;;
+            $((strength >= 70))  ) bar="━━━━━━━───" ;;
+            $((strength >= 60))  ) bar="━━━━━━────" ;;
+            $((strength >= 50))  ) bar="━━━━━─────" ;;
+            $((strength >= 40))  ) bar="━━━━──────" ;;
+            $((strength >= 30))  ) bar="━━━───────" ;;
+            $((strength >= 20))  ) bar="━━────────" ;;
+            $((strength >= 10))  ) bar="━─────────" ;;
+            $((strength >= 0))   ) bar="──────────" ;;
+            $((strength = 0))    ) bar="──────────" ;;
+        esac
+        echo "󰖩 $bar"
+        return 0
+    fi
+
+    # If down interfaces, exit with icon
+    grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && echo "󰖪 ──────────" && return 0
+    grep -xq 'down' /sys/class/net/e*/operstate 2>/dev/null && echo "󰲛" && return 0
+
+}
+
+# Run 'int'
+info=$(int)
+    
+# Check if a VPN is enabled
+vpn="$( \
+    sed "s/.*//" /sys/class/net/tun*/operstate 2>/dev/null
+    sed "s/.*//" /sys/class/net/wg*/operstate 2>/dev/null \
+    )"
+# If so, change icon
+[ -e "$vpn" ] && info="$(printf "$info" | sed 's/󰛳//' | sed 's/󰖩//')"
+
+# Print $info
+printf "%s" "$info"
