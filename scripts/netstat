@@ -41,7 +41,7 @@ vpn="$( \
     sed "s/.*//" /sys/class/net/wg*/operstate 2>/dev/null \
     )"
 # If so, change icon
-[ -e "$vpn" ] && info="$(printf "$info" | sed 's/󰛳//' | sed 's/󰖩//')"
+[ -n "$vpn" ] && info="$(printf "$info" | sed 's/󰛳//' | sed 's/󰖩//')"
 
 # Print $info
 printf "%s" "$info"
