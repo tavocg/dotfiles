@@ -20,4 +20,4 @@ case 1 in
     $((brightness = 0))    ) bar="──────────" ;;
 esac
 
-notify-send -u low --replace-id=10 "󰃞 Brightness" "$bar"
+notify-send -u low --replace-id=9 "󰃞 Brightness" "$bar"
