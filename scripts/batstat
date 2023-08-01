@@ -2,7 +2,8 @@
 # Battery indicator for dwmblocks
 
 # Save charge % and status to this variables
-bat=$(grep "[0-9]" /sys/class/power_supply/BAT0/capacity)
+bat=$(grep "[0-9]" /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo "󰚥")
+[ "$bat" = "󰚥" ] && echo "$bat" && exit
 stat=$(cat /sys/class/power_supply/BAT0/status)
 
 case 1 in
