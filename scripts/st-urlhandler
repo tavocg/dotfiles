@@ -14,6 +14,6 @@ while getopts "hoc" o; do case "${o}" in
 	h) printf "Optional arguments for custom use:\\n  -c: copy\\n  -o: xdg-open\\n  -h: Show this message\\n" && exit 1 ;;
 	o) chosen="$(echo "$urls" | dmenu -i -p 'Follow which url?' -l 10)"
 	setsid xdg-open "$chosen" >/dev/null 2>&1 & ;;
-	c) echo "$urls" | dmenu -i -p 'Copy which url?' -l 10 | tr -d '\n' | xclip -selection clipboard ;;
+	c) echo "$urls" | dmenu -i -p 'Copy URL:' -l 10 | tr -d '\n' | xsel -ib ;;
 	*) printf "Invalid option: -%s\\n" "$OPTARG" && exit 1 ;;
 esac done
