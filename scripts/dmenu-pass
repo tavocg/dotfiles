@@ -2,7 +2,7 @@
 # Script for 'pass'
 
 # Ask for password name in vault
-password=$(find ~/.password-store/ -type f -name '*.gpg' |
+password=$(find $XDG_DATA_HOME/password-store/ -type f -name '*.gpg' |
 	sed 's/.*\/\(.*\)\.gpg$/\1/' | dmenu -i -p "Password:")
 
 # Exit if none chosen

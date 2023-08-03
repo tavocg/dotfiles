@@ -16,30 +16,38 @@ set -o vi                                       # vi mode
 
 # $HOME cleanup
 export \
-    LESSHISTFILE="$HOME/.local/share/lesshst" \
-    VIMINIT="source $HOME/.config/vim/vimrc" \
-    XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/bash_history" \
-    CUDA_CACHE_PATH="$XDG_CACHE_HOME"/nv \
     XDG_STATE_HOME="$HOME/.local/state" \
     XDG_CACHE_HOME="$HOME/.local/cache" \
     XDG_DATA_HOME="$HOME/.local/share" \
     XDG_CONFIG_HOME="$HOME/.config" \
+    PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
+    GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
+    VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
+    XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
+    XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
+    HISTFILE="$XDG_STATE_HOME/bash_history" \
+    XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
+    LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
+    WGETRC="$XDG_CONFIG_HOME/wget/wgetrc" \
+    ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
+    CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
+    BASH_ENV="$XDG_CONFIG_HOME/bashrc" \
+    GNUPGHOME="$XDG_DATA_HOME/gnupg" \
 
 # Aliases
 alias \
-    prt="cd $HOME/Pictures/Screenshots/ && ls" \
-    bkg="cd $HOME/Pictures/Backgrounds/ && ls" \
+    prt="cd $HOME/Media/Pictures/Screenshots/ && ls" \
+    bkg="cd $HOME/Media/Pictures/Backgrounds/ && ls" \
+    vid="cd $HOME/Media/Videos/ && ls" \
+    img="cd $HOME/Media/Pictures/ && ls" \
     tmp="cd $HOME/Desktop/temp/ && ls" \
     www="cd $HOME/Desktop/www/ && ls" \
     src="cd $HOME/.local/src/ && ls" \
     doc="cd $HOME/Documents/ && ls" \
     dow="cd $HOME/Downloads/ && ls" \
-    img="cd $HOME/Pictures/ && ls" \
     prj="cd $HOME/Projects/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
     cfg="cd $HOME/.config/ && ls" \
-    vid="cd $HOME/Videos/ && ls" \
     mus="cd $HOME/Music/ && ls" \
     ent="cd /mnt/Entr/ && ls" \
     fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \

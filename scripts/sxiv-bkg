@@ -3,7 +3,7 @@
 # Will display background chooser
 # and set it using hsetroot
 
-img=$(find ~/Pictures/Backgrounds/* | shuf | sxiv -itoq | tail -1)
+img=$(find ~/Media/Pictures/Backgrounds/* | shuf | sxiv -itoq | tail -1)
 
 # Exit if none chosen
 [ -z "$img" ] && exit
