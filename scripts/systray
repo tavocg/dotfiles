@@ -1,0 +1,8 @@
+#!/bin/sh
+systray=""
+
+ps aux | grep -v grep | grep -q "$HOME/.config/scripts/record"  && systray="$systray 󰻃"
+grep -rq 'RUNNING' /proc/asound/*/*c                            && systray="$systray "
+grep -rq 'RUNNING' /proc/asound/*/*p                            && systray="$systray 󰕾"
+
+[ -n "$systray" ] && echo "[$systray ]"
