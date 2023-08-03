@@ -15,7 +15,7 @@ done
 [ "$bat" = "󰚥" ] && echo "$bat" && exit
 
 # If something is charging, change status
-grep -rq 'Charging' /sys/class/power_supply/BAT* && stat='Charging'
+grep -rq 'Charging' /sys/class/power_supply/BAT* 2>/dev/null && stat='Charging'
 
 # Get graphical battery level
 case 1 in
