@@ -4,7 +4,6 @@ cef_user_data
 cmus
 dconf
 gnome-boxes
-gtk-3.0
 htop
 libfm
 libreoffice
@@ -19,7 +18,6 @@ kalgebrarc
 kdenlive-layoutsrc
 kdenliverc
 qt5ct
-gtk-2.0
 mimeapps.list
 nnn
 xarchiver
@@ -48,9 +46,6 @@ baloofileinformationrc
 baloofilerc
 discoverrc
 dolphinrc
-gtk-4.0
-gtkrc
-gtkrc-2.0
 kactivitymanagerd-statsrc
 kactivitymanagerdrc
 katemetainfos
