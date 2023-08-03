@@ -1,11 +1,23 @@
 #!/bin/sh
 # Battery indicator for dwmblocks
 
-# Save charge % and status to this variables
-bat=$(grep "[0-9]" /sys/class/power_supply/BAT0/capacity 2>/dev/null || echo "󰚥")
-[ "$bat" = "󰚥" ] && echo "$bat" && exit
-stat=$(cat /sys/class/power_supply/BAT0/status)
+# Total battery charge
+total=0
+batteries=0
+for battery in /sys/class/power_supply/BAT?* ; do
+    capacity=$(cat $battery/capacity)
+    total=$((capacity+total))
+    batteries=$(($batteries+1))
+done
 
+# If there's a total, get average, if else, print a plug
+[ $total -gt 0 ] && bat=$(($total/$batteries)) || bat="󰚥"
+[ "$bat" = "󰚥" ] && echo "$bat" && exit
+
+# If something is charging, change status
+grep -rq 'Charging' /sys/class/power_supply/BAT* && stat='Charging'
+
+# Get graphical battery level
 case 1 in
     $((bat >= 98))  ) bar="━━━━━━━━━━" ;;
     $((bat >= 90))  ) bar="━━━━━━━━━─" ;;
@@ -25,5 +37,11 @@ esac
 echo "$icon $bar"
 
 # Warning when battery is under 10% capacity and not charging
-[ $((bat)) -lt 15 ] && [ "$stat" != "Charging" ] &&
+[ $((bat)) -lt 16 ] && [ $((bat)) -gt 14 ] && [ "$stat" != "Charging" ] &&
+    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"
+
+[ $((bat)) -lt 11 ] && [ $((bat)) -gt 9 ] && [ "$stat" != "Charging" ] &&
+    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"
+
+[ $((bat)) -lt 6 ] && [ "$stat" != "Charging" ] &&
     notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"
