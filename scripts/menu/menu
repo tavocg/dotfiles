@@ -3,7 +3,7 @@
 # with preconfigured options
 
 # Simple configuration
-MENU="bemenu"
+MENU="dmenu"
 col_main="#83a598"
 col_second="#121212"
 
@@ -46,18 +46,26 @@ BEMENU_OPTS=" \
 DMENU_OPTS=" \
     -i \
     -l 10 \
-    -nb $col_second \
-    -nf $col_main \
-    -sb $col_main \
-    -sf $col_second \
     -p $PROMPT \
     $DPASS \
 "
+# DMENU_OPTS=" \
+#     -i \
+#     -l 10 \
+#     -nb $col_second \
+#     -nf $col_main \
+#     -sb $col_main \
+#     -sf $col_second \
+#     -p $PROMPT \
+#     $DPASS \
+# "
+
 # If chosen dmenu, use this args
 [ "$MENU" = "dmenu" ] &&
+    OPTS="$DMENU_OPTS" &&
     RUN="_run"
 
-[ -e "/usr/bin/bemenu" ] && [ "$MODE" = "run" ]   && $MENU$RUN $OPTS
-[ -e "/usr/bin/bemenu" ] && [ "$MODE" = "pass" ]  && < /dev/null | $MENU $OPTS
-[ -e "/usr/bin/bemenu" ] && [ "$MODE" = "empty" ] && < /dev/null | $MENU $OPTS
-[ -e "/usr/bin/dmenu" ]  && [ -z "$MODE" ]        && $MENU $OPTS
+[ "$MODE" = "run" ]   && $MENU$RUN $OPTS
+[ "$MODE" = "pass" ]  && < /dev/null | $MENU $OPTS
+[ "$MODE" = "empty" ] && < /dev/null | $MENU $OPTS
+[ -z "$MODE" ]        && $MENU $OPTS
