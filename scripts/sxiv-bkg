@@ -9,7 +9,7 @@ img=$(find ~/Media/Pictures/Backgrounds/* | shuf | sxiv -itoq | tail -1)
 [ -z "$img" ] && exit
 
 # Find previous startup background command
-prev=$(grep hsetroot ~/.xinitrc)
+prev=$(grep hsetroot "$XINITRC")
 
 # Define wether or not hsetroot should
 # set per monitor or treat multiple monitors as one
@@ -22,4 +22,4 @@ esac
 
 # Set background and change
 # startup configuration with new one
-$new && sed -i "s|$prev|$new|g" ~/.xinitrc
+$new && sed -i "s|$prev|$new|g" "$XINITRC"
