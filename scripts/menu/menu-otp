@@ -2,7 +2,7 @@
 # OTP script for 'pass'
 
 # Ask for password name in vault
-password=$(find $XDG_DATA_HOME/password-store/ -type f -name '*.gpg' | sed 's/.*\/\(.*\)\.gpg$/\1/' | dmenu -i -p "OTP:")
+password=$(find $XDG_DATA_HOME/password-store/ -type f -name '*.gpg' | sed 's/.*\/\(.*\)\.gpg$/\1/' | menu "OTP:")
 
 # Exit if none chosen
 [ -z "$password" ] && exit

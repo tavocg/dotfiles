@@ -3,8 +3,8 @@
 
 # Snippets directory
 snippets=~/.config/snippets
-# Select using dmenu, copy if successful
-snippet=$(ls "$snippets" | dmenu -p "Snippet:")
+# Select using menu, copy if successful
+snippet=$(ls "$snippets" | menu "Snippet:")
 
 # Exit if empty
 [ -z "$snippet" ] && exit

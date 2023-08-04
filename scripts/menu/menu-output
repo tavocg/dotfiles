@@ -2,7 +2,7 @@
 # Set default output device
 
 # Get proper name from sinks
-output=$(pactl list short sinks | cut -f 2 | dmenu -i -p "Output:")
+output=$(pactl list short sinks | cut -f 2 | menu "Output:")
 
 # Set audio device, notify command success
 pactl set-default-sink "$output" && notify-send "󰕾 Default Output" "Set to '$output'" || notify-send "󰕾 Default Output" "Didn't change"

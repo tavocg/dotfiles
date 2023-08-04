@@ -9,6 +9,8 @@ PROMPT_COMMAND="echo"                           # Line jump after every command
 
 # General configs
 PATH="$HOME/.config/scripts${PATH:+:${PATH}}"   # Enables custom scripts dir
+PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
 bind "set completion-ignore-case on"            # Case insensitive TAB complete
 shopt -s cdspell                                # Autocorrect directory name
 shopt -s autocd                                 # cd into dir by typing the name
@@ -22,6 +24,7 @@ export \
     XDG_CONFIG_HOME="$HOME/.config" \
     PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
     GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
+    MINETEST_USER_PATH="$XDG_DATA_HOME/minetest" \
     VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \

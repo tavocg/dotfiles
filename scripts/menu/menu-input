@@ -2,7 +2,7 @@
 # Set default input device
 
 # Get proper name from sources
-input=$(pactl list short sources | cut -f 2 | grep input | dmenu -i -p "Input:")
+input=$(pactl list short sources | cut -f 2 | grep input | menu "Input:")
 
 # Set audio device, notify command success
 pactl set-default-source "$input" && notify-send "󰕾 Default Input" "Set to '$input'" || notify-send "󰕾 Default Input" "Didn't change"

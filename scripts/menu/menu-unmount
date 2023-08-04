@@ -4,7 +4,7 @@
 # disk identification method
 
 # Get LABEL of disk and device name
-disk=$(blkid | grep -wv primary | cut -d '=' -f 2 | cut -d '"' -f2 | dmenu -p "Unmount: ")
+disk=$(blkid | grep -wv primary | cut -d '=' -f 2 | cut -d '"' -f2 | menu "Unmount:")
 device=$(blkid | grep "$disk" | cut -d ':' -f 1 | cut -d '/' -f 3)
 
 # Attempt to unmount $device and notify success of command

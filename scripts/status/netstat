@@ -20,7 +20,6 @@ int() { # Type of interface & status
             $((strength >= 20))  ) bar="━━────────" ;;
             $((strength >= 10))  ) bar="━─────────" ;;
             $((strength >= 0))   ) bar="──────────" ;;
-            $((strength = 0))    ) bar="──────────" ;;
         esac
         echo "󰖩 $bar"
         return 0
