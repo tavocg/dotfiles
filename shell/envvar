@@ -1,0 +1,30 @@
+#!/bin/bash
+# Useful variables
+
+# Common
+export \
+    GIT="ssh://git@gitlab.com/tavo-wasd" \
+    WEEK=$(date '+%U') \
+    DATE=$(date -I) \
+
+# Default programs
+export \
+    OPENER="xdg-open" \
+    READER="zathura" \
+    BROWSER="brave" \
+    TERMINAL="st" \
+    EDITOR="nvim" \
+    VISUAL="nvim" \
+    IMAGE="sxiv" \
+    VIDEO="mpv" \
+
+# Theming
+export \
+    QT_QPA_PLATFORMTHEME="qt5ct" \
+    GTK_THEME="Materia:dark" \
+
+# Clipboard
+export \
+    CM_SELECTIONS="clipboard" \
+    CM_MAX_CLIPS=10 \
+

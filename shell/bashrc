@@ -1,0 +1,39 @@
+#!/bin/bash
+# tavo custom bashrc file
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Prompt
+PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;0;38;5;123m\]@\[\e[0;0;38;5;159m\]\h \[\e[0;38;5;247m\]\w\[\e[0;1;91m\]]\n \[\e[0;38;5;247m\]$ \[\e[0m\]'
+PROMPT_COMMAND="echo"                           # Line jump after every command
+
+# General configs
+PATH="$HOME/.config/scripts${PATH:+:${PATH}}"   # Enables custom scripts dir
+PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
+bind "set completion-ignore-case on"            # Case insensitive TAB complete
+shopt -s cdspell                                # Autocorrect directory name
+shopt -s autocd                                 # cd into dir by typing the name
+set -o vi                                       # vi mode
+
+# External configs
+source ~/.config/shell/xdgspec
+source ~/.config/shell/envvar
+source ~/.config/shell/aliasrc
+source ~/.config/shell/functions
+
+# Binds
+bind '"\C-f":"fzf_nav\C-m"'
+bind '"\C-y":"copy_output\C-m"'
+bind '"\C-e":"dragon -x \*\C-m"'
+
+# Autostart dwm after tty login
+type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    cat ~/.config/snippets/welcome
+    sleep 0.5
+    amixer
+    exec startx
+fi
+
+# nice login prompt
+[ -e "/usr/bin/afetch" ] && afetch || fetch min

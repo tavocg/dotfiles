@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Navigate using fzf
+fzf_nav() {
+[ -d "$1" ] && cd "$1"
+while true ; do
+    opt=$(/usr/bin/ls -AF1 --group-directories-first)
+    opt=$(printf "../\n$opt" | fzf --cycle --reverse --padding 2% --preview 'p {}')
+    [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
+done
+ls
+[ -n "$opt" ] && printf "\nOpen $opt? [Y/n]: " && read -r open || return 0
+[ "$open" != "n" ] && o "$opt" || return 0
+}
+
+# EZ note taking
+note() {
+# Just edit today's note if no argument is given
+[ -z "$1" ] && cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md && exit
+# 'list' arg will list notes either with fzf or regular ls
+if [ "$1" = "list" ] ; then
+    cd ~/Documents/notes
+    # If fzf is present, use it, ls otherwise
+    [ -e '/usr/bin/fzf' ] || ls && fzf_nav
+fi
+}
+
+# Copy output of a command
+copy_output() {
+history 50 |
+    sed 's/[0-9]*\s\s//g' |
+    grep -v 'copy_output' |
+    tac |
+    menu "Copy output:" |
+    $SHELL |
+    xsel -ib
+}

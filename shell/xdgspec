@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export \
+    BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc" \
+    XDG_STATE_HOME="$HOME/.local/state" \
+    XDG_CACHE_HOME="$HOME/.local/cache" \
+    XDG_DATA_HOME="$HOME/.local/share" \
+    XDG_CONFIG_HOME="$HOME/.config" \
+    GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
+    VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
+    XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
+    XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
+    HISTFILE="$XDG_STATE_HOME/bash_history" \
+    XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
+    LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
+    WGETRC="$XDG_CONFIG_HOME/wget/wgetrc" \
+    ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
+    CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
