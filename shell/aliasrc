@@ -1,30 +1,35 @@
 #!/bin/bash
 
+# Common
 alias \
-    prt="cd $HOME/Media/Pictures/Screenshots/ && ls" \
-    bkg="cd $HOME/Media/Pictures/Backgrounds/ && ls" \
-    img="cd $HOME/Media/Pictures/ && ls" \
-    vid="cd $HOME/Media/Videos/ && ls" \
-    mus="cd $HOME/Media/Music/ && ls" \
-    tmp="cd $HOME/Desktop/local/temp/ && ls" \
-    www="cd $HOME/Desktop/www/ && ls" \
-    src="cd $HOME/.local/src/ && ls" \
-    doc="cd $HOME/Documents/ && ls" \
-    dow="cd $HOME/Downloads/ && ls" \
-    prj="cd $HOME/Projects/ && ls" \
-    dsk="cd $HOME/Desktop/ && ls" \
-    cfg="cd $HOME/.config/ && ls" \
-    ent="cd /mnt/Entr/ && ls" \
-    fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \
     ls="exa -al --group-directories-first" \
     fzf="fzf --cycle --reverse" \
-    newsboat="newsboat -u ~/Documents/personal/rss" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
-    notes="note list" \
-    def="dict" \
     calc="bc -l" \
     cp="cp -iv" \
     mv="mv -iv" \
     rm="rm -iv" \
     vim="nvim" \
+
+# Directories
+alias \
+    tmp="cd $HOME/Desktop/local/temp/ && ls" \
+    www="cd $HOME/Desktop/www/ && ls" \
+    dsk="cd $HOME/Desktop/ && ls" \
+    dow="cd $HOME/Downloads/ && ls" \
+    prj="cd $HOME/Projects/ && ls" \
+    prt="cd $HOME/Media/Pictures/Screenshots/ && ls" \
+    bkg="cd $HOME/Media/Pictures/Backgrounds/ && ls" \
+    img="cd $HOME/Media/Pictures/ && ls" \
+    vid="cd $HOME/Media/Videos/ && ls" \
+    mus="cd $HOME/Media/Music/ && ls" \
+    src="cd $HOME/.local/src/ && ls" \
+    cfg="cd $HOME/.config/ && ls" \
+
+# Launch args
+alias \
+    fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \
+    newsboat="newsboat -u ~/Documents/personal/rss" \
+    notes="note list" \
+    def="dict" \

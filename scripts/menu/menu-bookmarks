@@ -2,7 +2,7 @@
 # Open URLs from bookmarks file
 
 # Print site names, then get URL based on the name. Exit if empty
-name=$(cut -d '-' -f 1 $HOME/Documents/bookmarks | grep -v '^#' | sed '/^\s*$/d' | menu "Site:")
+name=$(cut -d '-' -f 1 $HOME/Desktop/bookmarks | grep -v '^#' | sed '/^\s*$/d' | menu "Site:")
 [ -z "$name" ] && exit
 
 grep "$name" $HOME/Documents/bookmarks | cut -d '-' -f 2- | xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"

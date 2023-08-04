@@ -20,7 +20,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 systemctl --user import-environment DISPLAY &
 setxkbmap en &
 xset r rate 300 50 &
-hsetroot -cover /home/tavo/Media/Pictures/Backgrounds/71.jpg
+hsetroot -cover /home/tavo/Media/Pictures/Backgrounds/71.jpg &
 dwmblocks &
 clipmenud &
 ps -C dunst | grep -q dunst || dunst &
