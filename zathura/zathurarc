@@ -3,17 +3,17 @@ set guioptions none
 set recolor
 set recolor-keephue
 
-set default-fg                  "#ebdbb2"
+set default-fg                  "#d3869b"
 set default-bg                  "#121212"
 
 set statusbar-fg                "#121212"
-set statusbar-bg                "#ebdbb2"
+set statusbar-bg                "#d3869b"
 
 set inputbar-fg                 "#121212"
-set inputbar-bg                 "#ebdbb2"
+set inputbar-bg                 "#d3869b"
 
 set notification-fg             "#121212"
-set notification-bg             "#ebdbb2"
+set notification-bg             "#d3869b"
 
 set notification-error-fg       "#121212"
 set notification-error-bg       "#ab4642"
@@ -21,15 +21,15 @@ set notification-error-bg       "#ab4642"
 set notification-warning-bg     "#121212"
 set notification-warning-fg     "#ab4642"
 
-set highlight-color             "#ebdbb2"
-set highlight-active-color      "#ebdbb2"
-set highlight-fg \#ebdbb2
+set highlight-color             "#d3869b"
+set highlight-active-color      "#d3869b"
+set highlight-fg                "#d3869b"
 
-set completion-bg               "#ebdbb2"
+set completion-bg               "#d3869b"
 set completion-fg               "#121212"
 
 set completion-highlight-fg     "#121212"
-set completion-highlight-bg     "#ebdbb2"
+set completion-highlight-bg     "#d3869b"
 
 set recolor-lightcolor          "#121212"
 set recolor-darkcolor           "#ffffff"
