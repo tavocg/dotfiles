@@ -17,3 +17,4 @@ export \
     WGETRC="$XDG_CONFIG_HOME/wget/wgetrc" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
     CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
+    GNUPGHOME="$XDG_DATA_HOME/gnupg" \

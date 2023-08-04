@@ -8,9 +8,10 @@ PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;0;38;5;123m\]@\[\e[0;0;38;5;159m
 PROMPT_COMMAND="echo"                           # Line jump after every command
 
 # General configs
-PATH="$HOME/.config/scripts${PATH:+:${PATH}}"   # Enables custom scripts dir
-PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"   	# Custom PATHs for executables
 bind "set completion-ignore-case on"            # Case insensitive TAB complete
 shopt -s cdspell                                # Autocorrect directory name
 shopt -s autocd                                 # cd into dir by typing the name
