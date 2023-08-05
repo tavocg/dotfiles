@@ -10,8 +10,9 @@ PROMPT_COMMAND="echo"                           # Line jump after every command
 # General configs
 PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
-PATH="$HOME/.local/bin${PATH:+:${PATH}}"   	# Custom PATHs for executables
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"   	    # Custom PATHs for executables
 bind "set completion-ignore-case on"            # Case insensitive TAB complete
 shopt -s cdspell                                # Autocorrect directory name
 shopt -s autocd                                 # cd into dir by typing the name
