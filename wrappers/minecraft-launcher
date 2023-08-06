@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+HOME=$HOME/.local/share/minecraft
+mkdir -p "$HOME"
+exec /usr/bin/minecraft-launcher "$@"
