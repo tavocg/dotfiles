@@ -1,0 +1,5 @@
+#!/usr/bin/env sh
+
+HOME=$HOME/.local/share/monero
+mkdir -p "$HOME"
+exec /usr/bin/monero-wallet-gui "$@"
