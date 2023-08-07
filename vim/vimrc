@@ -86,3 +86,5 @@ autocmd! User GoyoLeave highlight Normal ctermbg=NONE
 
 autocmd BufWinLeave bibliography zM | mkview
 autocmd BufWinEnter bibliography silent loadview
+autocmd BufWinLeave bookmarks zM | mkview
+autocmd BufWinEnter bookmarks silent loadview
