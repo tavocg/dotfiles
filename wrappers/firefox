@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-HOME=$HOME/.local/share/firefox
-mkdir -p "$HOME"
-exec /usr/bin/firefox "$@"
