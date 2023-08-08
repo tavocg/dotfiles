@@ -27,7 +27,7 @@ source ~/.config/shell/functions
 # Binds
 bind '"\C-f":"fzf_nav\C-m"'
 bind '"\C-y":"copy_output\C-m"'
-bind '"\C-e":"dragon -x \*\C-m"'
+bind '"\C-e":"dragon -x \* 2>/dev/null\C-m"'
 
 # Autostart dwm after tty login
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then

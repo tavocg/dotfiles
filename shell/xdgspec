@@ -8,6 +8,7 @@ export \
     XDG_CONFIG_HOME="$HOME/.config" \
     _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
     GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
+    PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
     VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
