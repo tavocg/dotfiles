@@ -1,4 +1,4 @@
 #!/bin/sh
 # Command alias to reference easily
 
-scrot -s '/home/tavo/Pictures/Screenshots/%Y-%m-%d.png' -e 'xclip -selection clipboard -t image/png -i $f'
+scrot -s '/home/tavo/Media/Pictures/Screenshots/%Y-%m-%d.png' -e 'xclip -selection clipboard -t image/png -i $f'
