@@ -17,13 +17,14 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
     unset f
 
 # Added xinitrc config
+dbus-update-activation-environment --systemd --all &
 systemctl --user import-environment DISPLAY &
-setxkbmap en &
+hsetroot -cover /home/tavo/Media/Pictures/Backgrounds/default.jpeg &
 xset r rate 300 50 &
-hsetroot -cover /home/tavo/Media/Pictures/Backgrounds/default.jpeg
+setxkbmap en &
 dwmblocks &
 clipmenud &
-ps -C dunst | grep -q dunst || dunst &
+dunst &
 
 while true; do
 	dwm >/dev/null 2>&1
