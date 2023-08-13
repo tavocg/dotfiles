@@ -4,7 +4,7 @@
 	<icon>utilities-terminal</icon>
 	<name>Open Terminal Here</name>
 	<submenu></submenu>
-	<command>(cd &quot;%f&quot; &amp;&amp; st)</command>
+	<command>(cd %f &amp;&amp; st)</command>
 	<description>Open terminal in specified directory</description>
 	<range></range>
 	<patterns>*</patterns>
