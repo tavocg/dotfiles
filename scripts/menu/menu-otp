@@ -5,7 +5,7 @@ PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 
 # Ask for password name in vault
 password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' |
-    sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | menu "Password:")"
+    sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | menu "OTP:")"
 
 # Exit if none chosen
 [ -z "$password" ] && exit
