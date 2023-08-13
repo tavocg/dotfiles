@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-ELECTRUMDIR="$HOME/.local/share/electrum" \
-mkdir -p "$HOME"
-exec /usr/bin/electrum "$@"
