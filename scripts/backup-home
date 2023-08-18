@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Folders in $HOME to backup
+set -- Desktop Documents Pictures Videos Music Downloads .config .local/share
+
+# backup function
+backup() {
+mkdir -p ./BACKUP
+BACKDIR="$1"
+BACKNAME="backup-${BACKDIR##*/}.zip"
+/usr/bin/zip -r ./BACKUP/"$BACKNAME" "$BACKDIR"
+printf "\n$BACKDIR has been backed up to ./BACKUP/$BACKNAME [Ok]" &&
+    read -r NULL
+}
+
+# Main
+echo "\nBacking up: $@ ..."
+for DIR in "$@" ; do
+    echo
+
+    # Print total size of the directory,
+    # ask for confirmation to back up
+    if [ -d "$HOME/$DIR" ] ; then
+        printf "$HOME/$DIR is %s, back it up? [N/y] " "$(du -hs "$HOME/$DIR" | cut -f 1)" &&
+            read -r BACKUP
+        # If positive, run backup function
+        [ "$BACKUP" = "y" ] && backup "$HOME/$DIR"
+
+    # If the firectory doesn't exist, notify the user
+    elif ! [ -d "$HOME/$DIR" ] ; then
+        printf "$HOME/$DIR doesn't exist! [Ok] " &&
+            read -r NULL
+
+    fi
+done
