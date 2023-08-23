@@ -1,6 +1,7 @@
 \" Apa format for citation
 \" and references section
 
+\" Place references with format
 .R1
 label "(A.n|Q) ', ' (D.y|D)"; bracket-label " (" ) "; "
 no-label-in-reference
