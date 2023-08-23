@@ -14,6 +14,7 @@ alias \
 
 # Directories
 alias \
+    apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
     tmp="cd $HOME/Desktop/local/temp/ && ls" \
     www="cd $HOME/Desktop/www/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
