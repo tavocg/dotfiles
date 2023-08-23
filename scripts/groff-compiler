@@ -1,14 +1,20 @@
 #!/bin/sh
-# I needed this to replace env variables
-# for easier macro sourcing
+#
+# Small compiler script for groff
+#
+# [-k (preconv)] Convert encoding to something groff understands
+# [-e (eqn)]     Format equations for troff or MathML
+# [-t (tbl)]     Format tables for troff
+# [-p (pic)]     Compile pictures for troff or TeX
+# [-G (grap)]    Typesetting graphs
+# [-j (chem)]    Chemical structure diagrams (messes up spacing!)
 
-soelim -I ~/.config/groff/ "$1" | refer -p ~/.config/groff/bibliography |
-    groff -mspdf -T pdf -U -ketpj
+# Configuration
+BIB="~/Desktop/bibliography" # Bibliography file
+MAC="~/.config/groff/"       # Macros dir
+PRE="ketp"                   # Preprocessors
 
-# Preprocessors
-# [-k (preconv)]
-# [-e (eqn)]
-# [-t (tbl)]
-# [-p (pic)]
-# [-G (grap)]
-# [-j (chem) (messes up spacing)]
+# Enable macros, grab references, include args
+soelim -I "$MAC" "$1" | refer -p "$BIB" |
+    groff -mspdf -T pdf -U -"$PRE"
+
