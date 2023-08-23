@@ -10,8 +10,8 @@
 # [-j (chem)]    Chemical structure diagrams (messes up spacing!)
 
 # Configuration
-BIB="~/Desktop/bibliography" # Bibliography file
-MAC="~/.config/groff/"       # Macros dir
+BIB="$HOME/Desktop/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"       # Macros dir
 PRE="ketp"                   # Preprocessors
 
 # Enable macros, grab references, include args
