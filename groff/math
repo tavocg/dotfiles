@@ -6,18 +6,38 @@
 
 .EQ
 delim $$
+define / 'over'
+define grad '\[gr]'
 define . '~ \[md] ~'
 define * '~ \[mu] ~'
 define +- '~ \[+-] ~'
 define -+ '~ + bar ~'
 define and '~ \[AN] ~'
 define div '~ \[di] ~'
-define grad '\[gr]'
 
-define vec %
-"$1" sup fwd -70 up 40 size 5.5 \[->] ""
-%
-define circumflex %
-size 8 "$1" sup fwd -29 up 5 size 6 \[ha]
-%
+define sen 'roman "sen"'
+define tan 'roman "tan"'
+define sec 'roman "sec"'
+define cos 'roman "cos"'
+define cot 'roman "cot"'
+define csc 'roman "csc"'
+define sinh 'roman "sinh"'
+define tanh 'roman "tanh"'
+define sech 'roman "sech"'
+define cosh 'roman "cosh"'
+define coth 'roman "coth"'
+define csch 'roman "csch"'
+define arcsin 'roman "arcsin"'
+define arctan 'roman "arctan"'
+define arcsec 'roman "arcsec"'
+define arccos 'roman "arccos"'
+define arccot 'roman "arccot"'
+define arccsc 'roman "arccsc"'
+define arcsinh 'roman "arcsinh"'
+define arctanh 'roman "arctanh"'
+define arcsech 'roman "arcsech"'
+define arccosh 'roman "arccosh"'
+define arccoth 'roman "arccoth"'
+define arccsch 'roman "arccsch"'
+
 .EN

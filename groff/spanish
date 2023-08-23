@@ -21,3 +21,10 @@
 .ds MONTH12 diciembre
 
 .ds REFERENCES Referencias
+
+.EQ
+define sen 'roman "sen"'
+define arcsen 'roman "arcsen"'
+define senh 'roman "senh"'
+define arcsenh 'roman "arcsenh"'
+.EN
