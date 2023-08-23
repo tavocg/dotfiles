@@ -24,7 +24,7 @@
 
 .EQ
 define sen 'roman "sen"'
-define arcsen 'roman "arcsen"'
 define senh 'roman "senh"'
+define arcsen 'roman "arcsen"'
 define arcsenh 'roman "arcsenh"'
 .EN
