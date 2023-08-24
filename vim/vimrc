@@ -1,5 +1,5 @@
 set clipboard=unnamedplus
-set shellcmdflag=-ic
+set shellcmdflag=-c
 set encoding=utf-8
 set relativenumber
 set shiftwidth=4
