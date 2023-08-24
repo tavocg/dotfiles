@@ -9,6 +9,7 @@ set ignorecase
 set smartcase
 set expandtab
 set tabstop=4
+set autoread
 set wildmenu
 set hlsearch
 set swapfile
@@ -19,26 +20,37 @@ set number
 
 " notes
 autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
+
 " groff
+autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
 autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR>
-autocmd FileType groff noremap <buffer> <F9> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR> :![ "$(pidof -x 'zathura')" = "" ] && zathura --fork %:r.pdf<CR> && disown
 au BufNewFile,BufRead *.ms set filetype=groff
+
 " LaTeX
-autocmd FileType tex noremap <buffer> <C-c> :w<CR> :!latex %<CR> :!pdflatex %<CR>
-autocmd FileType bib noremap <buffer> <C-c> :w<CR> :!bibtex %<CR>
+autocmd FileType tex noremap <buffer> <F9> :w<CR> :!latex %<CR> :!pdflatex %<CR>
+autocmd FileType bib noremap <buffer> <F9> :w<CR> :!bibtex %<CR>
+
 " Python
 autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
+
 " NERDTree
 nnoremap <C-t> :NERDTreeToggle<CR>
+
 " Global keybindings
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
 noremap exec !!$SHELL<CR>
-noremap <C-n> /@@@<CR>
-noremap <tab> :bn<CR>
+noremap <C-n> :bn<CR>
 noremap <C-c> :bd<CR>
 noremap <C-s> :w<CR>
 noremap <Space> za
+noremap N /@@@<CR>
+
+" Folds
+autocmd BufWinLeave bibliography zM | mkview
+autocmd BufWinEnter bibliography silent loadview
+autocmd BufWinLeave bookmarks zM | mkview
+autocmd BufWinEnter bookmarks silent loadview
 
 " Enabling .config
 let rtp=&runtimepath
@@ -59,11 +71,13 @@ if empty(glob('~/.config/vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'https://github.com/vim-airline/vim-airline-themes'
-Plug 'https://github.com/vim-airline/vim-airline'
-Plug 'https://github.com/preservim/nerdtree'
-Plug 'https://github.com/morhetz/gruvbox'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'Yggdroot/indentLine'
+Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
+Plug 'ibhagwan/fzf-lua' " Neovim exclusive
+Plug 'morhetz/gruvbox'
 "Plug 'dracula/vim'
 call plug#end()
 
@@ -84,7 +98,13 @@ set noshowmode
 map gy :Goyo<CR>
 autocmd! User GoyoLeave highlight Normal ctermbg=NONE
 
-autocmd BufWinLeave bibliography zM | mkview
-autocmd BufWinEnter bibliography silent loadview
-autocmd BufWinLeave bookmarks zM | mkview
-autocmd BufWinEnter bookmarks silent loadview
+" IndentLine
+let g:indentLine_enabled = 1
+let g:indentLine_char = '|'
+
+" fzf-lua
+noremap <tab> :FzfLua complete_line<CR>
+noremap <A-b> :FzfLua git_branches<CR>
+noremap <A-c> :FzfLua git_commits<CR>
+noremap <A-s> :FzfLua git_status<CR>
+noremap <A-f> :FzfLua files<CR>

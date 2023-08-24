@@ -12,6 +12,7 @@ define . '~ \[md] ~'
 define * '~ \[mu] ~'
 define +- '~ \[+-] ~'
 define -+ '~ + bar ~'
+define tf '~ \[tf] ~'
 define and '~ \[AN] ~'
 define div '~ \[di] ~'
 

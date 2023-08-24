@@ -1,0 +1,5 @@
+\" Print a rule as long as specified
+\" in the first argument
+.de rule
+\D'l \\$1 0'
+..

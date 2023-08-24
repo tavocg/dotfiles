@@ -12,7 +12,7 @@
 # Configuration
 BIB="$HOME/Desktop/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"       # Macros dir
-PRE="ketp"                   # Preprocessors
+PRE="ketp"                       # Preprocessors
 
 # Enable macros, grab references, include args
 soelim -I "$MAC" "$1" | refer -p "$BIB" |
