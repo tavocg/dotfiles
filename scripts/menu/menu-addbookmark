@@ -6,8 +6,9 @@ bookmark="$(xsel -ob)"
 
 if grep -q "$bookmark" "$HOME/Desktop/bookmarks" ; then
     notify-send "󰃀 Bookmarks" "Already bookmarked"
+    exit
 else
-    name="$(menu 'Bookmark name:' empty)"
+    name="$(menu "Bookmark name:" empty)"
     [ -z "$name" ] && exit
     entry="$name-$bookmark"
     echo "$entry" >> "$HOME/Desktop/bookmarks"

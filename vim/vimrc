@@ -37,10 +37,12 @@ autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Global keybindings
+noremap gc :!git commit -m ""
+noremap gp :!git push
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
 noremap exec !!$SHELL<CR>
-noremap <C-n> :bn<CR>
+noremap <tab> :bn<CR>
 noremap <C-c> :bd<CR>
 noremap <C-s> :w<CR>
 noremap <Space> za
@@ -103,7 +105,6 @@ let g:indentLine_enabled = 1
 let g:indentLine_char = '|'
 
 " fzf-lua
-noremap <tab> :FzfLua complete_line<CR>
 noremap <A-b> :FzfLua git_branches<CR>
 noremap <A-c> :FzfLua git_commits<CR>
 noremap <A-s> :FzfLua git_status<CR>
