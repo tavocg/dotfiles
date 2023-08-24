@@ -41,7 +41,7 @@ noremap gp :!git push<CR>
 noremap gl :!git pull<CR>
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
-noremap exec !!$SHELL<CR>
+noremap <C-e> !!$SHELL<CR>
 noremap <tab> :bn<CR>
 noremap <C-c> :bd<CR>
 noremap <C-s> :w<CR>
