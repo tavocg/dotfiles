@@ -1,4 +1,3 @@
-" tavo custom vimrc file
 set clipboard=unnamedplus
 set shellcmdflag=-ic
 set encoding=utf-8
@@ -116,4 +115,4 @@ noremap <A-f> :FzfLua files<CR>
 " Signify
 let g:signify_disable_by_default = 1
 highlight SignColumn ctermbg=NONE
-noremap df :SignifyToggle<CR>
+noremap gd :SignifyToggle<CR>
