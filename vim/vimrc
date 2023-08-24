@@ -38,7 +38,7 @@ nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Global keybindings
 noremap gc :!git commit -m ""
-noremap gp :!git push
+noremap gp :!git push<CR>
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
 noremap exec !!$SHELL<CR>
