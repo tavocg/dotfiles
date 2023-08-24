@@ -111,6 +111,9 @@ noremap <A-b> :FzfLua git_branches<CR>
 noremap <A-c> :FzfLua git_commits<CR>
 noremap <A-s> :FzfLua git_status<CR>
 noremap <A-f> :FzfLua files<CR>
+noremap gb :FzfLua git_branches<CR>
+noremap gs :FzfLua git_status<CR>
+noremap gf :FzfLua files<CR>
 
 " Signify
 let g:signify_disable_by_default = 1
