@@ -37,8 +37,9 @@ autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 
 " Global keybindings
-noremap gc :!git commit -m ""
+noremap gc :!git commit -m ""<Left>
 noremap gp :!git push<CR>
+noremap gl :!git pull<CR>
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
 noremap exec !!$SHELL<CR>
@@ -75,9 +76,11 @@ endif
 call plug#begin()
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-airline/vim-airline'
+Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
+Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua' " Neovim exclusive
 Plug 'morhetz/gruvbox'
 "Plug 'dracula/vim'
@@ -109,3 +112,8 @@ noremap <A-b> :FzfLua git_branches<CR>
 noremap <A-c> :FzfLua git_commits<CR>
 noremap <A-s> :FzfLua git_status<CR>
 noremap <A-f> :FzfLua files<CR>
+
+" Signify
+let g:signify_disable_by_default = 1
+highlight SignColumn ctermbg=NONE
+noremap df :SignifyToggle<CR>
