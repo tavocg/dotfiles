@@ -1,3 +1,15 @@
+" XDG Specifications
+let rtp=&runtimepath
+set runtimepath=~/.config/vim
+let &runtimepath.=','.rtp.',~/.config/vim/after'
+set directory=~/.config/vim/swap//,.,~/tmp,/var/tmp,/tmp
+set backupdir=~/.config/vim/backup//,.,~/tmp,~/
+set spellfile=~/.config/vim/spell/en.utf-8.add
+set viminfo+=n~/.config/vim/viminfo
+set viewdir=~/.config/vim/view/
+set undodir=~/.config/vim/undo//,.
+
+" Basic preferences
 set clipboard=unnamedplus
 set shellcmdflag=-c
 set encoding=utf-8
@@ -17,21 +29,6 @@ set mouse=a
 set showcmd
 set number
 
-" notes
-autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
-
-" groff
-autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
-autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR>
-au BufNewFile,BufRead *.ms set filetype=groff
-
-" LaTeX
-autocmd FileType tex noremap <buffer> <F9> :w<CR> :!latex %<CR> :!pdflatex %<CR>
-autocmd FileType bib noremap <buffer> <F9> :w<CR> :!bibtex %<CR>
-
-" Python
-autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
-
 " Global keybindings
 noremap gc :!git commit -m ""<Left>
 noremap gp :!git push<CR>
@@ -47,22 +44,56 @@ noremap <A-l> 5<C-w><
 noremap <Space> za
 noremap N /@@@<CR>
 
+" notes
+autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
+
+" groff
+autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
+autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groff-compiler % > %:r.pdf<CR><CR>
+au BufNewFile,BufRead *.ms set filetype=groff
+
+" LaTeX
+autocmd FileType tex noremap <buffer> <F9> :w<CR> :!latex %<CR> :!pdflatex %<CR>
+autocmd FileType bib noremap <buffer> <F9> :w<CR> :!bibtex %<CR>
+
+" Python
+autocmd FileType python noremap <buffer> <F9> :w<CR> :!python %<CR>
+
 " Folds
 autocmd BufWinLeave bibliography zM | mkview
 autocmd BufWinEnter bibliography silent loadview
 autocmd BufWinLeave bookmarks zM | mkview
 autocmd BufWinEnter bookmarks silent loadview
 
-" Enabling .config
-let rtp=&runtimepath
-set runtimepath=~/.config/vim
-let &runtimepath.=','.rtp.',~/.config/vim/after'
-set directory=~/.config/vim/swap//,.,~/tmp,/var/tmp,/tmp
-set backupdir=~/.config/vim/backup//,.,~/tmp,~/
-set spellfile=~/.config/vim/spell/en.utf-8.add
-set viminfo+=n~/.config/vim/viminfo
-set viewdir=~/.config/vim/view/
-set undodir=~/.config/vim/undo//,.
+" Neovim exclusive (I think)
+" Open a shell on a vertical split
+set splitright
+function OpenTerminal()
+    execute "normal \<C-l>"
+    execute "normal \<C-l>"
+    execute "normal \<C-l>"
+    execute "normal \<C-l>"
+
+    let bufNum = bufnr("%")
+    let bufType = getbufvar(bufNum, "&buftype", "not found")
+
+    if bufType == "terminal"
+        execute "q"
+    else
+        execute "vsp term://bash"
+        execute "set nonu"
+        execute "set nornu"
+        silent au BufLeave <buffer> stopinsert!
+        silent au BufWinEnter,WinEnter <buffer> startinsert!
+        execute "tnoremap <buffer> <C-h> <C-\\><C-n><C-w><C-h>"
+        execute "tnoremap <buffer> <C-t> <C-\\><C-n>:q<CR>"
+        execute "tnoremap <buffer> <C-\\><C-\\> <C-\\><C-n>"
+        execute "IndentLinesDisable"
+
+        startinsert!
+    endif
+endfunction
+nnoremap <C-t> :call OpenTerminal()<CR>
 
 " Plugins
 if empty(glob('~/.config/vim/autoload/plug.vim'))
@@ -121,33 +152,3 @@ noremap gf :FzfLua files<CR>
 let g:signify_disable_by_default = 1
 highlight SignColumn ctermbg=NONE
 noremap gd :SignifyToggle<CR>
-
-" Neovim exclusive (I think)
-" Open a shell on a vertical split
-set splitright
-function OpenTerminal()
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-
-    let bufNum = bufnr("%")
-    let bufType = getbufvar(bufNum, "&buftype", "not found")
-
-    if bufType == "terminal"
-        execute "q"
-    else
-        execute "vsp term://bash"
-        execute "set nonu"
-        execute "set nornu"
-        silent au BufLeave <buffer> stopinsert!
-        silent au BufWinEnter,WinEnter <buffer> startinsert!
-        execute "tnoremap <buffer> <C-h> <C-\\><C-n><C-w><C-h>"
-        execute "tnoremap <buffer> <C-t> <C-\\><C-n>:q<CR>"
-        execute "tnoremap <buffer> <C-\\><C-\\> <C-\\><C-n>"
-        execute "IndentLinesDisable"
-
-        startinsert!
-    endif
-endfunction
-nnoremap <C-t> :call OpenTerminal()<CR>
