@@ -2,4 +2,6 @@
 
 HOME=$HOME/.local/share/Steam/xdgspec
 mkdir -p "$HOME"
-exec /usr/bin/steam "$@"
+
+[ -e "/usr/bin/steam" ] && exec /usr/bin/steam "$@"
+[ -e "/usr/games/steam" ] && exec /usr/games/steam "$@"
