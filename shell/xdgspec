@@ -15,10 +15,10 @@ export \
     HISTFILE="$XDG_STATE_HOME/bash_history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
-    WGETRC="$XDG_CONFIG_HOME/wget/wgetrc" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
     CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
-    WINEPREFIX="$XDG_DATA_HOME/wine" \
+    WINEPREFIX="$HOME/.local/share/wine" \
+    WGETRC="$HOME/.config/wget/wgetrc" \
     GOPATH="$XDG_DATA_HOME/go" \
 
 alias \
