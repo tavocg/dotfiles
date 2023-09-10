@@ -1,0 +1,8 @@
+[omemo]
+policy=always
+trustmode=blind
+omemo.char=
+log=redact
+
+[connection]
+account=Tavo
