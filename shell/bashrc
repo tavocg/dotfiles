@@ -4,7 +4,11 @@
 [[ $- != *i* ]] && return
 
 # Prompt
-PS1='\[\e[0;1;91m\][\[\e[0;1;38;5;87m\]\u\[\e[0;0;38;5;123m\]@\[\e[0;0;38;5;159m\]\h \[\e[0;38;5;247m\]\w\[\e[0;1;91m\]]\n \[\e[0;38;5;247m\]$ \[\e[0m\]'
+prompt_git_branch() {
+    GIT_BRANCH="$(git branch 2>/dev/null | grep '*' | cut -d ' ' -f 2)"
+    [ -n "$GIT_BRANCH" ] && printf "  %s " "$GIT_BRANCH"
+}
+PS1='\[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\]\@\n⯈ \[\033[0m\]'
 PROMPT_COMMAND="echo"                           # Line jump after every command
 
 # General configs
