@@ -1,20 +1,23 @@
 #!/bin/sh
 #
-# Small compiler script for groff
+# Compiler script for groff
 #
 # [-k (preconv)] Convert encoding to something groff understands
 # [-e (eqn)]     Format equations for troff or MathML
 # [-t (tbl)]     Format tables for troff
 # [-p (pic)]     Compile pictures for troff or TeX
-# [-G (grap)]    Typesetting graphs
+# [-G (grap)]    Typesetting graphs (grap usually not installed by default)
 # [-j (chem)]    Chemical structure diagrams (messes up spacing!)
 
 # Configuration
 BIB="$HOME/Desktop/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"       # Macros dir
-PRE="ketp"                       # Preprocessors
+PRE="-ketpG"                     # Preprocessors
+GROMACS="-mspdf"                 # groff macros
+OUT="pdf"                        # Output format
 
-# Enable macros, grab references, include args
-soelim -I "$MAC" "$1" | refer -p "$BIB" |
-    groff -mspdf -T pdf -U -"$PRE"
-
+# groff-img: Personal script, image manipulation
+# soelim: Enable macros dir
+# refer: Enable bibliography
+groff-img "$1" | soelim -I "$MAC" | refer -p "$BIB" |
+    groff "$GROMACS" -T "$OUT" -U "$PRE"

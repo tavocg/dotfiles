@@ -1,0 +1,20 @@
+#!/bin/sh
+# Replace .IMG commands for proper 
+# .PDFPIC and convert given image files.
+
+FILE="$1"
+OUTPUT="$(cat "$FILE")"
+
+format() {
+    LINE="$1"
+    IMAGE="$(echo "$LINE" | cut -d '"' -f 2)"
+    [ "$IMAGE" != "${IMAGE%%.*}.pdf" ] && ! [ -e "${IMAGE%%.*}.pdf" ] && convert -quiet "$IMAGE" "${IMAGE%%.*}.pdf"
+    echo "$LINE" | sed 's|^.IMG|.PDFPIC|' | sed "s|$IMAGE|${IMAGE%%.*}.pdf|"
+}
+
+for i in $(seq $(grep '^.IMG\s' "$FILE" | wc -l)) ; do
+    LINE="$(echo "$OUTPUT" | grep '^.IMG\s' | head -n 1)"
+    [ -n "$LINE" ] && NEW_LINE="$(format "$LINE")" && OUTPUT=$(echo "$OUTPUT" | sed "s|$LINE|$NEW_LINE|") || break
+done
+
+echo "$OUTPUT"
