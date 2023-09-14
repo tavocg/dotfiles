@@ -1,7 +1,7 @@
 \" Quality of life utilities
 \" for easier eqn usage.
 
-\" --- Define register ---
+\" Define register
 .nr eqn 0 1
 
 .EQ
@@ -40,5 +40,39 @@ define arcsech 'roman "arcsech"'
 define arccosh 'roman "arccosh"'
 define arccoth 'roman "arccoth"'
 define arccsch 'roman "arccsch"'
-
 .EN
+
+\" From eqn manual, draws a diagonal
+\" line through an expression
+.EQ
+define cancel 'special Ca'
+.EN
+.de Ca
+.  ds 0s \
+\Z'\\*(0s'\
+\v'\\n(0du'\
+\D'l \\n(0wu -\\n(0hu-\\n(0du'\
+\v'\\n(0hu'
+..
+
+\" From eqn manual, draws a box
+\" round an expression
+.EQ
+define box 'special Bx'
+.EN
+.de Bx
+.  ds 0s \
+\Z'\h'1n'\\*(0s'\
+\Z'\
+\v'\\n(0du+1n'\
+\D'l \\n(0wu+2n 0'\
+\D'l 0 -\\n(0hu-\\n(0du-2n'\
+\D'l -\\n(0wu-2n 0'\
+\D'l 0 \\n(0hu+\\n(0du+2n'\
+'\
+\h'\\n(0wu+2n'
+.  nr 0w +2n
+.  nr 0d +1n
+.  nr 0h +1n
+..
+
