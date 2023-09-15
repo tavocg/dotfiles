@@ -13,7 +13,7 @@
 BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
 GROMACS="-mspdf"                   # groff macros
-PRE="-ketpG"                       # Preprocessors
+PRE="-ketp"                        # Preprocessors
 OUT="pdf"                          # Output format
 
 # groff-img: Personal script, image manipulation
