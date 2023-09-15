@@ -2,7 +2,7 @@
 # Copy snippets to clipboard
 
 # Snippets directory
-snippets=~/.config/snippets
+snippets=~/Documents/snippets
 # Select using menu, copy if successful
 snippet=$(ls "$snippets" | menu "Snippet:")
 
