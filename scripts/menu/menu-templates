@@ -1,0 +1,13 @@
+#!/bin/sh
+# Copy templates to clipboard
+
+# templates directory
+templates=~/Documents/templates
+# Select using menu, copy if successful
+template=$(ls "$templates" | menu "template:")
+
+# Exit if empty
+[ -z "$template" ] && exit
+
+# Copy to clipboard and notify otherwise
+cat "$templates"/"$template" | xsel -ib && notify-send "template" "'$template' copied to clipboard!"
