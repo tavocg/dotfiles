@@ -8,7 +8,7 @@ prompt_git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | grep '*' | cut -d ' ' -f 2)"
     [ -n "$GIT_BRANCH" ] && printf "  %s " "$GIT_BRANCH"
 }
-PS1='\[\033[2m\]($?) \[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\][\!] \@\n⯈ \[\033[0m\]'
+PS1='\[\033[2m\]($?) \[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\][\!] \@\n\[\033[0m\]⯈ '
 PROMPT_COMMAND="echo"                           # Line jump after every command
 
 # General configs
