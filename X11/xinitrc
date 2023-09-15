@@ -19,7 +19,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # Added xinitrc config
 dbus-update-activation-environment --systemd --all &
 systemctl --user import-environment DISPLAY &
-hsetroot -cover /home/tavo/Media/Pictures/Backgrounds/default.jpeg &
+hsetroot -cover /home/tavo/Pictures/Backgrounds/default.jpeg &
 xset r rate 300 50 &
 setxkbmap en &
 dwmblocks &
