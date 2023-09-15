@@ -12,21 +12,24 @@ alias \
     rm="rm -iv" \
     vim="nvim" \
 
-# Directories
+# Command shortcuts
 alias \
     apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
-    tmp="cd $HOME/Desktop/local/temp/ && ls" \
-    www="cd $HOME/Desktop/www/ && ls" \
-    dsk="cd $HOME/Desktop/ && ls" \
-    dow="cd $HOME/Downloads/ && ls" \
-    prj="cd $HOME/Projects/ && ls" \
-    prt="cd $HOME/Media/Pictures/Screenshots/ && ls" \
-    bkg="cd $HOME/Media/Pictures/Backgrounds/ && ls" \
-    img="cd $HOME/Media/Pictures/ && ls" \
-    vid="cd $HOME/Media/Videos/ && ls" \
-    mus="cd $HOME/Media/Music/ && ls" \
+
+# Directories
+alias \
     src="cd $HOME/.local/src/ && ls" \
     cfg="cd $HOME/.config/ && ls" \
+    prj="cd $HOME/Desktop/projects/ && ls" \
+    tmp="cd $HOME/Desktop/temp/ && ls" \
+    dsk="cd $HOME/Desktop/ && ls" \
+    doc="cd $HOME/Documents/ && ls" \
+    dow="cd $HOME/Downloads/ && ls" \
+    mus="cd $HOME/Music/ && ls" \
+    prt="cd $HOME/Pictures/Screenshots/ && ls" \
+    bkg="cd $HOME/Pictures/Backgrounds/ && ls" \
+    img="cd $HOME/Pictures/ && ls" \
+    vid="cd $HOME/Videos/ && ls" \
 
 # Launch args
 alias \
@@ -34,3 +37,4 @@ alias \
     newsboat="newsboat -u ~/Documents/personal/rss" \
     notes="note list" \
     def="dict" \
+

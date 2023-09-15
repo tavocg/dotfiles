@@ -10,11 +10,11 @@
 # [-j (chem)]    Chemical structure diagrams (messes up spacing!)
 
 # Configuration
-BIB="$HOME/Desktop/bibliography" # Bibliography file
-MAC="$HOME/.config/groff/"       # Macros dir
-PRE="-ketpG"                     # Preprocessors
-GROMACS="-mspdf"                 # groff macros
-OUT="pdf"                        # Output format
+BIB="$HOME/Documents/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"         # Macros dir
+PRE="-ketpG"                       # Preprocessors
+GROMACS="-mspdf"                   # groff macros
+OUT="pdf"                          # Output format
 
 # groff-img: Personal script, image manipulation
 # soelim: Enable macros dir
