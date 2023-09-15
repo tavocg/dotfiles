@@ -1,6 +1,13 @@
 #!/bin/bash
 # Useful variables
 
+# Custom PATHs for executables
+PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"
+
 # Common
 export \
     GIT="ssh://git@gitlab.com/tavo-wasd" \

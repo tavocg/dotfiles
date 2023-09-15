@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Autostart dwm after tty login
+type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+    cat ~/.config/snippets/welcome
+    sleep 0.5
+    amixer
+    exec startx
+fi

@@ -9,37 +9,25 @@ prompt_git_branch() {
     [ -n "$GIT_BRANCH" ] && printf "  %s " "$GIT_BRANCH"
 }
 PS1='\[\033[2m\]($?) \[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\][\!] \@\n\[\033[0m\]⯈ '
-PROMPT_COMMAND="echo"                           # Line jump after every command
+PROMPT_COMMAND="echo"                 # Line jump after every command
 
 # General configs
-PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
-PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
-PATH="$HOME/.local/bin${PATH:+:${PATH}}"   	    # Custom PATHs for executables
-bind "set completion-ignore-case on"            # Case insensitive TAB complete
-shopt -s cdspell                                # Autocorrect directory name
-shopt -s autocd                                 # cd into dir by typing the name
-set -o vi                                       # vi mode
+bind "set completion-ignore-case on"  # Case insensitive TAB complete
+shopt -s cdspell                      # Autocorrect directory name
+shopt -s autocd                       # cd into dir by typing the name
+set -o vi                             # vi mode
 
 # External configs
-source ~/.config/shell/xdgspec
-source ~/.config/shell/envvar
-source ~/.config/shell/aliasrc
-source ~/.config/shell/functions
+[ -e "$HOME/.config/shell/functions" ] && source ~/.config/shell/functions
+[ -e "$HOME/.config/shell/xdgspec" ] && source ~/.config/shell/xdgspec
+[ -e "$HOME/.config/shell/aliasrc" ] && source ~/.config/shell/aliasrc
+[ -e "$HOME/.config/shell/envvar" ] && source ~/.config/shell/envvar
 
 # Binds
-bind '"\C-f":"fzf_nav\C-m"'
-bind '"\C-y":"copy_output\C-m"'
-bind '"\C-e":"dragon -x \* 2>/dev/null\C-m"'
+[ -e "$HOME/.config/shell/keybinds" ] && source ~/.config/shell/keybinds
 
 # Autostart dwm after tty login
-type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    cat ~/.config/snippets/welcome
-    sleep 0.5
-    amixer
-    exec startx
-fi
+[ -e "$HOME/.config/shell/dwm" ] && source ~/.config/shell/dwm
 
 # nice login prompt
-[ -e "/usr/bin/afetch" ] && afetch || fetch min
+[ -e "/usr/bin/afetch" ] && afetch || fetch min 2>/dev/null

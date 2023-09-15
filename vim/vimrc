@@ -95,6 +95,9 @@ function OpenTerminal()
 endfunction
 nnoremap <C-t> :call OpenTerminal()<CR>
 
+" Custom commands
+command SourceVimrc :source ~/.config/vim/vimrc
+
 " Plugins
 if empty(glob('~/.config/vim/autoload/plug.vim'))
    silent !curl -fLo ~/.config/vim/autoload/plug.vim --create-dirs
