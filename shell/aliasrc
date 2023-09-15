@@ -20,9 +20,9 @@ alias \
 alias \
     src="cd $HOME/.local/src/ && ls" \
     cfg="cd $HOME/.config/ && ls" \
-    prj="cd $HOME/Desktop/projects/ && ls" \
     tmp="cd $HOME/Desktop/temp/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
+    prj="cd $HOME/Documents/projects/ && ls" \
     doc="cd $HOME/Documents/ && ls" \
     dow="cd $HOME/Downloads/ && ls" \
     mus="cd $HOME/Music/ && ls" \
