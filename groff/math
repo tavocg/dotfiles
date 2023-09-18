@@ -1,9 +1,6 @@
 \" Quality of life utilities
 \" for easier eqn usage.
 
-\" Define register
-.nr eqn 0 1
-
 .EQ
 delim $$
 define / 'over'

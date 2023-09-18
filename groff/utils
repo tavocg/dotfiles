@@ -3,3 +3,15 @@
 .de rule
 \D'l \\$1 0'
 ..
+
+\" Auto-numbered equation: \\n+[eqnnum]
+\" Current equation:       \\n[eqnnum]
+.nr eqnnum 0 1
+
+\" Auto-numbered figures: \\n+[fignum]
+\" Current figure:        \\n[fignum]
+.nr fignum 0 1
+
+\" Auto-numbered tables: \\n+[tblnum]
+\" Current table:        \\n[tblnum]
+.nr tblnum 0 1
