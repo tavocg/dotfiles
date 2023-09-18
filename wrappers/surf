@@ -1,0 +1,4 @@
+#!/bin/sh
+# Open 'surf' browser with tabbed
+
+tabbed -c /usr/bin/surf -e || tabbed -c /usr/local/bin/surf -e
