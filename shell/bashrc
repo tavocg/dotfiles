@@ -25,5 +25,5 @@ set -o vi                            # vi mode
 [ -e "$HOME/.config/shell/envvar" ] && source ~/.config/shell/envvar
 [ -e "$HOME/.config/shell/dwm" ] && source ~/.config/shell/dwm
 
-# nice login prompt
+# Nice shell welcome
 [ -e "/usr/bin/afetch" ] && (afetch && echo && ls) || (fetch min && echo && ls) 2>/dev/null
