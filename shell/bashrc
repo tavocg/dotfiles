@@ -9,25 +9,21 @@ prompt_git_branch() {
     [ -n "$GIT_BRANCH" ] && printf "  %s " "$GIT_BRANCH"
 }
 PS1='\[\033[2m\]($?) \[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\][\!] \@\n\[\033[0m\]⯈ '
-PROMPT_COMMAND="echo"                 # Line jump after every command
+PROMPT_COMMAND="echo"                # Line jump after every command
 
 # General configs
-bind "set completion-ignore-case on"  # Case insensitive TAB complete
-shopt -s cdspell                      # Autocorrect directory name
-shopt -s autocd                       # cd into dir by typing the name
-set -o vi                             # vi mode
+bind "set completion-ignore-case on" # Case insensitive TAB complete
+shopt -s cdspell                     # Autocorrect directory name
+shopt -s autocd                      # cd into dir by typing the name
+set -o vi                            # vi mode
 
 # External configs
 [ -e "$HOME/.config/shell/functions" ] && source ~/.config/shell/functions
+[ -e "$HOME/.config/shell/keybinds" ] && source ~/.config/shell/keybinds
 [ -e "$HOME/.config/shell/xdgspec" ] && source ~/.config/shell/xdgspec
 [ -e "$HOME/.config/shell/aliasrc" ] && source ~/.config/shell/aliasrc
 [ -e "$HOME/.config/shell/envvar" ] && source ~/.config/shell/envvar
-
-# Binds
-[ -e "$HOME/.config/shell/keybinds" ] && source ~/.config/shell/keybinds
-
-# Autostart dwm after tty login
 [ -e "$HOME/.config/shell/dwm" ] && source ~/.config/shell/dwm
 
 # nice login prompt
-[ -e "/usr/bin/afetch" ] && afetch || fetch min 2>/dev/null
+[ -e "/usr/bin/afetch" ] && (afetch && echo && ls) || (fetch min && echo && ls) 2>/dev/null
