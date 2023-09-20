@@ -6,5 +6,5 @@ mkdir -p "$HOME"
 # Check for either firefox-esr or firefox binary
 [ -e /usr/bin/firefox-esr ] && BIN="/usr/bin/firefox-esr" || BIN="/usr/bin/firefox"
 
-# Run with default profile
-exec "$BIN" -P default "$@"
+# Run with hardened profile
+exec "$BIN" -P hardened "$@"
