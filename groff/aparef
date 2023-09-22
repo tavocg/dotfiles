@@ -4,6 +4,8 @@
 \" Place references with format
 .R1
 label "(A.n|Q) ', ' (D.y|D)"; bracket-label " (" ) "; "
+join-authors ", " ", "
 no-label-in-reference
+date-as-label
 accumulate
 .R2

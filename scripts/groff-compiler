@@ -10,14 +10,14 @@
 # [-j (chem)]    Chemical structure diagrams (messes up spacing!)
 
 # Configuration
-BIB="$HOME/Documents/bibliography" # Bibliography file
-MAC="$HOME/.config/groff/"         # Macros dir
-GROMACS="-mspdf"                   # groff macros
-PRE="-ketp"                        # Preprocessors
-OUT="pdf"                          # Output format
+REFS="$HOME/Documents/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"          # Macros dir
+GROMACS="-mspdf"                    # groff macros
+PRE="-ketp"                         # Preprocessors
+OUT="pdf"                           # Output format
 
 # groff-img: Personal script, image manipulation
 # soelim: Enable macros dir
 # refer: Enable bibliography
-groff-img "$1" | soelim -I "$MAC" | refer -p "$BIB" |
+groff-img "$1" | soelim -I "$MAC" | refer -p "$REFS" |
     groff "$GROMACS" -T "$OUT" -U "$PRE"
