@@ -17,7 +17,6 @@ alias \
 
 # Common
 alias \
-    df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     ls="exa -al --group-directories-first" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
@@ -28,14 +27,15 @@ alias \
     rm="rm -iv" \
     vim="nvim" \
 
+# Command shortcuts
+alias \
+    apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
+    df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
+    wacom-setup-menu="wacom-setup menu" \
+    notes="note list" \
+    def="dict" \
+
 # Launch args
 alias \
     fzf-edit-script="fzf_nav /home/$(whoami)/.config/scripts" \
     newsboat="newsboat -u ~/Documents/personal/rss" \
-    notes="note list" \
-    def="dict" \
-
-# Command shortcuts
-alias \
-    apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
-
