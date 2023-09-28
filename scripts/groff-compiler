@@ -1,23 +1,57 @@
 #!/bin/sh
-#
 # Compiler script for groff
 #
 # [-k (preconv)] Convert encoding to something groff understands
 # [-e (eqn)]     Format equations for troff or MathML
 # [-t (tbl)]     Format tables for troff
 # [-p (pic)]     Compile pictures for troff or TeX
-# [-G (grap)]    Typesetting graphs (grap usually not installed by default)
-# [-j (chem)]    Chemical structure diagrams (messes up spacing!)
+# [-G (grap)]    Typesetting graphs, grap usually not installed by default
+# [-j (chem)]    Chemical structure diagrams
 
 # Configuration
-REFS="$HOME/Documents/bibliography" # Bibliography file
-MAC="$HOME/.config/groff/"          # Macros dir
-GROMACS="-mspdf"                    # groff macros
-PRE="-ketp"                         # Preprocessors
-OUT="pdf"                           # Output format
+BIB="$HOME/Documents/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"         # Macros dir
+PRE="-ketpG"                       # Preprocessors
 
-# groff-img: Personal script, image manipulation
-# soelim: Enable macros dir
-# refer: Enable bibliography
-groff-img "$1" | soelim -I "$MAC" | refer -p "$REFS" |
-    groff "$GROMACS" -T "$OUT" -U "$PRE"
+# NOTE:
+#
+# I have had some truble using chem, keep in mind:
+# - Messes with spacing
+# - Crashes when writing text inside eqn, like:
+# .EQ
+# roman {"Text"}
+# .EN
+#
+# Also, grap doesn't usually come pre-installed
+# and I believe it is not packaged for termux.
+
+# Takes a line with .IMG command, converts given image
+# to pdf format and inserts properly formatted .PDFPIC
+auto_pdfpic() {
+    LINE="$1"
+    IMAGE="$(echo "$LINE" | cut -d '"' -f 2)"
+    [ "$IMAGE" != "${IMAGE%%.*}.pdf" ] && ! [ -e "${IMAGE%%.*}.pdf" ] &&
+        convert -quiet "$IMAGE" "${IMAGE%%.*}.pdf"
+    echo "$LINE" | sed 's|^.IMG|.PDFPIC|' | sed "s|$IMAGE|${IMAGE%%.*}.pdf|"
+}
+
+# If there is any .IMG command, replace with
+# auto_pdfpic output in a temp file.
+FILE="$1"
+if [ "$(grep -q '^.IMG\s' "$FILE")" ] ; then
+    TEMP="${FILE%%.*}.tmp"
+    cp "$FILE" "$TEMP"
+    while true ; do
+        LINE="$(grep -m 1 '^.IMG\s' "$TEMP")"
+        [ -n "$LINE" ] &&
+            NEW_LINE="$(auto_pdfpic "$LINE")" &&
+            sed -i "s@$LINE@$NEW_LINE@g" "$TEMP" ||
+            break
+    done
+    FILE="$TEMP"
+fi
+
+# Enable custom macros   | Bibliography    | Generate PDF using preprocessors
+soelim -I "$MAC" "$FILE" | refer -p "$BIB" | groff -mspdf -T pdf -U "$PRE"
+rm -f "$TEMP"
+
