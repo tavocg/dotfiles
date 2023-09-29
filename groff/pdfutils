@@ -1,4 +1,0 @@
-\# These lines set link text and border colours
-.ds PDFHREF.COLOUR #193be5
-.defcolor pdf:href.colour rgb \*[PDFHREF.COLOUR]
-.ds PDFHREF.TEXT.COLOUR pdf:href.colour

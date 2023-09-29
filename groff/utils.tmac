@@ -1,0 +1,22 @@
+.\" These lines set link text and border colours
+.ds PDFHREF.COLOUR #193be5
+.defcolor pdf:href.colour rgb \*[PDFHREF.COLOUR]
+.ds PDFHREF.TEXT.COLOUR pdf:href.colour
+.
+.\" Print a rule as long as specified
+.\" in the first argument
+.de rule
+\D'l \\$1 0'
+..
+.
+.\" Auto-numbered equation: \\n+[eqnnum]
+.\" Current equation:       \\n[eqnnum]
+.nr eqnnum 0 1
+.
+.\" Auto-numbered figures: \\n+[fignum]
+.\" Current figure:        \\n[fignum]
+.nr fignum 0 1
+.
+.\" Auto-numbered tables: \\n+[tblnum]
+.\" Current table:        \\n[tblnum]
+.nr tblnum 0 1

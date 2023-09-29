@@ -1,0 +1,24 @@
+#!/bin/sh
+# Snippets directory
+snippets=~/Documents/snippets
+
+# Navigate using fzf
+fzf_nav() {
+[ -d "$1" ] && cd "$1"
+while true ; do
+    opt=$(/usr/bin/ls -AF1 --group-directories-first)
+    opt=$(printf "../\n$opt" | fzf --cycle --reverse --padding 2% --preview 'batcat --decorations never --color always {}')
+    [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
+done
+[ -n "$opt" ] && echo "$opt"
+}
+
+# Select using menu
+snippet=$(fzf_nav "$snippets")
+# Exit if empty
+[ -z "$snippet" ] && exit
+
+# Copy to clipboard and notify
+cat "$snippets"/"$snippet" | xsel -ib && notify-send "Snippet" "'$snippet' copied to clipboard!"
+
+"$EDITOR" "$snippets"/"$snippet"

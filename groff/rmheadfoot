@@ -1,7 +1,0 @@
-\" Remove page headers and footers
-.ds LH
-.ds CH
-.ds RH
-.ds LF
-.ds CF
-.ds RF

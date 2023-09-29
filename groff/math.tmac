@@ -1,6 +1,6 @@
 \" Quality of life utilities
 \" for easier eqn usage.
-
+.
 .EQ
 delim $$
 define / 'over'
@@ -18,7 +18,6 @@ define and '{~ \[AN] ~}'
 define div '{~ \[di] ~}'
 define <<< '{~ \[<<] ~}'
 define >>> '{~ \[>>] ~}'
-
 define sen 'roman "sen"'
 define tan 'roman "tan"'
 define sec 'roman "sec"'
@@ -44,9 +43,9 @@ define arccosh 'roman "arccosh"'
 define arccoth 'roman "arccoth"'
 define arccsch 'roman "arccsch"'
 .EN
-
-\" From eqn manual, draws a diagonal
-\" line through an expression
+.
+.\" From eqn manual, draws a diagonal
+.\" line through an expression
 .EQ
 define cancel 'special Ca'
 .EN
@@ -57,9 +56,9 @@ define cancel 'special Ca'
 \D'l \\n(0wu -\\n(0hu-\\n(0du'\
 \v'\\n(0hu'
 ..
-
-\" From eqn manual, draws a box
-\" round an expression
+.
+.\" From eqn manual, draws a box
+.\" round an expression
 .EQ
 define box 'special Bx'
 .EN
@@ -78,4 +77,3 @@ define box 'special Bx'
 .  nr 0d +1n
 .  nr 0h +1n
 ..
-
