@@ -1,7 +1,26 @@
-\" Apa format for citation
-\" and references section
+\" Taken from /usr/share/groff/current/tmac
+\" Here is the specification of the five possible reference styles
+\" provided by 'refer'.  The example entries are taken from the ms
+\" macro package.
+\"
+\"   ref*spec!0  Q A T S V N P I C D O      -- other
+\"   ref*spec!1  Q A T J S V N P I C D O    -- journal article
+\"   ref*spec!2  Q A T S V P I C D O        -- book
+\"   ref*spec!3  Q A T B E S V P I C D O    -- article within book
+\"   ref*spec!4  Q A T R G P I C D O        -- technical report
+\"
+\" Here I rearrrange items to match APA format
+.ds ref*spec!0  Q A D T S V N P I C O
+.ds ref*spec!1  Q A D T J S V N P I C O
+.ds ref*spec!2  Q A D T S V P I C O
+.ds ref*spec!3  Q A D T B E S V P I C O
+.ds ref*spec!4  Q A D T R G P I C O
 
-\" Place references with format
+\" This swaps a comma for a dot after the date
+.ds ref*spec!T:0   ".  " " "\fI"    ""    "\fP"
+.ds ref*spec!T     ".  " " "\\*Q"   ""    "\\*U"
+
+\" Common options
 .R1
 label "(A.n|Q) ', ' (D.y|D)"; bracket-label " (" ) "; "
 join-authors ", " ", "
