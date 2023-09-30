@@ -10,8 +10,8 @@ PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 
 # Common
 export \
+    GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
-    GIT="ssh://git@gitlab.com/tavo-wasd" \
     BIB="$HOME/Documents/bibliography" \
     WEEK=$(date '+%U') \
     DATE=$(date -I) \

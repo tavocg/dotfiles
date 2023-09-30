@@ -1,29 +1,21 @@
 #!/bin/sh
 # Compiler script for groff
 #
+# TODO:
+# Make groff auto-calculate image height (spacing below)
+# based on given width and the image's aspect ratio
+#
 # [-k (preconv)] Convert encoding to something groff understands
 # [-e (eqn)]     Format equations for troff or MathML
 # [-t (tbl)]     Format tables for troff
 # [-p (pic)]     Compile pictures for troff or TeX
-# [-G (grap)]    Typesetting graphs, grap usually not installed by default
-# [-j (chem)]    Chemical structure diagrams
+# [-G (grap)]    Typesetting graphs, usually not installed by default and not available on termux repo
+# [-j (chem)]    Chemical structure diagrams, messes with spacing, crashes when using text inside eqn
 
 # Configuration
 BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
 PRE="-ketpG"                       # Preprocessors
-
-# NOTE:
-#
-# I have had some truble using chem, keep in mind:
-# - Messes with spacing
-# - Crashes when writing text inside eqn, like:
-# .EQ
-# roman {"Text"}
-# .EN
-#
-# Also, grap doesn't usually come pre-installed
-# and I believe it is not packaged for termux.
 
 # Takes a line with .IMG command, converts given image
 # to pdf format and inserts properly formatted .PDFPIC
@@ -55,4 +47,3 @@ fi
 # Enable custom macros   | Bibliography    | Generate PDF using preprocessors
 soelim -I "$MAC" "$FILE" | refer -p "$BIB" | groff -mspdf -T pdf -U "$PRE"
 rm -f "$TEMP"
-
