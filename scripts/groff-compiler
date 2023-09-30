@@ -38,8 +38,9 @@ auto_pdfpic() {
 # If there is any .IMG command, replace with
 # auto_pdfpic output in a temp file.
 FILE="$1"
-if [ "$(grep -q '^.IMG\s' "$FILE")" ] ; then
+if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
     TEMP="${FILE%%.*}.tmp"
+    echo $TEMP
     cp "$FILE" "$TEMP"
     while true ; do
         LINE="$(grep -m 1 '^.IMG\s' "$TEMP")"
