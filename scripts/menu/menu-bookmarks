@@ -5,4 +5,5 @@
 name=$(cut -d '-' -f 1 $HOME/Documents/bookmarks | grep -v '^#' | sed '/^\s*$/d' | menu "Site:")
 [ -z "$name" ] && exit
 
-grep "$name" $HOME/Documents/bookmarks | cut -d '-' -f 2- | xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"
+grep "$name" $HOME/Documents/bookmarks | cut -d '-' -f 2- | tr -d '\n' |
+    xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"

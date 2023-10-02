@@ -1,12 +1,12 @@
-\" Borrowed from Sudarson Nantha
-\" github.com/SudarsonNantha
-\" ---
-\" Relocate .TC at the end of the document to either 
-\" 'before' or 'after' (by giving those arguments)
-\" the page where this macro was sourced.
-\" ---
-\" Requires -mspdf macros
-
+.\" Borrowed from Sudarson Nantha
+.\" github.com/SudarsonNantha
+.\" ---
+.\" Relocate .TC at the end of the document to either 
+.\" 'before' or 'after' (by giving those arguments)
+.\" the page where this macro was sourced.
+.\" ---
+.\" Requires -mspdf macros
+.
 .if '\*[.T]'pdf' \X'pdf: pagename here'
 .rn TC TCold
 .de TC
