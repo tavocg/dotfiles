@@ -1,7 +1,12 @@
 #!/bin/sh
 
 scrot -s "$HOME/.local/cache/barcode-%Y-%m-%d.png" || exit
-zbarimg -q "$HOME/.local/cache/barcode-"*
+OUTPUT="$(zbarimg -q "$HOME/.local/cache/barcode-"*)"
+OUTPUT="${OUTPUT##QR-Code:}"
+
+echo -n "$OUTPUT" | xsel -ib
+echo "$OUTPUT"
+notify-send -u low  "QR code" "'$OUTPUT' copied to clipboard"
 
 # Delete created files
 rm -rf $HOME/.local/cache/barcode-*.png
