@@ -32,4 +32,4 @@ set completion-highlight-fg     "#121212"
 set completion-highlight-bg     "#d3869b"
 
 set recolor-lightcolor          "#121212"
-set recolor-darkcolor           "#ffffff"
+set recolor-darkcolor           "#ebdbb2"

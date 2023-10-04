@@ -1,3 +1,7 @@
+.\" This one requires groff 1.23.0 or later
+.\" It is used in the .CS/.CE custom macros
+.mso sboxes.tmac
+.
 .\" These lines set link text and border colours
 .ds PDFHREF.COLOUR #193be5
 .defcolor pdf:href.colour rgb \*[PDFHREF.COLOUR]
@@ -31,4 +35,10 @@
 .de CE
 .ft
 .BOXSTOP
+..
+.
+.\" Easier headings
+.de HE
+.NH \\$2
+.XN \\$1
 ..
