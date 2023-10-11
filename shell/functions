@@ -3,36 +3,31 @@
 # Navigate using fzf
 fzf_nav() {
 [ -d "$1" ] && cd "$1"
-while true ; do
-    opt=$(/usr/bin/ls -AF1 --group-directories-first)
-    opt=$(printf "../\n$opt" | fzf --cycle --reverse --padding 2% --preview 'p {}')
-    [ -d "$opt" ] && cd "$opt" > /dev/null 2>&1 || break
-done
-ls
-[ -n "$opt" ] && printf "\nOpen $opt? [Y/n]: " && read -r open || return 0
-[ "$open" != "n" ] && o "$opt" || return 0
+opt=$(fzf --cycle --reverse --preview 'p {}' --height=50% --border top)
+[ -n "$opt" ] && o "$opt"
 }
 
 # EZ note taking
 note() {
+NOTES_DIR="$HOME/Nextcloud/Notes"
 # Just edit today's note if no argument is given
-[ -z "$1" ] && cd ~/Documents/notes && $EDITOR $HOME/Documents/notes/note-$DATE.md && exit
+[ -z "$1" ] && cd "$NOTES_DIR" && "$EDITOR" "daily-notes/note-$DATE.md"
+[ -e "$NOTES_DIR/daily-notes/note-$DATE.md" ] &&
+    printf "\n\033[1m\033[35mNote of the day:\033[0m \033[2mdaily-notes/\033[0mnote-$DATE.md\n"
 # 'list' arg will list notes either with fzf or regular ls
 if [ "$1" = "list" ] ; then
-    cd ~/Documents/notes
+    cd "$NOTES_DIR"
     # If fzf is present, use it, ls otherwise
     [ -e '/usr/bin/fzf' ] || ls && fzf_nav
 fi
 }
 
 # Copy output of a command
-copy_output() {
-history 50 |
-    sed 's/[0-9]*\s\s//g' |
-    grep -v 'copy_output' |
+copy_history() {
+history |
     tac |
-    menu "Copy output:" |
-    $SHELL |
+    fzf --cycle --height=50% --border top |
+    sed 's/^\s*[0-9]*\s*//g' |
+    tr -d '\n' |
     xsel -ib
 }
-
