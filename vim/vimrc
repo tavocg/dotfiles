@@ -41,11 +41,12 @@ noremap <C-c> :bd<CR>
 noremap <C-s> :w<CR>
 noremap <A-h> 5<C-w><
 noremap <A-l> 5<C-w>>
+noremap H :nohl<CR>
 noremap <Space> za
 noremap N /@@@<CR>
 
 " notes
-autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
+"autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
 
 " groff
 autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
@@ -107,6 +108,7 @@ endif
 
 call plug#begin()
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'Yggdroot/indentLine'
@@ -123,6 +125,11 @@ let g:gruvbox_contrast_hard=1
 let g:gruvbox_italic=1
 set background=dark
 colorscheme gruvbox
+
+" AutoComplPop
+inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"
+set completeopt=menuone,longest
+set complete+=kspell
 
 " Airline
 let g:airline#extensions#tabline#buffer_min_count = 2
