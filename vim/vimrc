@@ -39,8 +39,8 @@ noremap <C-e> !!$SHELL<CR>
 noremap <tab> :bn<CR>
 noremap <C-c> :bd<CR>
 noremap <C-s> :w<CR>
-noremap <A-h> 5<C-w>>
-noremap <A-l> 5<C-w><
+noremap <A-h> 5<C-w><
+noremap <A-l> 5<C-w>>
 noremap <Space> za
 noremap N /@@@<CR>
 
