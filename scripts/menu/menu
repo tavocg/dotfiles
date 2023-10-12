@@ -2,19 +2,22 @@
 # Script for using either bemenu or dmenu
 # with preconfigured options
 
-# Simple configuration
+# Configuration
 MENU="dmenu"
 col_main="#83a598"
 col_second="#121212"
+font_bemenu="JetbrainsMono"
+font_dmenu="JetbrainsMono:size=10"
 
-# If given 'pass' as arg,
-# format accordingly
-PROMPT="$1"
-MODE="$2"
-
+# Case 'pass' argument is given format accordingly
+PROMPT="$1" ; MODE="$2"
 [ "$MODE" = "pass" ] &&
-    BPASS="-x" &&
-    DPASS="-P"
+    BPASS="-x" && DPASS="-P"
+
+if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then
+    printf "Usage: menu [prompt] [run/pass/empty]"
+    return 0
+fi
 
 # bemenu opts
 BEMENU_OPTS=" \
@@ -34,31 +37,29 @@ BEMENU_OPTS=" \
     --ab $col_second \
     --af $col_main \
     --bdr $col_main \
-    -p $PROMPT \
+    --fn "$font_bemenu" \
+    -p "$PROMPT" \
     $BPASS \
 "
+
+# dmenu opts
+DMENU_OPTS=" \
+    -c \
+    -i \
+    -l 10 \
+    -nb $col_second \
+    -nf $col_main \
+    -sb $col_main \
+    -sf $col_second \
+    -fn "$font_dmenu" \
+    -p "$PROMPT" \
+    $DPASS \
+"
+
 # If chosen bemenu, use this args
 [ "$MENU" = "bemenu" ] &&
     OPTS="$BEMENU_OPTS" &&
     RUN="-run"
-
-# dmenu opts
-DMENU_OPTS=" \
-    -i \
-    -l 10 \
-    -p $PROMPT \
-    $DPASS \
-"
-# DMENU_OPTS=" \
-#     -i \
-#     -l 10 \
-#     -nb $col_second \
-#     -nf $col_main \
-#     -sb $col_main \
-#     -sf $col_second \
-#     -p $PROMPT \
-#     $DPASS \
-# "
 
 # If chosen dmenu, use this args
 [ "$MENU" = "dmenu" ] &&
