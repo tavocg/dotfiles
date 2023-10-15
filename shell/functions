@@ -3,7 +3,7 @@
 # Navigate using fzf
 fzf_nav() {
 [ -d "$1" ] && cd "$1"
-opt=$(fzf --cycle --reverse --preview 'p {}' --height=50% --border top)
+opt=$(fzf --layout=reverse-list --cycle --preview 'p {}' --height=50% --border top --prompt='⯈ ')
 [ -n "$opt" ] && o "$opt"
 }
 
@@ -25,8 +25,7 @@ fi
 # Copy output of a command
 copy_history() {
 history |
-    tac |
-    fzf --cycle --height=50% --border top |
+    fzf --cycle --height=50% --border top --tac --prompt='⯈ ' |
     sed 's/^\s*[0-9]*\s*//g' |
     tr -d '\n' |
     xsel -ib
