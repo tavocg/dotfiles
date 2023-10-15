@@ -1,4 +1,7 @@
 #!/bin/sh
 # Open 'surf' browser with tabbed
 
-tabbed -c /usr/bin/surf -e || tabbed -c /usr/local/bin/surf -e
+HOME=$HOME/.local/share/surf
+mkdir -p "$HOME"
+
+exec tabbed -c /usr/bin/surf -e "$@" || exec tabbed -c /usr/local/bin/surf -e "$@"
