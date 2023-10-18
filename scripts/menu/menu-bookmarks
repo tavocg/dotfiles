@@ -3,7 +3,7 @@
 BOOKMARKS="$HOME/Documents/bookmarks"
 
 # Print site names, then get URL based on the name. Exit if empty
-name="$(grep -v '^Watch\slater:\s.*' "$BOOKMARKS" | sed '/^\s*$/d;/^#.*$/d;s/-.*$//g' | menu "Site:")"
+name="$(sed '/^Watch\slater:\s/d;/^\s*$/d;/^#/d;s/-.*$//g' "$BOOKMARKS" | menu "Site:")"
 [ -z "$name" ] && exit
 
 grep "$name" $BOOKMARKS | sed -z 's/^.*-//g;s/\n//g' |
