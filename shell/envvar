@@ -10,6 +10,8 @@ PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 
 # Common
 export \
+    HISTIZE= \
+    HISTFILESIZE= \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \

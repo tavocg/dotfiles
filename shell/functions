@@ -24,9 +24,10 @@ fi
 
 # Copy output of a command
 copy_history() {
+HISTTIMEFORMAT="%F %T "
 history |
+    head -n -1 |
     fzf --cycle --height=50% --border top --tac --prompt='⯈ ' |
-    sed 's/^\s*[0-9]*\s*//g' |
-    tr -d '\n' |
+    sed -z 's/^.*:[0-9]*\s*//g;s/\s*$//g' |
     xsel -ib
 }

@@ -10,4 +10,5 @@ snippet=$(ls "$snippets" | menu "Snippet:")
 [ -z "$snippet" ] && exit
 
 # Copy to clipboard and notify otherwise
-cat "$snippets"/"$snippet" | xsel -ib && notify-send "Snippet" "'$snippet' copied to clipboard!"
+printf '%s' "$(cat $snippets/$snippet)" |
+    xsel -ib && notify-send "Snippet" "'$snippet' copied to clipboard!"
