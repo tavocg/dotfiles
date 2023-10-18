@@ -1,9 +1,10 @@
 #!/bin/sh
 # Open URLs from bookmarks file
+BOOKMARKS="$HOME/Documents/bookmarks"
 
 # Print site names, then get URL based on the name. Exit if empty
-name=$(cut -d '-' -f 1 $HOME/Documents/bookmarks | grep -v '^#' | sed '/^\s*$/d' | menu "Site:")
+name="$(grep -v '^Watch\slater:\s.*' "$BOOKMARKS" | sed '/^\s*$/d;/^#.*$/d;s/-.*$//g' | menu "Site:")"
 [ -z "$name" ] && exit
 
-grep "$name" $HOME/Documents/bookmarks | cut -d '-' -f 2- | tr -d '\n' |
+grep "$name" $BOOKMARKS | sed -z 's/^.*-//g;s/\n//g' |
     xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"
