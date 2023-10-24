@@ -44,6 +44,18 @@ if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
     FILE="$TEMP"
 fi
 
-# Enable custom macros   | Bibliography    | Generate PDF using preprocessors
-soelim -I "$MAC" "$FILE" | refer -p "$BIB" | groff -mspdf -T pdf -U "$PRE"
+sed "
+s/Á/\\\['A\]/g;
+s/É/\\\['E\]/g;
+s/Í/\\\['I\]/g;
+s/Ó/\\\['O\]/g;
+s/Ú/\\\['U\]/g;
+s/á/\\\['a\]/g;
+s/é/\\\['e\]/g;
+s/í/\\\['i\]/g;
+s/ó/\\\['o\]/g;
+s/ú/\\\['u\]/g;
+" "$FILE" |
+    soelim -I "$MAC" | refer -p "$BIB" | groff -mspdf -T pdf -U "$PRE"
+
 rm -f "$TEMP"
