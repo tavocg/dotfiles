@@ -1,0 +1,18 @@
+#!/bin/sh
+
+FOLDER="$1"
+
+# Configs
+STYLE="t3mujinpack - Color Negative|Kodak Portra 400 UC"
+EXTENSION=".jpg"
+LONG_EDGE=1920
+QUALITY=89
+
+darktable-cli \
+    --import "$FOLDER" \
+    --width "$LONG_EDGE" \
+    --height "$LONG_EDGE" \
+    --out-ext "$EXTENSION" \
+    --style "$STYLE" \
+    "${FOLDER%%/}/darktable_export/IMG.jpg" \
+    --core --conf plugins/imageio/format/jpeg/quality=$QUALITY \
