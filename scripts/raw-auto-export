@@ -17,6 +17,3 @@ darktable-cli \
     "${FOLDER%%/}/darktable_export/IMG.jpg" \
     --core --conf plugins/imageio/format/jpeg/quality=$QUALITY \
 
-for IMAGE in "${FOLDER%%/}/darktable_export/*" ; do
-    convert $IMAGE -auto-level -auto-gamma ${IMAGE%%.*}-auto.$EXTENSION
-done
