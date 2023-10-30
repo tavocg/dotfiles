@@ -1,0 +1,42 @@
+#!/bin/sh
+TEMP_DIR="$HOME/Public/share"
+PORT=8000
+
+help() {
+    printf "\033[2mUsage:\033[0m share [DIRECTORY/FILE]\n"
+    exit 0
+}
+
+error() {
+    printf "\033[31mError:\033[0m %s\n" "$1"
+    exit 1
+}
+
+# If no location is given, print help and exit
+LOC="$1" ; [ -n "$LOC" ] || help
+
+# Look for ifconfig
+[ -e "/sbin/ifconfig" ] && CMD="/sbin/ifconfig"
+[ -e "$(which ifconfig)" ] && CMD="ifconfig"
+[ -n "$CMD" ] || error "ifconfig not found"
+
+# Use ifconfig to get ip address
+ADDR="$($CMD | grep 'broadcast' | sed 's/\s*inet\s*//g;s/\s*netmask.*//g')"
+
+# If location is directory, define DIR as location,
+# otherwise, define DIR as TEMP_DIR
+[ -d "$LOC" ] && DIR="$LOC" || DIR="$TEMP_DIR"
+
+# If file is inside TEMP_DIR, print error
+[ "$DIR" = "$TEMP_DIR" ] &&
+    readlink -f "$LOC" | grep -q "$TEMP_DIR" &&
+    error "File can't be inside $TEMP_DIR directory"
+
+# If using TEMP_DIR, create dir and move
+# files inside dir
+[ "$DIR" = "$TEMP_DIR" ] &&
+    rm -rf "$DIR" &&
+    mkdir -p "$TEMP_DIR" &&
+    cp -f "$LOC" "$DIR/"
+
+python -m http.server -b "$ADDR" "$PORT" -d "$DIR"

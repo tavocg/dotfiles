@@ -1,0 +1,10 @@
+#!/bin/sh
+NULL_PTR="https://0x0.st"
+
+LOC="$1"
+FILE="${LOC%%/}.zip"
+zip -r "$FILE" "$LOC"
+zipcloak "$FILE"
+
+curl -F"file=@$FILE" "$NULL_PTR"
+rm -rf "$FILE"
