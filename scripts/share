@@ -1,15 +1,28 @@
 #!/bin/sh
+TEMP_DIR="$HOME/Public"
+PORT=8000
 
 help() {
     printf "\033[2mUsage:\033[0m share [DIRECTORY/FILE]\n"
     exit 0
 }
 
-LOC="$1" ; [ -n "$LOC" ] || help
-TEMP_DIR="$HOME/Public"
+ifconfig_not_found() {
+    printf "\033[31mError:\033[0m ifconfig not found\n"
+    exit 0
+}
+
+LOC="$1"
+[ -n "$LOC" ] || help
+
+[ -e "/sbin/ifconfig" ] && CMD="/sbin/ifconfig"
+[ -e "$(which ifconfig)" ] && CMD="ifconfig"
+[ -n "$CMD" ] || ifconfig_not_found
+
+ADDR="$($CMD | grep 'broadcast' | sed 's/\s*inet\s*//g;s/\s*netmask.*//g')"
 
 [ -d "$LOC" ] && DIR="$LOC" || DIR="$TEMP_DIR"
 [ "$DIR" = "$TEMP_DIR" ] && mkdir -p "$TEMP_DIR" && cp -f "$LOC" "$DIR/"
 
-python -m http.server -b 0.0.0.0 8000 -d "$DIR"
+python -m http.server -b "$ADDR" "$PORT" -d "$DIR"
 [ "$DIR" = "$TEMP_DIR" ] && rm -rf "$DIR"
