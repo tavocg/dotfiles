@@ -6,7 +6,7 @@ help() {
 }
 
 LOC="$1" ; [ -n "$LOC" ] || help
-TEMP_DIR="/tmp/sharedir"
+TEMP_DIR="$HOME/Public"
 
 [ -d "$LOC" ] && DIR="$LOC" || DIR="$TEMP_DIR"
 [ "$DIR" = "$TEMP_DIR" ] && mkdir -p "$TEMP_DIR" && cp -f "$LOC" "$DIR/"
