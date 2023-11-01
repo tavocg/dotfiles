@@ -1,9 +1,8 @@
 #!/bin/sh
-
 FOLDER="$1"
+STYLE="$2" # moody_bw, teal
 
 # Configs
-STYLE="t3mujinpack - Color Negative|Kodak Portra 400 UC"
 EXTENSION="jpg"
 LONG_EDGE=1920
 QUALITY=89
