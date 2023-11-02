@@ -1,0 +1,99 @@
+#!/bin/sh
+OPTION="$1"
+IMAGE="$2"
+CANVAS="$3"
+
+# --- Error handling and dialogues ---
+
+dialogue() {
+    printf "\033[2m%s\n> \033[0m" "$1"
+}
+
+help() {
+    printf "\
+\033[2mUsage: \033[0m
+    magick-quick [OPTION] [IMAGE/CANVAS/...]
+\033[2mAvailable options:\033[0m
+    \033[1mrmbg\033[0m [IMAGE] - Removes background from an image
+    \033[1mtrim\033[0m [IMAGE] - Crop to content (remove whitespace)
+    \033[1mcanvas\033[0m - Create an empty canvas
+    \033[1mresize\033[0m [IMAGE] - Resize image
+    \033[1mplace\033[0m [IMAGE] [CANVAS] - Place images on a canvas
+    \033[1mmetastrip\033[0m [IMAGE] - Strip image metadata
+    \033[1mlimisize\033[0m [IMAGE] - Limit file size (only outputs jpg)
+"
+}
+
+error() {
+    printf "\033[31mError:\033[0m \033[2m%s\033[0m\n\n" "$1"
+    help
+    exit 1
+}
+
+test_image() {
+    [ -z "$IMAGE" ] && error "Missing image argument"
+    [ -e "$IMAGE" ] || error "Can't find image: '"$IMAGE"'"
+}
+
+test_canvas() {
+    [ -z "$CANVAS" ] && error "Missing canvas argument"
+    [ -e "$CANVAS" ] || error "Can't find canvas: '"$canvas"'"
+}
+
+# --- Available functions ---
+
+rmbg() {
+    test_image
+    dialogue "Background color to remove (hex):" && read -r COL_BG
+    dialogue "Fuzz percentage (e.g. 10%): " && read -r FUZZ
+    convert -transparent "$COL_BG" -fuzz  "$FUZZ" "$IMAGE" "${IMAGE%%.*}-transparent.png"
+}
+
+trim() {
+    test_image
+    convert -trim "$IMAGE" "${IMAGE%%.*}-trimmed.png"
+}
+
+canvas() {
+    dialogue "Canvas size (resolution) (e.g. 1920x1080):" && read -r CANVAS_SIZE
+    dialogue "Canvas color (hex): " && read -r COL_CANVAS
+    convert -size "$CANVAS_SIZE" canvas:"$COL_CANVAS" canvas.png
+}
+
+resize() {
+    test_image
+    dialogue "Resize to dimensions (e.g. x1080, 1280x720):" && read -r DIMS
+    convert -resize "$DIMS" "$IMAGE" "${IMAGE%%.*}-resized.png"
+}
+
+place() {
+    test_image && test_canvas
+    dialogue "Gravity (position) (e.g. east, northwest, center):" && read -r GRAV
+    convert "$CANVAS" -gravity "$GRAV" "$IMAGE" -composite "${IMAGE%%.*}-composite.png"
+}
+
+metastrip() {
+    test_image
+    exiftool -all= "$IMAGE"
+}
+
+limisize() {
+    test_image
+    dialogue "Maximum file size in kb (e.g. 150kb) (only outputs jpeg images):" && read -r FSIZE
+    convert -define jpeg:extent="$FSIZE" "$IMAGE" ${IMAGE%%.*}-limisized.jpg
+}
+
+# --- Input handling ---
+
+[ -z "$OPTION" -o "$OPTION" = "help" ] && help && exit 0
+
+case "$OPTION" in
+    rmbg) rmbg;;
+    trim) trim;;
+    canvas) canvas;;
+    resize) resize;;
+    place) place;;
+    metastrip) metastrip;;
+    limisize) limisize;;
+    *) error "Can't find '"$OPTION"' option";;
+esac
