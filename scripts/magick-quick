@@ -56,8 +56,9 @@ trim() {
 
 canvas() {
     dialogue "Canvas size (resolution) (e.g. 1920x1080):" && read -r CANVAS_SIZE
-    dialogue "Canvas color (hex): " && read -r COL_CANVAS
-    convert -size "$CANVAS_SIZE" canvas:"$COL_CANVAS" canvas.png
+    dialogue "Operator [canvas (solid)/gradient (gradient)/plasma (random)]:" && read -r OP_MODE
+    dialogue "Canvas color (hex or name) (e.g. blue, blue-purple, darkblue):" && read -r COL_CANVAS
+    convert -size "$CANVAS_SIZE" "$OP_MODE":"$COL_CANVAS" canvas.png
 }
 
 resize() {
@@ -71,6 +72,8 @@ place() {
     dialogue "Gravity (position) (e.g. east, northwest, center):" && read -r GRAV
     convert "$CANVAS" -gravity "$GRAV" "$IMAGE" -composite "${IMAGE%%.*}-composite.png"
 }
+
+# --- File manipulation ---
 
 metastrip() {
     test_image
