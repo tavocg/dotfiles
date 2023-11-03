@@ -1,11 +1,12 @@
 #!/bin/sh
 # Prompt for power options using dmenu
 
-option=$(printf "Shutdown\nRestart" | menu "Power:")
+option=$(printf "Shutdown\nRestart\nLog out" | menu "Power:")
 
 case "$option" in
 	"Shutdown") sudo poweroff ;;
 	"Restart") sudo reboot ;;
+	"Log out") killall xinit;;
 	*) exit 1 ;;
 esac
 
