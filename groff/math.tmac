@@ -77,3 +77,15 @@ define box 'special Bx'
 .  nr 0d +1n
 .  nr 0h +1n
 ..
+.\" Draws a straight line
+.\" for equation systems
+.EQ
+define matrixsep 'special Mx'
+.EN
+.de Mx
+.  ds 0s \
+\Z'\\*(0s'\
+\v'\\n(0du'\
+\D'l \\n(1wu -\\n(0hu-\\n(0du'\
+\v'\\n(0hu'
+..
