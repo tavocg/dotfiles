@@ -2,12 +2,12 @@
 .device papersize=8.5i,11i
 .
 .\" Calculate line length with PO
-.de CALCLL
 .if (\\n[PO] == 0) \{\
 .   \" If PO not defined, set to 1i
 .   nr PO 1i
 .\}
+.
+.\" Define line and header/footer
+.\" lengh as such
 .nr LL \\n[PO]*-2+8.5i
 .nr LT \\n[PO]*-2+8.5i
-..
-.CALCLL
