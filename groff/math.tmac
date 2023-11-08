@@ -92,3 +92,14 @@ define eval 'special Ev'
 \v'\\n(0hu-0.1n'\
 \h'0.3n'
 ..
+.\" Roots of n index
+.\" with `root {x} sup n`
+.EQ
+define root % sqrt special Rt %
+.EN
+.de Rt
+.  ds 0s \
+\Z'\h'0.3n'\\*(0s'\
+\h'-\\n(0hu+\\n(0du-0.6n'\
+\v'-\\n(0hu+\\n(0du+0.2n'
+..
