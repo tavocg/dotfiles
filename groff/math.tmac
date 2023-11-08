@@ -54,7 +54,8 @@ define cancel 'special Ca'
 \Z'\\*(0s'\
 \v'\\n(0du'\
 \D'l \\n(0wu -\\n(0hu-\\n(0du'\
-\v'\\n(0hu'
+\v'\\n(0hu'\
+\h'+0.4n'
 ..
 .
 .\" From eqn manual, draws a box
@@ -78,14 +79,16 @@ define box 'special Bx'
 .  nr 0h +1n
 ..
 .\" Draws a straight line
-.\" for equation systems
+.\" for evaluation
 .EQ
-define matrixeq 'special Mx'
+define eval 'special Ev'
 .EN
-.de Mx
+.de Ev
 .  ds 0s \
 \Z'\\*(0s'\
-\v'\\n(0du'\
-\D'l \\n(1wu -\\n(0hu-\\n(0du'\
-\v'\\n(0hu'
+\v'\\n(0du+0.1n'\
+\h'\\n(0wu+0.4n'\
+\D'l 0 -\\n(0hu-\\n(0du'\
+\v'\\n(0hu-0.1n'\
+\h'0.3n'
 ..
