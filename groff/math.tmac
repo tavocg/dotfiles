@@ -44,11 +44,34 @@ define arccoth 'roman "arccoth"'
 define arccsch 'roman "arccsch"'
 .EN
 .
-.\" Laplace transform/Lagrangian in U-BMD font
-.char \[letterlikeL] \f[U-BMD]\[u2112]
+.\" SYMBOLS
+.\" To install CM and CMSS:
+.\" wget www.ams.org/arc/tex/amsfonts.zip
+.\" groff-install-font -F CM -f +R cmr12.pfb
+.\" groff-install-font -F CM -f +I cmmi12.pfb
+.\" groff-install-font -F CM -f +B cmbx12.pfb
+.\" groff-install-font -F CM -f +SS eusm10.pfb
+.\" groff-install-font -F CM -f +SE msam10.pfb
+.\" groff-install-font -F CM -f +SB msbm10.pfb
+.\" ---
+.\" Laplace transform/Lagrangian (CMSS or generic URW)
+.\".char \[letterlikeL] \f[U-HR]\[u2112]
+.char \[letterlikeL] \f[CMSS]L
+.\" Blackboard letters (CMSB)
+.char \[blackboardN] \f[CMSB]N
+.char \[blackboardZ] \f[CMSB]Z
+.char \[blackboardQ] \f[CMSB]Q
+.char \[blackboardR] \f[CMSB]R
+.char \[blackboardC] \f[CMSB]C
+.
 .EQ
 define lap '\[letterlikeL]'
 define lag '\[letterlikeL]'
+define NN '\[blackboardN]'
+define ZZ '\[blackboardZ]'
+define RR '\[blackboardR]'
+define QQ '\[blackboardQ]'
+define CC '\[blackboardC]'
 .EN
 .
 .\" From eqn manual, draws a diagonal
