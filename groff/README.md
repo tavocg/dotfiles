@@ -12,8 +12,8 @@ glyph, search in your system for fonts with that glyph, and
 create a groff font with afmtodit.
 
 ```shell
-grep -r '2112' /usr/share/fonts/* 2>/dev/null
-afmtodit -e text.enc -i0 -m path-to-font.afm /usr/share/groff/current/font/devpdf/map/textmap NAME
+grep -r '2112' /usr/share/fonts/* 2>/dev/null # Check for .afm font files with the glyph
+afmtodit -e text.enc -i0 -m PATH-TO-FONT.afm /usr/share/groff/current/font/devpdf/map/textmap NAME
 mkdir -p /usr/share/groff/site-font/devpdf/ # Create this directory if not already present
 mv NAME /usr/share/groff/site-font/devpdf/
 ```
