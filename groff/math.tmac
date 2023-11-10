@@ -50,13 +50,15 @@ define arccsch 'roman "arccsch"'
 .\" groff-install-font -F CM -f +R cmr12.pfb
 .\" groff-install-font -F CM -f +I cmmi12.pfb
 .\" groff-install-font -F CM -f +B cmbx12.pfb
-.\" groff-install-font -F CM -f +SS eusm10.pfb
-.\" groff-install-font -F CM -f +SE msam10.pfb
-.\" groff-install-font -F CM -f +SB msbm10.pfb
-.\" ---
+.\" groff-install-font -F CM -f +SS eusm10.pfb \" Euler symbols
+.\" groff-install-font -F CM -f +SE msam10.pfb \" Euler extra
+.\" groff-install-font -F CM -f +SB msbm10.pfb \" Blackboard
+.\" groff-install-font -F CM -f +SF eufm10.pfb \" Blackletter (Fraktur)
+.
 .\" Laplace transform/Lagrangian (CMSS or generic URW)
 .\".char \[letterlikeL] \f[U-HR]\[u2112]
 .char \[letterlikeL] \f[CMSS]L
+.
 .\" Blackboard letters (CMSB)
 .char \[blackboardN] \f[CMSB]N
 .char \[blackboardZ] \f[CMSB]Z
@@ -64,14 +66,69 @@ define arccsch 'roman "arccsch"'
 .char \[blackboardR] \f[CMSB]R
 .char \[blackboardC] \f[CMSB]C
 .
+.\" Blackletter letters (CMSF)
+.char \[blackletterA] \f[CMSF]A
+.char \[blackletterB] \f[CMSF]B
+.char \[blackletterC] \f[CMSF]C
+.char \[blackletterD] \f[CMSF]D
+.char \[blackletterE] \f[CMSF]E
+.char \[blackletterF] \f[CMSF]F
+.char \[blackletterG] \f[CMSF]G
+.char \[blackletterH] \f[CMSF]H
+.char \[blackletterI] \f[CMSF]I
+.char \[blackletterJ] \f[CMSF]J
+.char \[blackletterK] \f[CMSF]K
+.char \[blackletterL] \f[CMSF]L
+.char \[blackletterM] \f[CMSF]M
+.char \[blackletterN] \f[CMSF]N
+.char \[blackletterO] \f[CMSF]O
+.char \[blackletterP] \f[CMSF]P
+.char \[blackletterQ] \f[CMSF]Q
+.char \[blackletterR] \f[CMSF]R
+.char \[blackletterS] \f[CMSF]S
+.char \[blackletterT] \f[CMSF]T
+.char \[blackletterU] \f[CMSF]U
+.char \[blackletterV] \f[CMSF]V
+.char \[blackletterW] \f[CMSF]W
+.char \[blackletterX] \f[CMSF]X
+.char \[blackletterY] \f[CMSF]Y
+.char \[blackletterZ] \f[CMSF]Z
+.char \[blackletterz] \f[CMSF]z
+.
 .EQ
 define lap '\[letterlikeL]'
 define lag '\[letterlikeL]'
-define NN '\[blackboardN]'
-define ZZ '\[blackboardZ]'
-define RR '\[blackboardR]'
-define QQ '\[blackboardQ]'
-define CC '\[blackboardC]'
+define bbN '\[blackboardN]'
+define bbZ '\[blackboardZ]'
+define bbR '\[blackboardR]'
+define bbQ '\[blackboardQ]'
+define bbC '\[blackboardC]'
+define blA '\[blackletterA]'
+define blB '\[blackletterB]'
+define blC '\[blackletterC]'
+define blD '\[blackletterD]'
+define blE '\[blackletterE]'
+define blF '\[blackletterF]'
+define blG '\[blackletterG]'
+define blH '\[blackletterH]'
+define blI '\[blackletterI]'
+define blJ '\[blackletterJ]'
+define blK '\[blackletterK]'
+define blL '\[blackletterL]'
+define blM '\[blackletterM]'
+define blN '\[blackletterN]'
+define blO '\[blackletterO]'
+define blP '\[blackletterP]'
+define blQ '\[blackletterQ]'
+define blR '\[blackletterR]'
+define blS '\[blackletterS]'
+define blT '\[blackletterT]'
+define blU '\[blackletterU]'
+define blV '\[blackletterV]'
+define blW '\[blackletterW]'
+define blX '\[blackletterX]'
+define blY '\[blackletterY]'
+define blZ '\[blackletterZ]'
 .EN
 .
 .\" From eqn manual, draws a diagonal
