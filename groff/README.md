@@ -6,6 +6,7 @@ present on Debian 12. Compiling it from source is really
 easy though, thanks to GNU's coding standards.
 
 # To install CM font
+Remember to add `-s` option to install in `/usr/share/groff/` instead of `/usr/local/share/groff/`
 ```shell
 wget www.ams.org/arc/tex/amsfonts.zip
 unzip -d amsfonts amsfonts.zip
