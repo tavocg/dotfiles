@@ -12,7 +12,15 @@
 # [-G (grap)]    Typesetting graphs, usually not installed by default and not available on termux repo
 # [-j (chem)]    Chemical structure diagrams, messes with spacing, crashes when using text inside eqn
 
+FILE="$1"
+OUT="${FILE%%.ms}.pdf"
+
 # Configuration
+
+SOELIM="/usr/local/bin/soelim"     # soelim PATH
+REFER="/usr/local/bin/refer"       # refer PATH
+GROFF="/usr/local/bin/groff"       # groff PATH
+
 BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
 PRE="-ketpG"                       # Preprocessors
@@ -29,7 +37,6 @@ auto_pdfpic() {
 
 # If there is any .IMG command, replace with
 # auto_pdfpic output in a temp file.
-FILE="$1"
 if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
     TEMP="${FILE%%.*}.tmp"
     echo $TEMP
@@ -56,6 +63,6 @@ s/í/\\\['i\]/g;
 s/ó/\\\['o\]/g;
 s/ú/\\\['u\]/g;
 " "$FILE" |
-    soelim -I "$MAC" | refer -p "$BIB" | groff -mspdf -T pdf -U "$PRE"
+    "$SOELIM" -I "$MAC" | "$REFER" -p "$BIB" | "$GROFF" -mspdf -T pdf -U "$PRE" > "$OUT"
 
 rm -f "$TEMP"

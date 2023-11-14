@@ -13,10 +13,10 @@ unzip -d amsfonts amsfonts.zip
 groff-install-font -F CM -f +R amsfonts/fonts/type1/public/amsfonts/cm/cmr10.pfb
 groff-install-font -F CM -f +I amsfonts/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 groff-install-font -F CM -f +B amsfonts/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-groff-install-font -F CM -f +SS amsfonts/fonts/type1/public/amsfonts/euler/eusm10.pfb   \" Euler symbols
-groff-install-font -F CM -f +SE amsfonts/fonts/type1/public/amsfonts/symbols/msam10.pfb \" Euler extra
-groff-install-font -F CM -f +SB amsfonts/fonts/type1/public/amsfonts/symbols/msbm10.pfb \" Blackboard
-groff-install-font -F CM -f +SF amsfonts/fonts/type1/public/amsfonts/euler/eufm10.pfb   \" Blackletter (Fraktur)
+groff-install-font -F CM -f +SS amsfonts/fonts/type1/public/amsfonts/euler/eusm10.pfb   # Euler symbols
+groff-install-font -F CM -f +SE amsfonts/fonts/type1/public/amsfonts/symbols/msam10.pfb # Euler extra
+groff-install-font -F CM -f +SB amsfonts/fonts/type1/public/amsfonts/symbols/msbm10.pfb # Blackboard
+groff-install-font -F CM -f +SF amsfonts/fonts/type1/public/amsfonts/euler/eufm10.pfb   # Blackletter (Fraktur)
 ```
 
 # Custom fonts & glyphs
