@@ -4,20 +4,24 @@
 .EQ
 delim $$
 define / 'over'
-define deg '{\[de]}'
-define . '{~ \[md] ~}'
-define * '{~ \[mu] ~}'
-define +- '{~ \[+-] ~}'
-define -+ '{~ + bar ~}'
-define tf '{~ \[tf] ~}'
-define << '{~ \[la] ~}'
-define >> '{~ \[ra] ~}'
-define ok '{~ \[OK] ~}'
+define pow 'sup'
+define . '{ \[md] }'
+define * '{ \[mu] }'
+define ** '{ \[**] }'
+define +- '{ \[+-] }'
+define -+ '{ + bar }'
+define tf '{ \[tf] }'
+define << '{ \[<<] }'
+define >> '{ \[>>] }'
+define <( '{ \[la] }'
+define )> '{ \[ra] }'
+define ok '{ \[OK] }'
+define in '{ \[mo] }'
+define deg '{ \[de] }'
+define and '{ \[AN] }'
+define div '{ \[di] }'
 define grad '{ \[gr] }'
-define and '{~ \[AN] ~}'
-define div '{~ \[di] ~}'
-define <<< '{~ \[<<] ~}'
-define >>> '{~ \[>>] ~}'
+define aleph '{ \[Ah] }'
 define sen 'roman "sen"'
 define tan 'roman "tan"'
 define sec 'roman "sec"'
@@ -42,58 +46,208 @@ define arcsech 'roman "arcsech"'
 define arccosh 'roman "arccosh"'
 define arccoth 'roman "arccoth"'
 define arccsch 'roman "arccsch"'
+define #A '{ \f[B]A\fP }'
+define #B '{ \f[B]B\fP }'
+define #C '{ \f[B]C\fP }'
+define #D '{ \f[B]D\fP }'
+define #E '{ \f[B]E\fP }'
+define #F '{ \f[B]F\fP }'
+define #G '{ \f[B]G\fP }'
+define #H '{ \f[B]H\fP }'
+define #I '{ \f[B]I\fP }'
+define #J '{ \f[B]J\fP }'
+define #K '{ \f[B]K\fP }'
+define #L '{ \f[B]L\fP }'
+define #M '{ \f[B]M\fP }'
+define #N '{ \f[B]N\fP }'
+define #O '{ \f[B]O\fP }'
+define #P '{ \f[B]P\fP }'
+define #Q '{ \f[B]Q\fP }'
+define #R '{ \f[B]R\fP }'
+define #S '{ \f[B]S\fP }'
+define #T '{ \f[B]T\fP }'
+define #U '{ \f[B]U\fP }'
+define #V '{ \f[B]V\fP }'
+define #W '{ \f[B]W\fP }'
+define #X '{ \f[B]X\fP }'
+define #Y '{ \f[B]Y\fP }'
+define #Z '{ \f[B]Z\fP }'
+define #a '{ \f[B]a\fP }'
+define #b '{ \f[B]b\fP }'
+define #c '{ \f[B]c\fP }'
+define #d '{ \f[B]d\fP }'
+define #e '{ \f[B]e\fP }'
+define #f '{ \f[B]f\fP }'
+define #g '{ \f[B]g\fP }'
+define #h '{ \f[B]h\fP }'
+define #i '{ \f[B]i\fP }'
+define #j '{ \f[B]j\fP }'
+define #k '{ \f[B]k\fP }'
+define #l '{ \f[B]l\fP }'
+define #m '{ \f[B]m\fP }'
+define #n '{ \f[B]n\fP }'
+define #o '{ \f[B]o\fP }'
+define #p '{ \f[B]p\fP }'
+define #q '{ \f[B]q\fP }'
+define #r '{ \f[B]r\fP }'
+define #s '{ \f[B]s\fP }'
+define #t '{ \f[B]t\fP }'
+define #u '{ \f[B]u\fP }'
+define #v '{ \f[B]v\fP }'
+define #w '{ \f[B]w\fP }'
+define #x '{ \f[B]x\fP }'
+define #y '{ \f[B]y\fP }'
+define #z '{ \f[B]z\fP }'
 .EN
 .
 .\" SYMBOLS
 .
+.char \[letterlikeA] \f[CMSS]A\fP
+.char \[letterlikeB] \f[CMSS]B\fP
+.char \[letterlikeC] \f[CMSS]C\fP
+.char \[letterlikeD] \f[CMSS]D\fP
+.char \[letterlikeE] \f[CMSS]E\fP
+.char \[letterlikeF] \f[CMSS]F\fP
+.char \[letterlikeG] \f[CMSS]G\fP
+.char \[letterlikeH] \f[CMSS]H\fP
+.char \[letterlikeI] \f[CMSS]I\fP
+.char \[letterlikeJ] \f[CMSS]J\fP
+.char \[letterlikeK] \f[CMSS]K\fP
 .\" Laplace transform/Lagrangian (CMSS or generic URW)
 .\".char \[letterlikeL] \f[U-HR]\[u2112]
-.char \[letterlikeL] \f[CMSS]L
-.
-.\" Blackboard letters (CMSB)
-.char \[blackboardN] \f[CMSB]N
-.char \[blackboardZ] \f[CMSB]Z
-.char \[blackboardQ] \f[CMSB]Q
-.char \[blackboardR] \f[CMSB]R
-.char \[blackboardC] \f[CMSB]C
-.
-.\" Blackletter letters (CMSF)
-.char \[blackletterA] \f[CMSF]A
-.char \[blackletterB] \f[CMSF]B
-.char \[blackletterC] \f[CMSF]C
-.char \[blackletterD] \f[CMSF]D
-.char \[blackletterE] \f[CMSF]E
-.char \[blackletterF] \f[CMSF]F
-.char \[blackletterG] \f[CMSF]G
-.char \[blackletterH] \f[CMSF]H
-.char \[blackletterI] \f[CMSF]I
-.char \[blackletterJ] \f[CMSF]J
-.char \[blackletterK] \f[CMSF]K
-.char \[blackletterL] \f[CMSF]L
-.char \[blackletterM] \f[CMSF]M
-.char \[blackletterN] \f[CMSF]N
-.char \[blackletterO] \f[CMSF]O
-.char \[blackletterP] \f[CMSF]P
-.char \[blackletterQ] \f[CMSF]Q
-.char \[blackletterR] \f[CMSF]R
-.char \[blackletterS] \f[CMSF]S
-.char \[blackletterT] \f[CMSF]T
-.char \[blackletterU] \f[CMSF]U
-.char \[blackletterV] \f[CMSF]V
-.char \[blackletterW] \f[CMSF]W
-.char \[blackletterX] \f[CMSF]X
-.char \[blackletterY] \f[CMSF]Y
-.char \[blackletterZ] \f[CMSF]Z
-.char \[blackletterz] \f[CMSF]z
+.char \[letterlikeL] \f[CMSS]L\fP
+.char \[letterlikeM] \f[CMSS]M\fP
+.char \[letterlikeN] \f[CMSS]N\fP
+.char \[letterlikeO] \f[CMSS]O\fP
+.char \[letterlikeP] \f[CMSS]P\fP
+.char \[letterlikeQ] \f[CMSS]Q\fP
+.char \[letterlikeR] \f[CMSS]R\fP
+.char \[letterlikeS] \f[CMSS]S\fP
+.char \[letterlikeT] \f[CMSS]T\fP
+.char \[letterlikeU] \f[CMSS]U\fP
+.char \[letterlikeV] \f[CMSS]V\fP
+.char \[letterlikeW] \f[CMSS]W\fP
+.char \[letterlikeX] \f[CMSS]X\fP
+.char \[letterlikeY] \f[CMSS]Y\fP
+.char \[letterlikeZ] \f[CMSS]Z\fP
 .
 .EQ
+define llA '\[letterlikeA]'
+define llB '\[letterlikeB]'
+define llC '\[letterlikeC]'
+define llD '\[letterlikeD]'
+define llE '\[letterlikeE]'
+define llF '\[letterlikeF]'
+define llG '\[letterlikeG]'
+define llH '\[letterlikeH]'
+define llI '\[letterlikeI]'
+define llJ '\[letterlikeJ]'
+define llK '\[letterlikeK]'
+define llL '\[letterlikeL]'
+define llM '\[letterlikeM]'
+define llN '\[letterlikeN]'
+define llO '\[letterlikeO]'
+define llP '\[letterlikeP]'
+define llQ '\[letterlikeQ]'
+define llR '\[letterlikeR]'
+define llS '\[letterlikeS]'
+define llT '\[letterlikeT]'
+define llU '\[letterlikeU]'
+define llV '\[letterlikeV]'
+define llW '\[letterlikeW]'
+define llX '\[letterlikeX]'
+define llY '\[letterlikeY]'
+define llZ '\[letterlikeZ]'
 define lap '\[letterlikeL]'
 define lag '\[letterlikeL]'
-define bbN '\[blackboardN]'
-define bbZ '\[blackboardZ]'
-define bbR '\[blackboardR]'
-define bbQ '\[blackboardQ]'
+.EN
+.
+.\" Blackboard letters (CMSB)
+.char \[blackboardA] \f[CMSB]A\fP
+.char \[blackboardB] \f[CMSB]B\fP
+.char \[blackboardC] \f[CMSB]C\fP
+.char \[blackboardD] \f[CMSB]D\fP
+.char \[blackboardE] \f[CMSB]E\fP
+.char \[blackboardF] \f[CMSB]F\fP
+.char \[blackboardG] \f[CMSB]G\fP
+.char \[blackboardH] \f[CMSB]H\fP
+.char \[blackboardI] \f[CMSB]I\fP
+.char \[blackboardJ] \f[CMSB]J\fP
+.char \[blackboardK] \f[CMSB]K\fP
+.char \[blackboardL] \f[CMSB]L\fP
+.char \[blackboardM] \f[CMSB]M\fP
+.char \[blackboardN] \f[CMSB]N\fP
+.char \[blackboardO] \f[CMSB]O\fP
+.char \[blackboardP] \f[CMSB]P\fP
+.char \[blackboardQ] \f[CMSB]Q\fP
+.char \[blackboardR] \f[CMSB]R\fP
+.char \[blackboardS] \f[CMSB]S\fP
+.char \[blackboardT] \f[CMSB]T\fP
+.char \[blackboardU] \f[CMSB]U\fP
+.char \[blackboardV] \f[CMSB]V\fP
+.char \[blackboardW] \f[CMSB]W\fP
+.char \[blackboardX] \f[CMSB]X\fP
+.char \[blackboardY] \f[CMSB]Y\fP
+.char \[blackboardZ] \f[CMSB]Z\fP
+.
+.EQ
+define bbA '\[blackboardA]'
+define bbB '\[blackboardB]'
 define bbC '\[blackboardC]'
+define bbD '\[blackboardD]'
+define bbE '\[blackboardE]'
+define bbF '\[blackboardF]'
+define bbG '\[blackboardG]'
+define bbH '\[blackboardH]'
+define bbI '\[blackboardI]'
+define bbJ '\[blackboardJ]'
+define bbK '\[blackboardK]'
+define bbL '\[blackboardL]'
+define bbM '\[blackboardM]'
+define bbN '\[blackboardN]'
+define bbO '\[blackboardO]'
+define bbP '\[blackboardP]'
+define bbQ '\[blackboardQ]'
+define bbR '\[blackboardR]'
+define bbS '\[blackboardS]'
+define bbT '\[blackboardT]'
+define bbU '\[blackboardU]'
+define bbV '\[blackboardV]'
+define bbW '\[blackboardW]'
+define bbX '\[blackboardX]'
+define bbY '\[blackboardY]'
+define bbZ '\[blackboardZ]'
+.EN
+.
+.\" Blackletter letters (CMSF)
+.char \[blackletterA] \f[CMSF]A\fP
+.char \[blackletterB] \f[CMSF]B\fP
+.char \[blackletterC] \f[CMSF]C\fP
+.char \[blackletterD] \f[CMSF]D\fP
+.char \[blackletterE] \f[CMSF]E\fP
+.char \[blackletterF] \f[CMSF]F\fP
+.char \[blackletterG] \f[CMSF]G\fP
+.char \[blackletterH] \f[CMSF]H\fP
+.char \[blackletterI] \f[CMSF]I\fP
+.char \[blackletterJ] \f[CMSF]J\fP
+.char \[blackletterK] \f[CMSF]K\fP
+.char \[blackletterL] \f[CMSF]L\fP
+.char \[blackletterM] \f[CMSF]M\fP
+.char \[blackletterN] \f[CMSF]N\fP
+.char \[blackletterO] \f[CMSF]O\fP
+.char \[blackletterP] \f[CMSF]P\fP
+.char \[blackletterQ] \f[CMSF]Q\fP
+.char \[blackletterR] \f[CMSF]R\fP
+.char \[blackletterS] \f[CMSF]S\fP
+.char \[blackletterT] \f[CMSF]T\fP
+.char \[blackletterU] \f[CMSF]U\fP
+.char \[blackletterV] \f[CMSF]V\fP
+.char \[blackletterW] \f[CMSF]W\fP
+.char \[blackletterX] \f[CMSF]X\fP
+.char \[blackletterY] \f[CMSF]Y\fP
+.char \[blackletterZ] \f[CMSF]Z\fP
+.
+.EQ
 define blA '\[blackletterA]'
 define blB '\[blackletterB]'
 define blC '\[blackletterC]'
@@ -120,6 +274,12 @@ define blW '\[blackletterW]'
 define blX '\[blackletterX]'
 define blY '\[blackletterY]'
 define blZ '\[blackletterZ]'
+.EN
+.
+.char \[oint] \f[U-HR]\s'+4'\[u222E]\fP
+.
+.EQ
+define oint '{ \[oint] }'
 .EN
 .
 .\" From eqn manual, draws a diagonal
