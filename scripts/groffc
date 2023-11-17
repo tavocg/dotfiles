@@ -2,8 +2,8 @@
 # Compiler script for groff
 #
 # TODO:
-# Make groff auto-calculate image height (spacing below)
-# based on given width and the image's aspect ratio
+#  - Make groffc auto-calculate image height (spacing below) (already done with 1.23.0?)
+#    based on given width and the image's aspect ratio.
 #
 # [-k (preconv)] Convert encoding to something groff understands
 # [-e (eqn)]     Format equations for troff or MathML
@@ -14,6 +14,7 @@
 
 FILE="$1"
 OUT="${FILE%%.ms}.pdf"
+[ "$FILE" = "clean" ] && MODE="clean"
 
 # Configuration
 
@@ -25,14 +26,20 @@ BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
 PRE="-ketpG"                       # Preprocessors
 
+print() {
+    printf "\033[2mgroff-compiler:\033[0m \033[32m%s\033[0m\n" "$1"
+}
+
 # Takes a line with .IMG command, converts given image
 # to pdf format and inserts properly formatted .PDFPIC
 auto_pdfpic() {
     LINE="$1"
     IMAGE="$(echo "$LINE" | cut -d '"' -f 2)"
-    [ "$IMAGE" != "${IMAGE%%.*}.pdf" ] && ! [ -e "${IMAGE%%.*}.pdf" ] &&
-        convert -quiet "$IMAGE" "${IMAGE%%.*}.pdf"
-    echo "$LINE" | sed 's|^.IMG|.PDFPIC|' | sed "s|$IMAGE|${IMAGE%%.*}.pdf|"
+    IMAGE_BASE="${IMAGE##*/}"
+    [ "$IMAGE" != "${IMAGE%%.*}.pdf" ] && ! [ -e "_img/${IMAGE_BASE%%.*}.pdf" ] &&
+        mkdir -p "_img" &&
+        convert -quiet "$IMAGE" "_img/${IMAGE_BASE%%.*}.pdf"
+    echo "$LINE" | sed 's|^.IMG|.PDFPIC|' | sed "s|$IMAGE|_img/${IMAGE_BASE%%.*}.pdf|"
 }
 
 # Downloads image
@@ -41,11 +48,20 @@ get_image() {
     URL="$(echo "$LINE" | cut -d '"' -f 2)"
     UID="$(echo "$URL" | sha1sum | head -c 8)"
     EXT="${URL##*.}"
+    echo "$EXT" | grep -q '.jpg\|.png\|.gif\|.svg\|.jpeg\|.tiff' || EXT="img"
     mkdir -p "_img"
     ! [ -e "_img/$UID.$EXT" ] && wget -qO "_img/$UID.$EXT" "$URL"
-    URL="$(echo "$URL" | sed -e 's`[][\\/.*^$]`\\&`g')"
-    echo "$LINE" | sed "s|$URL|_img/$UID\.$EXT|"
+    echo "$LINE" | sed "s|$URL|_img/$UID.$EXT|"
 }
+
+clean() {
+    print "Cleaning up..."
+    for msdoc in *.ms ; do
+        rm -fv ${msdoc%%.*}.pdf
+    done
+    rm -rfv "_img"
+}
+[ "$MODE" = "clean" ] && clean && exit 0
 
 # If there is any .IMG command, replace with
 # auto_pdfpic output in a temp file.
@@ -56,7 +72,7 @@ if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
         LINE="$(grep -m 1 '^.IMG\s' "$TEMP")"
         [ -z "$LINE" ] && break
         echo "$LINE" | grep -q '.*"http.*://.*' &&
-            PREV="$(echo "$LINE" | sed -e 's`[][\\/.*^$]`\\&`g')" &&
+            PREV="$LINE" &&
             LINE="$(get_image "$LINE")" &&
             sed -i "s@$PREV@$LINE@g" "$TEMP"
         NEW_LINE="$(auto_pdfpic "$LINE")"
@@ -66,17 +82,10 @@ if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
 fi
 
 sed "
-s/Á/\\\['A\]/g;
-s/É/\\\['E\]/g;
-s/Í/\\\['I\]/g;
-s/Ó/\\\['O\]/g;
-s/Ú/\\\['U\]/g;
-s/á/\\\['a\]/g;
-s/é/\\\['e\]/g;
-s/í/\\\['i\]/g;
-s/ó/\\\['o\]/g;
-s/ú/\\\['u\]/g;
-" "$FILE" |
-    "$SOELIM" -I "$MAC" | "$REFER" -p "$BIB" | "$GROFF" -mspdf -T pdf -U "$PRE" > "$OUT"
+s/Á/\\\['A\]/g; s/É/\\\['E\]/g; s/Í/\\\['I\]/g; s/Ó/\\\['O\]/g; s/Ú/\\\['U\]/g; s/Ý/\\\['Y\]/g; s/Ć/\\\['C\]/g;
+s/á/\\\['a\]/g; s/é/\\\['e\]/g; s/í/\\\['i\]/g; s/ó/\\\['o\]/g; s/ú/\\\['u\]/g; s/ý/\\\['y\]/g; s/ć/\\\['c\]/g;
+s/Ë/\\\[:E\]/g; s/Ÿ/\\\[:Y\]/g; s/Ü/\\\[:U\]/g; s/Ï/\\\[:I\]/g; s/Ö/\\\[:O\]/g; s/Ä/\\\[:a\]/g;
+s/ë/\\\[:e\]/g; s/ÿ/\\\[:y\]/g; s/ü/\\\[:u\]/g; s/ï/\\\[:i\]/g; s/ö/\\\[:o\]/g; s/ä/\\\[:a\]/g;
+" "$FILE" | "$SOELIM" -I "$MAC" | "$REFER" -p "$BIB" | "$GROFF" -mspdf -T pdf -U "$PRE" > "$OUT"
 
 rm -f "$TEMP"

@@ -50,7 +50,7 @@ noremap N /@@@<CR>
 
 " groff
 autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
-autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groff-compiler %<CR><CR>
+autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groffc %<CR><CR>
 au BufNewFile,BufRead *.ms set filetype=groff
 
 " LaTeX
