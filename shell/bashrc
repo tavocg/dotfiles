@@ -20,6 +20,7 @@ shopt -s autocd                      # cd into dir by typing the name
 set -o vi                            # vi mode
 
 # External configs
+[ -e "$HOME/.config/shell/posix-kit" ] && source ~/.config/shell/posix-kit
 [ -e "$HOME/.config/shell/functions" ] && source ~/.config/shell/functions
 [ -e "$HOME/.config/shell/keybinds" ] && source ~/.config/shell/keybinds
 [ -e "$HOME/.config/shell/xdgspec" ] && source ~/.config/shell/xdgspec

@@ -35,18 +35,32 @@ auto_pdfpic() {
     echo "$LINE" | sed 's|^.IMG|.PDFPIC|' | sed "s|$IMAGE|${IMAGE%%.*}.pdf|"
 }
 
+# Downloads image
+get_image() {
+    LINE="$1"
+    URL="$(echo "$LINE" | cut -d '"' -f 2)"
+    UID="$(echo "$URL" | sha1sum | head -c 8)"
+    EXT="${URL##*.}"
+    mkdir -p "_img"
+    ! [ -e "_img/$UID.$EXT" ] && wget -qO "_img/$UID.$EXT" "$URL"
+    URL="$(echo "$URL" | sed -e 's`[][\\/.*^$]`\\&`g')"
+    echo "$LINE" | sed "s|$URL|_img/$UID\.$EXT|"
+}
+
 # If there is any .IMG command, replace with
 # auto_pdfpic output in a temp file.
 if [ "$(grep '^.IMG\s' "$FILE")" ] ; then
     TEMP="${FILE%%.*}.tmp"
-    echo $TEMP
     cp "$FILE" "$TEMP"
     while true ; do
         LINE="$(grep -m 1 '^.IMG\s' "$TEMP")"
-        [ -n "$LINE" ] &&
-            NEW_LINE="$(auto_pdfpic "$LINE")" &&
-            sed -i "s@$LINE@$NEW_LINE@g" "$TEMP" ||
-            break
+        [ -z "$LINE" ] && break
+        echo "$LINE" | grep -q '.*"http.*://.*' &&
+            PREV="$(echo "$LINE" | sed -e 's`[][\\/.*^$]`\\&`g')" &&
+            LINE="$(get_image "$LINE")" &&
+            sed -i "s@$PREV@$LINE@g" "$TEMP"
+        NEW_LINE="$(auto_pdfpic "$LINE")"
+        sed -i "s@$LINE@$NEW_LINE@g" "$TEMP"
     done
     FILE="$TEMP"
 fi
