@@ -21,7 +21,7 @@ LOC="$1" ; [ -n "$LOC" ] || help
 [ -n "$CMD" ] || error "ifconfig not found"
 
 # Use ifconfig to get ip address
-ADDR="$($CMD | grep 'broadcast' | sed 's/\s*inet\s*//g;s/\s*netmask.*//g')"
+ADDR="$($CMD | grep -o '192\.168\.[0-9]*\.[0-9]*' | head -n 1)"
 
 # If location is directory, define DIR as location,
 # otherwise, define DIR as TEMP_DIR

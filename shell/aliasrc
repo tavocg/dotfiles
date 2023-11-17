@@ -33,6 +33,7 @@ alias \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     wacom-setup-menu="wacom-setup menu" \
     notes="note list" \
+    clip="xsel -ib" \
     def="dict" \
 
 # Launch args
