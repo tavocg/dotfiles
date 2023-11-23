@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+# Written by GPT-3.5
+
+import re
+from datetime import datetime
+import sys
+import os
+import tempfile
+import shutil
+
+def fill_variables(text):
+    # Define a regular expression pattern to find variables like {{entry}}
+    pattern = r'\{\{([^{}]+)\}\}'
+
+    # Find all unique matches in the text
+    unique_matches = set(re.findall(pattern, text))
+
+    # Create a dictionary to store filled values
+    filled_values = {}
+
+    # Prompt the user to fill in the values for each variable
+    for match in unique_matches:
+        if match not in filled_values:
+            replacement = input(f"Fill - {match}: ")
+            filled_values[match] = replacement
+            text = text.replace(f"{{{{{match}}}}}", replacement)
+
+    return text
+
+def main():
+    # Check if the correct number of command-line arguments is provided
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <filename>")
+        sys.exit(1)
+
+    # Get the input file name from the command-line argument
+    input_file_name = sys.argv[1]
+
+    # Read input text from the specified file
+    with open(input_file_name, 'r') as file:
+        text = file.read()
+
+    # Fill variables in the text
+    filled_text = fill_variables(text)
+
+    # Generate the output file name
+    output_file_name = f"{os.path.splitext(input_file_name)[0]}-filled{os.path.splitext(input_file_name)[1]}"
+
+    # Write the filled text to the output file
+    with open(output_file_name, 'w') as output_file:
+        output_file.write(filled_text)
+
+    print(f"Filled text saved to {output_file_name}")
+
+if __name__ == "__main__":
+    main()
