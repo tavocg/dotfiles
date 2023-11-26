@@ -1,5 +1,10 @@
 #!/bin/sh
-# Flashes USB devices
-# Requires 'pv'
+# Guide to flash usb devices
 
-pv $1 > $2 && sync && echo "Done!"
+printf "\033[2mcat:\033[0m cat ISO > /dev/SDX\n"
+printf "\033[2mcp:\033[0m  cp ISO /dev/SDX\n"
+printf "\033[2mdd:\033[0m  dd bs=4M if=ISO of=/dev/SDX conv=fsync oflag=direct status=progress\n"
+printf "\033[2mtee:\033[0m tee < ISO > /dev/SDX\n"
+printf "\033[2mpv:\033[0m  pv ISO > /dev/SDX\n"
+
+printf "\n\033[2mRemember to run 'sync' afterwards\033[0m\n"
