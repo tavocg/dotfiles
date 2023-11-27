@@ -1,0 +1,61 @@
+#!/bin/sh
+# Automate temporary shell envs
+
+OPT="$1"
+ENVDIR="/tmp/env"
+ENVSHELL="/bin/bash"
+
+print_title() {
+    printf "\033[2m%s\033[0m\n" "$1"
+}
+
+print_dialogue() {
+    printf "\033[2m%s:\033[0m " "$1"
+}
+
+print_warning() {
+    printf "\033[31mWarning:\033[0m \033[2m%s\033[0m\n" "$1"
+}
+
+help() {
+    printf "\033[2mUsage:\033[0m envm [list|create|login|delete]\n"
+}
+
+list() {
+    print_title "Current users:"
+    sed '/^env-.*::\/tmp\/env\/.*:\/bin\/bash$/!d;s/^env-//g;s/:.*::/ -> /g;s/:/ -> /g' /etc/passwd
+}
+
+create() {
+    print_warning 'super user privileges are needed for user and home creation'
+    print_dialogue 'Create user' && read -r ENVUSER
+    ENVNAME="env-$ENVUSER"
+    sudo mkdir -p "$ENVDIR"
+    sudo useradd -m -d $ENVDIR/$ENVUSER -s $ENVSHELL $ENVNAME
+}
+
+login() {
+    list && echo
+    print_warning 'super user privileges are needed for login'
+    print_dialogue 'Login as' && read -r ENVUSER
+    [ -z "$ENVUSER" ] && print_warning 'Empty user' && return 0
+    ENVNAME="env-$ENVUSER"
+    sudo su - "$ENVNAME"
+}
+
+delete() {
+    list && echo
+    print_warning 'super user privileges are needed for user and home deletion'
+    print_dialogue 'Delete user' && read -r ENVUSER
+    [ -z "$ENVUSER" ] && print_warning 'Empty user' && return 0
+    ENVNAME="env-$ENVUSER"
+    sudo rm -rfv $ENVDIR/$ENVUSER
+    sudo userdel $ENVNAME
+}
+
+[ "$OPT" = "" ] && help && list
+[ "$OPT" = "help" ] && help
+[ "$OPT" = "list" ] && list
+[ "$OPT" = "create" ] && create
+[ "$OPT" = "login" ] && login
+[ "$OPT" = "delete" ] && delete

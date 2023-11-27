@@ -39,3 +39,5 @@ export \
     CM_SELECTIONS="clipboard" \
     CM_MAX_CLIPS=10 \
 
+export \
+    MOZILLA_CERTIFICATE_FOLDER="$HOME/.local/share/mozilla/.mozilla/firefox/p2uualdb.default"
