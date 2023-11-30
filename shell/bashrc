@@ -9,9 +9,14 @@ prompt_git_branch() {
     [ -n "$GIT_BRANCH" ] && printf "%s " "$GIT_BRANCH"
 }
 
-PS1='\[\033[2m\]($?)\[\033[0m\]\[\033[1m\]\[\033[36m\] \u@\h \[\033[34m\]\w \[\033[35m\]$(prompt_git_branch)\[\033[0m\]\[\033[2m\][\!] \@\n\[\033[0m\]\[\033[2m\]$\[\033[0m\] '
-# Alt PS1 with background
-#PS1='\[\033[2m\]($?) \[\033[1m\]\[\033[46m\] \u@\h \[\033[44m\] \w \[\033[45m\]$(prompt_git_branch)\[\033[0m\] \[\033[2m\][\!] \@\n\[\033[0m\]⯈ '
+PS1='\
+\[\033[2m\]($?) \
+\[\033[0m\]\[\033[1m\]\[\033[36m\]\u\[\033[0m\]\
+\[\033[36m\]@\h\[\033[0m\] \
+\[\033[34m\]\w \
+\[\033[1m\]\[\033[35m\]$(prompt_git_branch)\[\033[0m\]\
+\[\033[2m\][\!] \@\[\033[0m\]\
+\n\[\033[2m\]$\[\033[0m\] '
 PROMPT_COMMAND="echo"                # Line jump after every command
 
 # General configs
