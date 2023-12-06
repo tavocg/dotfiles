@@ -25,6 +25,7 @@ setxkbmap en &
 dwmblocks &
 clipmenud &
 dunst &
+picom --experimental-backends &
 clear &
 
 while true; do
