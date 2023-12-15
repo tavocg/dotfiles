@@ -65,7 +65,7 @@ autocmd BufWinEnter bookmarks silent loadview
 
 " Wiki
 autocmd FileType vimwiki noremap <buffer> <C-s> :w<CR> :VimwikiAll2HTML<CR><CR>
-autocmd FileType vimwiki noremap <buffer> <silent> <F9> :!/bin/surf file:///tmp/wiki/index.html &<CR><CR>
+autocmd FileType vimwiki noremap <buffer> <silent> <F9> :!/bin/surf file://~/.local/share/vimwiki/html/index.html &<CR><CR>
 
 " Open a shell on a vertical split
 set splitright
@@ -166,4 +166,4 @@ highlight SignColumn ctermbg=NONE
 noremap gd :SignifyToggle<CR>
 
 " Vimwiki
-let g:vimwiki_list = [{'path': '~/Documents/', 'path_html': '/tmp/wiki/'}]
+let g:vimwiki_list = [{'path': '~/Documents/', 'path_html': '~/.local/share/vimwiki/html/'}]
