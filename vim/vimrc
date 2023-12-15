@@ -14,7 +14,9 @@ set clipboard=unnamedplus
 set shellcmdflag=-c
 set encoding=utf-8
 set relativenumber
+filetype plugin on
 set shiftwidth=4
+set nocompatible
 set cursorline
 set ignorecase
 set smartcase
@@ -28,11 +30,9 @@ set undofile
 set mouse=a
 set showcmd
 set number
+syntax on
 
 " Global keybindings
-noremap gc :!git commit -m ""<Left>
-noremap gp :!git push<CR>
-noremap gl :!git pull<CR>
 noremap <F5> :setlocal spell! spelllang=en<CR>
 noremap <F6> :setlocal spell! spelllang=es<CR>
 noremap <C-e> !!$SHELL<CR>
@@ -44,9 +44,6 @@ noremap <A-l> 5<C-w>>
 noremap H :nohl<CR>
 noremap <Space> za
 noremap N /@@@<CR>
-
-" notes
-"autocmd BufWritePost note-*.md execute '! git -C ~/Documents/notes/ add ~/Documents/notes/% ; git commit -m "Auto-commit: saved %"'
 
 " groff
 autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
@@ -66,7 +63,9 @@ autocmd BufWinEnter bibliography silent loadview
 autocmd BufWinLeave bookmarks zM | mkview
 autocmd BufWinEnter bookmarks silent loadview
 
-" Neovim exclusive (I think)
+" Wiki
+autocmd FileType vimwiki noremap <buffer> <F9> :w<CR> :VimwikiAll2HTML<CR><CR> :!/bin/surf file:///tmp/wiki/index.html &<CR><CR>
+
 " Open a shell on a vertical split
 set splitright
 function OpenTerminal()
@@ -111,12 +110,14 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-signify'
-Plug 'ibhagwan/fzf-lua' " Neovim exclusive
+Plug 'ibhagwan/fzf-lua'
 Plug 'morhetz/gruvbox'
+Plug 'vimwiki/vimwiki'
 "Plug 'dracula/vim'
 call plug#end()
 
@@ -162,3 +163,6 @@ noremap gf :FzfLua files<CR>
 let g:signify_disable_by_default = 1
 highlight SignColumn ctermbg=NONE
 noremap gd :SignifyToggle<CR>
+
+" Vimwiki
+let g:vimwiki_list = [{'path': '~/Documents/', 'path_html': '/tmp/wiki/'}]
