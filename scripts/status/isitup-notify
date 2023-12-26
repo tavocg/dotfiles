@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ID_START=21
+
+while true ; do
+    for HOST in "$@" ; do
+        DOWN_STATUS="$(isitup "$HOST" | grep 'NO')"
+        ! [ -z "$DOWN_STATUS" ] &&
+            notify-send "$HOST" "$DOWN_STATUS" -t 0 -u critical -r "$ID_START"
+        ID_START=$((ID_START+1))
+    done
+    sleep 3600
+done

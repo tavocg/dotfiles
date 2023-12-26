@@ -4,6 +4,7 @@
 type systemctl 2>/dev/null 1>&2 && if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
     cat ~/Documents/snippets/welcome
     sleep 0.5
-    amixer
+    amixer &
+    isitup-notify $(cat ~/Documents/websites | sed 's/\s*#.*//g;/^$/d') &
     exec startx
 fi
