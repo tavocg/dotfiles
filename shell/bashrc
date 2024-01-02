@@ -35,4 +35,4 @@ set -o vi                            # vi mode
 [ -e "$HOME/.config/shell/dwm" ] && source ~/.config/shell/dwm
 
 # Nice shell welcome
-[ -e "/usr/bin/afetch" ] && (afetch && echo && ls) || (fetch min && echo && ls) 2>/dev/null
+[ -e "/usr/bin/afetch" ] && (afetch) || (fetch min) 2>/dev/null

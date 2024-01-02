@@ -12,23 +12,31 @@
 # [-G (grap)]    Typesetting graphs, usually not installed by default and not available on termux repo
 # [-j (chem)]    Chemical structure diagrams, messes with spacing, crashes when using text inside eqn
 
+BIN="$0"
+
+print_y() {
+    printf "\033[2m%s:\033[0m \033[32m%s\033[0m\n" "$BIN" "$1"
+}
+
+print_n() {
+    printf "\033[2m%s:\033[0m \033[31m%s\033[0m\n" "$BIN" "$1"
+}
+
 FILE="$1"
+[ -z "$FILE" ] && print_n "No file given" && exit 1
 OUT="${FILE%%.ms}.pdf"
 [ "$FILE" = "clean" ] && MODE="clean"
 
-# Configuration
-
-SOELIM="/usr/local/bin/soelim"     # soelim PATH
-REFER="/usr/local/bin/refer"       # refer PATH
-GROFF="/usr/local/bin/groff"       # groff PATH
+[ -e "/usr/local/bin/soelim" ] &&
+    SOELIM="/usr/local/bin/soelim" || SOELIM="/usr/bin/soelim"
+[ -e "/usr/local/bin/refer" ] &&
+    REFER="/usr/local/bin/refer" || REFER="/usr/bin/refer"
+[ -e "/usr/local/bin/groff" ] &&
+    GROFF="/usr/local/bin/groff" || GROFF="/usr/bin/groff"
 
 BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
 PRE="-ketpG"                       # Preprocessors
-
-print() {
-    printf "\033[2mgroff-compiler:\033[0m \033[32m%s\033[0m\n" "$1"
-}
 
 # Takes a line with .IMG command, converts given image
 # to pdf format and inserts properly formatted .PDFPIC
@@ -55,7 +63,7 @@ get_image() {
 }
 
 clean() {
-    print "Cleaning up..."
+    print_y "Cleaning up..."
     for msdoc in *.ms ; do
         rm -fv ${msdoc%%.*}.pdf
     done
