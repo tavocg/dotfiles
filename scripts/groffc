@@ -27,16 +27,21 @@ FILE="$1"
 OUT="${FILE%%.ms}.pdf"
 [ "$FILE" = "clean" ] && MODE="clean"
 
-[ -e "/usr/local/bin/soelim" ] &&
-    SOELIM="/usr/local/bin/soelim" || SOELIM="/usr/bin/soelim"
-[ -e "/usr/local/bin/refer" ] &&
-    REFER="/usr/local/bin/refer" || REFER="/usr/bin/refer"
-[ -e "/usr/local/bin/groff" ] &&
-    GROFF="/usr/local/bin/groff" || GROFF="/usr/bin/groff"
+[ -e "/usr/bin/soelim" ] && SOELIM="/usr/bin/soelim"
+[ -e "/usr/local/bin/soelim" ] && SOELIM="/usr/local/bin/soelim"
+[ -z "$SOELIM" ] && SOELIM="soelim"
+
+[ -e "/usr/bin/refer" ] && REFER="/usr/bin/refer"
+[ -e "/usr/local/bin/refer" ] && REFER="/usr/local/bin/refer"
+[ -z "$REFER" ] && REFER="refer"
+
+[ -e "/usr/bin/groff" ] && GROFF="/usr/bin/groff"
+[ -e "/usr/local/bin/groff" ] && GROFF="/usr/local/bin/groff"
+[ -z "$GROFF" ] && GROFF="groff"
 
 BIB="$HOME/Documents/bibliography" # Bibliography file
 MAC="$HOME/.config/groff/"         # Macros dir
-PRE="-ketpG"                       # Preprocessors
+PRE="-ketp"                        # Preprocessors
 
 # Takes a line with .IMG command, converts given image
 # to pdf format and inserts properly formatted .PDFPIC
