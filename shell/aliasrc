@@ -16,8 +16,10 @@ alias \
     vid="cd $HOME/Videos/ && ls" \
 
 # Common
+
 alias \
-    ls="exa -al --group-directories-first" \
+    ll="exa -al --group-directories-first" \
+    ls="ls -Alh" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
