@@ -1,0 +1,4 @@
+#!/bin/sh
+
+PASS="$(menu-pass)"
+pass -c "$PASS"

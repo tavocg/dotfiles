@@ -4,13 +4,15 @@
 PROMPT="$1" ; MODE="$2"
 
 # Configuration
-MENU="dmenu"
+MENU="fzf" # Default to fzf
 col_nb="#121212" # Normal background
 col_nf="#665c54" # Normal foreground
 col_sb="#d3869b" # Selected background
 col_sf="#121212" # Selected foreground
 font="JetbrainsMono"
 font_size="10"
+
+[ -e "$HOME/.config/menu-config" ] && MENU="$(cat "$HOME/.config/menu-config")"
 
 # Print help
 if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then
@@ -51,7 +53,6 @@ BEMENU_OPTS=" \
 
 # dmenu opts
 DMENU_OPTS=" \
-    -c \
     -i \
     -l 10 \
     -nb $col_nb \
@@ -63,6 +64,12 @@ DMENU_OPTS=" \
     $DPASS \
 "
 
+# dmenu opts
+FZF_OPTS=" \
+    --cycle \
+    --reverse \
+"
+
 # If chosen bemenu, use this args
 [ "$MENU" = "bemenu" ] &&
     OPTS="$BEMENU_OPTS" &&
@@ -72,6 +79,11 @@ DMENU_OPTS=" \
 [ "$MENU" = "dmenu" ] &&
     OPTS="$DMENU_OPTS" &&
     RUN="_run"
+
+# If chosen fzf, use this args
+[ "$MENU" = "fzf" ] &&
+    OPTS="$FZF_OPTS" &&
+    RUN=""
 
 [ "$MODE" = "run" ]   && $MENU$RUN $OPTS
 [ "$MODE" = "pass" ]  && < /dev/null | $MENU $OPTS

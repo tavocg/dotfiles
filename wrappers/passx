@@ -1,0 +1,4 @@
+#!/bin/sh
+
+PASS="$(menu-pass)"
+xdotool type "$(pass "$PASS" | head -n 1)"

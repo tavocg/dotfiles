@@ -1,0 +1,4 @@
+#!/bin/sh
+
+PASS="$(menu-pass)"
+pass "$PASS" | head -n 1 | wtype -

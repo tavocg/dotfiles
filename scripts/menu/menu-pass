@@ -1,15 +1,7 @@
 #!/bin/sh
-# Script for 'pass'
-
+# menu for 'pass'
 PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store"
 
-# Ask for password name in vault
-password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' |
-    sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | menu "Password:")"
+password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | menu "Password:")"
 
-# Exit if none chosen
-[ -z "$password" ] && exit
-
-# If chosen, use xdotool to type it
-xdotool type "$(pass $password | head -1)" &&
-    [ -e /usr/bin/notify-send ] && notify-send " $password" "Successfully decrypted"
+! [ -z "$password" ] && printf '%s' "$password"
