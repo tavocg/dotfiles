@@ -1,29 +1,27 @@
 #!/bin/sh
 # Compiler script for groff
-#
-# TODO:
-#  - Make groffc auto-calculate image height (spacing below) (already done with 1.23.0?)
-#    based on given width and the image's aspect ratio.
-#
 # [-k (preconv)] Convert encoding to something groff understands
 # [-e (eqn)]     Format equations for troff or MathML
 # [-t (tbl)]     Format tables for troff
 # [-p (pic)]     Compile pictures for troff or TeX
 # [-G (grap)]    Typesetting graphs, usually not installed by default and not available on termux repo
 # [-j (chem)]    Chemical structure diagrams, messes with spacing, crashes when using text inside eqn
-
 BIN="$0"
 
-print_y() {
+# Configuration
+BIB="$HOME/Documents/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"         # Macros dir
+PRE="-ketp"                        # Preprocessors
+
+success() {
     printf "\033[2m%s:\033[0m \033[32m%s\033[0m\n" "$BIN" "$1"
 }
-
-print_n() {
+error() {
     printf "\033[2m%s:\033[0m \033[31m%s\033[0m\n" "$BIN" "$1"
 }
 
 FILE="$1"
-[ -z "$FILE" ] && print_n "No file given" && exit 1
+[ -z "$FILE" ] && error "No file given" && exit 1
 OUT="${FILE%%.ms}.pdf"
 [ "$FILE" = "clean" ] && MODE="clean"
 
@@ -38,10 +36,6 @@ OUT="${FILE%%.ms}.pdf"
 [ -e "/usr/bin/groff" ] && GROFF="/usr/bin/groff"
 [ -e "/usr/local/bin/groff" ] && GROFF="/usr/local/bin/groff"
 [ -z "$GROFF" ] && GROFF="groff"
-
-BIB="$HOME/Documents/bibliography" # Bibliography file
-MAC="$HOME/.config/groff/"         # Macros dir
-PRE="-ketp"                        # Preprocessors
 
 # Takes a line with .IMG command, converts given image
 # to pdf format and inserts properly formatted .PDFPIC
@@ -67,8 +61,9 @@ get_image() {
     echo "$LINE" | sed "s|$URL|_img/$UID.$EXT|"
 }
 
+# Remove cached images and generated pdfs
 clean() {
-    print_y "Cleaning up..."
+    success "Cleaning up..."
     for msdoc in *.ms ; do
         rm -fv ${msdoc%%.*}.pdf
     done
