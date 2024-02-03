@@ -1,0 +1,5 @@
+#!/bin/sh
+
+LIST="$(while read line ; do printf "$line $line " ; done < "${1:-/dev/stdin}")"
+
+kdialog --menu "Select an item:" $LIST
