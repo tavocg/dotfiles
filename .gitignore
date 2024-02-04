@@ -204,3 +204,13 @@ menu-config
 nautilus/
 pavucontrol.ini
 kgammarc
+PCSX2/
+dolphin-emu/
+google-chrome-beta/
+google-chrome-unstable/
+google-chrome/
+microsoft-edge-beta/
+microsoft-edge-dev/
+monitors.xml
+qBittorrent/
+retroarch/
