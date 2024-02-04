@@ -4,7 +4,7 @@
 PROMPT="$1" ; MODE="$2"
 
 # Configuration
-MENU="fzf" # Default to fzf
+MENU="bemenu" # Default to fzf
 col_nb="#121212" # Normal background
 col_nf="#665c54" # Normal foreground
 col_sb="#d3869b" # Selected background
@@ -29,10 +29,9 @@ BEMENU_OPTS=" \
     -c \
     -i \
     -l 10 \
-    -M 5 \
     -W 0.3 \
-    -B 2 \
-    --cw 2 \
+    -B 1 \
+    --cw 1 \
     --tb $col_sb \
     --tf $col_sf \
     --fb $col_nb \
