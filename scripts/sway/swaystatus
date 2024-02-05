@@ -52,6 +52,10 @@ get_mic() {
     echo " $bar"
 }
 
+get_net() {
+    netstat
+}
+
 get_bat() {
     total=0
     batteries=0
@@ -103,6 +107,9 @@ while true ; do
     #microphone="$(get_mic)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
+    network="$(get_net)"
+    ! [ -z "$network" ] && status="$status$separator$network"
+
     battery="$(get_bat)"
     ! [ -z "$battery" ] && status="$status$separator$battery"
 
@@ -114,5 +121,5 @@ while true ; do
 
     printf "%s \n" "$status"
     # exit 0 # Testing
-    sleep 0.5
+    sleep 1
 done
