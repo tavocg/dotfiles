@@ -2,4 +2,4 @@
 
 password="$(~/.config/scripts/menu/menu-pass)"
 [ -z "$password" ] && exit
-ydotool type $(pass otp "$password")
+wtype $(pass otp "$password")
