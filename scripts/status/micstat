@@ -9,7 +9,7 @@ vol="${vol%\%*}" # Remove percentage sign
 # If device is off (muted), notify mute, print volume otherwise
 if amixer scontents | grep "Capture" | grep -q "\[off\]"; then
     echo " ──────────"
-    notify-send -u low --replace-id=11 " Microphone" "Mute"
+    notify-send -u low --replace-id=11 " Microphone" "Mute" 2>/dev/null
     exit
 fi
 
@@ -30,4 +30,4 @@ esac
 
 # Print and notify
 echo " $bar"
-notify-send -u low --replace-id=11 " Microphone" "$bar"
+notify-send -u low --replace-id=11 " Microphone" "$bar" 2>/dev/null

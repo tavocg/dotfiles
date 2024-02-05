@@ -1,0 +1,15 @@
+font = /usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Medium.ttf
+font-size = 10
+text-color = #323232
+input-color = #ffffff
+prompt-text = "run: "
+prompt-padding = 0
+placeholder-text = ""
+selection-color = #2e9ef4
+num-results = 0
+width = 30%
+height = 30%
+background-color = #121212
+outline-width = 0
+border-width = 1
+border-color = #2e9ef4

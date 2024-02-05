@@ -28,20 +28,11 @@ case 1 in
     $((bat >= 40))  ) bar="━━━━──────" ;;
     $((bat >= 30))  ) bar="━━━───────" ;;
     $((bat >= 20))  ) bar="━━────────" ;;
-    $((bat >= 10))  ) bar="━!────────" ;;
-    $((bat >= 0))   ) bar="CHARGE NOW" ;;
+    $((bat >= 10))  ) bar="━─────────" ;;
+    $((bat >= 10))  ) bar="──────────" ;;
 esac
+
 
 # Charging indicator if status file indicates such state
 [ "$stat" != "Charging" ] && icon="󰁹" || icon=""
 echo "$icon $bar"
-
-# Warning when battery is under 10% capacity and not charging
-[ $((bat)) -lt 16 ] && [ $((bat)) -gt 14 ] && [ "$stat" != "Charging" ] &&
-    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"
-
-[ $((bat)) -lt 11 ] && [ $((bat)) -gt 9 ] && [ "$stat" != "Charging" ] &&
-    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"
-
-[ $((bat)) -lt 6 ] && [ "$stat" != "Charging" ] &&
-    notify-send --replace-id=15 "󰁹 Battery" "Capacity at $bat%"

@@ -3,4 +3,4 @@
 # then restarts statusbar module
 
 amixer set Master 5%+ unmute
-kill -44 "$(pidof dwmblocks)"
+kill -44 "$(pidof dwmblocks)" 2>/dev/null

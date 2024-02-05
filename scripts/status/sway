@@ -1,0 +1,118 @@
+#!/bin/sh
+
+get_vol() {
+    vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
+    vol="${vol%\%*}" # Remove percentage sign
+
+    if amixer scontents | grep "Playback" | grep -q "\[off\]"; then
+        echo "󰖁 ──────────"
+        exit
+    fi
+
+    case 1 in
+        $((vol >= 100)) ) bar="━━━━━━━━━━" ;;
+        $((vol >= 90))  ) bar="━━━━━━━━━─" ;;
+        $((vol >= 80))  ) bar="━━━━━━━━──" ;;
+        $((vol >= 70))  ) bar="━━━━━━━───" ;;
+        $((vol >= 60))  ) bar="━━━━━━────" ;;
+        $((vol >= 50))  ) bar="━━━━━─────" ;;
+        $((vol >= 40))  ) bar="━━━━──────" ;;
+        $((vol >= 30))  ) bar="━━━───────" ;;
+        $((vol >= 20))  ) bar="━━────────" ;;
+        $((vol >= 10))  ) bar="━─────────" ;;
+        $((vol >= 0))   ) bar="──────────" ;;
+    esac
+
+    echo "󰕾 $bar"
+}
+
+get_mic() {
+    vol=$(amixer | grep "Capture" | grep -o '[0-9]*[0-9]%' | tail -n 1)
+    vol="${vol%\%*}" # Remove percentage sign
+
+    if amixer scontents | grep "Capture" | grep -q "\[off\]"; then
+        echo " ──────────"
+        exit
+    fi
+
+    case 1 in
+        $((vol >= 100)) ) bar="━━━━━━━━━━" ;;
+        $((vol >= 90))  ) bar="━━━━━━━━━─" ;;
+        $((vol >= 80))  ) bar="━━━━━━━━──" ;;
+        $((vol >= 70))  ) bar="━━━━━━━───" ;;
+        $((vol >= 60))  ) bar="━━━━━━────" ;;
+        $((vol >= 50))  ) bar="━━━━━─────" ;;
+        $((vol >= 40))  ) bar="━━━━──────" ;;
+        $((vol >= 30))  ) bar="━━━───────" ;;
+        $((vol >= 20))  ) bar="━━────────" ;;
+        $((vol >= 10))  ) bar="━─────────" ;;
+        $((vol >= 0))   ) bar="──────────" ;;
+    esac
+
+    echo " $bar"
+}
+
+get_bat() {
+    total=0
+    batteries=0
+
+    for battery in /sys/class/power_supply/BAT?* ; do
+        capacity=$(cat $battery/capacity 2>/dev/null || break)
+        total=$((capacity+total))
+        batteries=$(($batteries+1))
+    done
+
+    [ $total -gt 0 ] && bat=$(($total/$batteries)) || bat="󰚥"
+    [ "$bat" = "󰚥" ] && echo "$bat" && exit
+    grep -rq 'Charging' /sys/class/power_supply/BAT* 2>/dev/null && stat='Charging'
+
+    case 1 in
+        $((bat >= 98))  ) bar="━━━━━━━━━━" ;;
+        $((bat >= 90))  ) bar="━━━━━━━━━─" ;;
+        $((bat >= 80))  ) bar="━━━━━━━━──" ;;
+        $((bat >= 70))  ) bar="━━━━━━━───" ;;
+        $((bat >= 60))  ) bar="━━━━━━────" ;;
+        $((bat >= 50))  ) bar="━━━━━─────" ;;
+        $((bat >= 40))  ) bar="━━━━──────" ;;
+        $((bat >= 30))  ) bar="━━━───────" ;;
+        $((bat >= 20))  ) bar="━━────────" ;;
+        $((bat >= 10))  ) bar="━─────────" ;;
+        $((bat >= 10))  ) bar="──────────" ;;
+    esac
+
+    [ "$stat" != "Charging" ] && icon="󰁹" || icon=""
+    echo "$icon $bar"
+}
+
+get_layout() {
+    layout="$( \
+        setxkbmap -query | grep layout | awk '{print $2}' |
+        sed 's/latam/la/' \
+        )"
+
+    echo "󰌌 $layout"
+}
+
+while true ; do
+    status=""
+    separator="    "
+
+    volume="$(get_vol)"
+    ! [ -z "$volume" ] && status="$status$separator$volume"
+
+    microphone="$(get_mic)"
+    ! [ -z "$microphone" ] && status="$status$separator$microphone"
+
+    battery="$(get_bat)"
+    ! [ -z "$battery" ] && status="$status$separator$battery"
+
+    layout="$(get_layout)"
+    ! [ -z "$layout" ] && status="$status$separator$layout"
+
+    date_time="$(date "+%I:%M%p$separator%a %Y-%m-%d")"
+    ! [ -z "$date_time" ] && status="$status$separator$date_time"
+
+    printf "%s \n" "$status"
+    # exit 0 # Testing
+    sleep 0.5
+done
