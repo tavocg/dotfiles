@@ -1,0 +1,5 @@
+#!/bin/sh
+
+password="$(~/.config/scripts/menu/menu-pass)"
+[ -z "$password" ] && exit
+ydotool type $(pass "$password" | head -n 1)

@@ -1,57 +1,49 @@
 #!/bin/sh
-# Script for using either bemenu or dmenu
-# with preconfigured options
-PROMPT="$1" ; MODE="$2"
+PROMPT="$1" MODE="$2"
+if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then printf "Usage: menu [prompt] [run/pass]\n" ; return 0 ; fi
+[ "$MODE" = "pass" ] && BPASS="-x" DPASS="-P"
+BRUN="-run" DRUN="_run" TRUN="-run" FRUN=""
+[ "$MODE" != "run" ] && BRUN="" DRUN="" TRUN="" FRUN=""
 
 # Configuration
-MENU="tofi" # Default to fzf
-col_nb="#121212" # Normal background
-col_nf="#665c54" # Normal foreground
-col_sb="#121212" # Selected background
-col_sf="#2e9ef4" # Selected foreground
+menu="menu_bemenu"
 font="JetbrainsMono"
 font_size="10"
+col_white="#ffffff" # White
+col_nb="#121212"    # Normal background
+col_nf="#665c54"    # Normal foreground
+col_sb="#121212"    # Selected background
+col_sf="#2e9ef4"    # Selected foreground
 
-[ -e "$HOME/.config/menu-config" ] && MENU="$(cat "$HOME/.config/menu-config")"
-
-# Print help
-if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then
-    printf "Usage: menu [prompt] [run/pass/empty]"
-    return 0
-fi
-
-# Check for 'pass' arg
-[ "$MODE" = "pass" ] &&
-    BPASS="-x" && DPASS="-P"
-
-# bemenu opts
-BEMENU_OPTS=$(printf " \
-    -c \
+menu_bemenu() {
+bemenu$BRUN \
+    --no-exec \
     -i \
+    -c \
     -l 10 \
-    -W 0.3 \
+    -W 0.4 \
     -B 1 \
     --cw 1 \
     --tb $col_sb \
-    --tf $col_nf \
-    --fb $col_nb \
-    --ff $col_nf \
-    --cb $col_nb \
+    --tf $col_nf  \
+    --fb $col_nb  \
+    --ff $col_white  \
+    --cb $col_nb  \
     --cf $col_nf \
-    --nb $col_nb \
-    --nf $col_nf \
-    --hb $col_sb \
-    --hf $col_sf \
-    --ab $col_nb \
-    --af $col_nf \
-    --bdr $col_sf \
-    --fn "$font" \
+    --nb $col_nb  \
+    --nf $col_nf  \
+    --hb $col_sb  \
+    --hf $col_sf  \
+    --ab $col_nb  \
+    --af $col_nf  \
+    --bdr $col_sf  \
+    --fn "$font $font_size"  \
     -p "$PROMPT" \
-    $BPASS \
-")
+    $BPASS
+}
 
-# dmenu opts
-DMENU_OPTS=" \
+menu_dmenu() {
+dmenu$DRUN \
     -i \
     -l 10 \
     -nb $col_nb \
@@ -60,41 +52,18 @@ DMENU_OPTS=" \
     -sf $col_sf \
     -fn "$font:size=$font_size" \
     -p "$PROMPT" \
-    $DPASS \
-"
+    $DPASS
+}
 
-# tofi opts
-TOFI_OPTS=" \
-    --prompt-text "$PROMPT " \
-"
+menu_tofi() {
+tofi$TRUN \
+    --prompt-text "$PROMPT"
+}
 
-# fzf opts
-FZF_OPTS=" \
+menu_fzf() {
+fzf \
     --cycle \
-    --reverse \
-"
+    --reverse
+}
 
-# If chosen bemenu, use this args
-[ "$MENU" = "bemenu" ] &&
-    OPTS="$BEMENU_OPTS" &&
-    RUN="-run"
-
-# If chosen dmenu, use this args
-[ "$MENU" = "dmenu" ] &&
-    OPTS="$DMENU_OPTS" &&
-    RUN="_run"
-
-# If chosen tofi, use this args
-[ "$MENU" = "tofi" ] &&
-    OPTS="$TOFI_OPTS" &&
-    RUN="-run"
-
-# If chosen fzf, use this args
-[ "$MENU" = "fzf" ] &&
-    OPTS="$FZF_OPTS" &&
-    RUN=""
-
-[ "$MODE" = "run" ]   && $MENU$RUN $OPTS
-[ "$MODE" = "pass" ]  && < /dev/null | $MENU $OPTS
-[ "$MODE" = "empty" ] && < /dev/null | $MENU $OPTS
-[ -z "$MODE" ]        && $MENU $OPTS
+$menu
