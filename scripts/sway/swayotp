@@ -1,5 +1,6 @@
 #!/bin/sh
+PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 
 password="$(~/.config/scripts/menu/menu-pass)"
 [ -z "$password" ] && exit
-wtype $(pass otp "$password")
+wtype $(pass otp "$password" | head -n 1)

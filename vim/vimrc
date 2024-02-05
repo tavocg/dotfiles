@@ -118,7 +118,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua'
 Plug 'morhetz/gruvbox'
-Plug 'vimwiki/vimwiki'
 "Plug 'dracula/vim'
 call plug#end()
 

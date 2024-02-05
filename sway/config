@@ -118,3 +118,4 @@ bar {
 
 # Autostart
 exec_always dunst
+exec_always dbus-update-activation-environment WAYLAND_DISPLAY
