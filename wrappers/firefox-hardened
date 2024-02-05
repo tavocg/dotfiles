@@ -1,10 +1,2 @@
 #!/usr/bin/env sh
-# Protect $HOME
-HOME=$HOME/.local/share/mozilla
-mkdir -p "$HOME"
-
-# Check for either firefox-esr or firefox binary
-[ -e /usr/bin/firefox-esr ] && BIN="/usr/bin/firefox-esr" || BIN="/usr/bin/firefox"
-
-# Run with hardened profile
-exec "$BIN" -P hardened "$@"
+exec firefox -P hardened "$@"

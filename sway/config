@@ -1,6 +1,6 @@
 # Preferences
 output * {
-    bg ~/Pictures/backgrounds/4.jpg fill
+    bg ~/Pictures/Backgrounds/background.jpg fill
 }
 
 input type:touchpad {
@@ -37,6 +37,7 @@ set $micmute ~/.config/scripts/micmute
 set $brightup ~/.config/scripts/brightup
 set $brightdown ~/.config/scripts/brightdown
 set $powermenu ~/.config/scripts/menu/menu-power
+set $prtscr grim -g "$(slurp)" -o ~/screen.png
 
 # Keybinds
 floating_modifier $mod normal
@@ -53,6 +54,7 @@ bindsym Shift+XF86AudioLowerVolume exec $micdown
 bindsym Shift+XF86AudioMute exec $micmute
 bindsym XF86MonBrightnessUp exec $brightup
 bindsym XF86MonBrightnessDown exec $brightdown
+bindsym Print exec $prtscr
 # -
 bindsym $mod+Shift+q exec swaymsg exit
 bindsym $mod+p exec $powermenu
@@ -113,3 +115,6 @@ bar {
         inactive_workspace #00000000 #00000000 #2e9ef4
     }
 }
+
+# Autostart
+exec_always dunst
