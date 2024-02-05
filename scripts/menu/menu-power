@@ -1,12 +1,17 @@
 #!/bin/sh
 # Prompt for power options using dmenu
 
-option=$(printf "Shutdown\nRestart\nLog out" | menu "Power:")
+option=$(printf "Shutdown\nRestart\nLog out" | ~/.config/scripts/menu/menu "Power:")
+
+slogout() {
+    killall xinit
+    swaymsg exit
+}
 
 case "$option" in
-	"Shutdown") sudo poweroff ;;
-	"Restart") sudo reboot ;;
-	"Log out") killall xinit;;
+	"Shutdown") systemctl poweroff ;;
+	"Restart") systemctl reboot ;;
+	"Log out") slogout;;
 	*) exit 1 ;;
 esac
 

@@ -36,6 +36,7 @@ set $micdown ~/.config/scripts/micdown
 set $micmute ~/.config/scripts/micmute
 set $brightup ~/.config/scripts/brightup
 set $brightdown ~/.config/scripts/brightdown
+set $powermenu ~/.config/scripts/menu/menu-power
 
 # Keybinds
 floating_modifier $mod normal
@@ -54,6 +55,7 @@ bindsym XF86MonBrightnessUp exec $brightup
 bindsym XF86MonBrightnessDown exec $brightdown
 # -
 bindsym $mod+Shift+q exec swaymsg exit
+bindsym $mod+p exec $powermenu
 bindsym $mod+q reload
 bindsym $mod+c kill
 # -
