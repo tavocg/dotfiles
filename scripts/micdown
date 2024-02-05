@@ -2,4 +2,6 @@
 # Reduces mic volume by 5%
 
 amixer set Capture 5%-
+$HOME/.config/scripts/status/micstat
+
 kill -45 "$(pidof dwmblocks)"

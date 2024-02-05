@@ -2,6 +2,6 @@
 # Mute
 
 amixer -q set Master toggle
+$HOME/.config/scripts/status/volstat
 
-# Restart statusbar module (dwm & dwmblocks)
-kill -44 "$(pidof dwmblocks)"
+kill -44 "$(pidof dwmblocks)" 2>/dev/null

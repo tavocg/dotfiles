@@ -97,16 +97,16 @@ while true ; do
     status=""
     separator="    "
 
-    volume="$(get_vol)"
+    #volume="$(get_vol)"
     ! [ -z "$volume" ] && status="$status$separator$volume"
 
-    microphone="$(get_mic)"
+    #microphone="$(get_mic)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
     battery="$(get_bat)"
     ! [ -z "$battery" ] && status="$status$separator$battery"
 
-    layout="$(get_layout)"
+    #layout="$(get_layout)"
     ! [ -z "$layout" ] && status="$status$separator$layout"
 
     date_time="$(date "+%I:%M%p$separator%a %Y-%m-%d")"

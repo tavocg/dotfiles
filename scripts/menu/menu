@@ -7,8 +7,8 @@ PROMPT="$1" ; MODE="$2"
 MENU="tofi" # Default to fzf
 col_nb="#121212" # Normal background
 col_nf="#665c54" # Normal foreground
-col_sb="#2e9ef4" # Selected background
-col_sf="#121212" # Selected foreground
+col_sb="#121212" # Selected background
+col_sf="#2e9ef4" # Selected foreground
 font="JetbrainsMono"
 font_size="10"
 
@@ -25,7 +25,7 @@ fi
     BPASS="-x" && DPASS="-P"
 
 # bemenu opts
-BEMENU_OPTS=" \
+BEMENU_OPTS=$(printf " \
     -c \
     -i \
     -l 10 \
@@ -33,7 +33,7 @@ BEMENU_OPTS=" \
     -B 1 \
     --cw 1 \
     --tb $col_sb \
-    --tf $col_sf \
+    --tf $col_nf \
     --fb $col_nb \
     --ff $col_nf \
     --cb $col_nb \
@@ -44,11 +44,11 @@ BEMENU_OPTS=" \
     --hf $col_sf \
     --ab $col_nb \
     --af $col_nf \
-    --bdr $col_sb \
+    --bdr $col_sf \
     --fn "$font" \
     -p "$PROMPT" \
     $BPASS \
-"
+")
 
 # dmenu opts
 DMENU_OPTS=" \
@@ -65,7 +65,7 @@ DMENU_OPTS=" \
 
 # tofi opts
 TOFI_OPTS=" \
-    --prompt-text "$PROMPT" \
+    --prompt-text "$PROMPT " \
 "
 
 # fzf opts

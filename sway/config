@@ -1,23 +1,61 @@
 # Preferences
-output * bg ~/Pictures/backgrounds/4.jpg fill
-input "type:touchpad" natural_scroll enabled
-input "type:pointer" accel_profile flat
+output * {
+    bg ~/Pictures/backgrounds/4.jpg fill
+}
+
+input type:touchpad {
+    natural_scroll enabled
+    tap enabled
+}
+
+input type:pointer {
+    accel_profile flat
+}
+
+input type:keyboard {
+    xkb_layout us,latam
+    xkb_options grp:win_space_toggle
+    repeat_delay 300
+    repeat_rate 45
+}
+
 set $mod Mod4
 set $left h
 set $down j
 set $up k
 set $right l
-
 set $term foot
 set $menu ~/.config/scripts/menu/menu "Run:" run | xargs swaymsg exec --
+set $passmgr ydotool type $(pass $(~/.config/scripts/menu/menu-pass) | head -n 1)
+set $passotp ydotool type $(pass otp $(~/.config/scripts/menu/menu-pass))
+set $volup ~/.config/scripts/volup
+set $voldown ~/.config/scripts/voldown
+set $mute ~/.config/scripts/mute
+set $micup ~/.config/scripts/micup
+set $micdown ~/.config/scripts/micdown
+set $micmute ~/.config/scripts/micmute
+set $brightup ~/.config/scripts/brightup
+set $brightdown ~/.config/scripts/brightdown
 
 # Keybinds
-bindsym $mod+Return exec $term
-bindsym $mod+c kill
-bindsym $mod+r exec $menu
 floating_modifier $mod normal
-bindsym $mod+q reload
+# -
+bindsym $mod+Return exec $term
+bindsym $mod+r exec $menu
+bindsym $mod+Shift+p exec $passmgr
+bindsym $mod+Shift+o exec $passotp
+bindsym XF86AudioRaiseVolume exec $volup
+bindsym XF86AudioLowerVolume exec $voldown
+bindsym XF86AudioMute exec $mute
+bindsym Shift+XF86AudioRaiseVolume exec $micup
+bindsym Shift+XF86AudioLowerVolume exec $micdown
+bindsym Shift+XF86AudioMute exec $micmute
+bindsym XF86MonBrightnessUp exec $brightup
+bindsym XF86MonBrightnessDown exec $brightdown
+# -
 bindsym $mod+Shift+q exec swaymsg exit
+bindsym $mod+q reload
+bindsym $mod+c kill
 # -
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
@@ -58,12 +96,13 @@ bindsym $mod+Shift+f floating toggle
 # Layout
 client.focused #00000000 #2e9ef4 #00000000
 default_border pixel 1
-gaps inner 10
+gaps inner 5
 
 bar {
     position bottom
     font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/status/sway
+    height 20
 
     colors {
         background #00000000

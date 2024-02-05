@@ -3,4 +3,6 @@
 # then restarts statusbar module
 
 amixer set Master 5%+ unmute
+$HOME/.config/scripts/status/volstat
+
 kill -44 "$(pidof dwmblocks)" 2>/dev/null
