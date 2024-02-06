@@ -24,7 +24,11 @@ set $left h
 set $down j
 set $up k
 set $right l
+# -
 set $term foot
+set $filemgr thunar
+set $browser firefox
+# -
 set $menu ~/.config/scripts/menu/menu "Run:" run | xargs swaymsg exec --
 set $passmgr ~/.config/scripts/sway/swaypass
 set $passotp ~/.config/scripts/sway/swayotp
@@ -37,7 +41,7 @@ set $micmute ~/.config/scripts/micmute
 set $brightup ~/.config/scripts/brightup
 set $brightdown ~/.config/scripts/brightdown
 set $powermenu ~/.config/scripts/menu/menu-power
-set $prtscr grim -g "$(slurp)" -o ~/screen.png
+set $bookmenu ~/.config/scripts/menu/menu-bookmarks
 
 # Keybinds
 floating_modifier $mod normal
@@ -46,6 +50,9 @@ bindsym $mod+Return exec $term
 bindsym $mod+r exec $menu
 bindsym $mod+Shift+p exec $passmgr
 bindsym $mod+Shift+o exec $passotp
+bindsym $mod+e exec $filemgr
+bindsym $mod+w exec $browser
+bindsym $mod+b exec $bookmenu
 bindsym XF86AudioRaiseVolume exec $volup
 bindsym XF86AudioLowerVolume exec $voldown
 bindsym XF86AudioMute exec $mute
@@ -54,7 +61,7 @@ bindsym Shift+XF86AudioLowerVolume exec $micdown
 bindsym Shift+XF86AudioMute exec $micmute
 bindsym XF86MonBrightnessUp exec $brightup
 bindsym XF86MonBrightnessDown exec $brightdown
-bindsym Print exec $prtscr
+bindsym Print exec grim -g "$(slurp)" -o ~/screen.png
 # -
 bindsym $mod+Shift+q exec swaymsg exit
 bindsym $mod+p exec $powermenu
@@ -101,10 +108,7 @@ bindsym $mod+Shift+9 move container to workspace "  9  "
 bindsym $mod+comma workspace next_on_output
 bindsym $mod+period workspace prev_on_output
 # -
-bindsym $mod+b splith
-bindsym $mod+v splitv
 bindsym $mod+Shift+t layout tabbed
-bindsym $mod+e layout toggle split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 

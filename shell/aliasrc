@@ -33,6 +33,7 @@ alias \
     apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     wacom-setup-menu="wacom-setup menu" \
+    swayimg="swayimg -s fit -w 000000 -m" \
     qr-png="qrencode -s 16 -o qr.png" \
     qr="qrencode -t ansiutf8" \
     notes="note list" \

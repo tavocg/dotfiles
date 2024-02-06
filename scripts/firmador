@@ -1,0 +1,26 @@
+#!/bin/sh
+PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
+FIRMADOR="$HOME/.local/share/firmador/firmador.jar"
+CACHE_FIRMADOR="$HOME/.local/share/firmador/cache"
+DOCUMENTOS="$@"
+
+firmar() {
+    DOC="$1"
+    NOM="${DOC%.*}"
+    EXT="${DOC##*.}"
+
+    PIN="$(pass personal/firma-digital | head -n 1)"
+    [ -z "$PIN" ] && exit 1
+
+    echo "$PIN" | java -jar "$FIRMADOR" \
+        -dargs "$DOC" "$NOM-firmado.$EXT"
+
+    PIN=""
+}
+
+for DOC in $DOCUMENTOS ; do
+    firmar "$DOC" > "$CACHE_FIRMADOR"
+done
+
+PIN=""
+rm -rf "$HOME/.pdfbox.cache" "$HOME/.ase"
