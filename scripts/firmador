@@ -1,7 +1,6 @@
 #!/bin/sh
 PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 FIRMADOR="$HOME/.local/share/firmador/firmador.jar"
-CACHE_FIRMADOR="$HOME/.local/share/firmador/cache"
 DOCUMENTOS="$@"
 
 firmar() {
@@ -19,7 +18,7 @@ firmar() {
 }
 
 for DOC in $DOCUMENTOS ; do
-    firmar "$DOC" > "$CACHE_FIRMADOR"
+    firmar "$DOC"
 done
 
 PIN=""
