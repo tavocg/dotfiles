@@ -142,5 +142,6 @@ bar {
 # Autostart
 exec_always dunst
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY
+exec_always --no-startup-id /usr/libexec/xdg-desktop-portal -r
 exec_always swww init
 exec_always swww img ~/Pictures/Backgrounds/default.gif
