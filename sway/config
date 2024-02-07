@@ -1,6 +1,6 @@
 # Preferences
 output * {
-    bg ~/Pictures/Backgrounds/background.jpg fill
+#    bg ~/Pictures/Backgrounds/background.jpg fill
 }
 
 input type:touchpad {
@@ -115,22 +115,24 @@ bindsym $mod+Shift+f floating toggle
 # Layout
 client.focused #00000000 #2e9ef4 #00000000
 default_border pixel 1
-gaps inner 5
+gaps inner 10
 
 bar {
-    position bottom
+    position top
     font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/sway/swaystatus
-    height 20
 
     colors {
         background #00000000
-        statusline #2e9ef4
+        statusline #ffffff
         focused_workspace #2e9ef450 #2e9ef420 #ffffff
         inactive_workspace #00000000 #00000000 #2e9ef4
+        gaps 10 10
     }
 }
 
 # Autostart
 exec_always dunst
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY
+exec_always swww init
+exec_always swww img ~/Pictures/Backgrounds/default.gif

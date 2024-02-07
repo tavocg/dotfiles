@@ -119,7 +119,7 @@ while true ; do
     date_time="$(date "+%I:%M%p$separator%a %Y-%m-%d")"
     ! [ -z "$date_time" ] && status="$status$separator$date_time"
 
-    printf "%s \n" "$status"
+    printf "%s\n" "$status"
     # exit 0 # Testing
     sleep 1
 done
