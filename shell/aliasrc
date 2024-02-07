@@ -30,7 +30,7 @@ alias \
 
 # Command shortcuts
 alias \
-    apt-upgrade="sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y" \
+    mgr-all="mgr pacman_upgrade apt_upgrade flatpak_update distrobox_update pip_update configs passmgr" \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     wacom-setup-menu="wacom-setup menu" \
     swayimg="swayimg -s fit -w 000000 -m" \
