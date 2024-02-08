@@ -53,8 +53,8 @@ bindsym $mod+r exec $menu
 bindsym $mod+Shift+p exec $passmgr
 bindsym $mod+Shift+o exec $passotp
 bindsym $mod+e exec $filemgr
-bindsym $mod+Shift+w exec $browser
-bindsym $mod+w exec $browserh
+bindsym $mod+w exec $browser
+bindsym $mod+Shift+w exec $browserh
 bindsym $mod+b exec $bookmenu
 bindsym XF86AudioRaiseVolume exec $volup
 bindsym XF86AudioLowerVolume exec $voldown
