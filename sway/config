@@ -66,9 +66,8 @@ bindsym XF86MonBrightnessUp exec $brightup
 bindsym XF86MonBrightnessDown exec $brightdown
 bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
 # -
-bindsym $mod+Shift+q exec swaymsg exit
+bindsym $mod+Shift+q reload
 bindsym $mod+p exec $powermenu
-bindsym $mod+q reload
 bindsym $mod+c kill
 # -
 bindsym $mod+$left focus left
@@ -123,20 +122,25 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 
 # Layout
-client.focused #00000000 #2e9ef4 #00000000
-default_border pixel 1
+client.focused #ebdbb2 #ebdbb2 #121212 #ebdbb2 #ebdbb2
+client.unfocused #121212 #121212 #ebdbb260 #121212 #121212
+default_border pixel 2
+titlebar_border_thickness 2
+titlebar_padding 2
 gaps inner 5
+font pango:JetBrainsMono Medium 8
 
 bar {
     position bottom
-    font pango:JetBrainsMono Bold 9
+    font pango:JetBrainsMono Bold 8
     status_command ~/.config/scripts/sway/swaystatus
+    gaps 5 5
 
     colors {
         background #00000000
-        statusline #ffffff
-        focused_workspace #2e9ef450 #2e9ef420 #2e9ef4
-        inactive_workspace #00000000 #00000000 #ffffff
+        statusline #ebdbb260
+        focused_workspace #ebdbb2 #ebdbb2 #121212
+        inactive_workspace #00000000 #00000000 #ebdbb260
     }
 }
 
