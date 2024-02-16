@@ -1,6 +1,6 @@
 # Preferences
 output * {
-#    bg ~/Pictures/Backgrounds/background.jpg fill
+    bg ~/Pictures/Backgrounds/default.png fill
 }
 
 input type:touchpad {
@@ -125,6 +125,7 @@ bindsym $mod+Shift+f floating toggle
 # Layout
 client.focused #00000000 #2e9ef4 #00000000
 default_border pixel 1
+gaps inner 5
 
 bar {
     position bottom
@@ -143,5 +144,3 @@ bar {
 exec_always dunst
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY
 exec_always --no-startup-id /usr/libexec/xdg-desktop-portal -r
-exec_always swww init
-exec_always swww img ~/Pictures/Backgrounds/default.gif
