@@ -64,7 +64,7 @@ bindsym Shift+XF86AudioLowerVolume exec $micdown
 bindsym Shift+XF86AudioMute exec $micmute
 bindsym XF86MonBrightnessUp exec $brightup
 bindsym XF86MonBrightnessDown exec $brightdown
-bindsym Print exec grim -g "$(slurp)" -o ~/screen.png
+bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
 # -
 bindsym $mod+Shift+q exec swaymsg exit
 bindsym $mod+p exec $powermenu
@@ -125,10 +125,9 @@ bindsym $mod+Shift+f floating toggle
 # Layout
 client.focused #00000000 #2e9ef4 #00000000
 default_border pixel 1
-gaps inner 10
 
 bar {
-    position top
+    position bottom
     font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/sway/swaystatus
 
@@ -137,7 +136,6 @@ bar {
         statusline #ffffff
         focused_workspace #2e9ef450 #2e9ef420 #2e9ef4
         inactive_workspace #00000000 #00000000 #ffffff
-        gaps 10 10
     }
 }
 
