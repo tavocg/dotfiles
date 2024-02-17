@@ -1,6 +1,6 @@
 # Preferences
 output * {
-    bg ~/Pictures/Backgrounds/default.png fill
+    bg ~/Pictures/Backgrounds/default.jpg fill
 }
 
 input type:touchpad {
@@ -44,6 +44,9 @@ set $brightup ~/.config/scripts/brightup
 set $brightdown ~/.config/scripts/brightdown
 set $powermenu ~/.config/scripts/menu/menu-power
 set $bookmenu ~/.config/scripts/menu/menu-bookmarks
+# -
+set $col_fg #83a598
+set $col_bg #121212
 
 # Keybinds
 floating_modifier $mod normal
@@ -122,8 +125,8 @@ bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 
 # Layout
-client.focused #ebdbb2 #ebdbb2 #121212 #ebdbb2 #ebdbb2
-client.unfocused #121212 #121212 #ebdbb260 #121212 #121212
+client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
+client.unfocused $col_bg $col_bg $col_fg $col_bg $col_bg
 default_border pixel 2
 titlebar_border_thickness 2
 titlebar_padding 2
@@ -138,11 +141,15 @@ bar {
 
     colors {
         background #00000000
-        statusline #ebdbb260
-        focused_workspace #ebdbb2 #ebdbb2 #121212
-        inactive_workspace #00000000 #00000000 #ebdbb260
+        statusline #ebdbb270
+        focused_workspace $col_fg $col_fg $col_bg
+        inactive_workspace #00000000 #00000000 #ebdbb270
     }
 }
+
+set $opacity 0.95
+for_window [class=".*"] opacity $opacity
+for_window [app_id=".*"] opacity $opacity
 
 # Autostart
 exec_always dunst

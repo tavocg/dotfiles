@@ -11,9 +11,9 @@ font="JetbrainsMono"
 font_size="10"
 col_white="#ffffff" # White
 col_nb="#121212"    # Normal background
-col_nf="#665c54"    # Normal foreground
+col_nf="#282828"    # Normal foreground
 col_sb="#121212"    # Selected background
-col_sf="#2e9ef4"    # Selected foreground
+col_sf="#83a598"    # Selected foreground
 
 menu_bemenu() {
 bemenu$BRUN \
@@ -22,12 +22,12 @@ bemenu$BRUN \
     -c \
     -l 10 \
     -W 0.4 \
-    -B 1 \
+    -B 2 \
     --cw 1 \
     --tb $col_sb \
-    --tf $col_nf  \
+    --tf $col_sf  \
     --fb $col_nb  \
-    --ff $col_white  \
+    --ff $col_sf  \
     --cb $col_nb  \
     --cf $col_nf \
     --nb $col_nb  \
