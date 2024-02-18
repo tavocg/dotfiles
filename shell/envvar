@@ -24,11 +24,11 @@ export \
 export \
     OPENER="xdg-open" \
     READER="zathura" \
-    BROWSER="brave" \
-    TERMINAL="st" \
+    BROWSER="firefox" \
+    TERMINAL="foot" \
     EDITOR="nvim" \
     VISUAL="nvim" \
-    IMAGE="sxiv" \
+    IMAGE="swayimg" \
     VIDEO="mpv" \
 
 # Theming

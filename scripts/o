@@ -16,6 +16,7 @@ case $file in
     *.jpg) "$IMAGE" "$file" ;;
     *.gif) "$IMAGE" "$file" ;;
     *.svg) "$IMAGE" "$file" ;;
+    *.webp) "$IMAGE" "$file" ;;
     # Videos
     *.webm) "$VIDEO" "$file" ;;
     *.mp4) "$VIDEO" "$file" ;;
