@@ -47,6 +47,7 @@ set $bookmenu ~/.config/scripts/menu/menu-bookmarks
 # -
 set $col_fg #fe8019
 set $col_bg #121212
+set $col_ac #606060
 
 # Keybinds
 floating_modifier $mod normal
@@ -126,7 +127,7 @@ bindsym $mod+Shift+f floating toggle
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
-client.unfocused $col_bg $col_bg #606060 $col_bg $col_bg
+client.unfocused $col_bg $col_bg $col_ac $col_bg $col_bg
 default_border pixel 2
 titlebar_border_thickness 2
 titlebar_padding 2
@@ -141,9 +142,9 @@ bar {
 
     colors {
         background #121212
-        statusline #606060
+        statusline $col_ac
         focused_workspace $col_fg $col_fg $col_bg
-        inactive_workspace #000000 #000000 #606060
+        inactive_workspace $col_bg $col_bg $col_ac
     }
 }
 
