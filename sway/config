@@ -126,7 +126,7 @@ bindsym $mod+Shift+f floating toggle
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
-client.unfocused $col_bg $col_bg $col_fg $col_bg $col_bg
+client.unfocused $col_bg $col_bg #606060 $col_bg $col_bg
 default_border pixel 2
 titlebar_border_thickness 2
 titlebar_padding 2
