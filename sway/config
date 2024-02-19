@@ -137,6 +137,7 @@ bar {
     position top
     font pango:JetBrainsMono Bold 8
     status_command ~/.config/scripts/sway/swaystatus
+    tray_padding 4
 
     colors {
         background #000000
