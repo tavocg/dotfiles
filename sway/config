@@ -15,8 +15,8 @@ input type:pointer {
 input type:keyboard {
     xkb_layout us,latam
     xkb_options grp:win_space_toggle
-    repeat_delay 300
-    repeat_rate 45
+    repeat_delay 270
+    repeat_rate 70
 }
 
 set $mod Mod4
@@ -45,7 +45,7 @@ set $brightdown ~/.config/scripts/brightdown
 set $powermenu ~/.config/scripts/menu/menu-power
 set $bookmenu ~/.config/scripts/menu/menu-bookmarks
 # -
-set $col_fg #83a598
+set $col_fg #fe8019
 set $col_bg #121212
 
 # Keybinds
@@ -134,22 +134,17 @@ gaps inner 5
 font pango:JetBrainsMono Medium 8
 
 bar {
-    position bottom
+    position top
     font pango:JetBrainsMono Bold 8
     status_command ~/.config/scripts/sway/swaystatus
-    gaps 5 5
 
     colors {
-        background #00000000
-        statusline #ebdbb270
+        background #000000
+        statusline #606060
         focused_workspace $col_fg $col_fg $col_bg
-        inactive_workspace #00000000 #00000000 #ebdbb270
+        inactive_workspace #000000 #000000 #606060
     }
 }
-
-set $opacity 0.95
-for_window [class=".*"] opacity $opacity
-for_window [app_id=".*"] opacity $opacity
 
 # Autostart
 exec_always dunst

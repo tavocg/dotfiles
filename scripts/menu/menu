@@ -9,11 +9,11 @@ BRUN="-run" DRUN="_run" TRUN="-run" FRUN=""
 menu="menu_bemenu"
 font="JetbrainsMono"
 font_size="10"
-col_white="#ffffff" # White
+col_white="#ebdbb2" # White
 col_nb="#121212"    # Normal background
 col_nf="#282828"    # Normal foreground
 col_sb="#121212"    # Selected background
-col_sf="#83a598"    # Selected foreground
+col_sf="#fe8019"    # Selected foreground
 
 menu_bemenu() {
 bemenu$BRUN \
@@ -29,11 +29,11 @@ bemenu$BRUN \
     --fb $col_nb  \
     --ff $col_sf  \
     --cb $col_nb  \
-    --cf $col_nf \
+    --cf $col_white \
     --nb $col_nb  \
     --nf $col_nf  \
     --hb $col_sb  \
-    --hf $col_sf  \
+    --hf $col_white  \
     --ab $col_nb  \
     --af $col_nf  \
     --bdr $col_sf  \
