@@ -89,11 +89,9 @@ get_bat() {
 }
 
 get_layout() {
-    layout="$( \
-        setxkbmap -query | grep layout | awk '{print $2}' |
-        sed 's/latam/la/' \
-        )"
-
+    layout="$(swaymsg -t get_inputs | grep -m 1 'xkb_active_layout_name' | cut -d '"' -f 4)"
+    [ "$layout" = "English (US)" ] && layout="us"
+    [ "$layout" = "Spanish (Latin American)" ] && layout="la"
     echo "󰌌 $layout"
 }
 
@@ -101,10 +99,10 @@ while true ; do
     status=""
     separator="    "
 
-    #volume="$(get_vol)"
+    volume="$(get_vol)"
     ! [ -z "$volume" ] && status="$status$separator$volume"
 
-    #microphone="$(get_mic)"
+    microphone="$(get_mic)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
     network="$(get_net)"
@@ -113,7 +111,7 @@ while true ; do
     battery="$(get_bat)"
     ! [ -z "$battery" ] && status="$status$separator$battery"
 
-    #layout="$(get_layout)"
+    layout="$(get_layout)"
     ! [ -z "$layout" ] && status="$status$separator$layout"
 
     date_time="$(date "+%I:%M%p$separator%a %Y-%m-%d")"
@@ -121,5 +119,5 @@ while true ; do
 
     printf "%s\n" "$status"
     # exit 0 # Testing
-    sleep 1
+    sleep 0.4
 done
