@@ -1,7 +1,7 @@
 [General]
 Binary = calcurse
 Hostname = cloud.tavo.one
-Path = /remote.php/dav/calendars/tavo@tavo.one/default/
+Path = /remote.php/dav/calendars/tavo/default/
 AuthMethod = basic
 InsecureSSL = No
 HTTPS = Yes
@@ -10,4 +10,4 @@ DryRun = No
 Verbose = Yes
 
 [Auth]
-Username = tavo@tavo.one
+Username = tavo
