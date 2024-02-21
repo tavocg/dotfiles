@@ -11,7 +11,7 @@ opt=$(fzf --layout=reverse-list --cycle --preview 'p {}' --height=50% --border t
 note() {
 NOTES_DIR="$HOME/Nextcloud/Notes"
 # Just edit today's note if no argument is given
-[ -z "$1" ] && cd "$NOTES_DIR" && "$EDITOR" "daily-notes/note-$DATE.md"
+[ -z "$1" ] && cd "$NOTES_DIR" && "$EDITOR" "note-$DATE.md"
 [ -e "$NOTES_DIR/daily-notes/note-$DATE.md" ] &&
     printf "\n\033[1m\033[35mNote of the day:\033[0m \033[2mdaily-notes/\033[0mnote-$DATE.md\n"
 # 'list' arg will list notes either with fzf or regular ls
