@@ -12,7 +12,7 @@ font_size="10"
 col_white="#ebdbb2" # White
 col_nb="#121212"    # Normal background
 col_nf="#606060"    # Normal foreground
-col_sb="#fe8019"    # Selected background
+col_sb="#fabd2f"    # Selected background
 col_sf="#121212"    # Selected foreground
 
 menu_bemenu() {
@@ -22,6 +22,7 @@ bemenu$BRUN \
     -c \
     -l 10 \
     -W 0.4 \
+    -B 2 \
     --cw 1 \
     --tb $col_sb \
     --tf $col_sf  \
@@ -35,7 +36,7 @@ bemenu$BRUN \
     --hf $col_sf  \
     --ab $col_nb  \
     --af $col_nf  \
-    --bdr $col_sf  \
+    --bdr $col_sb  \
     --fn "$font $font_size"  \
     -p "$PROMPT" \
     $BPASS

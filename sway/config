@@ -45,7 +45,7 @@ set $brightdown ~/.config/scripts/brightdown
 set $powermenu ~/.config/scripts/menu/menu-power
 set $bookmenu ~/.config/scripts/menu/menu-bookmarks
 # -
-set $col_fg #fe8019
+set $col_fg #fabd2f
 set $col_bg #121212
 set $col_ac #606060
 

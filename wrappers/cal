@@ -1,4 +1,0 @@
-#!/bin/sh
-ICAL="$HOME/Documents/calendar.ical"
-
-calcurse -P && calcurse -i $ICAL && calcurse && calcurse -xical > $ICAL
