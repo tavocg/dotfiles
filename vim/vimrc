@@ -45,6 +45,9 @@ noremap H :nohl<CR>
 noremap <Space> za
 noremap N /@@@<CR>
 
+" calcurse
+autocmd BufNewFile,BufRead /tmp/calcurse* set filetype=markdown
+
 " groff
 autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
 autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groffc %<CR><CR>

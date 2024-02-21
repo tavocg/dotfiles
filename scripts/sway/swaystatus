@@ -114,8 +114,8 @@ while true ; do
     layout="$(get_layout)"
     ! [ -z "$layout" ] && status="$status$separator$layout"
 
-    date_time="$(date "+%I:%M%p$separator%a %Y-%m-%d")"
-    ! [ -z "$date_time" ] && status="$status$separator$date_time"
+    date_time="$(date "+%I:%M%p$separator󰃭 %a %Y-%m-%d")"
+    ! [ -z "$date_time" ] && status="$status$separator󰥔 $date_time"
 
     printf "%s\n" "$status"
     # exit 0 # Testing
