@@ -121,6 +121,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua'
 Plug 'morhetz/gruvbox'
+Plug 'instant-markdown/vim-instant-markdown'
 "Plug 'dracula/vim'
 call plug#end()
 
@@ -169,3 +170,10 @@ noremap gd :SignifyToggle<CR>
 
 " Vimwiki
 let g:vimwiki_list = [{'path': '~/Documents/', 'path_html': '~/.local/share/vimwiki/html/'}]
+
+" Instant Markdown
+let g:instant_markdown_autostart = 0
+autocmd FileType markdown noremap <buffer> <silent> <F9> :InstantMarkdownPreview<CR>
+let g:instant_markdown_browser = "firefox --new-window"
+let g:instant_markdown_mathjax = 1
+let g:instant_markdown_mermaid = 1
