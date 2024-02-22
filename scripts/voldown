@@ -1,8 +1,8 @@
 #!/bin/sh
-# Increases volume by 5%,
-# then restarts statusbar module
+# Decreases volume by 5%
 
 amixer set Master 5%- unmute
-$HOME/.config/scripts/status/volstat
 
+VOLSTAT="$(volstat)"
+notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
 kill -44 "$(pidof dwmblocks)" 2>/dev/null

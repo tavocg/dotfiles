@@ -2,6 +2,7 @@
 # Mute
 
 amixer -q set Master toggle
-$HOME/.config/scripts/status/volstat
 
+VOLSTAT="$(volstat)"
+notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
 kill -44 "$(pidof dwmblocks)" 2>/dev/null

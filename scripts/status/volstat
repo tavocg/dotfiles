@@ -3,15 +3,11 @@
 # (in current default output)
 
 # Get volume level
-vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
+vol=$(amixer | grep "Playback" | grep -m 1 -o '[0-9]*[0-9]%')
 vol="${vol%\%*}" # Remove percentage sign
 
 # If device is off (muted), notify mute, print volume otherwise
-if amixer scontents | grep "Playback" | grep -q "\[off\]"; then
-    echo "󰖁 ──────────"
-    notify-send -u low --replace-id=10 "󰖁 Mute" 2>/dev/null
-    exit
-fi
+if amixer scontents | grep "Playback" | grep -q "\[off\]"; then echo "󰖁 ──────────" && exit ; fi
 
 # Define bar progress with volume
 case 1 in
@@ -29,5 +25,4 @@ case 1 in
 esac
 
 # Print and notify
-notify-send -u low --replace-id=10 "󰕾 $bar" 2>/dev/null
 echo "󰕾 $bar"

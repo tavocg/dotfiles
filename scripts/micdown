@@ -1,7 +1,8 @@
 #!/bin/sh
-# Reduces mic volume by 5%
+# Decreases mic volume by 5%
 
 amixer set Capture 5%-
-$HOME/.config/scripts/status/micstat
 
-kill -45 "$(pidof dwmblocks)"
+MICSTAT="$(micstat)"
+notify-send -u low --replace-id=11 "$MICSTAT" 2>/dev/null
+kill -45 "$(pidof dwmblocks)" 2>/dev/null
