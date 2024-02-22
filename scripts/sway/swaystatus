@@ -1,4 +1,5 @@
 #!/bin/sh
+separator="     "
 
 get_int() { # Type of interface & status
     # If active ethernet, just exit with icon
@@ -150,7 +151,6 @@ get_todo() {
 
 while true ; do
     status=""
-    separator="    "
 
     todo="$(get_todo)"
     ! [ -z "$todo" ] && status="$status$separator$todo"
