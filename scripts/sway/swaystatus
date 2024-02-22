@@ -1,56 +1,16 @@
 #!/bin/sh
 separator="     "
 
-get_vol() {
-    vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
-    vol="${vol%\%*}" # Remove percentage sign
-
-    if amixer scontents | grep "Playback" | grep -q "\[off\]"; then
-        echo "󰖁 ──────────"
-        exit
-    fi
-
-    case 1 in
-        $((vol >= 100)) ) bar="━━━━━━━━━━" ;;
-        $((vol >= 90))  ) bar="━━━━━━━━━─" ;;
-        $((vol >= 80))  ) bar="━━━━━━━━──" ;;
-        $((vol >= 70))  ) bar="━━━━━━━───" ;;
-        $((vol >= 60))  ) bar="━━━━━━────" ;;
-        $((vol >= 50))  ) bar="━━━━━─────" ;;
-        $((vol >= 40))  ) bar="━━━━──────" ;;
-        $((vol >= 30))  ) bar="━━━───────" ;;
-        $((vol >= 20))  ) bar="━━────────" ;;
-        $((vol >= 10))  ) bar="━─────────" ;;
-        $((vol >= 0))   ) bar="──────────" ;;
-    esac
-
-    echo "󰕾 $bar"
+get_todo() {
+    todo="$(calcurse -t | wc -l)"
+    [ "$todo" = "0" ] && return 0
+    echo " $todo"
 }
 
-get_mic() {
-    vol=$(amixer | grep "Capture" | grep -o '[0-9]*[0-9]%' | tail -n 1)
-    vol="${vol%\%*}" # Remove percentage sign
-
-    if amixer scontents | grep "Capture" | grep -q "\[off\]"; then
-        echo " ──────────"
-        exit
-    fi
-
-    case 1 in
-        $((vol >= 100)) ) bar="━━━━━━━━━━" ;;
-        $((vol >= 90))  ) bar="━━━━━━━━━─" ;;
-        $((vol >= 80))  ) bar="━━━━━━━━──" ;;
-        $((vol >= 70))  ) bar="━━━━━━━───" ;;
-        $((vol >= 60))  ) bar="━━━━━━────" ;;
-        $((vol >= 50))  ) bar="━━━━━─────" ;;
-        $((vol >= 40))  ) bar="━━━━──────" ;;
-        $((vol >= 30))  ) bar="━━━───────" ;;
-        $((vol >= 20))  ) bar="━━────────" ;;
-        $((vol >= 10))  ) bar="━─────────" ;;
-        $((vol >= 0))   ) bar="──────────" ;;
-    esac
-
-    echo " $bar"
+get_apts() {
+    apts="$(calcurse -a | grep -c '\*')"
+    [ "$apts" = "0" ] && return 0
+    echo "󰃭 $apts"
 }
 
 get_layout() {
@@ -60,20 +20,19 @@ get_layout() {
     echo "󰌌 $layout"
 }
 
-
 while true ; do
     status=""
 
-    todo="$(cal todo count)"
+    todo="$(get_todo)"
     ! [ -z "$todo" ] && status="$status$separator$todo"
 
-    apts="$(cal apts count)"
+    apts="$(get_apts)"
     ! [ -z "$apts" ] && status="$status$separator$apts"
 
-    volume="$(get_vol)"
+    volume="$(volstat)"
     ! [ -z "$volume" ] && status="$status$separator$volume"
 
-    microphone="$(get_mic)"
+    microphone="$(micstat)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
     network="$(netstat)"

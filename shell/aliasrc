@@ -30,6 +30,7 @@ alias \
 # Command shortcuts
 alias \
     mgr-all="mgr pacman_upgrade apt_upgrade flatpak_update distrobox_update pip_update configs passmgr" \
+    cal='printf "\033[1m\033[34m=== %s ===\033[0m\n%s\n" "$DATE" "$(calcurse -a -t)"' \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     wacom-setup-menu="wacom-setup menu" \
     swayimg="swayimg -s fit -w 000000 -m" \
