@@ -1,51 +1,6 @@
 #!/bin/sh
 separator="     "
 
-get_int() { # Type of interface & status
-    # If active ethernet, just exit with icon
-    grep -xq 'up' /sys/class/net/e*/operstate 2>/dev/null && echo "󰛳" && return 0
-
-    # If active WiFi, print link strength
-    if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
-        strength="$(awk 'NR==3 {printf("%.0f\n",$3*10/7)}' /proc/net/wireless)"
-        case 1 in
-            $((strength >= 100)) ) bar="━━━━━━━━━━" ;;
-            $((strength >= 90))  ) bar="━━━━━━━━━─" ;;
-            $((strength >= 80))  ) bar="━━━━━━━━──" ;;
-            $((strength >= 70))  ) bar="━━━━━━━───" ;;
-            $((strength >= 60))  ) bar="━━━━━━────" ;;
-            $((strength >= 50))  ) bar="━━━━━─────" ;;
-            $((strength >= 40))  ) bar="━━━━──────" ;;
-            $((strength >= 30))  ) bar="━━━───────" ;;
-            $((strength >= 20))  ) bar="━━────────" ;;
-            $((strength >= 10))  ) bar="━─────────" ;;
-            $((strength >= 0))   ) bar="──────────" ;;
-        esac
-        echo "󰖩 $bar"
-        return 0
-    fi
-
-    # If down interfaces, exit with icon
-    grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && echo "󰖪 ──────────" && return 0
-    grep -xq 'down' /sys/class/net/e*/operstate 2>/dev/null && echo "󰲛" && return 0
-}
-
-get_net() {
-    # Run 'int'
-    info=$(get_int)
-        
-    # Check if a VPN is enabled
-    vpn="$( \
-        sed "s/.*//" /sys/class/net/tun*/operstate 2>/dev/null
-        sed "s/.*//" /sys/class/net/wg*/operstate 2>/dev/null \
-        )"
-    # If so, change icon
-    [ -n "$vpn" ] && info="$(printf "$info" | sed 's/󰛳//' | sed 's/󰖩//')"
-
-    # Print $info
-    printf "%s" "$info"
-}
-
 get_vol() {
     vol=$(amixer | grep "Playback" | grep -o '[0-9]*[0-9]%' | head -n 1)
     vol="${vol%\%*}" # Remove percentage sign
@@ -98,38 +53,6 @@ get_mic() {
     echo " $bar"
 }
 
-get_bat() {
-    total=0
-    batteries=0
-
-    for battery in /sys/class/power_supply/BAT?* ; do
-        capacity=$(cat $battery/capacity 2>/dev/null || break)
-        total=$((capacity+total))
-        batteries=$(($batteries+1))
-    done
-
-    [ $total -gt 0 ] && bat=$(($total/$batteries)) || bat="󰚥"
-    [ "$bat" = "󰚥" ] && echo "$bat" && exit
-    grep -rq 'Charging' /sys/class/power_supply/BAT* 2>/dev/null && stat='Charging'
-
-    case 1 in
-        $((bat >= 98))  ) bar="━━━━━━━━━━" ;;
-        $((bat >= 90))  ) bar="━━━━━━━━━─" ;;
-        $((bat >= 80))  ) bar="━━━━━━━━──" ;;
-        $((bat >= 70))  ) bar="━━━━━━━───" ;;
-        $((bat >= 60))  ) bar="━━━━━━────" ;;
-        $((bat >= 50))  ) bar="━━━━━─────" ;;
-        $((bat >= 40))  ) bar="━━━━──────" ;;
-        $((bat >= 30))  ) bar="━━━───────" ;;
-        $((bat >= 20))  ) bar="━━────────" ;;
-        $((bat >= 10))  ) bar="━─────────" ;;
-        $((bat >= 10))  ) bar="──────────" ;;
-    esac
-
-    [ "$stat" != "Charging" ] && icon="󰁹" || icon=""
-    echo "$icon $bar"
-}
-
 get_layout() {
     layout="$(swaymsg -t get_inputs | grep -m 1 'xkb_active_layout_name' | cut -d '"' -f 4)"
     [ "$layout" = "English (US)" ] && layout="us"
@@ -137,25 +60,14 @@ get_layout() {
     echo "󰌌 $layout"
 }
 
-get_apts() {
-    apts="$(calcurse -a | grep -c '\*')"
-    [ "$apts" = "0" ] && return 0
-    echo "󰃭 $apts"
-}
-
-get_todo() {
-    todo="$(calcurse -t | wc -l)"
-    [ "$todo" = "0" ] && return 0
-    echo " $todo"
-}
 
 while true ; do
     status=""
 
-    todo="$(get_todo)"
+    todo="$(cal todo count)"
     ! [ -z "$todo" ] && status="$status$separator$todo"
 
-    apts="$(get_apts)"
+    apts="$(cal apts count)"
     ! [ -z "$apts" ] && status="$status$separator$apts"
 
     volume="$(get_vol)"
@@ -164,10 +76,10 @@ while true ; do
     microphone="$(get_mic)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
-    network="$(get_net)"
+    network="$(netstat)"
     ! [ -z "$network" ] && status="$status$separator$network"
 
-    battery="$(get_bat)"
+    battery="$(batstat)"
     ! [ -z "$battery" ] && status="$status$separator$battery"
 
     layout="$(get_layout)"
