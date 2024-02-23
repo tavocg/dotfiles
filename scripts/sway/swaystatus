@@ -23,10 +23,10 @@ get_layout() {
 while true ; do
     status=""
 
-    todo="$(get_todo)"
+    #todo="$(get_todo)"
     ! [ -z "$todo" ] && status="$status$separator$todo"
 
-    apts="$(get_apts)"
+    #apts="$(get_apts)"
     ! [ -z "$apts" ] && status="$status$separator$apts"
 
     volume="$(volstat)"

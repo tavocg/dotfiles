@@ -148,6 +148,8 @@ bar {
     }
 }
 
+for_window [class="Display-im6.q16"] floating enable 
+
 # Autostart
 exec_always dunst
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY

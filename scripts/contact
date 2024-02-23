@@ -1,0 +1,17 @@
+#!/bin/sh
+VDIR="$HOME/Documents/contacts"
+
+QUERY="$(< /dev/null | menu 'Query contacts:' )"
+[ -z "$QUERY" ] && exit 0
+LIST="$(grep -ir "$QUERY" "$VDIR" | cut -d ':' -f 1 | uniq | tr '\n' ' ')"
+
+NAME="$(for VCARD in $LIST ; do
+    grep -r 'FN' "$VCARD" | cut -d ':' -f 2
+done | menu "'$QUERY' results:")"
+[ -z "$NAME" ] && exit 0
+
+grep -r "$NAME" "$VDIR" | cut -d ':' -f 1 | xargs sed \
+    -e '/^.*:VCARD/d;/^VERSION:/d;/^PRODID:/d;/^UID:/d;/^REV:/d' \
+    -e '/^FN:/d;/^N:/d;/^NICKNAME:/d' \
+    -e 's/^.*://g' |
+    menu "$NAME:" | tr -d '\n' | tr -d '^M' | wl-copy
