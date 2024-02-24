@@ -1,5 +1,5 @@
 #!/bin/sh
-VDIR="$HOME/Documents/contacts"
+VDIR="$HOME/.local/share/contacts"
 
 QUERY="$(< /dev/null | menu 'Query contacts:' )"
 [ -z "$QUERY" ] && exit 0

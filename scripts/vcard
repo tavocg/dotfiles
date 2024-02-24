@@ -1,5 +1,5 @@
 #!/bin/sh
-VDIR="$HOME/Documents/contacts"
+VDIR="$HOME/.local/share/contacts"
 
 NAME="$(grep -r 'FN' "$VDIR" | cut -d ':' -f 3 | menu "VCARD:")"
 [ -z "$NAME" ] && exit 0
