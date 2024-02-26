@@ -1,0 +1,18 @@
+[general]
+status_path = "~/.local/state/vdirsyncer/status/"
+
+[pair contacts]
+a = "local"
+b = "nextcloud"
+collections = ["from a", "from b"]
+
+[storage nextcloud]
+type = "carddav"
+url = "https://cloud.tavo.one/"
+username = "tavo@tavo.one"
+password.fetch = ["command", "pass", "personal/vdirsyncer"]
+
+[storage local]
+type = "filesystem"
+path = "~/.local/share/contacts/"
+fileext = ".vcf"
