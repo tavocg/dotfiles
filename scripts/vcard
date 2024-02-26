@@ -1,6 +1,0 @@
-#!/bin/sh
-VDIR="$HOME/.local/share/contacts"
-
-NAME="$(grep -r 'FN' "$VDIR" | cut -d ':' -f 3 | menu "VCARD:")"
-[ -z "$NAME" ] && exit 0
-grep -r "$NAME" "$VDIR" | cut -d ':' -f 1 | xargs qrencode -s 8 -t PNG -o - -r | display
