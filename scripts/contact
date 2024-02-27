@@ -14,9 +14,9 @@ else
     FILE="$(grep -r "^FN:$NAME" "$VDIR" | cut -d ':' -f 1)"
 fi ; [ -z "$FILE" ] && exit 0
 
-INFO="$(sed -e '/^.*:VCARD/d;/^VERSION:/d;/^PRODID:/d;/^UID:/d' \
-    -e '/^FN:/d;/^N:/d;/^NICKNAME.*:/d;/^REV.*:/d' \
-    -e 's/^EMAIL.*:/󰇮 /;s/^TEL.*:/󰘂 /' \
+INFO="$(sed -e '/^.*:VCARD/d;/^VERSION:/d;/^PRODID:/d;/^UID:/d;/^ /d' \
+    -e '/^FN:/d;/^N:/d;/^NICKNAME.*:/d;/^REV.*:/d;/^PHOTO.*:/d' \
+    -e 's/^EMAIL.*:/󰇮 /;s/^TEL.*:/󰘂 /;s/^IMPP.*:/󰟿 /' \
     -e 's/^TITLE.*:/󰃖 /;s/^ORG.*:/ /' \
     -e 's/^.*://g;s/[;]/ /g;/^\s*$/d' \
     "$FILE" | awk '$0 ~ /^.{4,}$/' )"
@@ -24,5 +24,5 @@ INFO="$(sed -e '/^.*:VCARD/d;/^VERSION:/d;/^PRODID:/d;/^UID:/d' \
 FIELD="$(printf '%s\n󰭷 VCARD' "$INFO" | menu " $NAME:" | cut -c 6- | tr -d '\n' | sed 's/\s*$//g')"
 [ -z "$FIELD" ] && exit 0
 
-[ "$FIELD" = "VCARD" ] && qrencode -s 8 -t PNG -o - -r "$FILE" | display && exit 0
+[ "$FIELD" = "VCARD" ] && sed '/^PHOTO.*:/d;/^ /d' "$FILE" | qrencode -s 8 -t PNG -o - | display && exit 0
 wl-copy "$FIELD"
