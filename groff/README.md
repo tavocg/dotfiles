@@ -3,22 +3,27 @@
 Keep in mind, the macro utils.tmac sources sboxes.tmac, but
 that macro is exclusive to groff v1.23.0, which is not
 present on Debian 12. Compiling it from source is really
-easy though, thanks to GNU's coding standards.
+easy though.
 
 # To install CM font
-Remember to add `-s` option to install in `/usr/share/groff/` instead of `/usr/local/share/groff/`
+
 ```shell
 wget www.ams.org/arc/tex/amsfonts.zip
 unzip -d amsfonts amsfonts.zip
-groff-install-font -F CM -f +R amsfonts/fonts/type1/public/amsfonts/cm/cmr10.pfb
-groff-install-font -F CM -f +I amsfonts/fonts/type1/public/amsfonts/cm/cmmi10.pfb
-groff-install-font -F CM -f +B amsfonts/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-groff-install-font -F CM -f +SS amsfonts/fonts/type1/public/amsfonts/euler/eusm10.pfb   # Euler symbols
-groff-install-font -F CM -f +SSE amsfonts/fonts/type1/public/amsfonts/euler/euex10.pfb  # Euler symbols extra
-groff-install-font -F CM -f +SE amsfonts/fonts/type1/public/amsfonts/symbols/msam10.pfb # Euler extra
-groff-install-font -F CM -f +SB amsfonts/fonts/type1/public/amsfonts/symbols/msbm10.pfb # Blackboard
-groff-install-font -F CM -f +SF amsfonts/fonts/type1/public/amsfonts/euler/eufm10.pfb   # Blackletter (Fraktur)
-groff-install-font -F CM -f +MA amsfonts/fonts/type1/public/amsfonts/cm/cmex10.pfb      # Math extension
+groff-install-font -d -c -F CM -f +SS amsfonts/fonts/type1/public/amsfonts/euler/eusm10.pfb   # Euler symbols
+groff-install-font -d -c -F CM -f +SSE amsfonts/fonts/type1/public/amsfonts/euler/euex10.pfb  # Euler symbols extra
+groff-install-font -d -c -F CM -f +SE amsfonts/fonts/type1/public/amsfonts/symbols/msam10.pfb # Euler extra
+groff-install-font -d -c -F CM -f +SB amsfonts/fonts/type1/public/amsfonts/symbols/msbm10.pfb # Blackboard
+groff-install-font -d -c -F CM -f +SF amsfonts/fonts/type1/public/amsfonts/euler/eufm10.pfb   # Blackletter (Fraktur)
+groff-install-font -d -c -F CM -f +MA amsfonts/fonts/type1/public/amsfonts/cm/cmex10.pfb      # Math extension
+```
+
+```shell
+apt source cm-super
+cd cm-super-*/pfb
+groff-install-font -d -c -F CM -f +R sfrm1000.pfb 
+groff-install-font -d -c -F CM -f +I sfti1000.pfb 
+groff-install-font -d -c -F CM -f +B sfrb1000.pfb 
 ```
 
 # Custom fonts & glyphs
