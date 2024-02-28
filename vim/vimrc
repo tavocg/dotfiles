@@ -84,7 +84,8 @@ function OpenTerminal()
     if bufType == "terminal"
         execute "q"
     else
-        execute "vsp term://bash"
+        execute "bot sp term://bash"
+        execute "resize -8"
         execute "set nonu"
         execute "set nornu"
         silent au BufLeave <buffer> stopinsert!

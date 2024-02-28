@@ -141,10 +141,10 @@ bar {
     tray_padding 4
 
     colors {
-        background #121212
-        statusline $col_ac
+        background #12121200
+        statusline #ebdbb2
         focused_workspace $col_fg $col_fg $col_bg
-        inactive_workspace $col_bg $col_bg $col_ac
+        inactive_workspace #12121200 #12121200 #ebdbb2
     }
 }
 
