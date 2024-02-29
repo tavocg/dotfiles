@@ -22,6 +22,7 @@ export \
 
 # Default programs
 export \
+    TERM="xterm-256color" \
     OPENER="xdg-open" \
     READER="zathura" \
     BROWSER="firefox" \
