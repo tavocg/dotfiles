@@ -6,7 +6,7 @@ BRUN="-run" DRUN="_run" TRUN="-run" FRUN=""
 [ "$MODE" != "run" ] && BRUN="" DRUN="" TRUN="" FRUN=""
 
 # Configuration
-menu="menu_bemenu"
+menu="menu_dmenu"
 font="JetbrainsMono"
 font_size="10"
 col_white="#ebdbb2" # White
