@@ -1,0 +1,7 @@
+#!/bin/sh
+COLOR="$(grim -g "$(slurp -p)" -t ppm - | convert - -format '%[pixel:p{0,0}]' txt:- | sed '/^#/d;s/^.* (/srgb(/')"
+HEX="$(printf "$COLOR" | awk '{print $2}')"
+
+wl-copy "$HEX"
+printf "$COLOR"
+notify-send "Picker" "$COLOR"
