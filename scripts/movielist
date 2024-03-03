@@ -1,0 +1,14 @@
+#!/bin/sh
+MOVIES="$1"
+[ -z "$MOVIES" ] && MOVIES="/mnt/jellyfin/Movies/"
+
+printf '| %s | %s | %s | %s | %s | %s |\n|---|---|---|---|---|---|\n'  "Nombre" "Año" "Duración" "Formato" "Tamaño" "Streams"
+for FILE in $(find "$MOVIES" | grep '\.mp4\|\.mkv' | tr '\n' ' ') ; do
+    DURATION="$(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 -sexagesimal "$FILE" 2>/dev/null)"
+    NAME="${FILE##*/}"
+    NAME="$(printf "${NAME%%.*}" | sed 's/[_]/ /g' | sed 's@(@| (@g')"
+    FORMAT="${FILE##*.}"
+    STREAMS="$(ffmpeg -i "$FILE" 2>&1 | grep "Stream #" | grep -o '.[A-Za-z]*.: ' | tac | head -n -2 | tr '\n' ' ' | sed 's/ //g')"
+    SIZE="$(du -h "$FILE" | sed 's/\s.*$//;s/\s//g')"
+    printf '| %s | %s | %s | %s | %s |\n' "$NAME" "$DURATION" "$FORMAT" "$SIZE" "$STREAMS"
+done
