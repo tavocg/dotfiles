@@ -3,6 +3,8 @@ output * {
     bg ~/Pictures/Backgrounds/default.jpg fill
 }
 
+output HDMI-A-1 pos 0 0
+
 input type:touchpad {
     natural_scroll enabled
     tap enabled
