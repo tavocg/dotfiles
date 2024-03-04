@@ -14,8 +14,14 @@
 (unless (package-installed-p 'gruvbox-theme)
   (package-install 'gruvbox-theme))
 
+(unless (package-installed-p 'nerd-icons)
+  (package-install 'nerd-icons))
+
 (unless (package-installed-p 'rainbow-mode)
   (package-install 'rainbow-mode))
+
+(unless (package-installed-p 'dashboard)
+  (package-install 'dashboard))
 
 (unless (package-installed-p 'undo-tree)
   (package-install 'undo-tree))
@@ -215,6 +221,9 @@ selected window height (10-100): ")
 
 ;; Keybinds
 
+(setq scroll-step            1
+      scroll-conservatively  10000)
+
 (use-package general
   :config
   (general-evil-setup)
@@ -253,7 +262,6 @@ selected window height (10-100): ")
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (global-display-line-numbers-mode 1)
-(global-visual-line-mode t)
 
 (set-face-attribute 'default nil
     :font "JetBrains Mono"
@@ -269,3 +277,14 @@ selected window height (10-100): ")
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10"))
 
 (load-theme 'gruvbox-dark-hard t)
+
+(use-package dashboard
+  :ensure t 
+  :init
+  (setq initial-buffer-choice 'dashboard-open)
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-center-content t)
+  (setq dashboard-banner-logo-title "Emacs Is More Than A Text Editor!")
+  (setq dashboard-startup-banner 'logo)
+  (setq dashboard-items '((recents . 5))))
