@@ -19,7 +19,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 # Added xinitrc config
 dbus-update-activation-environment --systemd --all &
 systemctl --user import-environment DISPLAY &
-xset r rate 300 50 &
+xset r rate 300 70 &
 setxkbmap en &
 dwmblocks &
 clipmenud &
@@ -28,6 +28,7 @@ picom --experimental-backends &
 clear &
 #xrandr --output DVI-D-0 --right-of HDMI-0
 hsetroot -cover /home/tavo/Pictures/Backgrounds/default.jpg &
+emacs --daemon &
 
 while true; do
 	dwm >/dev/null 2>&1

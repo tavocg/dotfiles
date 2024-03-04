@@ -1,7 +1,7 @@
 #!/bin/sh
 VDIR="$HOME/.local/share/contacts"
 
-QUERY="$(grep -r '^FN:' "$VDIR" | sed 's/.*://' | menu "Contact:")"
+QUERY="$(grep -r '^FN:' "$VDIR" | sed 's/.*://' | tr -d '\r' | menu "Contact:")"
 [ -z "$QUERY" ] && exit 0
 FILE="$(grep -r "^FN:$QUERY" "$VDIR" | cut -d ':' -f 1)"
 
@@ -19,10 +19,11 @@ INFO="$(sed -e '/^.*:VCARD/d;/^VERSION:/d;/^PRODID:/d;/^UID:/d;/^ /d' \
     -e 's/^EMAIL.*:/󰇮 /;s/^TEL.*:/󰘂 /;s/^IMPP.*:/󰟿 /' \
     -e 's/^TITLE.*:/󰃖 /;s/^ORG.*:/ /' \
     -e 's/^.*://g;s/[;]/ /g;/^\s*$/d' \
-    "$FILE" | awk '$0 ~ /^.{4,}$/' )"
+    "$FILE" )"
 
-FIELD="$(printf '%s\n󰭷 VCARD' "$INFO" | menu " $NAME:" | cut -c 6- | tr -d '\n' | sed 's/\s*$//g')"
+FIELD="$(printf '%s\n󰭷 VCARD' "$INFO" | tr -d '\r' | menu " $NAME:" | cut -c 6- | tr -d '\n' | sed 's/\s*$//g')"
 [ -z "$FIELD" ] && exit 0
 
 [ "$FIELD" = "VCARD" ] && sed '/^PHOTO.*:/d;/^ /d' "$FILE" | qrencode -s 8 -t PNG -o - | display && exit 0
-wl-copy "$FIELD"
+#wl-copy "$FIELD"
+printf '%s' "$FIELD" | xsel -ib

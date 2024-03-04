@@ -10,10 +10,10 @@ menu="menu_dmenu"
 font="JetbrainsMono"
 font_size="10"
 col_white="#ebdbb2" # White
-col_nb="#121212"    # Normal background
+col_nb="#1d2021"    # Normal background
 col_nf="#606060"    # Normal foreground
 col_sb="#fabd2f"    # Selected background
-col_sf="#121212"    # Selected foreground
+col_sf="#1d2021"    # Selected foreground
 
 menu_bemenu() {
 bemenu$BRUN \

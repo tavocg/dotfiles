@@ -31,6 +31,9 @@
 (unless (package-installed-p 'goto-chg)
   (package-install 'goto-chg))
 
+(unless (package-installed-p 'flycheck)
+  (package-install 'flycheck))
+
 (unless (package-installed-p 'all-the-icons)
   (package-install 'all-the-icons))
 
@@ -78,17 +81,14 @@
   :config
   (eshell-syntax-highlighting-global-mode +1))
 
-(setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
-      eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
-      eshell-history-size 5000
-      eshell-buffer-maximum-lines 5000
-      eshell-hist-ignoredups t
-      eshell-scroll-to-bottom-on-input t
-      eshell-destroy-buffer-when-process-dies t
-      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
-
 (use-package rainbow-mode
   :hook org-mode prog-mode)
+
+(use-package flycheck
+  :ensure t
+  :defer t
+  :diminish
+  :init (global-flycheck-mode))
 
 ;; Functions
 
