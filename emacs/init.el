@@ -1,3 +1,5 @@
+;;; init.el --- tavo's emacs configs
+
 ;; MELPA
 
 (require 'package)
@@ -262,6 +264,7 @@ selected window height (10-100): ")
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (global-display-line-numbers-mode 1)
+(global-hl-line-mode 1)
 
 (set-face-attribute 'default nil
     :font "JetBrains Mono"
@@ -288,3 +291,9 @@ selected window height (10-100): ")
   (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")
   (setq dashboard-startup-banner "~/.config/emacs/default.txt")
   (setq dashboard-items '((recents . 5))))
+
+(custom-set-faces
+ '(hl-line ((t (:extend t :background "#3a3a3a"))))
+ '(line-number ((t (:background "#1d2021" :foreground "#7c6f64")))))
+
+;;; init.el ends here
