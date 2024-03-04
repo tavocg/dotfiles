@@ -4,15 +4,18 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-(package-refresh-contents)
+;;(package-refresh-contents)
 
 ;; Install packages
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-(unless (package-installed-p 'which-key)
-  (package-install 'which-key))
+(unless (package-installed-p 'gruvbox-theme)
+  (package-install 'gruvbox-theme))
+
+(unless (package-installed-p 'rainbow-mode)
+  (package-install 'rainbow-mode))
 
 (unless (package-installed-p 'undo-tree)
   (package-install 'undo-tree))
@@ -21,6 +24,12 @@
 
 (unless (package-installed-p 'goto-chg)
   (package-install 'goto-chg))
+
+(unless (package-installed-p 'all-the-icons)
+  (package-install 'all-the-icons))
+
+(unless (package-installed-p 'all-the-icons-dired)
+  (package-install 'all-the-icons-dired))
 
 (unless (package-installed-p 'evil-collection)
   (package-install 'evil-collection))
@@ -51,37 +60,192 @@
     (setq evil-split-window-below t)
     (evil-mode))
 
-;; Keybinds
+(use-package all-the-icons
+    :ensure t
+    :if (display-graphic-p))
 
-(use-package which-key
-  :init
-    (which-key-mode 1)
+(use-package all-the-icons-dired
+  :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
+
+(use-package eshell-syntax-highlighting
+  :after esh-mode
   :config
-  (setq which-key-side-window-location 'bottom
-	  which-key-sort-order #'which-key-key-order-alpha
-	  which-key-sort-uppercase-first nil
-	  which-key-add-column-padding 1
-	  which-key-max-display-columns nil
-	  which-key-min-display-lines 6
-	  which-key-side-window-slot -10
-	  which-key-side-window-max-height 0.25
-	  which-key-idle-delay 0.8
-	  which-key-max-description-length 25
-	  which-key-allow-imprecise-window-fit t
-	  which-key-separator " → " ))
+  (eshell-syntax-highlighting-global-mode +1))
+
+(setq eshell-rc-script (concat user-emacs-directory "eshell/profile")
+      eshell-aliases-file (concat user-emacs-directory "eshell/aliases")
+      eshell-history-size 5000
+      eshell-buffer-maximum-lines 5000
+      eshell-hist-ignoredups t
+      eshell-scroll-to-bottom-on-input t
+      eshell-destroy-buffer-when-process-dies t
+      eshell-visual-commands'("bash" "fish" "htop" "ssh" "top" "zsh"))
+
+(use-package rainbow-mode
+  :hook org-mode prog-mode)
+
+;; Functions
+
+(defvar shell-pop-last-buffer nil)
+(defvar shell-pop-last-window nil)
+(defvar shell-pop-window-height 30) ; percentage for shell-buffer window height
+(defvar shell-pop-window-position "bottom")
+
+(defvar shell-pop-internal-mode "shell")
+(defvar shell-pop-internal-mode-buffer "*shell*")
+(defvar shell-pop-internal-mode-func '(lambda () (shell)))
+(defvar shell-pop-internal-mode-shell "/bin/bash")
+
+(defvar shell-pop-internal-mode-list
+  (list
+    ; mode, buffer, function
+    '("shell"     "*shell*"     '(lambda () (shell)))
+    '("terminal"  "*terminal*"  '(lambda () (term shell-pop-internal-mode-shell)))
+    '("ansi-term" "*ansi-term*" '(lambda () (ansi-term shell-pop-internal-mode-shell)))
+    '("eshell"    "*eshell*"    '(lambda () (eshell)))))
+
+(defun shell-pop-set-window-height (number)
+  (interactive "nInput the number for the percentage of \
+selected window height (10-100): ")
+  (setq shell-pop-window-height number))
+
+(defun shell-pop-set-window-position (position)
+  (interactive "sInput the position for shell-pop (top|bottom): ")
+  (setq shell-pop-window-position position))
+
+(defun shell-pop-set-internal-mode (mode)
+  (interactive "sInput your favorite mode (shell|terminal|ansi-term|eshell): ")
+  (if (catch 'found
+        (dolist (l shell-pop-internal-mode-list)
+          (if (string-match mode (car l))
+              (progn
+                (setq shell-pop-internal-mode-buffer (nth 1 l))
+                (setq shell-pop-internal-mode-func (nth 2 l))
+                (throw 'found t)))))
+      t
+    nil))
+
+(defun shell-pop-set-internal-mode-shell (shell)
+  (interactive (list (read-from-minibuffer "Input your favorite shell:"
+                                           shell-pop-internal-mode-shell)))
+  (setq shell-pop-internal-mode-shell shell))
+
+(defun shell-pop ()
+  (interactive)
+  (if (equal (buffer-name) shell-pop-internal-mode-buffer)
+      (shell-pop-out)
+    (shell-pop-up)))
+
+(defun shell-pop-up ()
+  (let ((w (get-buffer-window shell-pop-internal-mode-buffer)))
+    (if w
+        (select-window w)
+      (progn
+        ; save shell-pop-last-buffer and shell-pop-last-window to return
+          (setq shell-pop-last-buffer (buffer-name))
+          (setq shell-pop-last-window (selected-window))
+          (if (not (eq shell-pop-window-height 100))
+              (progn
+                (split-window (selected-window)
+                              (if (string= shell-pop-window-position "bottom")
+                                  (round (* (window-height)
+                                            (/ (- 100 shell-pop-window-height) 100.0)))
+                                (round (* (window-height) (/ shell-pop-window-height 100.0)))))
+                (if (string= shell-pop-window-position "bottom")
+                    (other-window 1))))
+          (if (not (get-buffer shell-pop-internal-mode-buffer))
+              (funcall (eval shell-pop-internal-mode-func))
+            (switch-to-buffer shell-pop-internal-mode-buffer))))))
+
+(defun shell-pop-out ()
+  (if (not (eq shell-pop-window-height 100))
+      (progn
+        (delete-window)
+        (if (string= shell-pop-window-position "bottom")
+            (select-window shell-pop-last-window))))
+  (switch-to-buffer shell-pop-last-buffer))
+
+(require 'windmove)
+
+(defun buf-move-up ()
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'up))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No window above this one")
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+(defun buf-move-down ()
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'down))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (or (null other-win) 
+            (string-match "^ \\*Minibuf" (buffer-name (window-buffer other-win))))
+        (error "No window under this one")
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+(defun buf-move-left ()
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'left))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No left split")
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+(defun buf-move-right ()
+  (interactive)
+  (let* ((other-win (windmove-find-other-window 'right))
+	 (buf-this-buf (window-buffer (selected-window))))
+    (if (null other-win)
+        (error "No right split")
+      (set-window-buffer (selected-window) (window-buffer other-win))
+      (set-window-buffer other-win buf-this-buf)
+      (select-window other-win))))
+
+(defun reload-init-file ()
+  (interactive)
+  (load-file user-init-file)
+  (load-file user-init-file))
+
+;; Keybinds
 
 (use-package general
   :config
   (general-evil-setup)
+
   (general-create-definer leader-keys
     :states '(normal insert visual emacs)
     :keymaps 'override
-    :prefix "SPC"
-    :global-prefix "M-SPC")
+    :prefix "C-w"
+    :global-prefix "C-w")
 
   (leader-keys
-   "bn" '(next-buffer :wk "Next buffer")
-   "bk" '(kill-this-buffer :wk "Kill this buffer")))
+   ;; Splits
+   "h" '(evil-window-left :wk "Buffer focus left")
+   "j" '(evil-window-down :wk "Buffer focus down")
+   "k" '(evil-window-up :wk "Buffer focus up")
+   "l" '(evil-window-right :wk "Buffer focus right")
+   "H" '(buf-move-left :wk "Buffer focus left")
+   "J" '(buf-move-down :wk "Buffer focus down")
+   "K" '(buf-move-up :wk "Buffer focus up")
+   "L" '(buf-move-right :wk "Buffer focus right")
+   ;; Common
+   "f" '(find-file :wk "Find file")
+   "c" '(comment-line :wk "Comment lines")
+   "rr" '(reload-init-file :wk "Reload config")))
+
+(global-set-key (kbd "C-g") 'shell-pop)
+(global-set-key (kbd "C-<tab>") 'next-buffer)
+(global-set-key (kbd "C-c") 'kill-this-buffer)
+(global-set-key (kbd "C-=") 'text-scale-increase)
+(global-set-key (kbd "C-+") 'text-scale-increase)
+(global-set-key (kbd "C--") 'text-scale-decrease)
 
 ;; Theming
 
@@ -93,15 +257,15 @@
 
 (set-face-attribute 'default nil
     :font "JetBrains Mono"
-    :height 110
     :weight 'normal)
 
 (set-face-attribute 'fixed-pitch nil
     :font "JetBrains Mono"
-    :height 110
     :weight 'normal)
 
 (set-face-attribute 'font-lock-comment-face nil
     :slant 'italic)
 
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10"))
+
+(load-theme 'gruvbox-dark-hard t)
