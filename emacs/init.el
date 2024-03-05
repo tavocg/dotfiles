@@ -1,4 +1,6 @@
 ;;; init.el --- tavo's emacs configs
+;;; Commentary:
+;;; Code:
 
 ;; MELPA
 
@@ -35,6 +37,9 @@
 
 (unless (package-installed-p 'flycheck)
   (package-install 'flycheck))
+
+(unless (package-installed-p 'ess)
+  (package-install 'ess))
 
 (unless (package-installed-p 'all-the-icons)
   (package-install 'all-the-icons))
