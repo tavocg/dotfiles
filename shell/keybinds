@@ -1,6 +1,5 @@
 #!/bin/bash
 
 bind '"\C-e":"dragon -x \* 2>/dev/null\C-m"'
-bind '"\C-y":"copy_history\C-m"'
+bind '"\C-h":"copy_history\C-m"'
 bind '"\C-f":"fzf_nav\C-m"'
-bind '"\C-n":"fzf_nav\C-m"'

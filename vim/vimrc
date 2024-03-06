@@ -122,7 +122,6 @@ Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua'
 Plug 'morhetz/gruvbox'
-Plug 'jalvesaq/Nvim-R'
 Plug 'instant-markdown/vim-instant-markdown'
 call plug#end()
 

@@ -7,4 +7,4 @@ name="$(sed '/^Watch\slater:\s/d;/^\s*$/d;/^#/d;s/-.*$//g' "$BOOKMARKS" | menu "
 [ -z "$name" ] && exit
 
 grep "$name" $BOOKMARKS | sed -z 's/^.*-//g;s/\n//g' |
-    wl-copy && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"
+    xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"
