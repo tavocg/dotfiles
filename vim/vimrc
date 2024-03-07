@@ -121,18 +121,20 @@ if empty(glob('~/.config/vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
+Plug 'instant-markdown/vim-instant-markdown'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
+"Plug 'chrisbra/Colorizer'
 Plug 'junegunn/goyo.vim'
 Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua'
 Plug 'morhetz/gruvbox'
-Plug 'instant-markdown/vim-instant-markdown'
 call plug#end()
 
 " Theme
@@ -188,3 +190,6 @@ autocmd FileType markdown noremap <buffer> <silent> <F9> :InstantMarkdownPreview
 let g:instant_markdown_browser = "firefox --new-window"
 let g:instant_markdown_mathjax = 1
 let g:instant_markdown_mermaid = 1
+
+" Colorizer (VIM)
+"let g:colorizer_auto_color = 1
