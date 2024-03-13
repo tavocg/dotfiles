@@ -31,3 +31,7 @@ history |
     sed -z 's/^.*:[0-9]*\s*//g;s/\s*$//g;s/\n//g' |
     xsel -ib
 }
+
+sshcd() {
+    ssh -t "$1" "cd \"$2\"; exec \$SHELL -l"
+}
