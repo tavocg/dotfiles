@@ -1,0 +1,5 @@
+#!/bin/sh
+
+HCOL="\x1b[44m"
+TODAY="$(date '+%d' | sed 's/^0//')"
+/bin/cal "$@" | sed "s, $TODAY ,$HCOL $TODAY\x1b[0m ,"
