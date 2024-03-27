@@ -1,5 +1,0 @@
-#!/usr/bin/env sh
-
-HOME=$HOME/.local/share/librewolf
-mkdir -p "$HOME"
-exec /usr/bin/librewolf "$@"
