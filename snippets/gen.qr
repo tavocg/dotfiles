@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Use google charts
+zbarimg <(wget -qO - "https://www.google.com/chart?chs=200x200&chld=M|0&cht=qr&chl=STRING")
+
+# Use qrencode like a normal person
+printf 'STRING' | qrencode -t ansiutf8 # Ansi output
+printf 'STRING' | qrencode -s 16 -o qr.png # .png file

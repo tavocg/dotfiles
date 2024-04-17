@@ -4,7 +4,6 @@
 #  a fetch in pure POSIX shell
 #
 
-[ "$1" = "" ] && mode=""
 [ "$1" = "min" ] && mode="min"
 
 # supress errors
@@ -71,13 +70,13 @@ if [ -e /proc/$$/comm ]; then
 	## Memory
 	# loop over lines in /proc/meminfo until it reaches MemTotal,
 	# then convert the amount (second word) from KB to MB
-	while read -r line; do
+	while read -r line; [ "$mode" != "min" ]; do
 		eq "$line" 'MemTotal*' && set -- $line && break
 	done < /proc/meminfo
-	mem="$(( $2 / 1000 ))MB"
+	[ "$mode" != "min" ] && mem="$(( $2 / 1000 ))MB"
 
 	## Processor
-	while read -r line; do
+	while read -r line; [ "$mode" != "min" ] ; do
 		case $line in
 			vendor_id*) vendor="${line##*: } ";;
 			model\ name*) cpu=${line##*: }; break;;
@@ -98,9 +97,9 @@ if [ -e /proc/$$/comm ]; then
 	eq "$version" '*Microsoft*' && ID="fake $ID"
 
 	## Motherboard // laptop
-	read -r model < /sys/devices/virtual/dmi/id/product_name
+	[ "$mode" != "min" ] && read -r model < /sys/devices/virtual/dmi/id/product_name
 	# invalid model handling
-	case $model in
+	[ "$mode" != "min" ] && case $model in
 		# alternate file with slightly different info
 		# on my laptop it has the device model (instead of 'hp notebook')
 		# on my desktop it has the extended motherboard model
@@ -227,13 +226,11 @@ elif v=/System/Library/CoreServices/SystemVersion.plist; [ -f "$v" ]; then
 	done < "$v"
 fi
 
-eq "$0" '*fetish' && printf 'Step on me daddy\n' && exit
-
 # help i dont know if it's a capital consistently
 eq "$wm" '*[Gg][Nn][Oo][Mm][Ee]*' && wm='foot DE'
 
 ## GTK
-while read -r line; do
+while read -r line; [ "$mode" != "min" ]; do
 	eq "$line" 'gtk-theme*' && gtk=${line##*=} && break
 done < "${XDG_CONFIG_HOME:=$HOME/.config}/gtk-3.0/settings.ini"
 
@@ -250,47 +247,55 @@ cpu=${cpu%% with*}
 cpu=${cpu% *-Core*}
 
 col() {
-	printf '  '
-	for i in 1 2 3 4 5 6; do
-		printf '\033[9%sm%s' "$i" "${colourblocks:- ●}"
-	done
-	printf '\033[0m\n'
+char="●"
+printf '   \033[91m%s \033[92m%s \033[93m%s \033[94m%s \033[95m%s \033[96m%s
+\033[0m' "$char" "$char" "$char" "$char" "$char" "$char"
 }
-
-
-print() {
-    [ "$2" ] && printf '\033[1m  %b\033[0m %b%s\n' \
-        "$1" "$2"
-}
-
 
 full() {
-    echo
-    print DIST "$ID"
-    print KERN "$kernel"
-    print PKGS "$pkgs"
-    print TERM "$term"
-    print SHLL "${SHELL##*/}"
-    print WDMG "${wm##*/}"
-    print THME "${gtk# }"
-    print HOST "$model"
-    print PCSR "$vendor$cpu"
-    print MMRY "$mem"
-    print UPTM "$up"
+printf '
+  \033[1mDIST\033[0m %s
+  \033[1mKERN\033[0m %s
+  \033[1mPKGS\033[0m %s
+  \033[1mTERM\033[0m %s
+  \033[1mSHLL\033[0m %s
+  \033[1mWDMG\033[0m %s
+  \033[1mTHME\033[0m %s
+  \033[1mHOST\033[0m %s
+  \033[1mPCSR\033[0m %s
+  \033[1mMMRY\033[0m %s
+  \033[1mUPTM\033[0m %s
+'   "$ID" \
+    "$kernel" \
+    "$pkgs" \
+    "$term" \
+    "${SHELL##*/}" \
+    "${wm##*/}" \
+    "${gtk# }" \
+    "$model" \
+    "$vendor$cpu" \
+    "$mem" \
+    "$up"
     col
 }
 
 min() {
-    echo
-    print DIST "$ID"
-    print KERN "$kernel"
-    print PKGS "$pkgs"
-    print TERM "$term"
-    print SHLL "${SHELL##*/}"
-    print WDMG "${wm##*/}"
-    print UPTM "$up"
+printf '
+  \033[1mDIST\033[0m %s
+  \033[1mKERN\033[0m %s
+  \033[1mPKGS\033[0m %s
+  \033[1mTERM\033[0m %s
+  \033[1mSHLL\033[0m %s
+  \033[1mWDMG\033[0m %s
+  \033[1mUPTM\033[0m %s
+'   "$ID" \
+    "$kernel" \
+    "$pkgs" \
+    "$term" \
+    "${SHELL##*/}" \
+    "${wm##*/}" \
+    "$up"
     col
 }
 
-[ "$mode" = "" ] && full
-[ "$mode" = "min" ] && min
+[ "$mode" = "min" ] && min || full
