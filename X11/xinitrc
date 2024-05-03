@@ -24,15 +24,15 @@ setxkbmap en &
 dwmblocks &
 clipmenud &
 dunst &
-picom --experimental-backends &
+picom --experimental-backends --animation-for-open-window=zoom &
 clear &
 #xrandr --output DVI-D-0 --right-of HDMI-0
 hsetroot -cover /home/tavo/Pictures/Backgrounds/default.jpg &
 emacs --daemon &
+sleep 0.2
 
 while true; do
 	dwm >/dev/null 2>&1
 done
 
 exec dwm
-
