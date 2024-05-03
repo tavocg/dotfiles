@@ -1,0 +1,15 @@
+#!/bin/sh
+video="$(find ./ -name '*.mp4')"
+
+for sub in *.srt ; do
+    subs="$(printf '%s -i %s' "$subs" "$sub")"
+done
+
+i=0
+for sub in *.srt ; do
+    printf 'Metadata (code,name e.g: eng,English) for \033[1m%s\033[0m: ' "$sub" && read -r lang
+    meta="$(printf '%s -map "%d:0" "-metadata:s:s:%d" "language=%s" "-metadata:s:s:%d" "handler_name=%s" "-metadata:s:s:%d" "title=%s"' "$meta" "$((i+1))" "$i" "${lang%%,*}" "$i" "${lang##*,}" "$i" "${lang##*,}" )"
+    i=$((i+1))
+done
+
+printf '\n\033[1mCommand:\033[0m\nffmpeg -i "%s" %s -c copy -map 0 -dn -map "-0:s" -map "-0:d" %s "%s"\n\n' "$video" "$subs" "$meta" "${video%.*}.mkv"
