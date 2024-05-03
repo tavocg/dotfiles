@@ -1,5 +1,8 @@
 #!/bin/sh
 # Ref: http://info2html.sourceforge.net/cgi-bin/info2html-demo/info2html?%28pinentry%29Protocol
+#
+# $ printf 'pinentry-program /home/tavo/.config/scripts/anypinentry' > ~/.gnupg/gpg-agent.conf
+# $ gpg-agent reload
 
 set -e
 

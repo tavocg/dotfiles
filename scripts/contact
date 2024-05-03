@@ -1,6 +1,9 @@
 #!/bin/sh
 VDIR="$HOME/.local/share/contacts"
 
+STDIN="$(cat)"
+[ -n "$STDIN" ] && printf '%s' "$STDIN" > "$VDIR/temp-contact.vcf"
+
 QUERY="$(grep -r '^FN:' "$VDIR" | sed 's/.*://' | tr -d '\r' | menu "Contact:")"
 [ -z "$QUERY" ] && exit 0
 FILE="$(grep -r "^FN:$QUERY" "$VDIR" | cut -d ':' -f 1)"

@@ -1,0 +1,49 @@
+#!/bin/sh
+FILE="$1"
+
+qr_code () {
+[ -n "$1" ] &&
+    ZBARCMD="zbarimg -q $1" ||
+    ZBARCMD="zbarcam -q"
+
+$ZBARCMD | while read line ; do
+    printf '%s\n' "$line"
+    check="${line#*:}" ; check="${check%%:*}"
+
+    case "$check" in
+        "BEGIN") multiline=1 ;;
+        "VCARD") multiline= ;;
+    esac
+
+    [ "$multiline" != 1 ] &&
+        pkill zbarcam &&
+        return 0
+
+done
+}
+
+QRCODE="$(qr_code "$FILE" 2>/dev/null)"
+QRCODE="${QRCODE#*:}"
+QRTYPE="${QRCODE%%:*}"
+
+case "$QRTYPE" in 
+    "http"|"https"|"gopher"|"gemini"|"ftp"|"ftps"|"sftp"|"ssh"|"git"|"www"|"magnet"|"xmpp"|"mailto"|"nc")
+        printf '%s\n' "$QRCODE"
+        printf '%s' "$QRCODE" | xsel -ib
+        break ;;
+
+    "WIFI")
+        SSID="${QRCODE##*S:}" ; SSID="${SSID%%;[A-Za-z]:*}"
+        PASSW="${QRCODE##*P:}" ; PASSW="${PASSW%%;[A-Za-z]:*}"
+        wpa_passphrase "$SSID" "$PASSW"
+        break ;;
+
+    "BEGIN")
+        printf '%s\n' "$QRCODE"
+        printf '%s' "$QRCODE" | contact
+        break ;;
+
+    *)
+        printf '%s\n' "$QRCODE"
+        break ;;
+esac

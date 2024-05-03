@@ -29,7 +29,6 @@ alias \
 
 # Command shortcuts
 alias \
-    claws-mail='HOME="$XDG_DATA_HOME"/claws-mail && mkdir -p "$HOME" && claws-mail' \
     mgr-all="mgr pacman_upgrade apt_upgrade flatpak_update distrobox_update pip_update configs passmgr" \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     wacom-setup-menu="wacom-setup menu" \
