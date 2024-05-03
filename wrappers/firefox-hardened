@@ -1,2 +1,6 @@
 #!/usr/bin/env sh
+
+HOME=$HOME/.local/share/mozilla
+mkdir -p "$HOME"
+
 exec firefox -P hardened "$@"
