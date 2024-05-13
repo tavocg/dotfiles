@@ -17,7 +17,7 @@ alias \
 
 # Common
 alias \
-    ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+    ls="exa -alG --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
