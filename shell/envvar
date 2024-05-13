@@ -21,6 +21,7 @@ export \
     BIB="$HOME/Documents/bibliography" \
     WEEK=$(date '+%U') \
     DATE=$(date -I) \
+    COLUMNS=120 \
 
 # Default programs
 export \
