@@ -1,0 +1,25 @@
+#!/bin/sh
+# Compiler script for groff
+# [-k (preconv)] Convert encoding to something groff understands
+# [-e (eqn)]     Format equations for troff or MathML
+# [-t (tbl)]     Format tables for troff
+# [-p (pic)]     Compile pictures for troff or TeX
+# [-G (grap)]    Typesetting graphs, usually not installed by default and not available on termux repo
+# [-j (chem)]    Chemical structure diagrams, messes with spacing, crashes when using text inside eqn
+BIN="$0"
+
+# Configuration
+BIB="$HOME/Documents/bibliography" # Bibliography file
+MAC="$HOME/.config/groff/"         # Macros dir
+PRE="-ketpG"                        # Preprocessors
+
+FILE="$1"
+
+sed "
+s/Á/\\\['A\]/g; s/É/\\\['E\]/g; s/Í/\\\['I\]/g; s/Ó/\\\['O\]/g; s/Ú/\\\['U\]/g; s/Ý/\\\['Y\]/g; s/Ć/\\\['C\]/g;
+s/á/\\\['a\]/g; s/é/\\\['e\]/g; s/í/\\\['i\]/g; s/ó/\\\['o\]/g; s/ú/\\\['u\]/g; s/ý/\\\['y\]/g; s/ć/\\\['c\]/g;
+s/Ë/\\\[:E\]/g; s/Ÿ/\\\[:Y\]/g; s/Ü/\\\[:U\]/g; s/Ï/\\\[:I\]/g; s/Ö/\\\[:O\]/g; s/Ä/\\\[:a\]/g;
+s/ë/\\\[:e\]/g; s/ÿ/\\\[:y\]/g; s/ü/\\\[:u\]/g; s/ï/\\\[:i\]/g; s/ö/\\\[:o\]/g; s/ä/\\\[:a\]/g;
+" "$FILE" | soelim -I "$MAC" | refer -p "$BIB" | groff -ms -T dvi -U "$PRE" > "${FILE%.ms}.dvi"
+
+dvipdf "${FILE%.ms}.dvi" && rm -f "${FILE%.ms}.dvi"
