@@ -348,21 +348,44 @@ cilíndrico horizontal de radio $R$ y longitud $L$, como se muestra en la figura
 Demuestre que la fuerza viscosa $F$ sobre el cilindro, debida a la capa circundante, es
 $F = - eta ( 2 pi r L ) dv / dr$
 .EQ
+F ~~~=~~~ - eta A dv / dr ~~~=~~~
+- eta left ( 2 pi r ~.~ L right ) dv / dr
+.EN
+.EQ
 ~
 .EN
 .
 .LP
 \fB(b) (3 puntos)\fP Demuestre que la fuerza $F$ que empuja al cilindro
 a lo largo del tubo es $F' = ( pi r sup 2 ) Delta p$
+.QP
+La presión $p$ en cualquier punto empuja el líquido. Para que pueda mover al
+cilindro debe aplicar esa presión sobre un área, en este caso la superficie
+perpendicular a la aplicación de la fuerza resultante $F'$. Dado que el cilindro
+también posee inercia, hay una diferencia de presión entre cualquier punto $p$ y la
+presión en la superficie perpendicular al cilindro es $Delta p$.
+La fuerza que se ejerce sobre el cilindro debería ser $Delta p ~.~ A$.
+.QE
+.EQ
+F' = ( pi r sup 2 ) Delta p
+.EN
 .EQ
 ~
 .EN
 .
 .LP
 \fB(c) (8 puntos)\fP Utilice la condición de equilibrio para obtener una expresión
-para $dv$ en términos de $dr$. Integre este resultado para hallar la velocidad
+para $d vel$ en términos de $dr$. Integre este resultado para hallar la velocidad
 del flujo como función de $r$. Muestre que concuerda con el resultado que
 vimos en clase [la Ec. (18) en el cap. 18 del libro de texto].
+.EQ
+F = F' = eta left ( 2 pi r ~.~ L right ) {d vel} / dr = ( pi r sup 2 ) Delta p
+.EN
+.EQ
+d vel = { Delta p } / { 2 eta L } r dr ~~~->~~~
+int d vel = int { Delta p } / { 2 eta L } r dr ~~~=~~~
+{ Delta p } / { 4 eta L } r sup 2 ~~~=~~~ vel
+.EN
 .EQ
 ~
 .EN
@@ -373,10 +396,28 @@ entre los $r$ y $r + dr$. Integre el resultado para hallar el flujo de masa
 total por el tubo, verificando el resultado visto en clase
 [la Ec. (20) en el cap. 18 del libro de texto].
 .EQ
+m dot = rho ~.~ vel ~.~ dA ~~~=~~~
+rho ~.~
+left ( {r sup 2 Delta p } / { 4 eta L } right )
+~.~ left ( 2 pi r dr right )
+.EN
+.EQ
+m dot = { rho pi r sup 3 Delta p} / {2 eta L} dr
+.EN
+.EQ
+m = int m dot = { rho pi r sup 4 Delta p} / {8 eta L}
+.EN
+.EQ
+~
+.EN
+.EQ
+~
+.EN
+.EQ
 ~
 .EN
 .
-.bp
+.
 .
 .NH
 Número de Reynolds (10 puntos)
@@ -389,3 +430,10 @@ $eta = 4,0 times 10 sup {-3} N . s /m sup 2$.
 La densidad de la sangre entera es $rho = 1,06 times 10 sup 3 kg/m sup 3$.
 Justifique claramente su razonamiento. Comente si esta respuesta
 le parece razonable.
+.EQ
+Re = { rho ~ vel ~ 2r } / { eta }
+.EN
+.EQ
+vel = { Re ~.~ eta } / { rho ~.~ r } =
+vel = { 2000 ~.~ 0,004 } / { 1060 ~.~ 2 ~.~ 0,0038 } = 0.99 m/s sup 2
+.EN
