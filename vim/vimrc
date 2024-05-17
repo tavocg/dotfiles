@@ -113,12 +113,12 @@ Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-scripts/AutoComplPop'
 Plug 'vim-airline/vim-airline'
 Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
 Plug 'rhysd/vim-clang-format'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
-Plug 'mhinz/vim-signify'
 Plug 'ibhagwan/fzf-lua'
 Plug 'preservim/tagbar'
 Plug 'morhetz/gruvbox'
@@ -159,10 +159,15 @@ noremap gb :FzfLua git_branches<CR>
 noremap gs :FzfLua git_status<CR>
 noremap gf :FzfLua files<CR>
 
-" Signify
-let g:signify_disable_by_default = 1
-highlight SignColumn ctermbg=NONE
-noremap gd :SignifyToggle<CR>
+" git-gutter
+highlight GitGutterChange guifg=#83a598 ctermfg=3
+highlight GitGutterDelete guifg=#fb4934 ctermfg=1
+highlight GitGutterAdd    guifg=#b8bb26 ctermfg=2
+highlight SignColumn guibg=NONE ctermbg=NONE
+let g:gitgutter_set_sign_backgrounds = 1
+noremap gd :GitGutterToggle<CR>
+set signcolumn=yes
+set updatetime=100
 
 " Instant Markdown
 let g:instant_markdown_autostart = 0
