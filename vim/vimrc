@@ -67,8 +67,8 @@ noremap <leader>n :cn<CR>
 noremap n :cn<CR>
 
 " c/c++
-autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %\ &&\ rm\ -f\ %.gch
-autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %\ &&\ rm\ -f\ %.gch
+autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
+autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
 
 " groff
 autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
