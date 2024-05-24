@@ -10,14 +10,17 @@ set viewdir=~/.config/vim/view/
 set undodir=~/.config/vim/undo//,.
 
 " Preferences
+set list listchars=tab:⎸\ ,trail:~
 set clipboard=unnamedplus
 set shellcmdflag=-c
 set encoding=utf-8
 set relativenumber
 filetype plugin on
+set shiftwidth=4
 set nocompatible
 set cursorline
 set ignorecase
+set expandtab
 set smartcase
 set autoread
 set wildmenu
@@ -29,10 +32,6 @@ set showcmd
 set number
 syntax on
 
-" Kernel coding standards
-set list listchars=tab:⎸\ ,trail:~
-set colorcolumn=81
-set noexpandtab
 
 if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
     if (has("nvim"))
@@ -148,7 +147,7 @@ nnoremap <C-f> :NERDTreeToggle<CR>
 
 " IndentLine
 let g:indentLine_enabled = 1
-let g:indentLine_char = '▏'
+let g:indentLine_char = '⎸'
 
 " fzf-lua
 noremap <A-b> :FzfLua git_branches<CR>
