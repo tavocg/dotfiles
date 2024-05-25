@@ -10,6 +10,7 @@ set viewdir=~/.config/vim/view/
 set undodir=~/.config/vim/undo//,.
 
 " Preferences
+let mapleader = "\<Space>"
 set list listchars=tab:⎸\ ,trail:~
 set clipboard=unnamedplus
 set shellcmdflag=-c
@@ -55,16 +56,40 @@ noremap <A-j> 5<C-w>-
 noremap <A-k> 5<C-w>+
 noremap <A-l> 5<C-w>>
 noremap H :nohl<CR>
-noremap <Space> za
-noremap N /@@@<CR>
+noremap <leader><Space> za
 
+" QuickFix
 autocmd QuickFixCmdPost [^l]* nested cwindow
 autocmd QuickFixCmdPost    l* nested lwindow
-noremap <leader>m :make<CR><CR>
-noremap <F9> :make<CR><CR>
-noremap <leader>p :cp<CR>
-noremap <leader>n :cn<CR>
-noremap n :cn<CR>
+autocmd QuickFixCmdPost     * if &ft ==# 'qf' | wincmd J | endif
+
+function! WrapQuickfixNext()
+    try
+        execute 'cnext'
+    catch /^Vim\%((\a\+)\)\=:E553/
+        cfirst
+    endtry
+endfunction
+function! WrapQuickfixPrev()
+    try
+        execute 'cprevious'
+    catch /^Vim\%((\a\+)\)\=:E553/
+        clast
+    endtry
+endfunction
+
+nnoremap <silent> <Leader>n :call WrapQuickfixNext()<CR>
+nnoremap <silent> <Leader>p :call WrapQuickfixPrev()<CR>
+nnoremap <leader>m :make<CR><CR>
+nnoremap <F9> :make<CR><CR>
+
+function! SetMakeprg()
+    if filereadable('Makefile')
+        set makeprg=make
+    else
+    endif
+endfunction
+autocmd VimEnter * call SetMakeprg()
 
 " c/c++
 autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
@@ -132,14 +157,14 @@ Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
 Plug 'ibhagwan/fzf-lua'
 Plug 'preservim/tagbar'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 call plug#end()
 
-" Gruvbox
-let g:gruvbox_contrast_dark='hard'
-let g:gruvbox_italic=1
+" gruvbox-material
 set background=dark
-colorscheme gruvbox
+let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
 
 " AutoComplPop
 inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"

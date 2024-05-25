@@ -1,1 +1,1 @@
-highlight Normal ctermbg=NONE
+highlight Normal ctermbg=NONE guibg=NONE
