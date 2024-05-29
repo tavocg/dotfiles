@@ -1,4 +1,0 @@
-#!/bin/bash
-
-bind '"\C-h":"copy_history\C-m"'
-bind '"\C-f":"fzf_nav\C-m"'
