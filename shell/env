@@ -46,5 +46,3 @@ export \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \
 
-! [ -f "$HISTFILE" ] && mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
-! [ -f "$WGETRC" ]   && mkdir -p "${WGETRC%/*}"   && touch "$WGETRC"

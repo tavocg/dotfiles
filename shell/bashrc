@@ -87,4 +87,7 @@ alias \
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
 [ -f ~/.config/shell/dwm ] && . ~/.config/shell/dwm
 
+! [ -f "$HISTFILE" ] && mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+! [ -f "$WGETRC" ]   && mkdir -p "${WGETRC%/*}"   && touch "$WGETRC"
+
 command -v fetch >/dev/null 2>&1 && fetch min
