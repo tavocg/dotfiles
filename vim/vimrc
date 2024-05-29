@@ -95,9 +95,8 @@ autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
 autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
 
 " groff
-autocmd FileType groff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
-autocmd FileType groff noremap <buffer> <C-s> :w<CR> :!groffc %<CR><CR>
-au BufNewFile,BufRead *.ms set filetype=groff
+autocmd FileType troff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
+autocmd FileType troff noremap <buffer> <C-s> :w<CR> :!grofftex %<CR><CR>
 
 " Python
 autocmd FileType python noremap <buffer> <F9> :!python %<CR>
@@ -154,6 +153,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'Yggdroot/indentLine'
 Plug 'preservim/nerdtree'
+Plug 'Gavinok/vim-troff'
 Plug 'ibhagwan/fzf-lua'
 Plug 'preservim/tagbar'
 " Plug 'morhetz/gruvbox'

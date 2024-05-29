@@ -3,4 +3,4 @@
 HOME=$HOME/.local/share/mozilla
 mkdir -p "$HOME"
 
-exec /usr/bin/firefox -P hardened "$@"
+exec /usr/bin/firefox -P default "$@"
