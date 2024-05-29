@@ -13,7 +13,7 @@ export \
     VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/bash_history" \
+    HISTFILE="$XDG_STATE_HOME/shell_history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
@@ -46,3 +46,5 @@ export \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \
 
+! [ -f "$HISTFILE" ] && mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+! [ -f "$WGETRC" ]   && mkdir -p "${WGETRC%/*}"   && touch "$WGETRC"
