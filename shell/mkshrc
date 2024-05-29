@@ -15,28 +15,6 @@ PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 #PATH="/usr/local/plan9/bin${PATH:+:${PATH}}"
 
-export \
-    HISTIZE= \
-    HISTFILESIZE= \
-    DATE=$(date -I) \
-    WEEK=$(date '+%U') \
-
-export \
-    TERM="xterm-256color" \
-    EDITOR="nvim" \
-    VISUAL="nvim" \
-
-export \
-    QT_QPA_PLATFORMTHEME="qt5ct" \
-    CM_SELECTIONS="clipboard" \
-    GTK_THEME="Materia:dark" \
-    CM_MAX_CLIPS=10 \
-
-export \
-    GITLAB="ssh://git@gitlab.com/tavo-wasd" \
-    BOOKMARKS="$HOME/Documents/bookmarks" \
-    BIB="$HOME/Documents/bibliography" \
-
 git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
     [ -n "$GIT_BRANCH" ] && printf "%s " "$GIT_BRANCH"
@@ -55,26 +33,6 @@ $(tput bold)$(tput setaf 5)$(git_branch)$(tput sgr0)\
 $(tput dim)[!] ${TIME}$(tput sgr0)
 $(tput dim)$(if (( USER_ID )); then print \$; else print \#; fi)$(tput sgr0) \
 '
-
-export \
-    XDG_STATE_HOME="$HOME/.local/state" \
-    XDG_CACHE_HOME="$HOME/.local/cache" \
-    XDG_DATA_HOME="$HOME/.local/share" \
-    XDG_CONFIG_HOME="$HOME/.config" \
-    _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
-    GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
-    PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
-    VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
-    XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
-    XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/bash_history" \
-    XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
-    LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
-    ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
-    CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
-    WINEPREFIX="$HOME/.local/share/wine" \
-    WGETRC="$HOME/.config/wget/wgetrc" \
-    GOPATH="$XDG_DATA_HOME/go" \
 
 alias \
     wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
@@ -109,7 +67,8 @@ alias \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
 
-[ -f ~/.config/shell/posix-kit ] && . ~/.config/shell/posix-kit
-[ -f ~/.config/shell/dwm ]       && . ~/.config/shell/dwm
+[ -f ~/.config/shell/env ] && . ~/.config/shell/env
+[ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
+[ -f ~/.config/shell/dwm ] && . ~/.config/shell/dwm
 
 command -v fetch >/dev/null 2>&1 && fetch min

@@ -36,3 +36,5 @@ while true; do
 done
 
 exec dwm
+
+. /etc/X11/Xsession
