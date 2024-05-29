@@ -37,6 +37,8 @@ $(tput dim)$(if (( USER_ID )); then print \$; else print \#; fi)$(tput sgr0) \
 alias \
     wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
+! command -v sudo >/dev/null 2>&1 && alias sudo="doas"
+
 alias \
     src="cd $HOME/.local/src/ && ls" \
     cfg="cd $HOME/.config/ && ls" \

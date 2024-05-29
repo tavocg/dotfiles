@@ -11,7 +11,7 @@ slogout() {
 case "$option" in
 	"Shutdown") systemctl poweroff ;;
 	"Restart") systemctl reboot ;;
-	"Log out") slogout;;
+	"Log out") pkill xinit;;
 	*) exit 1 ;;
 esac
 
