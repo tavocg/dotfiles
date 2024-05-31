@@ -71,9 +71,12 @@ alias \
 
 [ -f ~/.config/shell/env ] && . ~/.config/shell/env
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
-[ -f ~/.config/shell/dwm ] && . ~/.config/shell/dwm
 
-! [ -f "$HISTFILE" ] && mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
-! [ -f "$WGETRC" ]   && mkdir -p "${WGETRC%/*}"   && touch "$WGETRC"
+if [ "$(tty)" = "/dev/tty1" ] ; then
+    sleep 0.5
+    amixer &
+    exec startx
+    #exec sway
+fi
 
 command -v fetch >/dev/null 2>&1 && fetch min
