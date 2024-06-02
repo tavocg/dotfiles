@@ -21,8 +21,8 @@ set shiftwidth=4
 set nocompatible
 set cursorline
 set ignorecase
-set expandtab
 set smartcase
+set expandtab
 set autoread
 set wildmenu
 set hlsearch
@@ -141,7 +141,6 @@ if empty(glob('~/.config/vim/autoload/plug.vim'))
 endif
 
 call plug#begin()
-Plug 'instant-markdown/vim-instant-markdown'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'vim-scripts/AutoComplPop'
@@ -195,18 +194,14 @@ noremap gs :FzfLua git_status<CR>
 noremap gf :FzfLua files<CR>
 
 " git-gutter
-highlight GitGutterChange guifg=#83a598 ctermfg=3
-highlight GitGutterDelete guifg=#fb4934 ctermfg=1
-highlight GitGutterAdd    guifg=#b8bb26 ctermfg=2
+highlight GitGutterChange guifg=#7daea3 ctermfg=3
+highlight GitGutterDelete guifg=#ea6962 ctermfg=1
+highlight GitGutterAdd    guifg=#a9b665 ctermfg=2
 highlight SignColumn guibg=NONE ctermbg=NONE
 let g:gitgutter_set_sign_backgrounds = 1
 noremap gd :GitGutterToggle<CR>
 set signcolumn=yes
 set updatetime=100
 
-" Instant Markdown
-let g:instant_markdown_autostart = 0
-autocmd FileType markdown noremap <buffer> <silent> <F9> :InstantMarkdownPreview<CR>
-let g:instant_markdown_browser = "firefox --new-window"
-let g:instant_markdown_mathjax = 1
-let g:instant_markdown_mermaid = 1
+" vim-clang-format
+let g:clang_format#code_style = 'llvm'
