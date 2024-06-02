@@ -13,6 +13,7 @@ set undodir=~/.config/vim/undo//,.
 let mapleader = "\<Space>"
 set list listchars=tab:⎸\ ,trail:~
 set clipboard=unnamedplus
+set gp=git\ grep\ -n
 set shellcmdflag=-c
 set encoding=utf-8
 set relativenumber
