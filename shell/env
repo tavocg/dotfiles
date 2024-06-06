@@ -7,11 +7,13 @@ export \
     XDG_DATA_HOME="$HOME/.local/share" \
     XDG_CONFIG_HOME="$HOME/.config" \
     _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
+    MATHEMATICA_USERBASE="$XDG_CONFIG_HOME/mathematica" \
     XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons \
     GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
     PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
     VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
+    MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
     HISTFILE="$XDG_STATE_HOME/shell_history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
