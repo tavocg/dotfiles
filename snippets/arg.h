@@ -2,7 +2,7 @@
 #define ARG_H
 
 /* int main(int argc, char *argv[]) */
-/* opts (case 'a': break; default: printf("Unknown : %c\n", opt);); */
+/* opts (case 'a': break; default: printf("Unknown: %c\n", opt);); */
 
 #define opt argv[optidx][opt_i]
 #define optarg (!argv[optidx + optargidx] ? NULL : (argv[optidx + optargidx++]))
