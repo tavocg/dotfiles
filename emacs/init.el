@@ -23,6 +23,7 @@
 (delete-selection-mode 1)
 (electric-indent-mode -1)
 (electric-pair-mode 1)
+(setq backup-directory-alist '((".*" . "~/.local/share/emacs/backup")))
 
 ;; Package manager
 (require 'package)
@@ -36,7 +37,7 @@
 (eval-when-compile (require 'use-package))
 
 ;; Packages
-(dolist (pkg '(gruvbox-theme evil evil-collection nerd-icons all-the-icons all-the-icons-dired))
+(dolist (pkg '(gruvbox-theme evil evil-collection nerd-icons all-the-icons all-the-icons-dired projectile))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
@@ -69,13 +70,22 @@
 (use-package dashboard
   :ensure t
   :init
-  (setq initial-buffer-choice 'dashboard-open)
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-center-content nil)
-  (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")
+  (setq dashboard-center-content t)
+  (setq dashboard-startupify-list '(dashboard-insert-banner
+                                    dashboard-insert-banner-title
+                                    dashboard-insert-newline
+                                    dashboard-insert-items
+                                    dashboard-insert-newline))
+  (setq dashboard-projects-backend 'projectile)
   (setq dashboard-startup-banner "~/.config/emacs/default.txt")
-  (setq dashboard-items '((recents . 5))))
+  (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")
+  (setq dashboard-items '((projects . 5)
+                          (recents  . 5)))
+  :config
+  (dashboard-setup-startup-hook))
+(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
 ;; Keybinds
 (global-set-key (kbd "C-<tab>") 'next-buffer)
