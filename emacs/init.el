@@ -1,5 +1,11 @@
 ;;; init.el --- Tavo's emacs config
 ;;; Commentary:
+;;; Prerequisites:
+;;;     gpg --homedir ~/.config/emacs/elpa/gnupg --keyserver hkp://keyserver.ubuntu.com --recv-keys 645357D2883A0966
+;;;     mkdir -p "~/.local/share/emacs/backup"
+;;;     mkdir -p "~/.local/share/emacs/lock"
+;;; After:
+;;;     M-x nerd-icons-install-fonts
 ;;; Code:
 
 ;; Preferences
@@ -24,6 +30,7 @@
 (electric-indent-mode -1)
 (electric-pair-mode 1)
 (setq backup-directory-alist '((".*" . "~/.local/share/emacs/backup")))
+(setq temporary-file-directory "~/.local/share/emacs/lock")
 
 ;; Package manager
 (require 'package)
@@ -37,7 +44,10 @@
 (eval-when-compile (require 'use-package))
 
 ;; Packages
-(dolist (pkg '(gruvbox-theme evil evil-collection nerd-icons all-the-icons all-the-icons-dired projectile))
+(dolist (pkg '(evil evil-collection all-the-icons nerd-icons all-the-icons-dired
+               flycheck projectile markdown-mode markdown-preview-mode
+               company company-box general neotree highlight-indent-guides
+               paren doom-themes doom-modeline))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
@@ -59,9 +69,7 @@
   (evil-collection-init))
 
 ;; Theming
-(use-package gruvbox-theme
-  :config
-  (load-theme 'gruvbox-dark-hard t))
+(load-theme 'doom-gruvbox t)
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -86,6 +94,22 @@
   :config
   (dashboard-setup-startup-hook))
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
+(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+(setq highlight-indent-guides-method 'character)
+(setq highlight-indent-guides-character ?⎸)
+(use-package paren
+  :ensure nil
+  :init (setq show-paren-delay 0)
+  :config (show-paren-mode +1))
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1)
+  :config
+  ;; M-x nerd-icons-install-fonts
+  (setq doom-modeline-height 35
+        doom-modeline-bar-width 5
+        doom-modeline-persp-name t
+        doom-modeline-persp-icon t))
 
 ;; Keybinds
 (global-set-key (kbd "C-<tab>") 'next-buffer)
@@ -94,11 +118,60 @@
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
+(use-package general
+  :config
+  (general-evil-setup)
+
+  (general-create-definer tavo/leader-keys
+    :states '(normal insert visual emacs)
+    :keymaps 'override
+    :prefix "SPC"
+    :global-prefix "M-SPC")
+
+  (tavo/leader-keys
+    "c" '(comment-line :wk "Comment lines")))
+
+;; Extra
+(use-package company
+  :defer 2
+  :diminish
+  :custom
+  (company-begin-commands '(self-insert-command))
+  (company-idle-delay .1)
+  (company-minimum-prefix-length 2)
+  (company-show-numbers t)
+  (company-tooltip-align-annotations 't)
+  (global-company-mode t))
+(use-package company-box
+  :after company
+  :diminish
+  :hook (company-mode . company-box-mode))
 (use-package flycheck
   :ensure t
   :defer t
   :diminish
   :init (global-flycheck-mode))
+
+(use-package neotree
+  :config
+  (setq neo-smart-open t
+        neo-show-hidden-files t
+        neo-window-width 40
+        neo-window-fixed-size nil
+        inhibit-compacting-font-caches t
+        projectile-switch-project-action 'neotree-projectile-action) 
+        (add-hook 'neo-after-create-hook
+           #'(lambda (_)
+               (with-current-buffer (get-buffer neo-buffer-name)
+                 (setq truncate-lines t)
+                 (setq word-wrap nil)
+                 (make-local-variable 'auto-hscroll-mode)
+                 (setq auto-hscroll-mode nil)))))
+
+(setq neo-smart-open t)
+(add-hook 'neo-after-create-hook
+          (lambda (&rest _) (display-line-numbers-mode -1)))
+(setq neo-theme nil)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
