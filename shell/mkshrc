@@ -17,7 +17,7 @@ PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 
 git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
-    [ -n "$GIT_BRANCH" ] && printf " %s  " "$GIT_BRANCH"
+    [ -n "$GIT_BRANCH" ] && printf " %s " "$GIT_BRANCH"
 }
 
 padding() {
@@ -38,21 +38,36 @@ short_time() {
 }
 
 short_path() {
-    pwd | sed 's/\/home\/[A-Za-z]*/~/g'
+    curr_path="$(pwd | sed 's/\/home\/[A-Za-z]*/~/g')"
+    if [ "${#curr_path}" -gt 30 ] ; then
+        curr_path="${curr_path##*/}"
+        if git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
+            curr_proj="$(git rev-parse --show-toplevel)"
+            curr_proj="${curr_proj##*/}"
+            if [ "$curr_path" != "$curr_proj" ] ; then
+                [ -d "../../$curr_proj/$curr_path" ] &&
+                    curr_path="$curr_proj/$curr_path" ||
+                    curr_path="$curr_proj/⋯/$curr_path"
+            fi
+        fi
+        curr_path="⋯/$curr_path"
+    fi
+    printf '%s' "$curr_path"
 }
 
 PS1='
-$(tput setaf 238)$(tput setab 244)[$?]\
-$(tput setaf 244)$(tput setab 108) $(tput setaf 235)$(tput setab 108)\
+$(tput setaf 240)╭─$(tput setaf 7)$(tput setab 7)$(tput setaf 238)$?\
+$(tput setaf 7)$(tput setab 108)\
+$(tput setaf 235)$(tput setab 108) \
 ${USER:=$(id -un)}@${HOSTNAME:=$(hostname -s)} \
 $(tput setaf 108)$(tput setab 66) \
 $(tput setab 66)$(tput setaf 235)$(short_path) $(tput sgr0)\
 $(tput setaf 66)\
 $(tput sgr0)$(tput cr)$(tput cuf $(tput cols))\
-$(tput setab 236)$(tput setaf 240)$(padding " $(short_time) ")$(tput sgr0)\
+$(tput setaf 236)$(padding " ")$(tput setab 236)$(tput setaf 240)$(padding "  $(short_time) ")$(tput sgr0)\
 $(tput bold)$(tput setab 236)$(tput setaf 5)$(padding " $(git_branch)")$(tput sgr0)\
 $(tput setaf 236)$(tput sgr0)
-$(tput dim)\$$(tput sgr0) \
+$(tput setaf 240)╰─\$$(tput sgr0) \
 '
 
 alias \
