@@ -54,12 +54,12 @@ short_time() {
 
 short_path() {
     curr_path="$(pwd | sed 's/\/home\/[A-Za-z]*/~/g')"
-    if [ "${#curr_path}" -gt 30 ] ; then
+    if [ "${#curr_path}" -gt 25 ] ; then
         curr_path="${curr_path##*/}"
         if git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
-            curr_proj="$(git rev-parse --show-toplevel)"
+            curr_proj="$(git rev-parse --show-toplevel 2>/dev/null)"
             curr_proj="${curr_proj##*/}"
-            if [ "$curr_path" != "$curr_proj" ] ; then
+            if [ "$curr_proj" ] && [ "$curr_path" != "$curr_proj" ] ; then
                 [ -d "../../$curr_proj/$curr_path" ] &&
                     curr_path="$curr_proj/$curr_path" ||
                     curr_path="$curr_proj/⋯/$curr_path"
