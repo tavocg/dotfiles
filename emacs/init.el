@@ -47,7 +47,7 @@
 (dolist (pkg '(evil evil-collection all-the-icons nerd-icons all-the-icons-dired
                flycheck projectile markdown-mode markdown-preview-mode
                company company-box general neotree highlight-indent-guides
-               paren doom-themes doom-modeline))
+               paren doom-themes doom-modeline org-bullets))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
@@ -69,7 +69,11 @@
   (evil-collection-init))
 
 ;; Theming
-(load-theme 'doom-gruvbox t)
+(use-package doom-themes
+             :config
+             (setq doom-themes-enable-bold t
+                   doom-themes-enable-italic t)
+             (load-theme 'doom-material t))
 (use-package all-the-icons
   :ensure t
   :if (display-graphic-p))
@@ -110,6 +114,14 @@
         doom-modeline-bar-width 5
         doom-modeline-persp-name t
         doom-modeline-persp-icon t))
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
+  '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
+  '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
+  '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
 
 ;; Keybinds
 (global-set-key (kbd "C-<tab>") 'next-buffer)
@@ -172,6 +184,90 @@
 (add-hook 'neo-after-create-hook
           (lambda (&rest _) (display-line-numbers-mode -1)))
 (setq neo-theme nil)
+
+;; Latex previews
+(defvar org-latex-fragment-last nil
+  "Holds last fragment/environment you were on.")
+
+(defun org-latex-fragment-toggle ()
+  "Toggle a latex fragment image "
+  (and (eq 'org-mode major-mode)
+       (let* ((el (org-element-context))
+              (el-type (car el)))
+         (cond
+          ;; were on a fragment and now on a new fragment
+          ((and
+            ;; fragment we were on
+            org-latex-fragment-last
+            ;; and are on a fragment now
+            (or
+             (eq 'latex-fragment el-type)
+             (eq 'latex-environment el-type))
+            ;; but not on the last one this is a little tricky. as you edit the
+            ;; fragment, it is not equal to the last one. We use the begin
+            ;; property which is less likely to change for the comparison.
+            (not (= (org-element-property :begin el)
+                    (org-element-property :begin org-latex-fragment-last))))
+           ;; go back to last one and put image back
+           (save-excursion
+             (goto-char (org-element-property :begin org-latex-fragment-last))
+             (org-preview-latex-fragment))
+           ;; now remove current image
+           (goto-char (org-element-property :begin el))
+           (let ((ov (loop for ov in org-latex-fragment-image-overlays
+                           if
+                           (and
+                            (<= (overlay-start ov) (point))
+                            (>= (overlay-end ov) (point)))
+                           return ov)))
+             (when ov
+               (delete-overlay ov)))
+           ;; and save new fragment
+           (setq org-latex-fragment-last el))
+
+          ;; were on a fragment and now are not on a fragment
+          ((and
+            ;; not on a fragment now
+            (not (or
+                  (eq 'latex-fragment el-type)
+                  (eq 'latex-environment el-type)))
+            ;; but we were on one
+            org-latex-fragment-last)
+           ;; put image back on
+           (save-excursion
+             (goto-char (org-element-property :begin org-latex-fragment-last))
+             (org-preview-latex-fragment))
+           ;; unset last fragment
+           (setq org-latex-fragment-last nil))
+
+          ;; were not on a fragment, and now are
+          ((and
+            ;; we were not one one
+            (not org-latex-fragment-last)
+            ;; but now we are
+            (or
+             (eq 'latex-fragment el-type)
+             (eq 'latex-environment el-type)))
+           (goto-char (org-element-property :begin el))
+           ;; remove image
+           (let ((ov (loop for ov in org-latex-fragment-image-overlays
+                           if
+                           (and
+                            (<= (overlay-start ov) (point))
+                            (>= (overlay-end ov) (point)))
+                           return ov)))
+             (when ov
+               (delete-overlay ov)))
+           (setq org-latex-fragment-last el))))))
+
+
+(add-hook 'post-command-hook 'org-latex-fragment-toggle)
+
+(setq org-highlight-latex-and-related '(latex script entities))
+
+(add-hook 'org-mode-hook 'org-indent-mode)
+(use-package org-bullets)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
