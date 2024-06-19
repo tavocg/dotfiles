@@ -78,7 +78,8 @@
   (setq evil-want-integration t
 	evil-want-keybinding nil
 	evil-vsplit-window-right t
-	evil-split-window-below t)
+	evil-split-window-below t
+        evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
 (use-package evil-collection
@@ -92,14 +93,12 @@
 (add-hook 'org-mode-hook 'org-indent-mode)
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
-  '(org-level-2 ((t (:inherit outline-2 :height 1.6))))
-  '(org-level-3 ((t (:inherit outline-3 :height 1.5))))
-  '(org-level-4 ((t (:inherit outline-4 :height 1.4))))
-  '(org-level-5 ((t (:inherit outline-5 :height 1.3))))
-  '(org-level-6 ((t (:inherit outline-5 :height 1.2))))
-  '(org-level-7 ((t (:inherit outline-5 :height 1.1)))))
-(setq org-highlight-latex-and-related '(latex script entities))
+  '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
+  '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
+  '(org-level-4 ((t (:inherit outline-4 :height 1.1)))))
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
+(setq org-latex-toc-command "\\clearpage \\tableofcontents \\clearpage")
+(setq org-highlight-latex-and-related '(latex script entities))
 (setq org-startup-with-latex-preview t)
 
 ;; Keybinds
