@@ -69,6 +69,10 @@
   (evil-collection-init))
 
 ;; Theming
+(use-package page-break-lines
+             :ensure t
+             :demand t)
+
 (use-package doom-themes
              :config
              (setq doom-themes-enable-bold t
@@ -81,20 +85,24 @@
   :hook (dired-mode . (lambda () (all-the-icons-dired-mode t))))
 (use-package dashboard
   :ensure t
+  :after page-break-lines
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
+  (setq dashboard-vertically-center-content t)
   (setq dashboard-startupify-list '(dashboard-insert-banner
                                     dashboard-insert-banner-title
                                     dashboard-insert-newline
                                     dashboard-insert-items
                                     dashboard-insert-newline))
   (setq dashboard-projects-backend 'projectile)
-  (setq dashboard-startup-banner "~/.config/emacs/default.txt")
+  (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
   (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")
   (setq dashboard-items '((projects . 5)
                           (recents  . 5)))
+  :custom
+  (dashboard-page-separator "\n\f\n")
   :config
   (dashboard-setup-startup-hook))
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
