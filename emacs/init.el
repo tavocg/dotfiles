@@ -1,20 +1,22 @@
 ;;; init.el --- Tavo's emacs config
 ;;; Commentary:
-;;; Prerequisites:
-;;;     mkdir -p ~/.config/emacs/elpa/gnupg
-;;;     gpg --homedir ~/.config/emacs/elpa/gnupg --keyserver hkp://keyserver.ubuntu.com --recv-keys 645357D2883A0966
-;;;     find ~/.config/emacs/elpa/gnupg -type d -exec chmod 700 {} \;
-;;;     find ~/.config/emacs/elpa/gnupg -type f -exec chmod 600 {} \;
-;;;     mkdir -p ~/.local/share/emacs/backup
-;;;     mkdir -p ~/.local/share/emacs/lock
-;;; After:
-;;;     M-x package-install RET nerd-icons
-;;;     M-x package-install RET all-the-icons
 ;;;     M-x nerd-icons-install-fonts
 ;;;     M-x all-the-icons-install-fonts
 ;;; Code:
 
+;; Prerequisites
+; (unless (file-directory-p "~/.config/emacs/elpa/gnupg")
+;   (make-directory "~/.config/emacs/elpa/gnupg")
+;   (shell-command "gpg --homedir ~/.config/emacs/elpa/gnupg --keyserver hkp://keyserver.ubuntu.com --recv-keys 645357D2883A0966")
+;   (shell-command "find ~/.config/emacs/elpa/gnupg -type d -exec chmod 700 {} \;")
+;   (shell-command "find ~/.config/emacs/elpa/gnupg -type f -exec chmod 600 {} \;"))
+(unless (file-directory-p "~/.local/share/emacs/lock")
+  (make-directory "~/.local/share/emacs/lock"))
+(unless (file-directory-p "~/.local/share/emacs/backup")
+  (make-directory "~/.local/share/emacs/backup"))
+
 ;; Preferences
+(setq warning-minimum-level :error)
 (setq scroll-step 1 scroll-conservatively  10000)
 (scroll-bar-mode 0)
 (menu-bar-mode 0)
@@ -118,6 +120,12 @@
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
+;; Using RETURN to follow links in Org/Evil
+(with-eval-after-load 'evil-maps
+  (define-key evil-motion-state-map (kbd "SPC") nil)
+  (define-key evil-motion-state-map (kbd "RET") nil)
+  (define-key evil-motion-state-map (kbd "TAB") nil))
+(setq org-return-follows-link  t)
 
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
