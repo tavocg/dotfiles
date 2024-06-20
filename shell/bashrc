@@ -54,7 +54,7 @@ short_time() {
 }
 
 short_path() {
-    curr_path="$(pwd | sed 's/\/home\/[A-Za-z]*/~/g')"
+    curr_path="$(pwd | sed 's/\/home\/[A-Za-z]*/~/g;s/\/data\/data\/com\.termux\/files\/home/~/g')"
     if [ "${#curr_path}" -gt 25 ] ; then
         curr_path="${curr_path##*/}"
         if git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
