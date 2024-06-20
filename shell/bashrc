@@ -107,6 +107,7 @@ alias \
 
 command -v exa >/dev/null 2>&1 && alias ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
 command -v eza >/dev/null 2>&1 && alias ls="eza -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+command -v trash >/dev/null 2>&1 && alias rm="trash" \
 
 alias \
     fzf="fzf --cycle --reverse" \
@@ -115,7 +116,6 @@ alias \
     calc="bc -l" \
     cp="cp -iv" \
     mv="mv -iv" \
-    rm="trash" \
     vim="nvim" \
     mgr-all="mgr pacman_upgrade apt_upgrade flatpak_update distrobox_update pip_update configs passmgr" \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \

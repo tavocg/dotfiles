@@ -92,6 +92,7 @@ alias \
 
 command -v exa >/dev/null 2>&1 && alias ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
 command -v eza >/dev/null 2>&1 && alias ls="eza -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+command -v trash >/dev/null 2>&1 && alias rm="trash" \
 
 alias \
     fzf="fzf --cycle --reverse" \
