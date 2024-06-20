@@ -46,8 +46,9 @@ padding() {
 
 short_time() {
     TIME="$(date)"
-    TIME=${TIME% [AP]M*}
-    TIME=${TIME##* }
+    TIME="${TIME% CST*}"
+    TIME="${TIME% [AP]M*}"
+    TIME="${TIME##* }"
     TIME="${TIME%:[0-9]*}"
     printf '%s' "$TIME"
 }
