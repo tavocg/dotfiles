@@ -39,7 +39,7 @@ short_time() {
 }
 
 short_path() {
-    curr_path="$(pwd | sed 's/\/home\/[A-Za-z]*/~/g')"
+    curr_path="$(pwd | sed 's/\/data\/data\/com.termux\/files\/home/~/g;s/\/home\/[A-Za-z]*/~/g')"
     if [ "${#curr_path}" -gt 25 ] ; then
         curr_path="${curr_path##*/}"
         if git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
@@ -90,8 +90,10 @@ alias \
     img="cd $HOME/Pictures/ && ls" \
     vid="cd $HOME/Videos/ && ls" \
 
+command -v exa >/dev/null 2>&1 && alias ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+command -v eza >/dev/null 2>&1 && alias ls="eza -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+
 alias \
-    ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \

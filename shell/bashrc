@@ -105,8 +105,10 @@ alias \
     img="cd $HOME/Pictures/ && ls" \
     vid="cd $HOME/Videos/ && ls" \
 
+command -v exa >/dev/null 2>&1 && alias ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+command -v eza >/dev/null 2>&1 && alias ls="eza -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
+
 alias \
-    ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
