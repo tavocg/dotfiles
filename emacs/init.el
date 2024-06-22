@@ -4,18 +4,23 @@
 ;;;     M-x all-the-icons-install-fonts
 ;;; Code:
 
-;; Prerequisites
+;; --- Prerequisites ----
 ; (unless (file-directory-p "~/.config/emacs/elpa/gnupg")
 ;   (make-directory "~/.config/emacs/elpa/gnupg")
 ;   (shell-command "gpg --homedir ~/.config/emacs/elpa/gnupg --keyserver hkp://keyserver.ubuntu.com --recv-keys 645357D2883A0966")
 ;   (shell-command "find ~/.config/emacs/elpa/gnupg -type d -exec chmod 700 {} \;")
 ;   (shell-command "find ~/.config/emacs/elpa/gnupg -type f -exec chmod 600 {} \;"))
+
 (unless (file-directory-p "~/.local/share/emacs/lock")
   (make-directory "~/.local/share/emacs/lock"))
+
 (unless (file-directory-p "~/.local/share/emacs/backup")
   (make-directory "~/.local/share/emacs/backup"))
+;; ---
 
-;; Preferences
+;; --- Preferences ---
+(setq custom-file (concat user-emacs-directory "custom.el"))
+(load custom-file 'noerror)
 (setq warning-minimum-level :error)
 (setq scroll-step 1 scroll-conservatively  10000)
 (scroll-bar-mode 0)
@@ -32,27 +37,39 @@
 (setq temporary-file-directory "~/.local/share/emacs/lock")
 (dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+;; ---
 
-;; Package manager
+;; --- Package manager ---
 (require 'package)
+
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
+
 (unless package-archive-contents
   (package-refresh-contents))
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
+
 (require 'use-package)
+
 (setq use-package-always-ensure t)
 
 (dolist (pkg '(all-the-icons nerd-icons markdown-mode markdown-preview-mode))
   (unless (package-installed-p pkg)
     (package-install pkg)))
+;; ---
 
-;; Theming
-(set-face-attribute 'default nil :font "JetBrains Mono")
-(add-to-list 'default-frame-alist '(font . "JetBrains Mono-10"))
+;; --- Theming ---
+(if (eq system-type 'android)
+  (set-face-attribute 'default nil :height 140) ;; Android
+  (progn ;; Everywhere else
+    (set-face-attribute 'default nil :font "JetBrains Mono")
+    (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10"))))
+
 (use-package doom-themes
   :init (load-theme 'doom-material t))
+;; ---
 
 (use-package paren :ensure nil
   :init (setq show-paren-delay 0)
@@ -65,22 +82,30 @@
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
   (setq dashboard-vertically-center-content t)
-  (setq dashboard-startupify-list '(dashboard-insert-banner
-                                    dashboard-insert-banner-title
-                                    dashboard-insert-items))
-  (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
-  (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")
+
+  (if (eq system-type 'android)
+    (progn ;; Android
+      (setq dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-items))
+      (setq dashboard-startup-banner 'logo))
+    (progn ;; Everywhere else
+      (setq dashboard-startupify-list '(dashboard-insert-banner
+                                         dashboard-insert-banner-title
+                                         dashboard-insert-items))
+      (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
+      (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")))
+
   (setq dashboard-items '((recents  . 5)))
   :config
   (dashboard-setup-startup-hook))
+
 (setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 
 (use-package evil
   :init
   (setq evil-want-integration t
-	evil-want-keybinding nil
-	evil-vsplit-window-right t
-	evil-split-window-below t
+        evil-want-keybinding nil
+        evil-vsplit-window-right t
+        evil-split-window-below t
         evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
@@ -89,7 +114,7 @@
   :config
   (evil-collection-init))
 
-;; Org Mode
+;; --- Org Mode ---
 (use-package org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-indent-mode)))
 (custom-set-faces
@@ -97,19 +122,43 @@
   '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.1)))))
+
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
 (setq org-latex-toc-command "\\clearpage \\tableofcontents \\clearpage")
 (setq org-highlight-latex-and-related '(latex script entities))
 (setq org-startup-with-latex-preview t)
 
-(defun efs/org-mode-visual-fill ()
+(defun my/org-mode-visual-fill ()
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
-(use-package visual-fill-column
-  :hook (org-mode . efs/org-mode-visual-fill))
 
-;; Keybinds
+(if (eq system-type 'android)
+  (message "Android device, ignoring org-mode-visual-fill") ;; Android
+  (progn ;; Everywhere else
+    (use-package visual-fill-column
+                 :hook (org-mode . my/org-mode-visual-fill))))
+
+(if (eq system-type 'android)
+  (progn ;; Android custom org-latex-preview
+    (setq org-preview-latex-process-alist
+          '((texpngweb
+              :programs ("curl")
+              :description "tex > png"
+              :message "you need to install curl."
+              :image-input-type "tex"
+              :image-output-type "png"
+              :image-size-adjust (1.0 . 1.0)
+              ;; This works in my pc, but not in android.
+              ;; :latex-compiler ("curl -F \"file=@%f\" http://0.0.0.0:8000")
+              ;; For some reason this works in android (and also on pc)
+              ;; And for whatever reason image-converter still needs to be set
+              :latex-compiler ("curl -F \"file=@%f\" http://0.0.0.0:8000 && curl http://0.0.0.0:8000/tmp.png -o %O")
+              :image-converter ("curl http://0.0.0.0:8000/tmp.png -o %O"))))
+    (setq org-latex-create-formula-image-program 'texpngweb)))
+;; ---
+
+;; --- Keybinds ---
 (use-package general
   :config
   (general-evil-setup)
@@ -132,8 +181,7 @@
   (define-key evil-motion-state-map (kbd "RET") nil)
   (define-key evil-motion-state-map (kbd "TAB") nil))
 (setq org-return-follows-link  t)
+;; ---
 
-(setq custom-file (concat user-emacs-directory "custom.el"))
-(load custom-file 'noerror)
-
+(message "init.el loaded successfully")
 ;; init.el ends here
