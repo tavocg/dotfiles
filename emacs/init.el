@@ -141,16 +141,16 @@
 (if (eq system-type 'android)
   (progn ;; Android custom org-latex-preview
     (setq org-preview-latex-process-alist
-          '((texpngweb
-              :programs ("curl")
-              :description "tex > png"
-              :message "you need to install curl."
-              :image-input-type "tex"
+          '((dvipngweb
+              :programs ("latex" "dvipng")
+              :description "dvi > png"
+              :message "you need to install the programs: latex and dvipng."
+              :image-input-type "dvi"
               :image-output-type "png"
               :image-size-adjust (1.0 . 1.0)
-              :latex-compiler ("")
-              :image-converter ("curl -F \"file=@%f\" -F \"dpi=%D\" http://0.0.0.0:8000 && curl http://0.0.0.0:8000/tmp.png -o %O"))))
-    (setq org-latex-create-formula-image-program 'texpngweb)))
+              :latex-compiler ("curl -F \"file=@%f\" -F \"type=tex\" 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.dvi -o %O")
+              :image-converter ("curl -F \"file=@%f\" -F \"type=dvi\" -F \"dpi=%D\" -o %O 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.png -o %O"))))
+    (setq org-latex-create-formula-image-program 'dvipngweb)))
 ;; ---
 
 ;; --- Keybinds ---
