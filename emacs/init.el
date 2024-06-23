@@ -81,12 +81,11 @@
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
   (setq dashboard-center-content t)
-  (setq dashboard-vertically-center-content t)
 
   (if (eq system-type 'android)
     (progn ;; Android
       (setq dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-items))
-      (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
+      (setq dashboard-startup-banner "~/.config/emacs/banner.txt"))
     (progn ;; Everywhere else
       (setq dashboard-startupify-list '(dashboard-insert-banner
                                          dashboard-insert-banner-title
