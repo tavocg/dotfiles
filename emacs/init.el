@@ -4,18 +4,12 @@
 ;;;     M-x all-the-icons-install-fonts
 ;;; Code:
 
-;; --- Prerequisites ----
+;; --- Prerequisites for elpa----
 ; (unless (file-directory-p "~/.config/emacs/elpa/gnupg")
 ;   (make-directory "~/.config/emacs/elpa/gnupg")
 ;   (shell-command "gpg --homedir ~/.config/emacs/elpa/gnupg --keyserver hkp://keyserver.ubuntu.com --recv-keys 645357D2883A0966")
 ;   (shell-command "find ~/.config/emacs/elpa/gnupg -type d -exec chmod 700 {} \;")
 ;   (shell-command "find ~/.config/emacs/elpa/gnupg -type f -exec chmod 600 {} \;"))
-
-(unless (file-directory-p "~/.local/share/emacs/lock")
-  (make-directory "~/.local/share/emacs/lock"))
-
-(unless (file-directory-p "~/.local/share/emacs/backup")
-  (make-directory "~/.local/share/emacs/backup"))
 ;; ---
 
 ;; --- Preferences ---
@@ -33,8 +27,19 @@
 (global-hl-line-mode 1)
 (electric-pair-mode 1)
 (column-number-mode)
-(setq backup-directory-alist '((".*" . "~/.local/share/emacs/backup")))
-(setq temporary-file-directory "~/.local/share/emacs/lock")
+
+(dolist (dir '("~/.local/share/emacs/auto-save/"
+               "~/.local/share/emacs/backup/"
+               "~/.local/share/emacs/lock/"
+               "~/.local/share/emacs/tmp/"))
+  (unless (file-directory-p dir)
+    (make-directory dir t)))
+
+(setq lock-file-name-transforms '(("\\`/.*/\\([^/]+\\)\\'" "~/.local/share/emacs/lock/\\1" t)))
+(setq auto-save-file-name-transforms '((".*" "~/.local/share/emacs/auto-save/" t)))
+(setq backup-directory-alist '((".*" . "~/.local/share/emacs/backup/")))
+(setq temporary-file-directory "~/.local/share/emacs/tmp/")
+
 (dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 ;; ---
@@ -151,6 +156,10 @@
               :latex-compiler ("curl -F \"file=@%f\" -F \"type=tex\" 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.dvi -o %O")
               :image-converter ("curl -F \"file=@%f\" -F \"type=dvi\" -F \"dpi=%D\" -o %O 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.png -o %O"))))
     (setq org-latex-create-formula-image-program 'dvipngweb)))
+
+(unless (file-directory-p "~/.local/share/emacs/ltximg/")
+  (make-directory "~/.local/share/emacs/ltximg/"))
+(setq org-preview-latex-image-directory "~/.local/share/emacs/ltximg/")
 ;; ---
 
 ;; --- Keybinds ---
