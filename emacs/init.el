@@ -116,7 +116,6 @@
 
 ;; --- Org Mode ---
 (use-package org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-indent-mode)))
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
   '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
@@ -149,12 +148,8 @@
               :image-input-type "tex"
               :image-output-type "png"
               :image-size-adjust (1.0 . 1.0)
-              ;; This works in my pc, but not in android.
-              ;; :latex-compiler ("curl -F \"file=@%f\" http://0.0.0.0:8000")
-              ;; For some reason this works in android (and also on pc)
-              ;; And for whatever reason image-converter still needs to be set
-              :latex-compiler ("curl -F \"file=@%f\" http://0.0.0.0:8000 && curl http://0.0.0.0:8000/tmp.png -o %O")
-              :image-converter ("curl http://0.0.0.0:8000/tmp.png -o %O"))))
+              :latex-compiler ("")
+              :image-converter ("curl -F \"file=@%f\" -F \"dpi=%D\" http://0.0.0.0:8000 && curl http://0.0.0.0:8000/tmp.png -o %O"))))
     (setq org-latex-create-formula-image-program 'texpngweb)))
 ;; ---
 
