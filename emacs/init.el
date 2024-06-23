@@ -140,6 +140,7 @@
 
 (if (eq system-type 'android)
   (progn ;; Android custom org-latex-preview
+    (setq org-format-latex-options (plist-put org-format-latex-options :scale 100))
     (setq org-preview-latex-process-alist
           '((dvipngweb
               :programs ("curl")
