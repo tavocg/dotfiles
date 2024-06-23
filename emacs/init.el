@@ -142,9 +142,9 @@
   (progn ;; Android custom org-latex-preview
     (setq org-preview-latex-process-alist
           '((dvipngweb
-              :programs ("latex" "dvipng")
+              :programs ("curl")
               :description "dvi > png"
-              :message "you need to install the programs: latex and dvipng."
+              :message "you need to install the programs: curl."
               :image-input-type "dvi"
               :image-output-type "png"
               :image-size-adjust (1.0 . 1.0)
