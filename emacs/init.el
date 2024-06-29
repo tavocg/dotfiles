@@ -24,6 +24,10 @@
 (setq-default display-line-numbers-width 3)
 (delete-selection-mode 1)
 (electric-indent-mode 0)
+(add-hook 'org-mode-hook (lambda ()
+           (setq-local electric-pair-inhibit-predicate
+                   `(lambda (c)
+                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 (global-hl-line-mode 1)
 (electric-pair-mode 1)
 (column-number-mode)
@@ -160,6 +164,18 @@
 (unless (file-directory-p "~/.local/share/emacs/ltximg/")
   (make-directory "~/.local/share/emacs/ltximg/"))
 (setq org-preview-latex-image-directory "~/.local/share/emacs/ltximg/")
+
+(require 'org-tempo)
+
+(defun insert-latex-equation ()
+  "Insert a LaTeX equation environment."
+  (interactive)
+  (insert "\\begin{equation}\n\\begin{aligned}\n\n\\end{aligned}\n\\end{equation}")
+  (backward-char 29))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c e") 'insert-latex-equation)))
 ;; ---
 
 ;; --- Keybinds ---
