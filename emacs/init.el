@@ -13,6 +13,8 @@
 ;; ---
 
 ;; --- Preferences ---
+(defun display-startup-echo-area-message ()
+  (message nil))
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 (setq warning-minimum-level :error)
@@ -131,15 +133,18 @@
       (centaur-tabs-mode t)
       :bind
       ("C-<iso-lefttab>" . centaur-tabs-backward)
-      ("C-<tab>" . centaur-tabs-forward)
-      :hook ((dashboard-mode . centaur-tabs-local-mode)
-	     (pdf-view-mode . centaur-tabs-local-mode)))
+      ("C-<tab>" . centaur-tabs-forward))
     (setq centaur-tabs-cycle-scope 'tabs)
     (setq centaur-tabs-set-modified-marker t)
     (setq centaur-tabs-modified-marker "*")))
 
+(add-hook 'pdf-view-mode-hook 'centaur-tabs-local-mode)
+(add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
+
 (defun my/hide-modeline ()
   (setq-local mode-line-format nil))
+
+(add-hook 'dashboard-mode-hook 'my/hide-modeline)
 
 (if (eq system-type 'android)
     (message "Android device, ignoring org-mode-visual-fill") ;; Android
