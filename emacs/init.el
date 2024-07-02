@@ -122,18 +122,21 @@
   :config
   (evil-collection-init))
 
-(use-package centaur-tabs
-  :demand
-  :config
-  (centaur-tabs-mode t)
-  :bind
-  ("C-<iso-lefttab>" . centaur-tabs-backward)
-  ("C-<tab>" . centaur-tabs-forward)
-  :hook ((dashboard-mode . centaur-tabs-local-mode)
-         (pdf-view-mode . centaur-tabs-local-mode)))
-(setq centaur-tabs-cycle-scope 'tabs)
-(setq centaur-tabs-set-modified-marker t)
-(setq centaur-tabs-modified-marker "*")
+(if (eq system-type 'android)
+    (message "Android device, ignoring centaur-tabs") ;; Android
+  (progn ;; Everywhere else
+    (use-package centaur-tabs
+      :demand
+      :config
+      (centaur-tabs-mode t)
+      :bind
+      ("C-<iso-lefttab>" . centaur-tabs-backward)
+      ("C-<tab>" . centaur-tabs-forward)
+      :hook ((dashboard-mode . centaur-tabs-local-mode)
+	     (pdf-view-mode . centaur-tabs-local-mode)))
+    (setq centaur-tabs-cycle-scope 'tabs)
+    (setq centaur-tabs-set-modified-marker t)
+    (setq centaur-tabs-modified-marker "*")))
 
 (defun my/hide-modeline ()
   (setq-local mode-line-format nil))
