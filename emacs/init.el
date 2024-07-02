@@ -74,7 +74,7 @@
   (set-face-attribute 'default nil :height 140) ;; Android
   (progn ;; Everywhere else
     (set-face-attribute 'default nil :font "JetBrains Mono")
-    (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10"))))
+    (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
 
 (use-package doom-themes
   :init (load-theme 'doom-material t))
@@ -121,6 +121,39 @@
   :after evil
   :config
   (evil-collection-init))
+
+(use-package centaur-tabs
+  :demand
+  :config
+  (centaur-tabs-mode t)
+  :bind
+  ("C-<iso-lefttab>" . centaur-tabs-backward)
+  ("C-<tab>" . centaur-tabs-forward)
+  :hook ((dashboard-mode . centaur-tabs-local-mode)
+         (pdf-view-mode . centaur-tabs-local-mode)))
+(setq centaur-tabs-cycle-scope 'tabs)
+(setq centaur-tabs-set-modified-marker t)
+(setq centaur-tabs-modified-marker "*")
+
+(defun my/hide-modeline ()
+  (setq-local mode-line-format nil))
+
+(if (eq system-type 'android)
+    (message "Android device, ignoring org-mode-visual-fill") ;; Android
+  (progn ;; Everywhere else
+    (use-package pdf-tools
+      :defer t
+      :commands (pdf-loader-install)
+      :mode "\\.pdf\\'"
+      :bind (:map pdf-view-mode-map
+		  ("j" . pdf-view-next-line-or-next-page)
+		  ("k" . pdf-view-previous-line-or-previous-page)
+		  ("C-=" . pdf-view-enlarge)
+		  ("C--" . pdf-view-shrink))
+      :init (pdf-loader-install)
+      :config (add-to-list 'revert-without-query ".pdf"))
+    (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode 0)))
+    (add-hook 'pdf-view-mode-hook 'my/hide-modeline)))
 
 ;; --- Org Mode ---
 (use-package org-bullets)

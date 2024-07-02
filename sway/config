@@ -94,32 +94,17 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 # -
-bindsym $mod+1 workspace "  1  "
-bindsym $mod+2 workspace "  2  "
-bindsym $mod+3 workspace "  3  "
-bindsym $mod+4 workspace "  4  "
-bindsym $mod+5 workspace "  5  "
-bindsym $mod+6 workspace "  6  "
-bindsym $mod+7 workspace "  7  "
-bindsym $mod+8 workspace "  8  "
-bindsym $mod+9 workspace "  9  "
-bindsym $mod+Shift+1 move container to workspace "  1  "
-bindsym $mod+Shift+2 move container to workspace "  2  "
-bindsym $mod+Shift+3 move container to workspace "  3  "
-bindsym $mod+Shift+4 move container to workspace "  4  "
-bindsym $mod+Shift+5 move container to workspace "  5  "
-bindsym $mod+Shift+6 move container to workspace "  6  "
-bindsym $mod+Shift+7 move container to workspace "  7  "
-bindsym $mod+Shift+8 move container to workspace "  8  "
-bindsym $mod+Shift+9 move container to workspace "  9  "
+bindsym $mod+1 workspace "   I   "
+bindsym $mod+2 workspace "   II   "
+bindsym $mod+3 workspace "   III   "
+bindsym $mod+4 workspace "   IV   "
+bindsym $mod+5 workspace "   V   "
+bindsym $mod+Shift+1 move container to workspace "   I   "
+bindsym $mod+Shift+2 move container to workspace "   II   "
+bindsym $mod+Shift+3 move container to workspace "   III   "
+bindsym $mod+Shift+4 move container to workspace "   IV   "
+bindsym $mod+Shift+5 move container to workspace "   V   "
 # -
-bindsym $alt+t workspace "    "
-bindsym $alt+w workspace "  󰖟  "
-bindsym $alt+m workspace "    "
-bindsym $alt+Shift+t move container to workspace "    "
-bindsym $alt+Shift+w move container to workspace "  󰖟  "
-bindsym $alt+Shift+m move container to workspace "    "
-#-
 bindsym $mod+comma workspace next_on_output
 bindsym $mod+period workspace prev_on_output
 # -
@@ -137,16 +122,16 @@ gaps inner 5
 font pango:JetBrainsMono Medium 8
 
 bar {
-    position top
-    font pango:JetBrainsMono Bold 8
+    position bottom
+    font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/sway/swaystatus
     tray_padding 4
 
     colors {
-        background #12121200
-        statusline #ebdbb2
+        background #000000
+        statusline #1d2021
         focused_workspace $col_fg $col_fg $col_bg
-        inactive_workspace #12121200 #12121200 #ebdbb2
+        inactive_workspace #000000 #000000 #1d2021
     }
 }
 
