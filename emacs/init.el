@@ -224,6 +224,9 @@
           (lambda ()
             (local-set-key (kbd "C-c e") 'insert-latex-equation)))
 
+
+;; Use with: '#+begin_src pic :results file'
+;; Optional: ':exports none' to avoid showing the source
 (defun org-babel-execute:pic (body params)
   (let* ((tmpfile (org-babel-temp-file "pic-" ".png"))
 	 (quoted-text (replace-regexp-in-string "'" "'\\\\''" body))
