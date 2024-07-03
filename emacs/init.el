@@ -105,7 +105,7 @@
       (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
       (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")))
 
-  (setq dashboard-items '((recents  . 5)))
+  (setq dashboard-items '((recents  . 10)))
   :config
   (dashboard-setup-startup-hook))
 
