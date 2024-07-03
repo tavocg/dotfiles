@@ -51,7 +51,10 @@
 ;; --- Package manager ---
 (require 'package)
 
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+(if (eq system-type 'android)
+  (setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t))
+
 (package-initialize)
 
 (unless package-archive-contents
@@ -198,7 +201,12 @@
               :image-size-adjust (1.0 . 1.0)
               :latex-compiler ("curl -F \"file=@%f\" -F \"type=tex\" 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.dvi -o %O")
               :image-converter ("curl -F \"file=@%f\" -F \"type=dvi\" -F \"dpi=%D\" -o %O 0.0.0.0:8000 && curl 0.0.0.0:8000/tmp.png -o %O"))))
-    (setq org-latex-create-formula-image-program 'dvipngweb)))
+    (setq org-latex-create-formula-image-program 'dvipngweb))
+  (progn ;; Everywhere else
+    (unless (package-installed-p 'queue)
+      (package-install 'queue))
+    (use-package citeproc)
+    (require 'oc-csl)))
 
 (unless (file-directory-p "~/.local/share/emacs/ltximg/")
   (make-directory "~/.local/share/emacs/ltximg/"))

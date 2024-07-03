@@ -1,0 +1,10 @@
+#+cite_export: csl ~/.config/snippets/apa.csl
+#+bibliography: bibliography.bib
+# --- Sources ---
+# https://blog.tecosaur.com/tmio/2021-07-31-citations.html
+# https://kristofferbalintona.me/posts/202206141852/
+
+* Section
+Lorem ipsum dolor sit amet.
+
+#+print_bibliography:
