@@ -223,6 +223,17 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c e") 'insert-latex-equation)))
+
+(defun org-babel-execute:pic (body params)
+  (let* ((tmpfile (org-babel-temp-file "pic-" ".png"))
+	 (quoted-text (replace-regexp-in-string "'" "'\\\\''" body))
+	 (body-with-v (replace-regexp-in-string "\\\\v" "VERTICAL" quoted-text))
+	 (cmd (concat "echo '" body-with-v "' | preconv | sed \'s/VERTICAL/\\\\v/g\' | pic2graph -density 200 > " tmpfile)))
+    (shell-command cmd)
+    tmpfile))
+
+(require 'ob)
+(add-to-list 'org-babel-tangle-lang-exts '("pic" . "pic"))
 ;; ---
 
 ;; --- Keybinds ---
