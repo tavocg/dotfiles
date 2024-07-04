@@ -80,7 +80,7 @@
     (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
 
 (use-package doom-themes
-  :init (load-theme 'doom-material t))
+  :init (load-theme 'doom-gruvbox t))
 ;; ---
 
 (use-package paren :ensure nil
@@ -141,6 +141,7 @@
     (add-hook 'pdf-view-mode-hook 'centaur-tabs-local-mode)))
 
 (add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
+(add-hook 'org-agenda-mode-hook 'centaur-tabs-local-mode)
 
 (defun my/hide-modeline ()
   (setq-local mode-line-format nil))
