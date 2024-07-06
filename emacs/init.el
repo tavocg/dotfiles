@@ -80,7 +80,7 @@
     (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
 
 (use-package doom-themes
-  :init (load-theme 'doom-gruvbox t))
+  :init (load-theme 'doom-material t))
 ;; ---
 
 (use-package paren :ensure nil
@@ -92,7 +92,6 @@
   :init
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
-  (setq dashboard-center-content t)
 
   (if (eq system-type 'android)
     (progn ;; Android
@@ -105,7 +104,9 @@
       (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
       (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")))
 
-  (setq dashboard-items '((recents  . 10)))
+  (setq dashboard-items '((agenda    . 5)
+                          (bookmarks . 5)
+                          (recents   . 20)))
   :config
   (dashboard-setup-startup-hook))
 
@@ -141,6 +142,7 @@
     (add-hook 'pdf-view-mode-hook 'centaur-tabs-local-mode)))
 
 (add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
+(add-hook 'dashboard-mode-hook 'my/visual-fill)
 (add-hook 'org-agenda-mode-hook 'centaur-tabs-local-mode)
 
 (defun my/hide-modeline ()
@@ -149,7 +151,7 @@
 (add-hook 'dashboard-mode-hook 'my/hide-modeline)
 
 (if (eq system-type 'android)
-    (message "Android device, ignoring org-mode-visual-fill") ;; Android
+    (message "Android device, ignoring visual-fill") ;; Android
   (progn ;; Everywhere else
     (use-package pdf-tools
       :defer t
@@ -165,7 +167,19 @@
     (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode 0)))
     (add-hook 'pdf-view-mode-hook 'my/hide-modeline)))
 
+(use-package which-key
+  :config
+  (setq which-key-idle-delay 0)
+  (which-key-mode))
+
 ;; --- Org Mode ---
+(setq org-startup-folded t)
+
+(require 'org-tempo)
+
+(require 'ob)
+(add-to-list 'org-babel-tangle-lang-exts '("pic" . "pic"))
+
 (use-package org-bullets)
 (custom-set-faces
   '(org-level-1 ((t (:inherit outline-1 :height 1.7))))
@@ -178,16 +192,16 @@
 (setq org-highlight-latex-and-related '(latex script entities))
 (setq org-startup-with-latex-preview t)
 
-(defun my/org-mode-visual-fill ()
+(defun my/visual-fill ()
   (setq visual-fill-column-width 100
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
 (if (eq system-type 'android)
-  (message "Android device, ignoring org-mode-visual-fill") ;; Android
+  (message "Android device, ignoring visual-fill") ;; Android
   (progn ;; Everywhere else
     (use-package visual-fill-column
-                 :hook (org-mode . my/org-mode-visual-fill))))
+                 :hook (org-mode . my/visual-fill))))
 
 (if (eq system-type 'android)
   (progn ;; Android custom org-latex-preview
@@ -213,8 +227,6 @@
   (make-directory "~/.local/share/emacs/ltximg/"))
 (setq org-preview-latex-image-directory "~/.local/share/emacs/ltximg/")
 
-(require 'org-tempo)
-
 (defun insert-latex-equation ()
   "Insert a LaTeX equation environment."
   (interactive)
@@ -224,7 +236,6 @@
 (add-hook 'org-mode-hook
           (lambda ()
             (local-set-key (kbd "C-c e") 'insert-latex-equation)))
-
 
 ;; Use with: '#+begin_src pic :results file'
 ;; Optional: ':exports none' to avoid showing the source
@@ -236,24 +247,28 @@
     (shell-command cmd)
     tmpfile))
 
-(require 'ob)
-(add-to-list 'org-babel-tangle-lang-exts '("pic" . "pic"))
+;; ---
+
+;; --- Org Agenda ---
+(setq org-agenda-files (quote ("~/Documents/agenda/appts.org"
+                               "~/Documents/agenda/archive.org"
+                               "~/Documents/agenda/events.org"
+                               "~/Documents/agenda/tasks.org")))
 ;; ---
 
 ;; --- Keybinds ---
 (use-package general
   :config
   (general-evil-setup)
-  (general-create-definer tavo/leader-keys
+  (general-create-definer my/leader-keys
     :states '(normal insert visual emacs)
     :keymaps 'override
     :prefix "SPC"
     :global-prefix "M-SPC")
-  (tavo/leader-keys
+  (my/leader-keys
     "c" '(comment-line :wk "Comment lines")
     "p" 'org-latex-preview))
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(global-set-key (kbd "C-c") 'kill-this-buffer)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C-+") 'text-scale-increase)
 (global-set-key (kbd "C--") 'text-scale-decrease)
@@ -265,5 +280,6 @@
 (setq org-return-follows-link  t)
 ;; ---
 
+(add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 (message "init.el loaded successfully")
 ;; init.el ends here
