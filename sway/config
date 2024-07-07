@@ -111,6 +111,8 @@ bindsym $mod+period workspace prev_on_output
 bindsym $mod+Shift+t layout tabbed
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
+# -
+bindsym $mod+Shift+c exec clipman pick -t dmenu
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
@@ -139,5 +141,8 @@ for_window [class="Display-im6.q16"] floating enable
 
 # Autostart
 exec_always dunst
+exec wl-paste -t text --watch clipman store
+exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman.json"
+exec emacs --daemon
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY
 exec_always --no-startup-id /usr/libexec/xdg-desktop-portal -r
