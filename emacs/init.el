@@ -85,12 +85,24 @@
     (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
 
 (use-package doom-themes
-  :init (load-theme 'doom-peacock t))
+  :init (load-theme 'doom-gruvbox t))
 
 (custom-set-faces
- '(default ((t (:background "#1d2021")))))
+ '(default ((t (:background "#1d2021"))))
+ '(org-block ((t (:background "#282828"))))
+ '(org-quote ((t (:background "#282828")))))
+
 (custom-set-faces
- '(hl-line ((t (:background "gray20" :underline nil)))))
+ '(mode-line ((t (:background "#282828" :foreground "#a89984" :box nil))))
+ '(mode-line-inactive ((t (:background "#282828" :foreground "#504945" :box nil)))))
+
+(custom-set-faces
+ '(centaur-tabs-selected ((t (:background "#282828" :foreground "#a89984" :box nil))))
+ '(centaur-tabs-unselected ((t (:background "#1d2021" :foreground "#504945" :box nil))))
+ )
+
+;; (custom-set-faces
+;;  '(hl-line ((t (:background "gray20" :underline nil)))))
 ;; ---
 
 (use-package paren :ensure nil
