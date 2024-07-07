@@ -1,5 +1,0 @@
-#!/bin/sh
-# Play from clipboard on mpv
-
-notify-send "mpv" "Attempting to play from URL..."
-mpv "$(xsel -ob)" || notify-send "mpv" "Error: Couldn't open URL"

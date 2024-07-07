@@ -1,7 +1,0 @@
-#!/bin/sh
-
-WEEK=$(date '+%U')
-
-[ -e "/home/$USER/Documents/personal/sched-$WEEK" ] && sched.py print ~/Documents/personal/sched-$WEEK && exit
-
-echo "No sched-$WEEK found in ~/Documents/personal/"

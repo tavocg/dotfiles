@@ -1,8 +1,0 @@
-#!/bin/sh
-
-sitedir=$(pwd)
-cd $sitedir
-git pull
-rm -rf $sitedir/public
-hugo -D
-rsync -uvrP --delete-after $sitedir/public ceo@216.238.79.235:

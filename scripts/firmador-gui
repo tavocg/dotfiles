@@ -1,6 +1,0 @@
-#!/bin/sh
-FIRMADOR="$HOME/.local/share/firmador/firmador.jar"
-
-java -jar "$FIRMADOR"
-
-rm -rf "$HOME/.pdfbox.cache" "$HOME/.ase"
