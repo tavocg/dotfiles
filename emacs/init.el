@@ -44,7 +44,12 @@
 (setq backup-directory-alist '((".*" . "~/.local/share/emacs/backup/")))
 (setq temporary-file-directory "~/.local/share/emacs/tmp/")
 
-(dolist (mode '(org-mode-hook term-mode-hook shell-mode-hook eshell-mode-hook))
+(dolist (mode '(org-mode-hook
+                 org-agenda-mode-hook
+                 dired-mode-hook
+                 term-mode-hook
+                 shell-mode-hook
+                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 ;; ---
 
@@ -80,7 +85,12 @@
     (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
 
 (use-package doom-themes
-  :init (load-theme 'doom-material t))
+  :init (load-theme 'doom-peacock t))
+
+(custom-set-faces
+ '(default ((t (:background "#1d2021")))))
+(custom-set-faces
+ '(hl-line ((t (:background "gray20" :underline nil)))))
 ;; ---
 
 (use-package paren :ensure nil
@@ -144,6 +154,7 @@
 (add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
 (add-hook 'dashboard-mode-hook 'my/visual-fill)
 (add-hook 'org-agenda-mode-hook 'centaur-tabs-local-mode)
+(add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
 
 (defun my/hide-modeline ()
   (setq-local mode-line-format nil))
@@ -190,7 +201,7 @@
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
 (setq org-latex-toc-command "\\clearpage \\tableofcontents \\clearpage")
 (setq org-highlight-latex-and-related '(latex script entities))
-(setq org-startup-with-latex-preview t)
+;; (setq org-startup-with-latex-preview t)
 
 (defun my/visual-fill ()
   (setq visual-fill-column-width 100
@@ -230,8 +241,8 @@
 (defun insert-latex-equation ()
   "Insert a LaTeX equation environment."
   (interactive)
-  (insert "\\begin{equation}\n\\begin{aligned}\n\n\\end{aligned}\n\\end{equation}")
-  (backward-char 29))
+  (insert "\\begin{equation}\\label{}\\begin{aligned}\n\n\\end{aligned}\\end{equation}")
+  (backward-char 28))
 
 (add-hook 'org-mode-hook
           (lambda ()
@@ -247,6 +258,49 @@
     (shell-command cmd)
     tmpfile))
 
+(setq org-src-preserve-indentation t
+      org-edit-src-content-indentation 0
+      org-confirm-babel-evaluate nil)
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local org-src-tab-acts-natively t
+                        org-src-tab-indentation 4)))
+;; ---
+
+;; --- dired ---
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-AghoD --group-directories-first --color=auto --time-style=iso"))
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+
+(use-package dired-single)
+
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "sxiv")
+                                ("jpg" . "sxiv")
+                                ("gif" . "sxiv")
+                                ("webp" . "sxiv")
+                                ("pdf" . "zathura")
+                                ("mp4" . "mpv")
+                                ("mkv" . "mpv"))))
+
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "H" 'dired-hide-dotfiles-mode))
 ;; ---
 
 ;; --- Org Agenda ---
