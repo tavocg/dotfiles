@@ -2,9 +2,13 @@
 NULL_PTR="https://0x0.st"
 
 LOC="$1"
-FILE="${LOC%%/}.zip"
+FILE="${LOC%/}.zip"
 zip -r "$FILE" "$LOC"
 zipcloak "$FILE"
 
-curl -F"file=@$FILE" "$NULL_PTR"
-rm -rf "$FILE"
+curl -F "file=@$FILE" "$NULL_PTR"
+
+printf 'Remove created %s? [y/n]: ' "$FILE" && read p
+[ "$p" = "y" ] && rm -rf "$FILE"
+
+exit 0

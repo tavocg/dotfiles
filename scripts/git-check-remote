@@ -13,5 +13,5 @@ done
 
 [ "$total" = 0 ] && exit
 
-printf "󰊢 $total"
+echo "$total"
 kill -54 "$(pidof dwmblocks)"

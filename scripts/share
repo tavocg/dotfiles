@@ -4,8 +4,14 @@ NULL_PTR="https://0x0.st"
 LOC="$1"
 FILE="$LOC"
 [ -d "$FILE" ] &&
-    FILE="${FILE%%/}.zip" && 
+    FILE="${FILE%/}.zip" && 
     zip -r "$FILE" "$LOC"
 
-curl -F"file=@$FILE" "$NULL_PTR"
-[ -d "$FILE" ] && rm -rf "$FILE"
+curl -F "file=@$FILE" "$NULL_PTR"
+
+[ -d "${FILE%.zip}" ] &&
+    printf 'Remove created %s? [y/n]: ' "$FILE" && read p
+
+[ "$p" = "y" ] && rm -rf "$FILE"
+
+exit 0

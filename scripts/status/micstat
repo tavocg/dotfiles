@@ -25,4 +25,4 @@ case 1 in
 esac
 
 # Print and notify
-echo " $bar"
+echo "󰍬 $bar"
