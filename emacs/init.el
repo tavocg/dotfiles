@@ -316,10 +316,8 @@
 ;; ---
 
 ;; --- Org Agenda ---
-(setq org-agenda-files (quote ("~/Documents/agenda/appts.org"
-                               "~/Documents/agenda/archive.org"
-                               "~/Documents/agenda/events.org"
-                               "~/Documents/agenda/tasks.org")))
+(setq org-agenda-files (quote ("~/Documents/agenda/archive.org"
+                               "~/Documents/agenda/agenda.org")))
 ;; ---
 
 ;; --- Keybinds ---
@@ -345,6 +343,16 @@
   (define-key evil-motion-state-map (kbd "TAB") nil))
 (setq org-return-follows-link  t)
 ;; ---
+
+(if (eq system-type 'android)
+  (progn
+    (use-package exec-path-from-shell
+                 :custom
+                 (shell-file-name "/data/data/com.termux/files/usr/bin/bash")
+                 (exec-path-from-shell-variables '("PATH" "MANPATH" "PKG_CONFIG_PATH"))
+                 :init
+                 (if (string-equal system-type "android")
+                   (exec-path-from-shell-initialize)))))
 
 (add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 (message "init.el loaded successfully")
