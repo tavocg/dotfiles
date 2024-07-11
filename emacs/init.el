@@ -12,7 +12,19 @@
 ;   (shell-command "find ~/.config/emacs/elpa/gnupg -type f -exec chmod 600 {} \;"))
 ;; ---
 
-;; --- Preferences ---
+;; --- Customization
+(defvar custom-font  "JetBrains Mono-10.5")
+(defvar custom-theme 'doom-gruvbox)
+
+(custom-set-faces
+  ;; '(hl-line ((t (:background "gray20" :underline nil))))
+  '(mode-line-inactive ((t (:background "#282828" :foreground "#504945" :box nil))))
+  '(mode-line ((t (:background "#282828" :foreground "#a89984" :box nil))))
+  '(org-block ((t (:background "#282828"))))
+  '(org-quote ((t (:background "#282828"))))
+  '(default ((t (:background "#1d2021")))))
+
+;; --- Global Preferences ---
 (setq custom-file (concat user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
 (setq warning-minimum-level :error)
@@ -24,10 +36,6 @@
 (setq-default display-line-numbers-width 3)
 (delete-selection-mode 1)
 (electric-indent-mode 0)
-(add-hook 'org-mode-hook (lambda ()
-           (setq-local electric-pair-inhibit-predicate
-                   `(lambda (c)
-                  (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))))
 (global-hl-line-mode 1)
 (electric-pair-mode 1)
 (column-number-mode)
@@ -51,7 +59,6 @@
                  shell-mode-hook
                  eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
-;; ---
 
 ;; --- Package manager ---
 (require 'package)
@@ -75,65 +82,51 @@
 (dolist (pkg '(all-the-icons nerd-icons markdown-mode markdown-preview-mode))
   (unless (package-installed-p pkg)
     (package-install pkg)))
-;; ---
 
-;; --- Theming ---
-(if (eq system-type 'android)
-  (set-face-attribute 'default nil :height 140) ;; Android
-  (progn ;; Everywhere else
-    (set-face-attribute 'default nil :font "JetBrains Mono")
-    (add-to-list 'default-frame-alist '(font . "JetBrains Mono-10.5"))))
+;; --- my/functions ---
+(defun my/visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
 
-(use-package doom-themes
-  :init (load-theme 'doom-gruvbox t))
+(defun my/hide-modeline ()
+  (setq-local mode-line-format nil))
 
-(custom-set-faces
- '(default ((t (:background "#1d2021"))))
- '(org-block ((t (:background "#282828"))))
- '(org-quote ((t (:background "#282828")))))
+(defun my/insert-latex-equation ()
+  "Insert a LaTeX equation environment."
+  (interactive)
+  (insert "\\begin{equation}\\label{}\\begin{aligned}\n\n\\end{aligned}\\end{equation}")
+  (backward-char 28))
 
-(custom-set-faces
- '(mode-line ((t (:background "#282828" :foreground "#a89984" :box nil))))
- '(mode-line-inactive ((t (:background "#282828" :foreground "#504945" :box nil)))))
+(defun my/org-open-pdf-in-zathura ()
+  "Open the corresponding PDF file in Zathura for the current Org document."
+  (interactive)
+  (when (and (buffer-file-name)
+             (string-equal (file-name-extension (buffer-file-name)) "org"))
+    (let* ((org-file (buffer-file-name))
+           (pdf-file (concat (file-name-sans-extension org-file) ".pdf"))
+           (pdf-file (expand-file-name pdf-file)))
+      (if (file-exists-p pdf-file)
+          (shell-command (concat "zathura " (shell-quote-argument pdf-file)))
+        (message "PDF file does not exist: %s" pdf-file)))))
 
-(custom-set-faces
- '(centaur-tabs-selected ((t (:background "#282828" :foreground "#a89984" :box nil))))
- '(centaur-tabs-unselected ((t (:background "#1d2021" :foreground "#504945" :box nil))))
- )
+(defun org-babel-execute:pic (body params)
+  "Evaluate pic source code to create a png file
+  Use with: '#+begin_src pic :file example.png'
+  Optional: ':exports none' to avoid showing the source
+  Optional: ':results silent' to avoid outputting #+RESULTS:"
+  (or (cdr (assoc :file params))
+      (error "You must specify output file :file [IMAGE.png]"))
+  (let* ((quoted-text (replace-regexp-in-string "'" "'\\\\''" body))
+	 (body-with-v (replace-regexp-in-string "\\\\v" "VERTICAL" quoted-text))
+	 (cmd (concat "echo '" body-with-v "' | "
+                      "preconv | sed \'s/VERTICAL/\\\\v/g\' | "
+                      "pic2graph -density 200 2>/dev/null"))
+         (image (shell-command-to-string cmd)))
+    image))
+(setq org-babel-default-header-args:pic '((:results . "file")))
 
-;; (custom-set-faces
-;;  '(hl-line ((t (:background "gray20" :underline nil)))))
-;; ---
-
-(use-package paren :ensure nil
-  :init (setq show-paren-delay 0)
-  :config (show-paren-mode +1))
-
-(use-package dashboard
-  :ensure t
-  :init
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-
-  (if (eq system-type 'android)
-    (progn ;; Android
-      (setq dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-items))
-      (setq dashboard-startup-banner "~/.config/emacs/banner.txt"))
-    (progn ;; Everywhere else
-      (setq dashboard-startupify-list '(dashboard-insert-banner
-                                         dashboard-insert-banner-title
-                                         dashboard-insert-items))
-      (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
-      (setq dashboard-banner-logo-title "✨ M'illumino d'immenso ✨")))
-
-  (setq dashboard-items '((agenda    . 5)
-                          (bookmarks . 5)
-                          (recents   . 20)))
-  :config
-  (dashboard-setup-startup-hook))
-
-(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
-
+;; --- Modes
 (use-package evil
   :init
   (setq evil-want-integration t
@@ -143,35 +136,26 @@
         evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
+
 (use-package evil-collection
   :after evil
   :config
   (evil-collection-init))
 
-(if (eq system-type 'android)
-    (message "Android device, ignoring centaur-tabs") ;; Android
-  (progn ;; Everywhere else
-    (use-package centaur-tabs
-      :demand
-      :config
-      (centaur-tabs-mode t)
-      :bind
-      ("C-<iso-lefttab>" . centaur-tabs-backward)
-      ("C-<tab>" . centaur-tabs-forward))
-    (setq centaur-tabs-cycle-scope 'tabs)
-    (setq centaur-tabs-set-modified-marker t)
-    (setq centaur-tabs-modified-marker "*")
-    (add-hook 'pdf-view-mode-hook 'centaur-tabs-local-mode)))
-
-(add-hook 'dashboard-mode-hook 'centaur-tabs-local-mode)
+(use-package dashboard
+  :ensure t
+  :init
+  (setq dashboard-startup-banner "~/.config/emacs/banner.txt")
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-items '((agenda    . 5) (bookmarks . 5) (recents   . 20)))
+  (setq dashboard-startupify-list '(dashboard-insert-banner dashboard-insert-items))
+  :config
+  (dashboard-setup-startup-hook))
+(setq initial-buffer-choice (lambda () (get-buffer-create dashboard-buffer-name)))
 (add-hook 'dashboard-mode-hook 'my/visual-fill)
-(add-hook 'org-agenda-mode-hook 'centaur-tabs-local-mode)
-(add-hook 'dired-mode-hook 'centaur-tabs-local-mode)
-
-(defun my/hide-modeline ()
-  (setq-local mode-line-format nil))
-
 (add-hook 'dashboard-mode-hook 'my/hide-modeline)
+(add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 
 (if (eq system-type 'android)
     (message "Android device, ignoring visual-fill") ;; Android
@@ -190,18 +174,67 @@
     (add-hook 'pdf-view-mode-hook #'(lambda () (interactive) (display-line-numbers-mode 0)))
     (add-hook 'pdf-view-mode-hook 'my/hide-modeline)))
 
-(use-package which-key
+(use-package dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind (("C-x C-j" . dired-jump))
+  :custom ((dired-listing-switches "-AghoD --group-directories-first --color=auto --time-style=iso"))
   :config
-  (setq which-key-idle-delay 0)
-  (which-key-mode))
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "h" 'dired-single-up-directory
+    "l" 'dired-single-buffer))
+(use-package dired-single)
+(use-package all-the-icons-dired
+  :hook (dired-mode . all-the-icons-dired-mode))
+(use-package dired-open
+  :config
+  ;; Doesn't work as expected!
+  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
+  (setq dired-open-extensions '(("png" . "sxiv")
+                                ("jpg" . "sxiv")
+                                ("gif" . "sxiv")
+                                ("webp" . "sxiv")
+                                ("pdf" . "zathura")
+                                ("mp4" . "mpv")
+                                ("mkv" . "mpv"))))
+(use-package dired-hide-dotfiles
+  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :config
+  (evil-collection-define-key 'normal 'dired-mode-map
+    "." 'dired-hide-dotfiles-mode))
+
+(if (eq system-type 'android)
+  (set-face-attribute 'default nil :height 140) ;; Android
+  (progn ;; Everywhere else
+    (set-face-attribute 'default nil :font custom-font)
+    (add-to-list 'default-frame-alist `(font . ,custom-font))))
+
+(use-package doom-themes
+  :init (load-theme custom-theme t))
 
 ;; --- Org Mode ---
 (setq org-startup-folded t)
-
 (require 'org-tempo)
 
+(setq org-src-preserve-indentation t
+      org-edit-src-content-indentation 0
+      org-confirm-babel-evaluate nil)
+
 (require 'ob)
+(setq org-babel-load-languages '((pic . t)))
 (add-to-list 'org-babel-tangle-lang-exts '("pic" . "pic"))
+
+(if (eq system-type 'android)
+  (message "Android device, ignoring visual-fill") ;; Android
+  (add-hook 'org-mode-hook 'my/visual-fill)) ;; Everywhere else
+
+(add-hook 'org-mode-hook
+          (lambda ()
+            (setq-local electric-pair-inhibit-predicate
+                        `(lambda (c)
+                           (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c))))
+            (setq-local org-src-tab-acts-natively t org-src-tab-indentation 4)
+            (local-set-key (kbd "C-c e") 'my/insert-latex-equation)))
 
 (use-package org-bullets)
 (custom-set-faces
@@ -209,22 +242,6 @@
   '(org-level-2 ((t (:inherit outline-2 :height 1.5))))
   '(org-level-3 ((t (:inherit outline-3 :height 1.3))))
   '(org-level-4 ((t (:inherit outline-4 :height 1.1)))))
-
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
-(setq org-latex-toc-command "\\clearpage \\tableofcontents \\clearpage")
-(setq org-highlight-latex-and-related '(latex script entities))
-;; (setq org-startup-with-latex-preview t)
-
-(defun my/visual-fill ()
-  (setq visual-fill-column-width 100
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
-
-(if (eq system-type 'android)
-  (message "Android device, ignoring visual-fill") ;; Android
-  (progn ;; Everywhere else
-    (use-package visual-fill-column
-                 :hook (org-mode . my/visual-fill))))
 
 (if (eq system-type 'android)
   (progn ;; Android custom org-latex-preview
@@ -246,79 +263,17 @@
     (use-package citeproc)
     (require 'oc-csl)))
 
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.35))
+(setq org-latex-toc-command "\\clearpage \\tableofcontents \\clearpage")
+(setq org-highlight-latex-and-related '(latex script entities))
+;; (setq org-startup-with-latex-preview t)
+
 (unless (file-directory-p "~/.local/share/emacs/ltximg/")
   (make-directory "~/.local/share/emacs/ltximg/"))
 (setq org-preview-latex-image-directory "~/.local/share/emacs/ltximg/")
 
-(defun insert-latex-equation ()
-  "Insert a LaTeX equation environment."
-  (interactive)
-  (insert "\\begin{equation}\\label{}\\begin{aligned}\n\n\\end{aligned}\\end{equation}")
-  (backward-char 28))
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c e") 'insert-latex-equation)))
-
-;; Use with: '#+begin_src pic :results file'
-;; Optional: ':exports none' to avoid showing the source
-(defun org-babel-execute:pic (body params)
-  (let* ((tmpfile (org-babel-temp-file "pic-" ".png"))
-	 (quoted-text (replace-regexp-in-string "'" "'\\\\''" body))
-	 (body-with-v (replace-regexp-in-string "\\\\v" "VERTICAL" quoted-text))
-	 (cmd (concat "echo '" body-with-v "' | preconv | sed \'s/VERTICAL/\\\\v/g\' | pic2graph -density 200 > " tmpfile)))
-    (shell-command cmd)
-    tmpfile))
-
-(setq org-src-preserve-indentation t
-      org-edit-src-content-indentation 0
-      org-confirm-babel-evaluate nil)
-
-(add-hook 'org-mode-hook
-          (lambda ()
-            (setq-local org-src-tab-acts-natively t
-                        org-src-tab-indentation 4)))
-;; ---
-
-;; --- dired ---
-(use-package dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
-  :custom ((dired-listing-switches "-AghoD --group-directories-first --color=auto --time-style=iso"))
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "h" 'dired-single-up-directory
-    "l" 'dired-single-buffer))
-
-(use-package dired-single)
-
-(use-package all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
-
-(use-package dired-open
-  :config
-  ;; Doesn't work as expected!
-  ;;(add-to-list 'dired-open-functions #'dired-open-xdg t)
-  (setq dired-open-extensions '(("png" . "sxiv")
-                                ("jpg" . "sxiv")
-                                ("gif" . "sxiv")
-                                ("webp" . "sxiv")
-                                ("pdf" . "zathura")
-                                ("mp4" . "mpv")
-                                ("mkv" . "mpv"))))
-
-(use-package dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
-  :config
-  (evil-collection-define-key 'normal 'dired-mode-map
-    "H" 'dired-hide-dotfiles-mode))
-;; ---
-
-;; --- Org Agenda ---
 (setq org-agenda-files (quote ("~/Documents/agenda/archive.org"
                                "~/Documents/agenda/agenda.org")))
-;; ---
 
 ;; --- Keybinds ---
 (use-package general
@@ -331,7 +286,8 @@
     :global-prefix "M-SPC")
   (my/leader-keys
     "c" '(comment-line :wk "Comment lines")
-    "p" 'org-latex-preview))
+    "p" 'org-latex-preview
+    "b" 'buffer-menu))
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 (global-set-key (kbd "C-=") 'text-scale-increase)
 (global-set-key (kbd "C-+") 'text-scale-increase)
@@ -342,7 +298,6 @@
   (define-key evil-motion-state-map (kbd "RET") nil)
   (define-key evil-motion-state-map (kbd "TAB") nil))
 (setq org-return-follows-link  t)
-;; ---
 
 (if (eq system-type 'android)
   (progn
@@ -354,6 +309,6 @@
                  (if (string-equal system-type "android")
                    (exec-path-from-shell-initialize)))))
 
-(add-hook 'server-after-make-frame-hook 'dashboard-refresh-buffer)
 (message "init.el loaded successfully")
+
 ;; init.el ends here

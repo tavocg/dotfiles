@@ -40,7 +40,7 @@ short_time() {
 
 short_path() {
     curr_path="$(pwd | sed 's/\/data\/data\/com.termux\/files\/home/~/g;s/\/home\/[A-Za-z]*/~/g')"
-    if [ "${#curr_path}" -gt 25 ] ; then
+    if [ "${#curr_path}" -gt 10 ] ; then
         curr_path="${curr_path##*/}"
         if git rev-parse --is-inside-work-tree >/dev/null 2>&1 ; then
             curr_proj="$(git rev-parse --show-toplevel 2>/dev/null)"
@@ -56,11 +56,15 @@ short_path() {
     printf '%s' "$curr_path"
 }
 
+[ -e "/data/data/com.termux" ]                && HOSTNAME=""
+[ "${HOSTNAME:=$(hostname -s)}" = "laptop"  ] && HOSTNAME="󰌢"
+[ "${HOSTNAME:=$(hostname -s)}" = "desktop" ] && HOSTNAME="󰇅"
+
 PS1='
 $(tput setaf 240)╭─$(tput setaf 7)$(tput setab 7)$(tput setaf 238)$?\
 $(tput setaf 7)$(tput setab 108)\
 $(tput setaf 235)$(tput setab 108) \
-${USER:=$(id -un)}@${HOSTNAME:=$(hostname -s)} \
+${HOSTNAME} \
 $(tput setaf 108)$(tput setab 66) \
 $(tput setab 66)$(tput setaf 235)$(short_path) $(tput sgr0)\
 $(tput setaf 66)\

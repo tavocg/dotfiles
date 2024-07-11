@@ -19,20 +19,34 @@ grep -rq 'Charging' /sys/class/power_supply/BAT* 2>/dev/null && stat='Charging'
 
 # Get graphical battery level
 case 1 in
-    $((bat >= 98))  ) bar="━━━━━━━━━━" ;;
-    $((bat >= 90))  ) bar="━━━━━━━━━─" ;;
-    $((bat >= 80))  ) bar="━━━━━━━━──" ;;
-    $((bat >= 70))  ) bar="━━━━━━━───" ;;
-    $((bat >= 60))  ) bar="━━━━━━────" ;;
-    $((bat >= 50))  ) bar="━━━━━─────" ;;
-    $((bat >= 40))  ) bar="━━━━──────" ;;
-    $((bat >= 30))  ) bar="━━━───────" ;;
-    $((bat >= 20))  ) bar="━━────────" ;;
-    $((bat >= 10))  ) bar="━─────────" ;;
-    $((bat >= 10))  ) bar="──────────" ;;
+    $((bat >= 98))  ) icon="󰁹" ;;
+    $((bat >= 90))  ) icon="󰂂" ;;
+    $((bat >= 80))  ) icon="󰂁" ;;
+    $((bat >= 70))  ) icon="󰂀" ;;
+    $((bat >= 60))  ) icon="󰁿" ;;
+    $((bat >= 50))  ) icon="󰁾" ;;
+    $((bat >= 40))  ) icon="󰁽" ;;
+    $((bat >= 30))  ) icon="󰁼" ;;
+    $((bat >= 20))  ) icon="󰁻" ;;
+    $((bat >= 10))  ) icon="󰁺" ;;
+    $((bat >=  0))  ) icon="󰂎" ;;
 esac
 
-
 # Charging indicator if status file indicates such state
-[ "$stat" != "Charging" ] && icon="󰁹" || icon=""
-echo "$icon $bar"
+if [ "$stat" = "Charging" ] ; then
+    icon="$(printf '%s' "$icon" | sed '
+        s/󰁹/󰂅/;
+        s/󰂂/󰂋/;
+        s/󰂁/󰂊/;
+        s/󰂀/󰢞/;
+        s/󰁿/󰂉/;
+        s/󰁾/󰢝/;
+        s/󰁽/󰂈/;
+        s/󰁼/󰂇/;
+        s/󰁻/󰂆/;
+        s/󰁺/󰢜/;
+        s/󰂎/󰢟/;
+        ')"
+fi
+
+echo "$icon"

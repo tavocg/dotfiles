@@ -9,38 +9,40 @@ int() { # Type of interface & status
     if grep -xq 'up' /sys/class/net/w*/operstate 2>/dev/null ; then
         strength="$(awk 'NR==3 {printf("%.0f\n",$3*10/7)}' /proc/net/wireless)"
         case 1 in
-            $((strength >= 100)) ) bar="━━━━━━━━━━" ;;
-            $((strength >= 90))  ) bar="━━━━━━━━━─" ;;
-            $((strength >= 80))  ) bar="━━━━━━━━──" ;;
-            $((strength >= 70))  ) bar="━━━━━━━───" ;;
-            $((strength >= 60))  ) bar="━━━━━━────" ;;
-            $((strength >= 50))  ) bar="━━━━━─────" ;;
-            $((strength >= 40))  ) bar="━━━━──────" ;;
-            $((strength >= 30))  ) bar="━━━───────" ;;
-            $((strength >= 20))  ) bar="━━────────" ;;
-            $((strength >= 10))  ) bar="━─────────" ;;
-            $((strength >= 0))   ) bar="──────────" ;;
+            $((strength >= 85))  ) icon="󰤨" ;;
+            $((strength >= 65))  ) icon="󰤥" ;;
+            $((strength >= 45))  ) icon="󰤢" ;;
+            $((strength >= 25))  ) icon="󰤟" ;;
+            $((strength >= 0))   ) icon="󰤯" ;;
         esac
-        echo "󰖩 $bar"
+        echo "$icon"
         return 0
     fi
 
     # If down interfaces, exit with icon
-    grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && echo "󰖪 ──────────" && return 0
+    grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && echo "󰤮" && return 0
     grep -xq 'down' /sys/class/net/e*/operstate 2>/dev/null && echo "󰲛" && return 0
-
 }
 
 # Run 'int'
-info=$(int)
-    
+icon=$(int)
+
 # Check if a VPN is enabled
 vpn="$( \
     sed "s/.*//" /sys/class/net/tun*/operstate 2>/dev/null
     sed "s/.*//" /sys/class/net/wg*/operstate 2>/dev/null \
     )"
+
 # If so, change icon
-[ -n "$vpn" ] && info="$(printf "$info" | sed 's/󰛳//' | sed 's/󰖩//')"
+if [ -n "$vpn" ] ; then
+    icon="$(printf '%s' "$icon" | sed '
+         s/󰤨/󰤪/;
+         s/󰤥/󰤧/;
+         s/󰤢/󰤤/;
+         s/󰤟/󰤡/;
+         s/󰤯/󰤬/;
+         ')"
+fi
 
 # Print $info
-printf "%s" "$info"
+printf "%s" "$icon"

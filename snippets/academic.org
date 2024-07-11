@@ -1,0 +1,19 @@
+#+title: {{Title}}
+#+author: {{Author}}
+#+options: toc:nil
+#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage[spanish]{babel}
+#+latex_header: \AtBeginDocument{\selectlanguage{spanish}}
+#+latex_header: \usepackage{multicol,lipsum}
+#+cite_export: csl ~/.config/snippets/acs.csl
+#+bibliography: bibliography.bib
+
+#+begin_abstract
+{{Abstract}}
+#+end_abstract
+
+* Sección
+
+* Referencias
+
+#+print_bibliography:
