@@ -94,16 +94,16 @@ bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 # -
-bindsym $mod+1 workspace "   I   "
-bindsym $mod+2 workspace "   II   "
-bindsym $mod+3 workspace "   III   "
-bindsym $mod+4 workspace "   IV   "
-bindsym $mod+5 workspace "   V   "
-bindsym $mod+Shift+1 move container to workspace "   I   "
-bindsym $mod+Shift+2 move container to workspace "   II   "
-bindsym $mod+Shift+3 move container to workspace "   III   "
-bindsym $mod+Shift+4 move container to workspace "   IV   "
-bindsym $mod+Shift+5 move container to workspace "   V   "
+bindsym $mod+1 workspace "  1  "
+bindsym $mod+2 workspace "  2  "
+bindsym $mod+3 workspace "  3  "
+bindsym $mod+4 workspace "  4  "
+bindsym $mod+5 workspace "  5  "
+bindsym $mod+Shift+1 move container to workspace "  1  "
+bindsym $mod+Shift+2 move container to workspace "  2  "
+bindsym $mod+Shift+3 move container to workspace "  3  "
+bindsym $mod+Shift+4 move container to workspace "  4  "
+bindsym $mod+Shift+5 move container to workspace "  5  "
 # -
 bindsym $mod+comma workspace next_on_output
 bindsym $mod+period workspace prev_on_output
@@ -112,7 +112,7 @@ bindsym $mod+Shift+t layout tabbed
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 # -
-bindsym $mod+Shift+c exec clipman pick -t dmenu
+bindsym $mod+Shift+c exec clipman pick -t dmenu -T'-i -l 10 -nb #1d2021 -nf #606060 -sb #fabd2f -sf #1d2021 -fn JetbrainsMono:size=10 -p Clip:'
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
@@ -140,7 +140,6 @@ bar {
 for_window [class="Display-im6.q16"] floating enable 
 
 # Autostart
-exec_always dunst
 exec wl-paste -t text --watch clipman store
 exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman.json"
 exec emacs --daemon

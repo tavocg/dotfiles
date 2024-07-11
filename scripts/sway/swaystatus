@@ -1,5 +1,5 @@
 #!/bin/sh
-separator="      "
+separator="    "
 
 get_todo() {
     todo="$(calcurse -t | wc -l)"
