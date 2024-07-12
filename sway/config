@@ -112,7 +112,7 @@ bindsym $mod+Shift+t layout tabbed
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 # -
-bindsym $mod+Shift+c exec clipman pick -t dmenu -T'-i -l 10 -nb #1d2021 -nf #606060 -sb #fabd2f -sf #1d2021 -fn JetbrainsMono:size=10 -p Clip:'
+bindsym $mod+Shift+c exec clipman pick -t bemenu -T'--no-exec -i -c -l 10 -W 0.4 -B 2 --cw 1 --tb #fabd2f --tf #1d2021 --fb #1d2021 --ff #606060 --cb #1d2021 --cf #ebdbb2 --nb #1d2021 --nf #606060 --hb #fabd2f --hf #1d2021 --ab #1d2021 --af #606060 --bdr #fabd2f --fn JetbrainsMono -p Clip:'
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg

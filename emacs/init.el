@@ -79,7 +79,7 @@
 
 (setq use-package-always-ensure t)
 
-(dolist (pkg '(all-the-icons nerd-icons markdown-mode markdown-preview-mode))
+(dolist (pkg '(visual-fill-column all-the-icons nerd-icons markdown-mode markdown-preview-mode))
   (unless (package-installed-p pkg)
     (package-install pkg)))
 
