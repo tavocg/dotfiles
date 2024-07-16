@@ -272,8 +272,8 @@
   (make-directory "~/.local/share/emacs/ltximg/"))
 (setq org-preview-latex-image-directory "~/.local/share/emacs/ltximg/")
 
-(setq org-agenda-files (quote ("~/Documents/agenda/archive.org"
-                               "~/Documents/agenda/agenda.org")))
+;; (setq org-agenda-files (quote ("~/Documents/agenda/archive.org"
+;;                                "~/Documents/agenda/agenda.org")))
 
 ;; --- Keybinds ---
 (use-package general

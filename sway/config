@@ -36,16 +36,6 @@ set $browserh firefox-hardened
 set $menu ~/.config/scripts/menu/menu "Run:" run | xargs swaymsg exec --
 set $passmgr ~/.config/scripts/sway/swaypass
 set $passotp ~/.config/scripts/sway/swayotp
-set $volup ~/.config/scripts/volup
-set $voldown ~/.config/scripts/voldown
-set $mute ~/.config/scripts/mute
-set $micup ~/.config/scripts/micup
-set $micdown ~/.config/scripts/micdown
-set $micmute ~/.config/scripts/micmute
-set $brightup ~/.config/scripts/brightup
-set $brightdown ~/.config/scripts/brightdown
-set $powermenu ~/.config/scripts/menu/menu-power
-set $bookmenu ~/.config/scripts/menu/menu-bookmarks
 # -
 set $col_fg #fabd2f
 set $col_bg #121212
@@ -61,19 +51,20 @@ bindsym $mod+Shift+o exec $passotp
 bindsym $mod+e exec $filemgr
 bindsym $mod+w exec $browser
 bindsym $mod+Shift+w exec $browserh
-bindsym $mod+b exec $bookmenu
-bindsym XF86AudioRaiseVolume exec $volup
-bindsym XF86AudioLowerVolume exec $voldown
-bindsym XF86AudioMute exec $mute
-bindsym Shift+XF86AudioRaiseVolume exec $micup
-bindsym Shift+XF86AudioLowerVolume exec $micdown
-bindsym Shift+XF86AudioMute exec $micmute
-bindsym XF86MonBrightnessUp exec $brightup
-bindsym XF86MonBrightnessDown exec $brightdown
+bindsym $mod+i exec menu-input
+bindsym $mod+o exec menu-output
+bindsym XF86AudioRaiseVolume exec volup
+bindsym XF86AudioLowerVolume exec voldown
+bindsym XF86AudioMute exec mute
+bindsym Shift+XF86AudioRaiseVolume exec micup
+bindsym Shift+XF86AudioLowerVolume exec micdown
+bindsym Shift+XF86AudioMute exec micmute
+bindsym XF86MonBrightnessUp exec brightup
+bindsym XF86MonBrightnessDown exec brightdown
 bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
 # -
 bindsym $mod+Shift+q reload
-bindsym $mod+p exec $powermenu
+bindsym $mod+p exec menu-power
 bindsym $mod+c kill
 # -
 bindsym $mod+$left focus left

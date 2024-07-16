@@ -83,14 +83,6 @@ nnoremap <silent> <Leader>p :call WrapQuickfixPrev()<CR>
 nnoremap <leader>m :make<CR><CR>
 nnoremap <F9> :make<CR><CR>
 
-function! SetMakeprg()
-    if filereadable('Makefile')
-        set makeprg=make
-    else
-    endif
-endfunction
-autocmd VimEnter * call SetMakeprg()
-
 " c/c++
 autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
 autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
@@ -101,6 +93,14 @@ autocmd FileType troff noremap <buffer> <C-s> :w<CR> :!grofftex %<CR><CR>
 
 " Python
 autocmd FileType python noremap <buffer> <F9> :!python %<CR>
+
+function! SetMakeprg()
+    if filereadable('Makefile')
+        set makeprg=make
+    else
+    endif
+endfunction
+autocmd VimEnter * call SetMakeprg()
 
 " Functions
 
