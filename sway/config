@@ -21,6 +21,10 @@ input type:keyboard {
     repeat_rate 70
 }
 
+set $opacity 0.9
+for_window [class="Emacs"] opacity $opacity
+for_window [app_id="foot"] opacity $opacity
+
 set $mod Mod4
 set $alt Mod1
 set $left h
@@ -121,10 +125,10 @@ bar {
     tray_padding 4
 
     colors {
-        background #000000
-        statusline #1d2021
+        background #00000000
+        statusline #ebdbb270
         focused_workspace $col_fg $col_fg $col_bg
-        inactive_workspace #000000 #000000 #1d2021
+        inactive_workspace #00000000 #00000000 #ebdbb270
     }
 }
 
