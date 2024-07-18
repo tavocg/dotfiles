@@ -24,6 +24,8 @@ export \
     WGETRC="$HOME/.config/wget/wgetrc" \
     GNUPGHOME="$XDG_DATA_HOME/gnupg" \
     GOPATH="$XDG_DATA_HOME/go" \
+    
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
 export \
     HISTCONTROL=ignoreboth \
@@ -47,4 +49,3 @@ export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \
-

@@ -160,6 +160,7 @@ Plug 'preservim/tagbar'
 " Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'jceb/vim-orgmode'
+Plug 'mikelue/vim-maven-plugin'
 call plug#end()
 
 " gruvbox-material
