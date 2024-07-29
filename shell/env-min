@@ -1,0 +1,11 @@
+#!/bin/sh
+
+export \
+    DATE=$(date -I) \
+    WEEK=$(date '+%U') \
+    VIMINIT="source $HOME/.config/vim/vimrc" \
+    EDITOR="nvim" \
+    VISUAL="nvim" \
+    GITLAB="ssh://git@gitlab.com/tavo-wasd" \
+    BOOKMARKS="$HOME/Documents/bookmarks" \
+    BIB="$HOME/Documents/bibliography" \
