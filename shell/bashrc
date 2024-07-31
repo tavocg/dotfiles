@@ -91,8 +91,8 @@ complete -cf doas
 if [ "$(tty)" = "/dev/tty1" ] ; then
     sleep 0.5
     amixer &
-    #exec startx
-    exec sway
+    exec startx
+    #exec sway
 fi
 
 command -v fetch >/dev/null 2>&1 && fetch min
