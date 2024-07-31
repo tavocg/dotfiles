@@ -13,7 +13,7 @@
 ;; ---
 
 ;; --- Customization
-(defvar custom-font  "JetBrains Mono-10.5")
+(defvar custom-font  "JetBrains Mono-10")
 (defvar custom-theme 'doom-gruvbox)
 
 (custom-set-faces
