@@ -43,9 +43,11 @@ export \
     QT_QPA_PLATFORMTHEME="qt5ct" \
     CM_SELECTIONS="clipboard" \
     GTK_THEME="Materia:dark" \
+    XCURSOR_THEME="Adwaita" \
     CM_MAX_CLIPS=10 \
 
 export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
+    HOMELAB="ssh://drive:/home/drive/drive" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \
