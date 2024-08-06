@@ -24,7 +24,7 @@ export \
     WGETRC="$HOME/.config/wget/wgetrc" \
     GNUPGHOME="$XDG_DATA_HOME/gnupg" \
     GOPATH="$XDG_DATA_HOME/go" \
-    
+
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
 export \
@@ -36,6 +36,7 @@ export \
 
 export \
     TERM="xterm-256color" \
+    BROWSER="firefox" \
     EDITOR="nvim" \
     VISUAL="nvim" \
 
