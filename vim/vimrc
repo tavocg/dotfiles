@@ -87,6 +87,9 @@ nnoremap <F9> :make<CR><CR>
 autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
 autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
 
+" Go
+autocmd FileType go setlocal tabstop=8 shiftwidth=8 noexpandtab
+
 " groff
 autocmd FileType troff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
 autocmd FileType troff noremap <buffer> <C-s> :w<CR> :!grofftex %<CR><CR>
