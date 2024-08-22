@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+
+HOME=$HOME/.local/share/mozilla
+mkdir -p "$HOME"
+
+exec /usr/bin/firefox -P finance "$@"
