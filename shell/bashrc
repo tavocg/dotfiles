@@ -72,13 +72,18 @@ alias \
     img="cd $HOME/Pictures/ && ls" \
     vid="cd $HOME/Videos/ && ls" \
 
+EZA_OPTS="--git --group-directories-first --icons --time-style=long-iso"
 command -v exa >/dev/null 2>&1 &&
-    alias ls="exa --group-directories-first --icons -a1" &&
-    alias ll="exa --group-directories-first --icons -al --time-style=iso --git"
+    alias la="exa $EZA_OPTS -alghUum" &&
+    alias lt="exa $EZA_OPTS -T -L 2" &&
+    alias ll="exa $EZA_OPTS -alg" &&
+    alias ls="exa $EZA_OPTS -a1"
 
 command -v eza >/dev/null 2>&1 &&
-    alias ls="eza --group-directories-first --icons -a1" &&
-    alias ll="eza --group-directories-first --icons -al --time-style=iso --git"
+    alias la="eza $EZA_OPTS -alghUum" &&
+    alias lt="eza $EZA_OPTS -T -L 2" &&
+    alias ll="eza $EZA_OPTS -alg" &&
+    alias ls="eza $EZA_OPTS -a1"
 
 command -v trash >/dev/null 2>&1 && alias rm="trash"
 
