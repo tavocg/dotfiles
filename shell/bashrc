@@ -1,9 +1,29 @@
 #!/bin/bash
+# $ printf '[ -f ~/.config/shell/bashrc ] && . ~/.config/shell/bashrc' | sudo tee -a /etc/bash.bashrc
 
 case $- in
     *i*) ;;
       *) return;;
 esac
+
+if ! shopt -oq posix; then
+    [ -f /usr/share/bash-completion/bash_completion ] &&
+        . /usr/share/bash-completion/bash_completion
+    [ -f /etc/bash_completion ] &&
+        . /etc/bash_completion
+fi
+
+[ -f ~/.bash_aliases ] && . ~/.bash_aliases
+
+HISTCONTROL=ignoreboth
+HISTSIZE=
+HISTFILESIZE=
+bind "set completion-ignore-case on"
+shopt -s checkwinsize
+shopt -s histappend
+shopt -s cdspell
+shopt -s autocd
+set -o vi
 
 PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
@@ -15,21 +35,6 @@ PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 #PATH="/usr/local/plan9/bin${PATH:+:${PATH}}"
 
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-fi
-
-bind "set completion-ignore-case on"
-shopt -s checkwinsize
-shopt -s histappend
-shopt -s cdspell
-shopt -s autocd
-set -o vi
-
 git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
     [ -n "$GIT_BRANCH" ] && printf "%s " "$GIT_BRANCH"
@@ -37,6 +42,7 @@ git_branch() {
 
 [ -e "/data/data/com.termux" ]                && HOSTNAME=""
 [ "${HOSTNAME:=$(hostname -s)}" = "laptop"  ] && HOSTNAME="󰌢"
+[ "${HOSTNAME:=$(hostname -s)}" = "home" ]    && HOSTNAME="󰇅"
 [ "${HOSTNAME:=$(hostname -s)}" = "desktop" ] && HOSTNAME="󰇅"
 
 PS1='
@@ -46,17 +52,18 @@ PS1='
 \[\e[38;5;240m\] \@ \[\e[1;38;5;5m\]$(git_branch)\[\e[48;0m\]
 \[\e[38;5;240m\] ╰─\$\[\e[0m\] '
 
-alias \
-    wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
+alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
-! command -v sudo >/dev/null 2>&1 && alias sudo="doas"
+! command -v sudo >/dev/null 2>&1 &&
+    alias sudo="doas" &&
+    complete -cf doas
 
 alias \
     src="cd $HOME/.local/src/ && ls" \
     cfg="cd $HOME/.config/ && ls" \
     tmp="cd $HOME/Desktop/temp/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
-    prj="cd $HOME/Desktop/projects/ && ls" \
+    prj="cd $HOME/Projects/ && ls" \
     doc="cd $HOME/Documents/ && ls" \
     dow="cd $HOME/Downloads/ && ls" \
     mus="cd $HOME/Music/ && ls" \
@@ -65,9 +72,15 @@ alias \
     img="cd $HOME/Pictures/ && ls" \
     vid="cd $HOME/Videos/ && ls" \
 
-command -v exa >/dev/null 2>&1 && alias ls="exa -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
-command -v eza >/dev/null 2>&1 && alias ls="eza -al --icons --group-directories-first --no-permissions --no-user --time-style=iso --git" \
-command -v trash >/dev/null 2>&1 && alias rm="trash" \
+command -v exa >/dev/null 2>&1 &&
+    alias ls="exa --group-directories-first --icons -a1" &&
+    alias ll="exa --group-directories-first --icons -al --time-style=iso --git"
+
+command -v eza >/dev/null 2>&1 &&
+    alias ls="eza --group-directories-first --icons -a1" &&
+    alias ll="eza --group-directories-first --icons -al --time-style=iso --git"
+
+command -v trash >/dev/null 2>&1 && alias rm="trash"
 
 alias \
     fzf="fzf --cycle --reverse" \
@@ -77,13 +90,10 @@ alias \
     cp="cp -iv" \
     mv="mv -iv" \
     vim="nvim" \
-    mgr-all="mgr pacman_upgrade apt_upgrade flatpak_update distrobox_update pip_update configs passmgr" \
     df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
     qr-png="qrencode -s 16 -o qr.png" \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
-
-complete -cf doas
 
 [ -f ~/.config/shell/env ] && . ~/.config/shell/env
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit

@@ -1,4 +1,5 @@
 #!/bin/sh
+# $ printf '[ -f ~/.config/shell/env ] && . ~/.config/shell/env' | sudo tee -a /etc/profile
 
 export \
     BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc" \
@@ -15,7 +16,7 @@ export \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/shell_history" \
+    HISTFILE="$XDG_STATE_HOME/bash/history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \

@@ -85,7 +85,7 @@ alias \
     cfg="cd $HOME/.config/ && ls" \
     tmp="cd $HOME/Desktop/temp/ && ls" \
     dsk="cd $HOME/Desktop/ && ls" \
-    prj="cd $HOME/Desktop/projects/ && ls" \
+    prj="cd $HOME/Projects/ && ls" \
     doc="cd $HOME/Documents/ && ls" \
     dow="cd $HOME/Downloads/ && ls" \
     mus="cd $HOME/Music/ && ls" \
