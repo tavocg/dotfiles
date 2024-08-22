@@ -14,15 +14,16 @@
 
 ;; --- Customization
 (defvar custom-font  "JetBrains Mono-10")
-(defvar custom-theme 'doom-gruvbox)
+(defvar custom-theme 'doom-henna)
+(setq org-agenda-files '("~/Documents/agenda"))
 
-(custom-set-faces
-  ;; '(hl-line ((t (:background "gray20" :underline nil))))
-  '(mode-line-inactive ((t (:background "#282828" :foreground "#504945" :box nil))))
-  '(mode-line ((t (:background "#282828" :foreground "#a89984" :box nil))))
-  '(org-block ((t (:background "#282828"))))
-  '(org-quote ((t (:background "#282828"))))
-  '(default ((t (:background "#1d2021")))))
+; (custom-set-faces
+;   '(hl-line ((t (:background "gray20" :underline nil))))
+;   '(mode-line-inactive ((t (:background "#282828" :foreground "#504945" :box nil))))
+;   '(mode-line ((t (:background "#282828" :foreground "#a89984" :box nil))))
+;   '(org-block ((t (:background "#282828"))))
+;   '(org-quote ((t (:background "#282828"))))
+;   '(default ((t (:background "#1d2021")))))
 
 ;; --- Global Preferences ---
 (setq custom-file (concat user-emacs-directory "custom.el"))
