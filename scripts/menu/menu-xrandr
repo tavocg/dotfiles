@@ -1,31 +1,24 @@
 #!/bin/sh
+
 LIST="$(xrandr | sed '/ connected/!d;s/ .*$//')"
 ULIST="$(xrandr | sed '/ disconnected/!d;s/ .*$//')"
 MONITORS="$(printf '%s' "${LIST}" | tr '\n' ' ')"
-
-MIRR="$(printf 'Yes\nNo' | menu "Mirror monitors?:")"
 
 for i in ${ULIST} ; do
     UNSET="${UNSET} --output ${i} --off"
 done
 
-[ "${MIRR}" = "Yes" ] && CMD="$(FIRST=1 ; for i in ${MONITORS} ; do
-    CURR="${i}"
-    [ -z "${CURR}" ] && exit 1
-    [ "${FIRST}" ] && printf 'xrandr --output %s' "${CURR}" && FIRST=
-    [ "${LAST}"  ] && printf ' --same-as %s' "${CURR}"
-    LAST="${CURR}"
-done)"
-
-! [ "${CMD}" ] && CMD="$(FIRST=1 ; for i in ${MONITORS} ; do
+CMD="$(FIRST=1 ; for i in ${MONITORS} ; do
+    # shellcheck disable=SC2030
     CURR="$(printf '%s' "${LIST}" | sed "/${LAST:=empty}/d" | menu "Next monitor (to right):")"
     [ -z "${CURR}" ] && exit 1
     [ "${FIRST}" ] && printf 'xrandr --output %s' "${CURR}" && FIRST=
+    # shellcheck disable=SC2031
     [ "${LAST}"  ] && printf ' --left-of %s' "${CURR}"
     LAST="${CURR}"
 done)"
 
-! [ "${MIRR}" = "Yes" ] && for i in ${MONITORS} ; do
+for i in ${MONITORS} ; do
     case ${CMD} in
         *${i}*) ;;
         *) UNSET="${UNSET} --output ${i} --off"
