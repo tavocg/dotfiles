@@ -26,7 +26,6 @@ for i in ${MONITORS} ; do
 done
 
 BACKGROUND="$(grep 'hsetroot' ~/.config/X11/xinitrc | sed 's/ \&$//')"
-[ "${BACKGROUND}" ] && eval "${BACKGROUND}"
+[ "${BACKGROUND}" ] && eval "${BACKGROUND}" && printf '%s\n' "${CMD}"
 CMD="xrandr --auto && ${CMD} ${UNSET}"
-[ "${CMD}" ] && eval "${CMD}"
-printf '%s\n' "${CMD}"
+[ "${CMD}" ] && eval "${CMD}" && printf '%s\n' "${CMD}"
