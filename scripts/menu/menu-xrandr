@@ -1,12 +1,13 @@
 #!/bin/sh
-LIST="$(xrandr | sed '/disconnected/d;/connected/!d;s/ .*$//g')"
-MONITORS="$(printf '%s' "$LIST" | tr '\n' ' ')"
+LIST=`xrandr | sed '/ connected/!d;s/ .*$//'`
+MONITORS=`printf '%s' "${LIST}" | tr '\n' ' '`
 
-CMD="$(printf 'xrandr' ; for MONITOR in $MONITORS ; do
-    SELECT="$(printf '%s' "$LIST" | menu "Next monitor (to right):")"
-    [ -z "$SELECT" ] && exit 0
-    [ -n "$LAST" ] && printf ' --output %s --right-of %s' "$SELECT" "$LAST"
-    LAST="$SELECT"
+CMD="$(FIRST=1 ; for i in ${MONITORS} ; do
+    CURR=`printf '%s' "${LIST}" | sed "/${LAST:=empty}/d" | menu "Next monitor (to right):"`
+    [ -z "${CURR}" ] && exit 0
+    [ "${FIRST}" ] && printf 'xrandr --output %s' "${CURR}" && FIRST=
+    [ "${LAST}"  ] && printf ' --left-of %s' "${CURR}"
+    LAST="${CURR}"
 done)"
 
 $($CMD)
