@@ -5,6 +5,7 @@ MIRR="$(printf 'Yes\nNo' | menu "Mirror monitors?:")"
 
 [ "${MIRR}" = "Yes" ] && CMD="$(FIRST=1 ; for i in ${MONITORS} ; do
     CURR="${i}"
+    [ -z "${CURR}" ] && exit 0
     [ "${FIRST}" ] && printf 'xrandr --output %s' "${CURR}" && FIRST=
     [ "${LAST}"  ] && printf ' --same-as %s' "${CURR}"
     LAST="${CURR}"
@@ -18,6 +19,13 @@ done)"
     LAST="${CURR}"
 done)"
 
-CMD="xrandr --auto && $CMD"
+! [ "${MIRR}" = "Yes" ] && for i in ${MONITORS} ; do
+    case ${CMD} in
+        *${i}*) ;;
+        *) UNSET="${UNSET} --output ${i} --off"
+    esac
+done
+
+CMD="xrandr --auto && ${CMD} ${UNSET}"
 [ "${CMD}" ] && eval "${CMD}"
-printf '%s' "${CMD}"
+# printf '%s\n' "${CMD}" # DEBUG
