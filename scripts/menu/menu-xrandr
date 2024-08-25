@@ -34,4 +34,4 @@ done
 
 CMD="xrandr --auto && ${CMD} ${UNSET}"
 [ "${CMD}" ] && eval "${CMD}"
-# printf '%s\n' "${CMD}" # DEBUG
+printf '%s\n' "${CMD}"
