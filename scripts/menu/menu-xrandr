@@ -1,8 +1,9 @@
 #!/bin/sh
 LIST="$(xrandr | sed '/ connected/!d;s/ .*$//')"
-MONITORS="$(printf '%s' "${LIST}" | tr '\n' ' ')"
-MIRR="$(printf 'Yes\nNo' | menu "Mirror monitors?:")"
 ULIST="$(xrandr | sed '/ disconnected/!d;s/ .*$//')"
+MONITORS="$(printf '%s' "${LIST}" | tr '\n' ' ')"
+
+MIRR="$(printf 'Yes\nNo' | menu "Mirror monitors?:")"
 
 for i in ${ULIST} ; do
     UNSET="${UNSET} --output ${i} --off"
