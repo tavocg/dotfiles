@@ -30,6 +30,7 @@ clear &
 #xrandr --output DVI-D-0 --right-of HDMI-0
 hsetroot -cover /home/tavo/Pictures/Backgrounds/default.jpg &
 emacs --daemon &
+dropbox &
 sleep 0.2
 
 while true; do
