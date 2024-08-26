@@ -14,7 +14,7 @@
 
 ;; --- Customization
 (defvar custom-font  "JetBrains Mono-10")
-(defvar custom-theme 'doom-henna)
+(defvar custom-theme 'doom-material)
 (setq org-agenda-files '("~/Documents/agenda"))
 
 ; (custom-set-faces
@@ -216,6 +216,8 @@
 ;; --- Org Mode ---
 (setq org-startup-folded t)
 (require 'org-tempo)
+
+(setq org-export-with-smart-quotes t)
 
 (setq org-src-preserve-indentation t
       org-edit-src-content-indentation 0
