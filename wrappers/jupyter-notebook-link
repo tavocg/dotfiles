@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jupyter notebook list | grep 'https*://.*[0-9]*/?token=.*' | cut -d' ' -f 1 | xsel -ib
