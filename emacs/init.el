@@ -278,6 +278,10 @@
 ;; (setq org-agenda-files (quote ("~/Documents/agenda/archive.org"
 ;;                                "~/Documents/agenda/agenda.org")))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sql . t)))
+
 ;; --- Keybinds ---
 (use-package general
   :config

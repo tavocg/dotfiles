@@ -59,7 +59,6 @@ noremap H :nohl<CR>
 noremap <leader><Space> za
 
 autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
 
 " QuickFix
 autocmd QuickFixCmdPost [^l]* nested cwindow
