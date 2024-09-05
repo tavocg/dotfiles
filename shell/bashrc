@@ -37,20 +37,30 @@ PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 
 git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
-    [ -n "$GIT_BRANCH" ] && printf "%s " "$GIT_BRANCH"
+    [ -n "$GIT_BRANCH" ] && printf "%s " "$GIT_BRANCH" || true
 }
 
-[ -e "/data/data/com.termux" ]                && HOSTNAME=""
-[ "${HOSTNAME:=$(hostname -s)}" = "laptop"  ] && HOSTNAME="󰌢"
-[ "${HOSTNAME:=$(hostname -s)}" = "home" ]    && HOSTNAME="󰇅"
+format_code() {
+    if [ "${1}" != 0 ] ; then
+        CODE="${1}"
+        printf '%s ' "${CODE}"
+    fi
+}
+
+[ -e "/data/data/com.termux" ]                && HOSTNAME=" "
+[ "${HOSTNAME:=$(hostname -s)}" = "laptop"  ] && HOSTNAME="󰌢 "
+[ "${HOSTNAME:=$(hostname -s)}" = "home" ]    && HOSTNAME="󰒋 "
 [ "${HOSTNAME:=$(hostname -s)}" = "desktop" ] && HOSTNAME="󰇅"
 
-PS1='
-\[\e[48;5;7m\] \[\e[38;5;240m\]\[\e[48;5;7m\]$?\[\e[38;5;7m\]\[\e[48;5;108m\]\
-\[\e[38;5;235m\]\[\e[48;5;108m\] ${HOSTNAME} \[\e[38;5;108m\]\[\e[48;5;66m\]\
-\[\e[48;5;66m\]\[\e[38;5;235m\] \W \[\e[45;0m\]\[\e[38;5;66m\]\
-\[\e[38;5;240m\] \@ \[\e[1;38;5;5m\]$(git_branch)\[\e[48;0m\]
-\[\e[38;5;240m\] ╰─\$\[\e[0m\] '
+PROMPT_COMMAND="echo"
+PS1='\[\033[31m\]\[\033[1m\]$(format_code ${?})\[\033[0m\]\
+\[\033[2m\][\[\033[0m\] \
+\[\033[36m\]${HOSTNAME}\[\033[0m\] \
+\[\033[34m\]\W \
+\[\033[1m\]\[\033[35m\]$(git_branch)\[\033[0m\]\
+\[\033[2m\]] \[\033[0m\]\
+\[\033[2m\]\@\[\033[0m\]\
+\n\[\033[2m\]$\[\033[0m\] '
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
