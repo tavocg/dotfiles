@@ -52,6 +52,7 @@ export \
     CM_MAX_CLIPS=10 \
 
 export \
+    GIT="ssh://git@git.tavo.one/tavo" \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     HOMELAB="ssh://drive:/home/drive/drive" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
