@@ -34,6 +34,7 @@ PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
 PATH="$HOME/.local/bin${PATH:+:${PATH}}"
 PATH="$HOME/.local/state/nix/profile/bin${PATH:+:${PATH}}"
+PATH="$HOME/.config/emacs/bin${PATH:+:${PATH}}"
 
 git_branch() {
     GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
