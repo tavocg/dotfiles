@@ -241,3 +241,8 @@ VSCodium/
 google-chrome-for-testing/
 onlyoffice/
 vesktop/
+go/
+org.gnome.Ptyxis/
+connections.db
+emacs/
+systemd/
