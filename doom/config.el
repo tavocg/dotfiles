@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-material)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -76,7 +76,7 @@
 ;; they are implemented.
 
 (setq org-agenda-files '("~/Documents/agenda"))
-(setq doom-font (font-spec :family "JetBrainsMono" :size 12.0))
+(setq doom-font (font-spec :family "JetBrainsMono" :size 11.0))
 (setq default-frame-alist '((undecorated . t)))
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 (scroll-bar-mode 0)

@@ -9,5 +9,3 @@ export \
     GITLAB="ssh://git@gitlab.com/tavo-wasd" \
     BOOKMARKS="$HOME/Documents/bookmarks" \
     BIB="$HOME/Documents/bibliography" \
-
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"
