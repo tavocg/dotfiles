@@ -9,14 +9,13 @@ RUN useradd -ms /bin/bash dev && \
 
 ARG SSH_KEY
 RUN mkdir -p /home/dev/.ssh && \
+    ssh-keygen -A && \
     echo "$SSH_KEY" >> /home/dev/.ssh/authorized_keys && \
     chown -R dev:dev /home/dev/.ssh && \
     chmod 600 /home/dev/.ssh/authorized_keys
 
 RUN git clone https://git.tavo.one/tavo/dotfiles /home/dev/.config && \
-    echo ". ~/.config/shell/env-min" >> /home/dev/.profile && \
-    echo ". ~/.config/shell/env-min" >> /home/dev/.bashrc && \
-    echo ". ~/.config/shell/bashrc" >> /home/dev/.profile && \
+    echo ". ~/.config/shell/env-min" >> /home/dev/.bash_profile && \
     echo ". ~/.config/shell/bashrc" >> /home/dev/.bashrc && \
     chown -R dev:dev /home/dev
 
