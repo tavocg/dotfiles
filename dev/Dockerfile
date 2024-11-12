@@ -1,7 +1,7 @@
 FROM debian:latest
 
 RUN apt-get update && \
-    apt-get install -y sudo exa curl ffmpeg imagemagick groff openssh-server build-essential git neovim python3 python-is-python3 python3-pip golang clang clang-format nodejs npm php-fpm r-recommended && \
+    apt-get install -y sudo exa curl ffmpeg imagemagick groff openssh-server build-essential git neovim emacs python3 python-is-python3 python3-venv python3-pip golang clang clang-format nodejs npm php-fpm r-recommended texlive-base texlive-fonts-recommended && \
     mkdir /var/run/sshd
 
 RUN useradd -ms /bin/bash dev
