@@ -1,4 +1,4 @@
-FROM archlinux:latest
+FROM docker.io/library/archlinux:latest
 
 RUN pacman -Syu --noconfirm && \
     pacman -S --noconfirm sudo exa curl ffmpeg imagemagick groff openssh base-devel git neovim emacs python python-pip python-virtualenv go go-tools clang nodejs npm php texlive-core texlive-fontsextra r && \
