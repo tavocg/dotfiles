@@ -111,6 +111,7 @@ alias \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
     em="emacsclient -c -a 'emacs' $@" \
+    venv=". ~/.local/share/venv/base/bin/activate" \
 
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
 
