@@ -110,7 +110,7 @@ alias \
     qr-png="qrencode -s 16 -o qr.png" \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
-    doom="emacsclient -c -a 'emacs' \$@" \
+    em="emacsclient -c -a 'emacs' $@" \
 
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
 
