@@ -94,7 +94,7 @@ command -v eza >/dev/null 2>&1 &&
     alias la="eza $EZA_OPTS -alghUum" &&
     alias lt="eza $EZA_OPTS -T -L 2" &&
     alias ll="eza $EZA_OPTS -alg" &&
-    alias ls="eza $EZA_OPTS -a1"
+    alias ls="eza $EZA_OPTS -1"
 
 command -v trash >/dev/null 2>&1 && alias rm="trash"
 
