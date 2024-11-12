@@ -15,6 +15,7 @@ RUN mkdir -p /home/dev/.ssh && \
     chmod 600 /home/dev/.ssh/authorized_keys
 
 RUN git clone https://git.tavo.one/tavo/dotfiles /home/dev/.config && \
+    echo "HOSTNAME='dev'" >> /home/dev/.bash_profile && \
     echo ". ~/.config/shell/env-min" >> /home/dev/.bash_profile && \
     echo ". ~/.config/shell/bashrc" >> /home/dev/.bashrc && \
     chown -R dev:dev /home/dev
