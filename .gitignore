@@ -246,3 +246,4 @@ org.gnome.Ptyxis/
 connections.db
 emacs/
 systemd/
+balenaEtcher/
