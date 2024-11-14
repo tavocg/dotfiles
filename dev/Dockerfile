@@ -1,7 +1,7 @@
 FROM docker.io/library/archlinux:latest
 
 RUN pacman -Syu --noconfirm && \
-    pacman -S --noconfirm sudo man-db exa curl ffmpeg imagemagick nnn screen tmux groff openssh base-devel git neovim ripgrep emacs python python-pip python-virtualenv go go-tools clang nodejs npm php texlive-core texlive-fontsextra r && \
+    pacman -S --noconfirm sudo man-db exa curl ffmpeg imagemagick nnn screen tmux groff openssh base-devel git neovim ripgrep fzf emacs python python-pip python-virtualenv go go-tools clang nodejs npm php texlive-core texlive-fontsextra r && \
     mkdir /var/run/sshd
 
 RUN useradd -ms /bin/bash dev && \
