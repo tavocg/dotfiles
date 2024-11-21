@@ -247,3 +247,6 @@ connections.db
 emacs/
 systemd/
 balenaEtcher/
+ParaView/
+VirtualBox/
+knfsshare

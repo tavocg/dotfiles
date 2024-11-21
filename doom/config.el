@@ -89,4 +89,4 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
-(setq indent-guide-char ":")
+(after! org (plist-put org-format-latex-options :scale 3.2))
