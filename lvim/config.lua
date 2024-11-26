@@ -6,3 +6,13 @@
 
 require("config.go")
 require("config.py")
+
+lvim.plugins = {
+  "askfiy/visual_studio_code",
+  "sainnhe/gruvbox-material",
+  "sainnhe/everforest",
+  "marko-cerovac/material.nvim",
+}
+
+lvim.colorscheme = "everforest"
+vim.g.everforest_background = "hard"
