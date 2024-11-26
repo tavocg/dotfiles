@@ -1,0 +1,19 @@
+# -*- mode: snippet -*-
+# name: common-tex-headers
+# key:
+# --
+
+#+OPTIONS: toc:nil
+#+LaTeX_HEADER: \documentclass[12pt]{article}
+#+LaTeX_HEADER: \usepackage[spanish]{babel}
+#+LaTeX_HEADER: \AtBeginDocument{\selectlanguage{spanish}}
+#+LaTeX_HEADER: \usepackage[margin=1in]{geometry}
+#+LaTeX_HEADER: \usepackage{multicol}
+#+LaTeX_HEADER: \usepackage{xcolor}
+#+LaTeX_HEADER: \usepackage{amsmath}
+#+LaTeX_HEADER: \usepackage{gensymb}
+#+LaTeX_HEADER: \usepackage{cancel}
+#+LaTeX_HEADER: \usepackage{tikz}
+#+LaTeX_HEADER: \usetikzlibrary{calc}
+#+cite_export: csl ~/.config/snippets/apa.csl
+#+bibliography: refs.bib

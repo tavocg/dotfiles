@@ -1,3 +1,6 @@
+[init]
+    defaultBranch = main
+
 [user]
-	email = tavo@tavo.one
-	name = tavo
+    email = tavo@tavo.one
+    name = tavo
