@@ -1,7 +1,8 @@
 #!/bin/sh
 
-SSH_KEY_ARG="$1"
-[ -z "$SSH_KEY_ARG" ] && echo "No ssh-key provided" && exit 1
+FJP_ARG="$1"
+[ -z "$FJP_ARG" ] && FJP_ARG="$(pass personal/forgejo | sed '/public-keys/!d;s/^.*: //')"
+[ -z "$FJP_ARG" ] && echo "No ssh-key provided" && exit 1
 
 podman rm -f dev
-podman build --build-arg SSH_KEY="$SSH_KEY_ARG" -t arch-dev-env .
+podman build --build-arg FJP="$FJP_ARG" -t arch-dev-env .
