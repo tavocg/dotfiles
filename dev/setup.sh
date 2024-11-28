@@ -5,11 +5,11 @@ echo ". ~/.config/shell/env-min" >> ~/.bash_profile
 echo ". ~/.config/shell/bashrc" >> ~/.bashrc
 
 sudo pacman -S --needed --noconfirm sudo man-db exa curl jq ffmpeg imagemagick \
-    nnn screen tmux groff openssh base-devel git neovim ripgrep fzf emacs \
+    nnn fd screen tmux groff openssh base-devel git neovim ripgrep fzf emacs \
     python python-pip python-virtualenv python-pipx python-pynvim go go-tools \
     clang nodejs npm php cargo r texlive-basic texlive-latexrecommended \
     texlive-plaingeneric texlive-fontsextra shellcheck bash-language-server \
-    shfmt zshdb gopls
+    shfmt zshdb gopls tree-sitter-cli cmake tidy stylelint pandoc composer
 
 git clone git@git.tavo.one:tavo/dotfiles.git ~/.config
 
