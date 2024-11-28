@@ -17,3 +17,5 @@ lvim.plugins = {
 
 lvim.colorscheme = "everforest"
 vim.g.everforest_background = "hard"
+
+lvim.builtin.lualine.style = "default"
