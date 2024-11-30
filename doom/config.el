@@ -19,3 +19,9 @@
                 shell-mode-hook
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
+
+;; binds
+(global-set-key (kbd "M-p")
+                (lambda ()
+                  (interactive)
+                  (pass)))
