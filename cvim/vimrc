@@ -1,13 +1,13 @@
 " XDG Specifications
 let rtp=&runtimepath
-set runtimepath=~/.config/vim
-let &runtimepath.=','.rtp.',~/.config/vim/after'
-set directory=~/.config/vim/swap//,.,~/tmp,/var/tmp,/tmp
-set backupdir=~/.config/vim/backup//,.,~/tmp,~/
-set spellfile=~/.config/vim/spell/en.utf-8.add
-set viminfo+=n~/.config/vim/viminfo
-set viewdir=~/.config/vim/view/
-set undodir=~/.config/vim/undo//,.
+set runtimepath=~/.config/cvim
+let &runtimepath.=','.rtp.',~/.config/cvim/after'
+set directory=~/.config/cvim/swap//,.,~/tmp,/var/tmp,/tmp
+set backupdir=~/.config/cvim/backup//,.,~/tmp,~/
+set spellfile=~/.config/cvim/spell/en.utf-8.add
+set viminfo+=n~/.config/cvim/viminfo
+set viewdir=~/.config/cvim/view/
+set undodir=~/.config/cvim/undo//,.
 
 " Preferences
 let mapleader = "\<Space>"
@@ -135,3 +135,79 @@ function OpenTerminal()
     endif
 endfunction
 nnoremap <C-t> :call OpenTerminal()<CR>
+
+" Plugins
+if empty(glob('~/.config/cvim/autoload/plug.vim'))
+    silent !curl -fLo ~/.config/cvim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source '~/.config/cvim/vimrc'
+endif
+
+call plug#begin()
+Plug 'vim-airline/vim-airline-themes'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'vim-scripts/AutoComplPop'
+Plug 'vim-airline/vim-airline'
+Plug 'ryanoasis/vim-devicons'
+Plug 'airblade/vim-gitgutter'
+Plug 'rhysd/vim-clang-format'
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-commentary'
+Plug 'Yggdroot/indentLine'
+Plug 'preservim/nerdtree'
+Plug 'godlygeek/tabular'
+Plug 'Gavinok/vim-troff'
+Plug 'ibhagwan/fzf-lua'
+Plug 'preservim/tagbar'
+" Plug 'morhetz/gruvbox'
+Plug 'sainnhe/gruvbox-material'
+Plug 'jceb/vim-orgmode'
+Plug 'mikelue/vim-maven-plugin'
+call plug#end()
+
+" gruvbox-material
+set background=dark
+let g:gruvbox_material_background = 'hard'
+colorscheme gruvbox-material
+
+" AutoComplPop
+inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"
+set completeopt=menuone,longest
+set complete+=kspell
+
+" Airline
+let g:airline#extensions#tabline#buffer_min_count = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
+set ttimeout ttimeoutlen=0
+set laststatus=2
+set noshowmode
+
+" NERDTree
+nnoremap <C-f> :NERDTreeToggle<CR>
+
+" IndentLine
+let g:indentLine_enabled = 1
+let g:indentLine_char = '⎸'
+
+" fzf-lua
+noremap <A-b> :FzfLua git_branches<CR>
+noremap <A-c> :FzfLua git_commits<CR>
+noremap <A-s> :FzfLua git_status<CR>
+noremap <A-f> :FzfLua files<CR>
+noremap gb :FzfLua git_branches<CR>
+noremap gs :FzfLua git_status<CR>
+noremap gf :FzfLua files<CR>
+
+" git-gutter
+highlight GitGutterChange guifg=#7daea3 ctermfg=3
+highlight GitGutterDelete guifg=#ea6962 ctermfg=1
+highlight GitGutterAdd    guifg=#a9b665 ctermfg=2
+highlight SignColumn guibg=NONE ctermbg=NONE
+let g:gitgutter_set_sign_backgrounds = 1
+noremap gd :GitGutterToggle<CR>
+set signcolumn=yes
+set updatetime=100
+
+" vim-clang-format
+let g:clang_format#code_style = 'llvm'

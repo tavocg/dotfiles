@@ -26,11 +26,14 @@ dwmblocks &
 clipmenud &
 dunst &
 picom --experimental-backends --animation-for-open-window=zoom &
-clear &
-#xrandr --output DVI-D-0 --right-of HDMI-0
-hsetroot -cover /home/tavo/Pictures/Backgrounds/default.jpg &
 emacs --daemon &
 dropbox &
+clear &
+
+# Multiple displays, add this into xinitrc.displays:
+# xrandr --output DVI-D-0 --right-of HDMI-0
+[ -f "$HOME/.config/X11/xinitrc.displays" ] && . /home/tavo/.config/X11/xinitrc.displays
+hsetroot -cover "$HOME/Pictures/Backgrounds/default.jpg" &
 sleep 0.2
 
 while true; do
