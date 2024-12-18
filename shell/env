@@ -21,7 +21,7 @@ export \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/bash/history" \
+    HISTFILE="$XDG_STATE_HOME/shell/bash_history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
@@ -30,6 +30,10 @@ export \
     WGETRC="$HOME/.config/wget/wgetrc" \
     GNUPGHOME="$XDG_DATA_HOME/gnupg" \
     GOPATH="$XDG_DATA_HOME/go" \
+
+if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ] ; then
+    mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+fi
 
 alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
