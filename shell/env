@@ -1,6 +1,17 @@
 #!/bin/sh
 # $ printf '[ -f ~/.config/shell/env ] && . ~/.config/shell/env' | sudo tee -a /etc/profile
 
+PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/menu/xclipmenu${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/sway${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts/dwm${PATH:+:${PATH}}"
+PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
+PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
+PATH="$HOME/.local/bin${PATH:+:${PATH}}"
+PATH="$HOME/.local/state/nix/profile/bin${PATH:+:${PATH}}"
+PATH="$HOME/.config/emacs/bin${PATH:+:${PATH}}"
+
 export \
     XDG_STATE_HOME="$HOME/.local/state" \
     XDG_CACHE_HOME="$HOME/.local/cache" \
@@ -30,17 +41,14 @@ export \
     WGETRC="$HOME/.config/wget/wgetrc" \
     GNUPGHOME="$XDG_DATA_HOME/gnupg" \
     GOPATH="$XDG_DATA_HOME/go" \
+    SSH_CONFIG="-F ${XDG_CONFIG_HOME}/ssh/config" \
+    GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config" \
 
 if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ] ; then
     mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
 fi
 
-alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
-
 export \
-    HISTCONTROL=ignoreboth \
-    HISTIZE= \
-    HISTFILESIZE= \
     DATE=$(date -I) \
     WEEK=$(date '+%U') \
 

@@ -13,11 +13,6 @@ if ! shopt -oq posix; then
         . /etc/bash_completion
 fi
 
-[ -f ~/.bash_aliases ] && . ~/.bash_aliases
-
-HISTCONTROL=ignoreboth
-HISTSIZE=
-HISTFILESIZE=
 bind "set completion-ignore-case on"
 shopt -s checkwinsize
 shopt -s histappend
@@ -25,16 +20,9 @@ shopt -s cdspell
 shopt -s autocd
 set -o vi
 
-PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts/menu/xclipmenu${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts/sway${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts/dwm${PATH:+:${PATH}}"
-PATH="$HOME/.config/wrappers${PATH:+:${PATH}}"
-PATH="$HOME/.config/scripts${PATH:+:${PATH}}"
-PATH="$HOME/.local/bin${PATH:+:${PATH}}"
-PATH="$HOME/.local/state/nix/profile/bin${PATH:+:${PATH}}"
-PATH="$HOME/.config/emacs/bin${PATH:+:${PATH}}"
+HISTCONTROL=ignoreboth
+HISTIZE=
+HISTFILESIZE=
 
 format_workdir() {
     CODE="$?"
@@ -66,8 +54,6 @@ $(format_workdir ${?})\
 $(format_git_branch ${?})\
 $(format_prompt ${?})\
 '
-
-alias wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts"
 
 ! command -v sudo >/dev/null 2>&1 &&
     alias sudo="doas" &&
@@ -115,13 +101,21 @@ alias \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
     em="emacsclient -c -a 'emacs' $@" \
-    venv=". ~/.local/share/venv/base/bin/activate" \
+    wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts" \
+    ssh="ssh ${SSH_CONFIG} " \
 
 [ -f ~/.config/shell/kit ] && . ~/.config/shell/kit
+
+for func in ~/.config/shell/functions/* ; do
+    [ -f "$func" ] && . $func
+done
 
 if [ "$(tty)" = "/dev/tty1" ] ; then
     sleep 0.5
     amixer &
     exec startx
     #exec sway
+elif [ "$(tty)" = "/dev/tty2" ] ; then
+    sleep 0.5
+    exec /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
 fi

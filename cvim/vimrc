@@ -160,15 +160,16 @@ Plug 'Gavinok/vim-troff'
 Plug 'ibhagwan/fzf-lua'
 Plug 'preservim/tagbar'
 " Plug 'morhetz/gruvbox'
-Plug 'sainnhe/gruvbox-material'
+" Plug 'sainnhe/gruvbox-material'
+Plug 'sainnhe/everforest'
 Plug 'jceb/vim-orgmode'
 Plug 'mikelue/vim-maven-plugin'
 call plug#end()
 
-" gruvbox-material
+" theme
 set background=dark
-let g:gruvbox_material_background = 'hard'
-colorscheme gruvbox-material
+let g:everforest_background = 'hard'
+colorscheme everforest
 
 " AutoComplPop
 inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"
