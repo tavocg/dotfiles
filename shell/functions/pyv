@@ -13,7 +13,7 @@ _pyv_log() {
 }
 
 _pyv_help() {
-    printf 'Usage:\n  \033[92mpyv\033[0m \033[94m[ls|new|rm|go|exit]\033[0m \033[95mmyvenv\033[0m\n'
+    printf 'Usage:\n  \033[92mpyv\033[0m \033[94m[ls|new|rm|enter|exit]\033[0m \033[95mmyvenv\033[0m\n'
 }
 
 _pyv_avail() {
@@ -62,7 +62,7 @@ pyv() {
     mkdir -p "$VENV_DIR"
 
     case "$1" in
-        new|go|rm)
+        new|enter|rm)
             VENV_OPT="$1" ; VENV_LIST="${@#${VENV_OPT}}" ; VENV_LIST="${VENV_LIST#* }" ;;
         -d)
             VENV_OPT="rm" ; VENV_LIST="${@#${VENV_OPT}}" ; VENV_LIST="${VENV_LIST#* }" ;;
@@ -83,7 +83,7 @@ pyv() {
             [ -n "$avail" ] && printf '\n%s\n' "$avail"
             return 0 ;;
         *)
-            VENV_OPT="go" ; VENV_LIST="$@" ;;
+            VENV_OPT="enter" ; VENV_LIST="$@" ;;
     esac
 
     for v in $VENV_LIST ; do
@@ -122,7 +122,7 @@ pyv() {
         done
     fi
 
-    if [ "$VENV_OPT" == "go" ] ; then
+    if [ "$VENV_OPT" == "enter" ] ; then
         command -v deactivate >&- 2>&- && deactivate
         venv="${VENV_LIST%% *}"
         _pyv_log "Activating $venv..."
