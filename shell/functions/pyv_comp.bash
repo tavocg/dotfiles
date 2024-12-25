@@ -3,10 +3,10 @@
 _pyv_comp() {
     if [ -z "$VENV_DIR" ] ; then
         if [ -n "$XDG_DATA_HOME" ] ; then
-            VENV_DIR="$XDG_DATA_HOME/venv"
+            VENV_DIR="$XDG_DATA_HOME/pyv"
         else
             [ -z "$HOME" ] && return 1
-            VENV_DIR="$HOME/.local/share/venv"
+            VENV_DIR="$HOME/.local/share/pyv"
         fi
     fi
 
