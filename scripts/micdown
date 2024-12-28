@@ -1,8 +1,12 @@
 #!/bin/sh
 # Decreases mic volume by 5%
 
-amixer set Capture 5%-
+amixer set Capture 5%- | grep -o -m 1 '[0-9]*%'
 
-MICSTAT="$(micstat)"
-notify-send -u low --replace-id=11 "$MICSTAT" 2>/dev/null
-kill -45 "$(pidof dwmblocks)" 2>/dev/null
+# MICSTAT="$(micstat)"
+# notify-send -u low --replace-id=11 "$MICSTAT" 2>/dev/null
+
+DWMBLOCKS="$(pidof dwmblocks)"
+if [ -n "$DWMBLOCKS" ] ; then
+    kill -45 "$DWMBLOCKS" 2>/dev/null
+fi

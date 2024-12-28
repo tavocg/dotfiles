@@ -1,0 +1,25 @@
+#!/bin/sh
+
+: "${STATUS_BLOCKS:=tray vol mic net bat kbd mem cpu time date}"
+: "${STATUS_PADDING:=    }"
+
+while true; do
+    blocks=""
+    for i in $STATUS_BLOCKS; do
+        case $i in
+            tray) blocks="$blocks$STATUS_PADDING$(systray)" ;;
+            vol)  blocks="$blocks$STATUS_PADDING$(volstat)" ;;
+            mic)  blocks="$blocks$STATUS_PADDING$(micstat)" ;;
+            net)  blocks="$blocks$STATUS_PADDING$(netstat)" ;;
+            bat)  blocks="$blocks$STATUS_PADDING$(batstat)" ;;
+            kbd)  blocks="$blocks$STATUS_PADDING󰌌 $(layoutstat)" ;;
+            mem)  blocks="$blocks$STATUS_PADDING $(memorystat)" ;;
+            cpu)  blocks="$blocks$STATUS_PADDING $(cpustat)" ;;
+            time) blocks="$blocks$STATUS_PADDING $(date '+%I:%M%p')" ;;
+            date) blocks="$blocks$STATUS_PADDING $(date '+%a %Y-%m-%d')" ;;
+        esac
+    done
+
+    xsetroot -name "$blocks"
+    sleep 1
+done

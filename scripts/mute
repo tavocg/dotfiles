@@ -3,6 +3,10 @@
 
 amixer -q set Master toggle
 
-VOLSTAT="$(volstat)"
-notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
-kill -44 "$(pidof dwmblocks)" 2>/dev/null
+# VOLSTAT="$(volstat)"
+# notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
+
+DWMBLOCKS="$(pidof dwmblocks)"
+if [ -n "$DWMBLOCKS" ] ; then
+    kill -44 "$DWMBLOCKS" 2>/dev/null
+fi

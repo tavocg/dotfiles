@@ -1,8 +1,12 @@
 #!/bin/sh
 # Decreases volume by 5%
 
-amixer set Master 5%- unmute
+amixer set Master 5%- unmute | grep -o -m 1 '[0-9]*%'
 
-VOLSTAT="$(volstat)"
-notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
-kill -44 "$(pidof dwmblocks)" 2>/dev/null
+#VOLSTAT="$(volstat)"
+#notify-send -u low --replace-id=10 "$VOLSTAT" 2>/dev/null
+
+DWMBLOCKS="$(pidof dwmblocks)"
+if [ -n "$DWMBLOCKS" ] ; then
+    kill -44 "$DWMBLOCKS" 2>/dev/null
+fi

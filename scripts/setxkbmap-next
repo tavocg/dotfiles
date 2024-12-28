@@ -4,15 +4,12 @@
 # Add whatever layouts you want
 set -- us latam
 
-# Get current layout, and total
-current=$(setxkbmap -query | grep layout | cut -d " " -f 6)
-total=$(counter=0 ; for layout in "$@" ; do : $((counter+=1)) ; done ; echo "$counter")
+current=$(setxkbmap -query | awk '/layout/{ print $2 }')
+total="$#"
 
 index=1
-# For each layout, find whichever is currently
-# selected, and apply the next one
-for layout in "$@" ; do
-    if [ "$layout" = "$current" ] ; then
+for l in "$@" ; do
+    if [ "$l" = "$current" ] ; then
         : $((index+=1))
         [ "$index" -gt "$total" ] && index=1
         setxkbmap $(eval "echo \${${index}}")
@@ -21,5 +18,7 @@ for layout in "$@" ; do
     : $((index+=1))
 done
 
-# Restart statusbar module (dwm & dwmblocks)
-kill -46 "$(pidof dwmblocks)"
+DWMBLOCKS="$(pidof dwmblocks)"
+if [ -n "$DWMBLOCKS" ] ; then
+    kill -46 "$DWMBLOCKS" 2>/dev/null
+fi
