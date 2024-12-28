@@ -3,5 +3,10 @@
 
 layout="$(setxkbmap -query | awk '/layout/{ print $2 }' | sed 's/latam/la/')"
 
+if [ "$?" != 0 ] ; then
+    echo "Failed to get layout"
+    exit 1
+fi
+
 echo "$layout"
 # notify-send -u low --replace-id=12 "󰌌 Layout" "$layout"

@@ -22,10 +22,17 @@ int() { # Type of interface & status
     # If down interfaces, exit with icon
     grep -xq 'down' /sys/class/net/w*/operstate 2>/dev/null && echo "󰤮" && return 0
     grep -xq 'down' /sys/class/net/e*/operstate 2>/dev/null && echo "󰲛" && return 0
+
+    return 1
 }
 
 # Run 'int'
 icon=$(int)
+
+if [ "$?" != 0 ] ; then
+    echo "Failed to get interface type"
+    exit 1
+fi
 
 # Check if a VPN is enabled
 vpn="$( \

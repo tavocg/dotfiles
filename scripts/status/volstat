@@ -4,6 +4,11 @@
 
 info=$(amixer get Master | grep -m 1 '[0-9]*%')
 
+if [ "$?" != 0 ] ; then
+    echo "Failed to get Master volume"
+    exit 1
+fi
+
 if [ -z "${info##*\[off\]}" ] ; then
     echo "󰖁 ──────────"
     exit 0
