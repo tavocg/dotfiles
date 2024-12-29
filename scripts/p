@@ -2,39 +2,33 @@
 # Preview files & dirs
 file="$1"
 
-# Helps with fzf_nav visualization
 rfile() {
     file "$1" | sed 's/,\s/\n/g'
 }
 
-# If executable, run 'file' and exit
-file "$file" | grep -q "executable" && rfile "$file" && exit
+mime="$(file --mime-type "$(readlink -f $file)" -b)"
+ROWS="$(tput lines)"
+COLS="$(tput cols)"
 
-# If directory, list contents
-[ -d "$file" ] && (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) && exit
-
-case $file in
-    # Images
-    *.jpeg) rfile "$file" ;;
-    *.png) rfile "$file" ;;
-    *.jpg) rfile "$file" ;;
-    *.gif) rfile "$file" ;;
-    *.svg) rfile "$file" ;;
-    # Videos
-    *.webm) rfile "$file" ;;
-    *.mp4) rfile "$file" ;;
-    *.flv) rfile "$file" ;;
-    *.mkv) rfile "$file" ;;
-    *.avi) rfile "$file" ;;
-    *.m4v) rfile "$file" ;;
-    # Audio
-    *.flac) rfile "$file" ;;
-    *.mp3) rfile "$file" ;;
-    *.ogg) rfile "$file" ;;
-    # Documents
+case "$mime" in
+    inode/directory)
+        (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) ;;
+    image/*)
+        magick "$file" -geometry $((COLS*8))x$((ROWS*18)) sixel:-
+        echo ;;
+    video/*)
+        tt="$(ffprobe -v error -show_entries format=duration -of \
+            default=noprint_wrappers=1:nokey=1 "$file")" ;
+        ft="5" ;
+        if [ "$ft" -ge "${tt%%.*}" ] ; then ft="0" ; fi
+        ffmpeg -hide_banner -loglevel error -ss "$ft" -i "$file" -vframes 1 \
+            -f image2pipe - | magick - -geometry $((COLS*8))x$((ROWS*18)) sixel:- ;
+        echo ;;
+    audio/*)
+        rfile "$file" ;;
+    text/x-*) bat -p --color=always --no-pager "$file" ;;
     *.pdf) pdftotext "$file" - || file "$file" ;;
     *.csv) column -s, -t < "$file" || cat "$file" ;;
-    # Other
     *.html) links -dump "$file" || cat "$file" ;;
     *) ! [ -d "$file" ] && head -n 47 "$file" && printf "\n\n  ..." ;;
 esac
