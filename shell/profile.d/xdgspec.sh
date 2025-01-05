@@ -1,0 +1,31 @@
+export \
+    XDG_STATE_HOME="$HOME/.local/state" \
+    XDG_CACHE_HOME="$HOME/.local/cache" \
+    XDG_DATA_HOME="$HOME/.local/share" \
+    XDG_CONFIG_HOME="$HOME/.config"
+
+export \
+    BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc" \
+    _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
+    MATHEMATICA_USERBASE="$XDG_CONFIG_HOME/mathematica" \
+    XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons \
+    GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
+    PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
+    TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config" \
+    TEXMFVAR="$XDG_CACHE_HOME/texlive/texmf-var" \
+    TEXMFHOME="$XDG_DATA_HOME/texmf" \
+    VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
+    XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
+    MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
+    XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
+    HISTFILE="$XDG_STATE_HOME/shell/bash_history" \
+    XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
+    LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
+    ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
+    CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \
+    WINEPREFIX="$XDG_DATA_HOME/wine" \
+    WGETRC="$XDG_CONFIG_HOME/wget/wgetrc" \
+    GNUPGHOME="$XDG_DATA_HOME/gnupg" \
+    GOPATH="$XDG_DATA_HOME/go" \
+    SSH_CONFIG="-F ${XDG_CONFIG_HOME}/ssh/config" \
+    GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config"

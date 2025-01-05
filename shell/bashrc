@@ -1,5 +1,11 @@
 #!/bin/bash
-# $ printf '[ -f ~/.config/shell/bashrc ] && . ~/.config/shell/bashrc' | sudo tee -a /etc/bash.bashrc
+
+if test -d ~/.config/shell/profile.d/; then
+    for profile in ~/.config/shell/profile.d/*.sh; do
+        test -r "$profile" && . "$profile"
+    done
+    unset profile
+fi
 
 case $- in
     *i*) ;;
@@ -23,6 +29,10 @@ set -o vi
 HISTCONTROL=ignoreboth
 HISTIZE=
 HISTFILESIZE=
+
+if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ] ; then
+    mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+fi
 
 format_workdir() {
     CODE="$?"
