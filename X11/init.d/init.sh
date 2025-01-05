@@ -1,3 +1,5 @@
+#!/bin/sh
+
 STATUS_BLOCKS="tray vol mic net bat kbd time date" dwmstatus &
 dbus-update-activation-environment --systemd --all
 systemctl --user import-environment DISPLAY
