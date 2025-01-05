@@ -3,5 +3,8 @@ PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 GNUPGHOME="$HOME/.local/share/gnupg"
 
 password="$(~/.config/scripts/menu/menu-pass)"
-[ -z "$password" ] && exit
+if [ "$?" != 0 ] || [ -z "$password" ] ; then
+    exit 1
+fi
+
 xdotool type $(pass "$password" | head -n 1)
