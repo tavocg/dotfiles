@@ -1,4 +1,9 @@
 export \
+    HISTCONTROL=ignoreboth \
+    HISTIZE= \
+    HISTFILESIZE=
+
+export \
     QT_QPA_PLATFORMTHEME="qt5ct" \
     CM_SELECTIONS="clipboard" \
     GTK_THEME="Materia:dark" \
