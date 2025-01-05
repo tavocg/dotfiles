@@ -4,8 +4,6 @@
 #  a fetch in pure POSIX shell
 #
 
-[ "$1" = "min" ] && mode="min"
-
 # supress errors
 exec 2>/dev/null
 set --
@@ -27,7 +25,6 @@ for os in /etc/os-release /usr/lib/os-release; do
 	# some POSIX shells exit when trying to source a file that doesn't exist
 	[ -f $os ] && . $os && break
 done
-[ -e "/data/data/com.termux" ] && ID="android $(getprop ro.build.version.release)"
 
 if [ -e /proc/$$/comm ]; then
 	## Terminal
@@ -63,20 +60,20 @@ if [ -e /proc/$$/comm ]; then
 			read -r c < "$i"
 			case $c in
 				*bar*|*rc) ;;
-				dwm|awesome|xmonad*|qtile|sway|i3|[bfo]*box|*wm) wm=${c%%-*}; break;;
+				awesome|xmonad*|qtile|sway|i3|[bfo]*box|*wm*) wm=${c%%-*}; break;;
 			esac
 		done
 
 	## Memory
 	# loop over lines in /proc/meminfo until it reaches MemTotal,
 	# then convert the amount (second word) from KB to MB
-	while read -r line; [ "$mode" != "min" ]; do
+	while read -r line; do
 		eq "$line" 'MemTotal*' && set -- $line && break
 	done < /proc/meminfo
-	[ "$mode" != "min" ] && mem="$(( $2 / 1000 ))MB"
+	mem="$(( $2 / 1000 ))MB"
 
 	## Processor
-	while read -r line; [ "$mode" != "min" ] ; do
+	while read -r line; do
 		case $line in
 			vendor_id*) vendor="${line##*: } ";;
 			model\ name*) cpu=${line##*: }; break;;
@@ -92,14 +89,13 @@ if [ -e /proc/$$/comm ]; then
 
 	## Kernel
 	read -r _ _ version _ < /proc/version
-    [ -z "$version" ] && version=$(uname -r)
 	kernel=${version%%-*}
 	eq "$version" '*Microsoft*' && ID="fake $ID"
 
 	## Motherboard // laptop
-	[ "$mode" != "min" ] && read -r model < /sys/devices/virtual/dmi/id/product_name
+	read -r model < /sys/devices/virtual/dmi/id/product_name
 	# invalid model handling
-	[ "$mode" != "min" ] && case $model in
+	case $model in
 		# alternate file with slightly different info
 		# on my laptop it has the device model (instead of 'hp notebook')
 		# on my desktop it has the extended motherboard model
@@ -117,20 +113,6 @@ if [ -e /proc/$$/comm ]; then
 		set -- $i
 		[ $# -gt 1 ] && pkgs=$# && break
 	done
-
-    [ -d "/var/db/kiss" ] && pkgs="$pkgs (kiss)"
-    [ -d "/var/lib/pacman" ] && pkgs="$pkgs (pacman)"
-    [ -d "/var/lib/dpkg" ] && pkgs="$pkgs (dpkg)"
-    [ -d "/var/db/xbps" ] && pkgs="$pkgs (xbps)"
-    [ -d "/var/db/pkg" ] && pkgs="$pkgs (emerge)"
-
-	set --
-    # Universal formats
-    for i in '/var/lib/flatpak/exports/bin/* /var/lib/flatpak/runtime/*' ; do
-		set -- $i
-		[ $# -gt 2 ] && flatpak=$# && break
-    done
-    [ "$flatpak" ] && pkgs="$pkgs $flatpak (flatpak)"
 
 	read -r host < /proc/sys/kernel/hostname
 elif [ -f /var/run/dmesg.boot ]; then
@@ -226,11 +208,13 @@ elif v=/System/Library/CoreServices/SystemVersion.plist; [ -f "$v" ]; then
 	done < "$v"
 fi
 
+eq "$0" '*fetish' && printf 'Step on me daddy\n' && exit
+
 # help i dont know if it's a capital consistently
 eq "$wm" '*[Gg][Nn][Oo][Mm][Ee]*' && wm='foot DE'
 
 ## GTK
-while read -r line; [ "$mode" != "min" ]; do
+while read -r line; do
 	eq "$line" 'gtk-theme*' && gtk=${line##*=} && break
 done < "${XDG_CONFIG_HOME:=$HOME/.config}/gtk-3.0/settings.ini"
 
@@ -247,55 +231,36 @@ cpu=${cpu%% with*}
 cpu=${cpu% *-Core*}
 
 col() {
-char="●"
-printf '   \033[91m%s \033[92m%s \033[93m%s \033[94m%s \033[95m%s \033[96m%s
-\033[0m' "$char" "$char" "$char" "$char" "$char" "$char"
+	printf '  '
+	for i in 1 2 3 4 5 6; do
+		printf '\033[9%sm%s' "$i" "${colourblocks:-▅▅}"
+	done
+	printf '\033[0m\n'
 }
 
-full() {
-printf '
-  \033[1mDIST\033[0m %s
-  \033[1mKERN\033[0m %s
-  \033[1mPKGS\033[0m %s
-  \033[1mTERM\033[0m %s
-  \033[1mSHLL\033[0m %s
-  \033[1mWDMG\033[0m %s
-  \033[1mTHME\033[0m %s
-  \033[1mHOST\033[0m %s
-  \033[1mPCSR\033[0m %s
-  \033[1mMMRY\033[0m %s
-  \033[1mUPTM\033[0m %s
-'   "$ID" \
-    "$kernel" \
-    "$pkgs" \
-    "$term" \
-    "${SHELL##*/}" \
-    "${wm##*/}" \
-    "${gtk# }" \
-    "$model" \
-    "$vendor$cpu" \
-    "$mem" \
-    "$up"
-    col
+print() {
+	[ "$2" ] && printf '\033[9%sm%6s\033[0m%b%s\n' \
+		"${accent:-4}" "$1" "${separator:- ~ }" "$2"
 }
 
-min() {
-printf '
-  \033[1mDIST\033[0m %s
-  \033[1mKERN\033[0m %s
-  \033[1mPKGS\033[0m %s
-  \033[1mTERM\033[0m %s
-  \033[1mSHLL\033[0m %s
-  \033[1mWDMG\033[0m %s
-  \033[1mUPTM\033[0m %s
-'   "$ID" \
-    "$kernel" \
-    "$pkgs" \
-    "$term" \
-    "${SHELL##*/}" \
-    "${wm##*/}" \
-    "$up"
-    col
-}
+# default value
+: "${info:=n user os sh wm up gtk cpu mem host kern pkgs term col n}"
 
-[ "$mode" = "min" ] && min || full
+for i in $info; do
+	case $i in
+		n) echo;;
+		os) print os "$ID";;
+		sh) print sh "${SHELL##*/}";;
+		wm) print wm "${wm##*/}";;
+		up) print up "$up";;
+		gtk) print gtk "${gtk# }";;
+		cpu) print cpu "$vendor$cpu";;
+		mem) print mem "$mem";;
+		host) print host "$model";;
+		kern) print kern "$kernel";;
+		pkgs) print pkgs "$pkgs";;
+		term) print term "$term";;
+		user) printf '%7s@%s\n' "$USER" "$host";;
+		col) col;;
+	esac
+done

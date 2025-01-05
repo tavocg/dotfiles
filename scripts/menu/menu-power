@@ -3,15 +3,25 @@
 
 option=$(printf "Shutdown\nRestart\nLog out" | ~/.config/scripts/menu/menu "Power:")
 
-slogout() {
-    killall xinit
-    swaymsg exit
+_logout() {
+    if ps -a | grep -q 'tty1.*xinit' ; then
+        pkill xinit
+        return 0
+    fi
+}
+
+_shutdown() {
+    shutdown now
+}
+
+_reboot() {
+    shutdown -r 0
 }
 
 case "$option" in
-	"Shutdown") systemctl poweroff ;;
-	"Restart") systemctl reboot ;;
-	"Log out") pkill xinit;;
+	"Shutdown") _shutdown ;;
+	"Restart") _reboot ;;
+	"Log out") _logout ;;
 	*) exit 1 ;;
 esac
 
