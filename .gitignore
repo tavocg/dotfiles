@@ -219,7 +219,6 @@ pcmanfm-qt/
 cni/
 btop/
 gtk-2.0/
-calcurse/keys
 khard/
 msmtp/
 .android/
@@ -227,7 +226,6 @@ Android Open Source Project/
 Google/
 gpick/
 org.keshavnrj.ubuntu/
-calcurse/
 uad/
 isync/
 notmuch/

@@ -1,0 +1,14 @@
+general.confirmquit=no
+general.firstdayofweek=sunday
+appearance.layout=5
+appearance.compactpanels=yes
+appearance.defaultpanel=todo
+appearance.sidebarwidth=30
+appearance.notifybar=no
+appearance.headerline=no
+appearance.eventseparator=no
+appearance.dayseparator=no
+appearance.emptyline=no
+appearance.emptyday= 
+appearance.theme=blue on default
+format.inputdate=4
