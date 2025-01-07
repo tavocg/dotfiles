@@ -5,7 +5,6 @@ export \
     XDG_CONFIG_HOME="$HOME/.config"
 
 export \
-    BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc" \
     _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
     MATHEMATICA_USERBASE="$XDG_CONFIG_HOME/mathematica" \
     XCURSOR_PATH=/usr/share/icons:$XDG_DATA_HOME/icons \
@@ -18,7 +17,6 @@ export \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    HISTFILE="$XDG_STATE_HOME/shell/bash_history" \
     XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
@@ -28,4 +26,5 @@ export \
     GNUPGHOME="$XDG_DATA_HOME/gnupg" \
     GOPATH="$XDG_DATA_HOME/go" \
     SSH_CONFIG="-F ${XDG_CONFIG_HOME}/ssh/config" \
-    GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config"
+    GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config" \
+    ZDOTDIR="$XDG_CONFIG_HOME/shell"

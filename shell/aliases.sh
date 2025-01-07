@@ -35,6 +35,7 @@ command -v eza >/dev/null 2>&1 &&
 command -v trash >/dev/null 2>&1 && alias rm="trash"
 
 alias \
+    cal="calcurse" \
     fzf="fzf --cycle --reverse" \
     diff="diff --color=auto" \
     grep="grep --color=auto" \
@@ -48,4 +49,5 @@ alias \
     clip="xsel -ib" \
     em="emacsclient -c -a 'emacs' $@" \
     wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts" \
-    ssh="ssh ${SSH_CONFIG}"
+    ssh="ssh ${SSH_CONFIG}" \
+    lg="lazygit"

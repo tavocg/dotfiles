@@ -1,11 +1,17 @@
 #!/bin/bash
 
-if test -d ~/.config/shell/profile.d/; then
-    for profile in ~/.config/shell/profile.d/*.sh; do
-        test -r "$profile" && . "$profile"
+if [ -d ~/.config/shell/profile.d ] ; then
+    for p in ~/.config/shell/profile.d/*.sh; do
+        [ -f "$p" ] && . "$p"
     done
-    unset profile
+    unset p
 fi
+
+BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc"
+HISTFILE="$XDG_STATE_HOME/shell/bash_history"
+HISTCONTROL=ignoreboth
+HISTIZE=
+HISTFILESIZE=
 
 case $- in
     *i*) ;;
