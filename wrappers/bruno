@@ -1,0 +1,36 @@
+#!/bin/sh
+
+BRUNO_PATH="$HOME/.local/share/bruno"
+
+if ! [ -d "$BRUNO_PATH" ] ; then
+  mkdir -p "$BRUNO_PATH"
+fi
+
+LATEST="$(curl -s https://api.github.com/repos/usebruno/bruno/releases/latest |
+  grep '"name":.*\.AppImage' | cut -d'"' -f 4)"
+
+for v in "$BRUNO_PATH"/*.AppImage ; do
+  INSTALLED="${v##*/}"
+  unset v
+done
+
+if [ "$INSTALLED" != "$LATEST" ] ; then
+  opt="$(printf 'Yes\nNo\n' | menu "Newer bruno version available, update?")"
+
+  if [ "$opt" = "Yes" ] ; then
+    echo "Updating bruno..."
+
+    if ! curl -L --progress-bar -o "$BRUNO_PATH/$LATEST" \
+      https://github.com/usebruno/bruno/releases/latest/download/"$LATEST" ; then
+          echo "Error updating bruno"
+          exit 1
+    fi
+
+    chmod +x "$BRUNO_PATH/$LATEST"
+
+    INSTALLED="$LATEST"
+  fi
+  unset opt
+fi
+
+exec "$BRUNO_PATH/$INSTALLED"
