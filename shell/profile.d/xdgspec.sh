@@ -27,4 +27,5 @@ export \
     GOPATH="$XDG_DATA_HOME/go" \
     SSH_CONFIG="-F ${XDG_CONFIG_HOME}/ssh/config" \
     GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config" \
-    ZDOTDIR="$XDG_CONFIG_HOME/shell"
+    ZDOTDIR="$XDG_CONFIG_HOME/shell" \
+    NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc

@@ -4,10 +4,6 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 
--- require("config.go")
--- require("config.py")
--- require("config.c")
-
 lvim.plugins = {
   "askfiy/visual_studio_code",
   "sainnhe/gruvbox-material",
@@ -18,4 +14,6 @@ lvim.plugins = {
 lvim.colorscheme = "everforest"
 vim.g.everforest_background = "hard"
 
-lvim.builtin.lualine.style = "default"
+require("config.go")
+require("config.c")
+-- require("config.py")
