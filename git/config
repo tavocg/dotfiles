@@ -5,12 +5,3 @@
     email = tavo@tavo.one
     name = tavo
     signingKey = tavo@tavo.one
-
-[tag]
-    gpgSign = true
-
-[commit]
-    gpgSign = true
-
-[push]
-    gpgSign = "if-asked"
