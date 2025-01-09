@@ -2,35 +2,33 @@
 
 BRUNO_PATH="$HOME/.local/share/bruno"
 
-if ! [ -d "$BRUNO_PATH" ] ; then
-  mkdir -p "$BRUNO_PATH"
-fi
-
-LATEST="$(curl -s https://api.github.com/repos/usebruno/bruno/releases/latest |
-  grep '"name":.*\.AppImage' | cut -d'"' -f 4)"
-
+INSTALLED=
 for v in "$BRUNO_PATH"/*.AppImage ; do
-  INSTALLED="${v##*/}"
+  if [ -f "$v" ] && [ -x "$v" ] ; then
+    INSTALLED="${v##*/}"
+  fi
   unset v
 done
 
-if [ "$INSTALLED" != "$LATEST" ] ; then
-  opt="$(printf 'Yes\nNo\n' | menu "Newer bruno version available, update?")"
+if [ -z "$INSTALLED" ] ; then
+  echo "Installing bruno..."
 
-  if [ "$opt" = "Yes" ] ; then
-    echo "Updating bruno..."
-
-    if ! curl -L --progress-bar -o "$BRUNO_PATH/$LATEST" \
-      https://github.com/usebruno/bruno/releases/latest/download/"$LATEST" ; then
-          echo "Error updating bruno"
-          exit 1
-    fi
-
-    chmod +x "$BRUNO_PATH/$LATEST"
-
-    INSTALLED="$LATEST"
+  if ! [ -d "$BRUNO_PATH" ] ; then
+    mkdir -p "$BRUNO_PATH"
   fi
-  unset opt
+
+  LATEST="$(curl -s https://api.github.com/repos/usebruno/bruno/releases/latest |
+    grep '"name":.*\.AppImage' | cut -d'"' -f 4)"
+
+  if ! curl -L --progress-bar -o "$BRUNO_PATH/$LATEST" \
+    https://github.com/usebruno/bruno/releases/latest/download/"$LATEST" ; then
+      echo "Error installing bruno"
+      exit 1
+  fi
+
+  chmod +x "$BRUNO_PATH/$LATEST"
+
+  INSTALLED="$LATEST"
 fi
 
 exec "$BRUNO_PATH/$INSTALLED"
