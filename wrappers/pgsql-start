@@ -1,0 +1,36 @@
+#!/bin/sh
+
+PODMAN_NAME="PostgreSQL"
+PGSQL_IMAGE="docker.io/library/postgres"
+
+: "${HOST:=localhost}"
+: "${PORT:=5455}"
+: "${PASS:=1234}"
+: "${USER:=postgres}"
+: "${DB:=local}"
+
+if ! command -v podman >/dev/null 2>&1 ; then
+  echo "podman not found in PATH"
+  exit 1
+fi
+
+if command -v fuser >/dev/null 2>&1 ; then
+  if fuser "$PORT"/tcp >/dev/null 2>&1 ; then
+    echo "Port already in use"
+    exit 1
+  fi
+fi
+
+if ! podman run \
+    --name "$PODMAN_NAME" \
+    -p "$PORT":5432 \
+    -e POSTGRES_USER="$USER" \
+    -e POSTGRES_PASSWORD="$PASS" \
+    -e POSTGRES_DB="$DB" \
+    --replace \
+    -d \
+    "$PGSQL_IMAGE" 1>&- ; then
+  exit 1
+fi
+
+echo "postgresql://$USER:$PASS@$HOST:$PORT/$DB"

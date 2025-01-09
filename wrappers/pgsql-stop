@@ -1,0 +1,7 @@
+#!/bin/sh
+
+PODMAN_NAME="PostgreSQL"
+
+if ! podman stop "$PODMAN_NAME" 1>&- ; then
+  echo "Failed to stop podman running postgres"
+fi
