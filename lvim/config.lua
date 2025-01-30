@@ -14,6 +14,13 @@ lvim.plugins = {
 lvim.colorscheme = "everforest"
 vim.g.everforest_background = "hard"
 
+vim.api.nvim_create_autocmd({"BufRead", "BufNewFile"}, {
+  pattern = "calcurse*",
+  callback = function()
+    vim.bo.filetype = "markdown"
+  end,
+})
+
 require("config.go")
 require("config.c")
 -- require("config.py")
