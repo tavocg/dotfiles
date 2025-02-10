@@ -4,8 +4,8 @@ Host *
 
 Host home
     AddressFamily inet
-    HostName 192.168.100.83
-    #HostName tavo.one
+    #HostName 192.168.100.83
+    HostName tavo.one
     port 22
 
 Host tavo.one
@@ -18,3 +18,7 @@ Host dev
     HostName tavo.one
     Port 2222
     User dev
+
+Host directoriofeucr
+    HostName 163.178.171.4
+    User directoriofeucr
