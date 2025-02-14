@@ -6,11 +6,12 @@ Host home
     AddressFamily inet
     #HostName 192.168.100.83
     HostName tavo.one
-    port 22
+    User gustavo
 
 Host tavo.one
     AddressFamily inet
     port 21
+    User gustavo
 
 Host dev
     AddressFamily inet
