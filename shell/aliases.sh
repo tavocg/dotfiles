@@ -47,7 +47,8 @@ alias \
     qr-png="qrencode -s 16 -o qr.png" \
     qr="qrencode -t ansiutf8" \
     clip="xsel -ib" \
-    em="emacsclient -c -a 'emacs' $@" \
     wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts" \
     ssh="ssh ${SSH_CONFIG}" \
+    scp="scp ${SSH_CONFIG}" \
+    rsync="rsync --rsh \"ssh ${SSH_CONFIG}\"" \
     lg="lazygit"
