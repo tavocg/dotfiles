@@ -1,0 +1,7 @@
+#!/bin/sh
+
+WA_URL="https://web.whatsapp.com"
+
+phone_number="$(printf '' | menu "Phone (+506):")"
+
+firefox-personal "$WA_URL/send/?phone=%%2B506$phone_number&text&type=phone_number&app_absent=0"
