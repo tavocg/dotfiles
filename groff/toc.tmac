@@ -7,6 +7,10 @@
 .\" ---
 .\" Requires -mspdf macros
 .
+.ds PREVABSTRACT \\*[ABSTRACT]
+.ds ABSTRACT
+.AB
+.AE
 .if '\*[.T]'pdf' \X'pdf: pagename here'
 .rn TC TCold
 .de TC
@@ -15,3 +19,5 @@
 .   if '\*[.T]'pdf' \X'pdf: switchtopage \\$1 here'
 .   TCold
 ..
+.ds ABSTRACT \\*[PREVABSTRACT]
+.ds PREVABSTRACT
