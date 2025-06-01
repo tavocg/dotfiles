@@ -29,4 +29,5 @@ export \
     GIT_SSH_COMMAND="ssh -F ${XDG_CONFIG_HOME}/ssh/config" \
     ZDOTDIR="$XDG_CONFIG_HOME/shell" \
     NPM_CONFIG_USERCONFIG=$XDG_CONFIG_HOME/npm/npmrc \
-    IPYTHONDIR="$XDG_CONFIG_HOME/ipython"
+    IPYTHONDIR="$XDG_CONFIG_HOME/ipython" \
+    PYENV_ROOT="$XDG_DATA_HOME"/pyenv

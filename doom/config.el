@@ -4,8 +4,8 @@
 (setq display-line-numbers-type t)
 (setq doom-font (font-spec :family "JetBrainsMono" :size 11.0))
 (setq doom-theme 'doom-material)
-(setq default-frame-alist '((undecorated . t)))
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+;;(setq default-frame-alist '((undecorated . t)))
+;;(add-to-list 'default-frame-alist '(fullscreen . maximized))
 (scroll-bar-mode 0)
 
 ;; org mode
