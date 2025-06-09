@@ -1,6 +1,6 @@
 # Preferences
 output * {
-    bg ~/Pictures/Backgrounds/default.jpg fill
+    bg ~/.config/backgrounds/default.jpg fill
 }
 
 output HDMI-A-1 pos 0 0
@@ -15,15 +15,13 @@ input type:pointer {
 }
 
 input type:keyboard {
-    xkb_layout us,latam
+    xkb_layout latam,us
     xkb_options grp:win_space_toggle
-    repeat_delay 270
+    repeat_delay 300
     repeat_rate 70
 }
 
 set $opacity 0.9
-for_window [class="Emacs"] opacity $opacity
-for_window [app_id="foot"] opacity $opacity
 
 set $mod Mod4
 set $alt Mod1
@@ -37,11 +35,11 @@ set $filemgr thunar
 set $browser firefox
 set $browserh firefox-hardened
 # -
-set $menu ~/.config/scripts/menu/menu "Run:" run | xargs swaymsg exec --
+set $menu wofi --show drun -I
 set $passmgr ~/.config/scripts/sway/swaypass
 set $passotp ~/.config/scripts/sway/swayotp
 # -
-set $col_fg #fabd2f
+set $col_fg #7a8478
 set $col_bg #121212
 set $col_ac #606060
 
@@ -107,26 +105,26 @@ bindsym $mod+Shift+t layout tabbed
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 # -
-bindsym $mod+Shift+c exec clipman pick -t bemenu -T'--no-exec -i -c -l 10 -W 0.4 -B 2 --cw 1 --tb #fabd2f --tf #1d2021 --fb #1d2021 --ff #606060 --cb #1d2021 --cf #ebdbb2 --nb #1d2021 --nf #606060 --hb #fabd2f --hf #1d2021 --ab #1d2021 --af #606060 --bdr #fabd2f --fn JetbrainsMono -p Clip:'
+bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
 client.unfocused $col_bg $col_bg $col_ac $col_bg $col_bg
-default_border pixel 2
+default_border pixel 1
 titlebar_border_thickness 2
 titlebar_padding 2
 gaps inner 5
 font pango:JetBrainsMono Medium 8
 
 bar {
-    position bottom
+    position top
     font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/sway/swaystatus
     tray_padding 4
 
     colors {
         background #00000000
-        statusline #ebdbb270
+        statusline #7a847880
         focused_workspace $col_fg $col_fg $col_bg
         inactive_workspace #00000000 #00000000 #ebdbb270
     }
@@ -137,6 +135,5 @@ for_window [class="Display-im6.q16"] floating enable
 # Autostart
 exec wl-paste -t text --watch clipman store
 exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman.json"
-exec emacs --daemon
 exec_always dbus-update-activation-environment WAYLAND_DISPLAY
 exec_always --no-startup-id /usr/libexec/xdg-desktop-portal -r
