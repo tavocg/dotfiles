@@ -1,52 +1,159 @@
 #!/bin/sh
-# Battery indicator for dwmblocks
+_bat_info_dir="/sys/class/power_supply/BAT"
 
-# Total battery charge
-total=0
-batteries=0
-for battery in /sys/class/power_supply/BAT?* ; do
-    capacity=$(cat $battery/capacity 2>/dev/null || break)
-    total=$((capacity+total))
-    batteries=$(($batteries+1))
-done
+print() {
+    string="$1"
+    if [ -n "$string" ]; then
+        printf '%s ' "$string"
+    fi
+}
 
-# If there's a total, get average, if else, print a plug
-[ $total -gt 0 ] && bat=$(($total/$batteries)) || bat="󰚥"
-[ "$bat" = "󰚥" ] && echo "$bat" && exit
+# Has at least one battery
+_bat_exists() {
+    for battery in "$_bat_info_dir"?* ; do
+        [ -d "$battery" ] && echo 1 && return
+    done
+}
 
-# If something is charging, change status
-grep -rq 'Charging' /sys/class/power_supply/BAT* 2>/dev/null && stat='Charging'
+# Find average value
+_bat_value() {
+    [ "$(_bat_exists)" = 0 ] && return 1
+    info="$1"
+    total=0
+    batteries=0
+    for battery in "$_bat_info_dir"?* ; do
+        while read -r line; do
+            value="$line"
+        done < "$battery/$info"
+        total=$((value+total))
+        batteries=$((batteries+1))
+    done
+    [ $total -ge 0 ] && value=$((total/batteries)) || return 1
+    echo "$value"
+}
 
-# Get graphical battery level
-case 1 in
-    $((bat >= 98))  ) icon="󰁹" ;;
-    $((bat >= 90))  ) icon="󰂂" ;;
-    $((bat >= 80))  ) icon="󰂁" ;;
-    $((bat >= 70))  ) icon="󰂀" ;;
-    $((bat >= 60))  ) icon="󰁿" ;;
-    $((bat >= 50))  ) icon="󰁾" ;;
-    $((bat >= 40))  ) icon="󰁽" ;;
-    $((bat >= 30))  ) icon="󰁼" ;;
-    $((bat >= 20))  ) icon="󰁻" ;;
-    $((bat >= 10))  ) icon="󰁺" ;;
-    $((bat >=  0))  ) icon="󰂎" ;;
-esac
+# Find status string
+bat_status() {
+    [ "$(_bat_exists)" = 0 ] && return 1
+    for battery in "$_bat_info_dir"?* ; do
+        while read -r line; do
+            echo "$line"
+            return
+        done < "$battery/status"
+    done
+}
 
-# Charging indicator if status file indicates such state
-if [ "$stat" = "Charging" ] ; then
-    icon="$(printf '%s' "$icon" | sed '
-        s/󰁹/󰂅/;
-        s/󰂂/󰂋/;
-        s/󰂁/󰂊/;
-        s/󰂀/󰢞/;
-        s/󰁿/󰂉/;
-        s/󰁾/󰢝/;
-        s/󰁽/󰂈/;
-        s/󰁼/󰂇/;
-        s/󰁻/󰂆/;
-        s/󰁺/󰢜/;
-        s/󰂎/󰢟/;
-        ')"
-fi
+# Icon state
+bat_icon() {
+    [ "$(_bat_exists)" = 0 ] && echo "󰚥" && return 0
+    bat="$(_bat_value capacity)"
 
-echo "$icon"
+    # This is meant to be a constant string
+    # shellcheck disable=2194
+    case "1" in
+        $((bat >= 98))  ) icon="󰁹" ;;
+        $((bat >= 90))  ) icon="󰂂" ;;
+        $((bat >= 80))  ) icon="󰂁" ;;
+        $((bat >= 70))  ) icon="󰂀" ;;
+        $((bat >= 60))  ) icon="󰁿" ;;
+        $((bat >= 50))  ) icon="󰁾" ;;
+        $((bat >= 40))  ) icon="󰁽" ;;
+        $((bat >= 30))  ) icon="󰁼" ;;
+        $((bat >= 20))  ) icon="󰁻" ;;
+        $((bat >= 10))  ) icon="󰁺" ;;
+        $((bat >=  0))  ) icon="󰂎" ;;
+    esac
+
+    if [ "$(bat_status)" = "Charging" ] ; then
+        case "$icon" in
+            "󰁹" ) icon="󰂅" ;;
+            "󰂂" ) icon="󰂋" ;;
+            "󰂁" ) icon="󰂊" ;;
+            "󰂀" ) icon="󰢞" ;;
+            "󰁿" ) icon="󰂉" ;;
+            "󰁾" ) icon="󰢝" ;;
+            "󰁽" ) icon="󰂈" ;;
+            "󰁼" ) icon="󰂇" ;;
+            "󰁻" ) icon="󰂆" ;;
+            "󰁺" ) icon="󰢜" ;;
+            "󰂎" ) icon="󰢟" ;;
+        esac
+    fi
+
+    echo "$icon"
+}
+
+# Time to empty in minutes
+bat_tte() {
+    charge="$(_bat_value charge_now)"
+    current="$(_bat_value current_now)"
+    [ -n "$charge" ] && [ -n "$current" ] || return 1
+    echo $((charge * 60 / current))
+}
+
+# Time to full in minutes
+bat_ttf() {
+    full="$(_bat_value charge_full)"
+    charge="$(_bat_value charge_now)"
+    current="$(_bat_value current_now)"
+    [ -n "$full" ] && [ -n "$charge" ] && [ -n "$current" ] || return 1
+    missing="$((full - charge))"
+    echo $((missing * 60 / current))
+}
+
+# Time to empty human readable
+bat_tteh() {
+    minutes="$(bat_tte)"
+    [ -n "$minutes" ] || return 1
+    hours=$(( minutes / 60 ))
+    minutes=$(( minutes % 60 ))
+    printf "%02dh%02dm\n" "$hours" "$minutes"
+}
+
+# Time to full human readable
+bat_ttfh() {
+    minutes="$(bat_ttf)"
+    [ -n "$minutes" ] || return 1
+    hours=$(( minutes / 60 ))
+    minutes=$(( minutes % 60 ))
+    printf "%02dh%02dm\n" "$hours" "$minutes"
+}
+
+# Time to full if charging, time to empty otherwise
+bat_atime() {
+    [ "$(_bat_exists)" = 0 ] && return 1
+    if [ "$(bat_status)" = "Charging" ]; then
+        bat_ttf
+    else
+        bat_tte
+    fi
+}
+
+# Like bat_atime, human readable
+bat_atimeh() {
+    [ "$(_bat_exists)" = 0 ] && return 1
+    if [ "$(bat_status)" = "Charging" ]; then
+        bat_ttfh
+    else
+        bat_tteh
+    fi
+}
+
+# Default values
+: "${info:=icon atimeh}"
+
+output="$(for i in $info; do
+	case $i in
+		status) print "$(bat_status)";;          # Status
+		icon)   print "$(bat_icon)";;            # Icon status
+		level)  print "$(_bat_value capacity)";; # Battery percentage
+		tte)    print "$(bat_tte)";;             # Time to empty (minutes)
+		ttf)    print "$(bat_ttf)";;             # Time to full (minutes)
+		tteh)   print "$(bat_tteh)";;            # Time to empty (human)
+		ttfh)   print "$(bat_ttfh)";;            # Time to full (human)
+		atime)  print "$(bat_atime)";;           # ttf if charging, else tte
+		atimeh) print "$(bat_atimeh)";;          # Auto time (human)
+	esac
+done)"
+
+echo "${output% }"
