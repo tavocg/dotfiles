@@ -17,7 +17,7 @@ _bat_exists() {
 
 # Find average value
 _bat_value() {
-    [ "$(_bat_exists)" = 0 ] && return 1
+    [ "$(_bat_exists)" != 1 ] && return 1
     info="$1"
     total=0
     batteries=0
@@ -34,7 +34,7 @@ _bat_value() {
 
 # Find status string
 bat_status() {
-    [ "$(_bat_exists)" = 0 ] && return 1
+    [ "$(_bat_exists)" != 1 ] && return 1
     for battery in "$_bat_info_dir"?* ; do
         while read -r line; do
             echo "$line"
@@ -45,7 +45,7 @@ bat_status() {
 
 # Icon state
 bat_icon() {
-    [ "$(_bat_exists)" = 0 ] && echo "󰚥" && return 0
+    [ "$(_bat_exists)" != 1 ] && echo "󰚥" && return 0
     bat="$(_bat_value capacity)"
 
     # This is meant to be a constant string
@@ -121,7 +121,7 @@ bat_ttfh() {
 
 # Time to full if charging, time to empty otherwise
 bat_atime() {
-    [ "$(_bat_exists)" = 0 ] && return 1
+    [ "$(_bat_exists)" != 1 ] && return 1
     if [ "$(bat_status)" = "Charging" ]; then
         bat_ttf
     else
@@ -131,7 +131,7 @@ bat_atime() {
 
 # Like bat_atime, human readable
 bat_atimeh() {
-    [ "$(_bat_exists)" = 0 ] && return 1
+    [ "$(_bat_exists)" != 1 ] && return 1
     if [ "$(bat_status)" = "Charging" ]; then
         bat_ttfh
     else
