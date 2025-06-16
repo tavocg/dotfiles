@@ -1,12 +1,12 @@
 #!/bin/sh
 PROMPT="$1" MODE="$2"
 if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then printf "Usage: menu [prompt] [run/pass]\n" ; return 0 ; fi
-[ "$MODE" = "pass" ] && BPASS="-x" DPASS="-P"
-BRUN="-run" DRUN="_run" TRUN="-run" FRUN=""
-[ "$MODE" != "run" ] && BRUN="" DRUN="" TRUN="" FRUN=""
+[ "$MODE" = "pass" ] && BPASS="-x" DPASS="-P" WPASS="-P"
+BRUN="-run" DRUN="_run" TRUN="-run" FRUN="" WRUN="--show drun -I"
+[ "$MODE" != "run" ] && BRUN="" DRUN="" TRUN="" FRUN="" WRUN="--show dmenu"
 
 # Configuration
-menu="menu_dmenu"
+menu="menu_wofi"
 font="JetbrainsMono"
 font_size="10"
 col_white="#ebdbb2" # White
@@ -64,6 +64,13 @@ menu_fzf() {
 fzf \
     --cycle \
     --reverse
+}
+
+menu_wofi() {
+wofi $WRUN \
+    -i \
+    --prompt "$PROMPT" \
+    $WPASS
 }
 
 $menu

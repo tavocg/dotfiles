@@ -18,4 +18,4 @@ fi
 
 load=$({ head -n1 /proc/stat;sleep 0.3;head -n1 /proc/stat; } | awk '/^cpu /{u=$2-u;s=$4-s;i=$5-i;w=$6-w}END{print int(0.5+100*(u+s+w)/(u+s+i+w))}')
 
-echo "$load%" > "$cache_file"
+printf '%02d%%\n' "$load" > "$cache_file"

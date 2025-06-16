@@ -8,14 +8,34 @@ _logout() {
         pkill xinit
         return 0
     fi
+    if ps -a | grep -q 'tty1.*sway' ; then
+        pkill sway
+        return 0
+    fi
 }
 
 _shutdown() {
-    shutdown now
+    if [ -e "/bin/shutdown" ]; then
+        sd="/bin/shutdown"
+    elif [ -e "/sbin/shutdown" ]; then
+        sd="/sbin/shutdown"
+    else
+        sd="$(command -v shutdown)"
+    fi
+
+    "$sd" now
 }
 
 _reboot() {
-    shutdown -r 0
+    if [ -e "/bin/shutdown" ]; then
+        sd="/bin/shutdown"
+    elif [ -e "/sbin/shutdown" ]; then
+        sd="/sbin/shutdown"
+    else
+        sd="$(command -v shutdown)"
+    fi
+
+    "$sd" -r 0
 }
 
 case "$option" in
@@ -24,4 +44,3 @@ case "$option" in
 	"Log out") _logout ;;
 	*) exit 1 ;;
 esac
-

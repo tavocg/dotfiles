@@ -1,17 +1,6 @@
 #!/bin/sh
+once="$1"
 separator="    "
-
-get_todo() {
-    todo="$(calcurse -t | wc -l)"
-    [ "$todo" = "0" ] && return 0
-    echo " $todo"
-}
-
-get_apts() {
-    apts="$(calcurse -a | grep -c '\*')"
-    [ "$apts" = "0" ] && return 0
-    echo "󰃭 $apts"
-}
 
 get_layout() {
     layout="$(swaymsg -t get_inputs | grep -m 1 'xkb_active_layout_name' | cut -d '"' -f 4)"
@@ -35,6 +24,12 @@ while true ; do
     microphone="$(micstat)"
     ! [ -z "$microphone" ] && status="$status$separator$microphone"
 
+    cpu="$(cpustat)"
+    ! [ -z "$cpu" ] && status="$status$separator $cpu"
+
+    ram="$(memorystat)"
+    ! [ -z "$ram" ] && status="$status$separator $ram"
+
     network="$(netstat)"
     ! [ -z "$network" ] && status="$status$separator$network"
 
@@ -48,6 +43,10 @@ while true ; do
     ! [ -z "$date_time" ] && status="$status$separator󰥔 $date_time"
 
     printf "%s\n" "$status"
-    # exit 0 # Testing
+
+    if [ -n "$once" ]; then
+        exit 0
+    fi
+
     sleep 0.4
 done

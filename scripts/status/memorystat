@@ -1,4 +1,4 @@
 #!/bin/sh
 # Get current RAM memory usage
 
-free --mebi | sed -n '2{p;q}' | awk '{printf ("%2.1fG", ( $3 / 1024), ($2 / 1024))}'
+free --mebi | sed -n '2{p;q}' | awk '{printf ("%04.1fG", ( $3 / 1024), ($2 / 1024))}'

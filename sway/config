@@ -117,20 +117,20 @@ gaps inner 5
 font pango:JetBrainsMono Medium 8
 
 bar {
-    position top
+    position bottom
     font pango:JetBrainsMono Bold 9
     status_command ~/.config/scripts/sway/swaystatus
     tray_padding 4
 
     colors {
         background #00000000
-        statusline #7a847880
+        statusline #7a847890
         focused_workspace $col_fg $col_fg $col_bg
         inactive_workspace #00000000 #00000000 #ebdbb270
     }
 }
 
-for_window [class="Display-im6.q16"] floating enable 
+for_window [class="Display-im6.q16"] floating enable
 
 # Autostart
 exec wl-paste -t text --watch clipman store
