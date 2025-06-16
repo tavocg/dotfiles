@@ -9,9 +9,9 @@
 (scroll-bar-mode 0)
 
 ;; org mode
-;; (setq org-directory "~/org/")
+;;(setq org-directory "~/org/")
 (setq org-agenda-files '("~/Documents/agenda"))
-(after! org (plist-put org-format-latex-options :scale 3.2))
+;;(after! org (plist-put org-format-latex-options :scale 3.2))
 (dolist (mode '(org-mode-hook
                 org-agenda-mode-hook
                 dired-mode-hook
