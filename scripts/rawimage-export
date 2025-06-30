@@ -1,0 +1,41 @@
+#!/bin/sh
+
+FILES="$*"
+
+DCRAW="${DCRAW:=dcraw}"
+DCRAW_OPTS="$DCRAW_OPTS -w"   # Use camera white balance, if possible
+DCRAW_OPTS="$DCRAW_OPTS -q 3" # Set the interpolation quality
+DCRAW_OPTS="$DCRAW_OPTS -T"   # Write TIFF instead of PPM
+DCRAW_OPTS="$DCRAW_OPTS -6"   # Write 16-bit instead of 8-bit
+
+MAGICK="${MAGICK:=convert}"
+MAGICK_OPTS="$MAGICK_OPTS -auto-orient" # Uses EXIF setting 'Orientation'
+MAGICK_OPTS="$MAGICK_OPTS -noise 1"     # Denoise
+MAGICK_OPTS="$MAGICK_OPTS -blur 0x0.5"
+MAGICK_OPTS="$MAGICK_OPTS -sharpen 0.2x5"
+MAGICK_OPTS="$MAGICK_OPTS -resize x1080"
+MAGICK_OPTS="$MAGICK_OPTS -sigmoidal-contrast 6x35%"
+MAGICK_OPTS="$MAGICK_OPTS -quality 90"
+MAGICK_OPTS="$MAGICK_OPTS -define jpeg:extent=250kb"
+MAGICK_OPTS="$MAGICK_OPTS \
+    -channel R -evaluate multiply 0.995 \
+    -channel B -evaluate multiply 1.005 \
+    -channel RGB +channel" # Remove chromatic aberration
+
+_error() {
+    printf "error: %s\n" "$1"
+}
+
+if ! command -v "$DCRAW" >/dev/null 2>&1; then
+    _error "dcraw is not in PATH"
+fi
+
+if ! command -v "$MAGICK" >/dev/null 2>&1; then
+    _error "magick is not in PATH"
+fi
+
+for f in $FILES; do
+    $DCRAW $DCRAW_OPTS $f
+    $MAGICK $MAGICK_OPTS ${f%.*}.tiff ${f%.*}.jpg
+    rm "${f%.*}.tiff"
+done
