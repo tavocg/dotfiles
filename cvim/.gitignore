@@ -1,3 +1,5 @@
 .netrwhist
 autoload/
 viminfo
+colors/
+undo/

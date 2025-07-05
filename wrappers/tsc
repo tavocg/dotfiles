@@ -1,0 +1,80 @@
+#!/bin/sh
+TS_GITHUB="https://github.com/microsoft/TypeScript"
+TS_DIR="${TS_DIR:=$HOME/.local/share/typescript}"
+TS_BIN="$TS_DIR/package/bin/tsc"
+
+_prompt() {
+    printf "[TS] \033[34m%s\033[0m \033[1m[y/n]:\033[0m " "$1"
+    read -r opt
+
+    case "$opt" in
+        [Yy]) return 0;;
+        [Nn]) return 1;;
+        *)    return 1;;
+    esac
+}
+
+_msg() {
+    printf "[TS] \033[0m%s\033[0m\n" "$1"
+}
+
+_error() {
+    printf "[TS] \033[31m%s\033[0m\n" "$1"
+}
+
+_latest_ts_version() {
+    release_url="$(curl -Ls -o /dev/null -w %{url_effective} "$TS_GITHUB"/releases/latest)"
+    echo "${release_url##*/v}"
+}
+
+_update_ts() {
+    if ! [ -d "$TS_DIR" ]; then
+        _prompt "Installation directory '$TS_DIR' does not exist, create?"
+        if [ "$?" -eq 1 ]; then
+            return 1
+        fi
+        mkdir -p "$TS_DIR"
+    fi
+
+    _msg "getting latest version..."
+    version="$(_latest_ts_version)"
+    if [ "$?" -eq 1 ]; then
+        _error "failed to get version"
+        return 1
+    fi
+
+    download_url="$TS_GITHUB/releases/download/v$version/typescript-$version.tgz"
+    rm -rf "$TS_DIR"
+    mkdir -p "$TS_DIR"
+
+    _msg "downloading ts v$version..."
+    curl -sLo "$TS_DIR/ts-$version.tgz" "$download_url"
+    if [ "$?" -eq 1 ]; then
+        _error "failed to download"
+        return 1
+    fi
+
+    _msg "extracting..."
+    tar xzf "$TS_DIR/ts-$version.tgz" -C "$TS_DIR"
+    if [ "$?" -eq 1 ]; then
+        _error "failed to extract"
+        return 1
+    fi
+    rm -f "$TS_DIR/ts-$version.tgz"
+
+    _msg "done!"
+}
+
+if [ -x "$TS_BIN" ]; then
+    case "$1" in
+        update) _update_ts ;;
+        *)      $TS_BIN $@ ;;
+    esac
+else
+    _prompt "tsc not installed, download?"
+    if [ "$?" -eq 1 ]; then
+        return 1
+    fi
+
+    _update_ts
+fi

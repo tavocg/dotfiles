@@ -1,64 +1,236 @@
-" XDG Specifications
-let rtp=&runtimepath
-set runtimepath=~/.config/cvim
-let &runtimepath.=','.rtp.',~/.config/cvim/after'
-set directory=~/.config/cvim/swap//,.,~/tmp,/var/tmp,/tmp
-set backupdir=~/.config/cvim/backup//,.,~/tmp,~/
-set spellfile=~/.config/cvim/spell/en.utf-8.add
-set viminfo+=n~/.config/cvim/viminfo
-set viewdir=~/.config/cvim/view/
-set undodir=~/.config/cvim/undo//,.
+" Enhanced vanilla ViM conifuration.
+" 	tpope's sensible.vim:
 
-" Preferences
-let mapleader = "\<Space>"
-set list listchars=tab:⎸\ ,trail:~
-set clipboard=unnamedplus
-set gp=git\ grep\ -n
-set shellcmdflag=-c
-set encoding=utf-8
-set relativenumber
-filetype plugin on
-set shiftwidth=4
-set nocompatible
-set cursorline
-set ignorecase
-set smartcase
-set expandtab
-set autoread
-set wildmenu
-set hlsearch
-set swapfile
-set undofile
-set mouse=a
-set showcmd
-set number
-syntax on
-
-if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
-    if (has("nvim"))
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    if (has("termguicolors"))
-        set termguicolors
-    endif
+if exists('g:loaded_sensible') || &compatible
+	finish
+else
+	let g:loaded_sensible = 'yes'
 endif
 
-" Keybinds
-noremap <F5> :setlocal spell! spelllang=en<CR>
-noremap <F6> :setlocal spell! spelllang=es<CR>
-noremap <F8> :TagbarToggle<CR>
-noremap <C-e> !!$SHELL<CR>
-noremap <tab> :bn<CR>
-noremap <C-c> :bd<CR>
-noremap <C-s> :w<CR>
-noremap <A-h> 5<C-w><
-noremap <A-j> 5<C-w>-
-noremap <A-k> 5<C-w>+
-noremap <A-l> 5<C-w>>
-noremap H :nohl<CR>
-noremap <leader><Space> za
+" Use :help 'option' to see the documentation for the given option.
 
-autocmd BufWinLeave *.* mkview
+" Disable vi compatibility, if for some reason it's on.
+if &compatible
+	set nocompatible
+endif
+
+" Check if an option was set from a file in $HOME.  This lets us avoid
+" overriding options in the user's vimrc, but still override options in the
+" system vimrc.
+function! s:MaySet(option) abort
+	if exists('*execute')
+		let out = execute('verbose setglobal all ' . a:option . '?')
+	else
+		redir => out
+		silent verbose execute 'setglobal all' a:option . '?'
+		redir END
+	endif
+	return out !~# " \\(\\~[\\/]\\|Lua\\)[^\n]*$"
+endfunction
+
+if s:MaySet('backspace')
+	set backspace=indent,eol,start
+endif
+" Disable completing keywords in included files (e.g., #include in C).  When
+" configured properly, this can result in the slow, recursive scanning of
+" hundreds of files of dubious relevance.
+set complete-=i
+if s:MaySet('smarttab')
+	set smarttab
+endif
+
+set nrformats-=octal
+
+" Make the escape key more responsive by decreasing the wait time for an
+" escape sequence (e.g., arrow keys).
+if !has('nvim') && &ttimeoutlen == -1
+	set ttimeout
+	set ttimeoutlen=100
+endif
+
+if has('reltime') && s:MaySet('incsearch')
+	set incsearch
+endif
+" Use CTRL-L to clear the highlighting of 'hlsearch' (off by default) and call
+" :diffupdate.
+if maparg('<C-L>', 'n') ==# ''
+	nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
+if s:MaySet('laststatus')
+	set laststatus=2
+endif
+if s:MaySet('ruler')
+	set ruler
+endif
+if s:MaySet('wildmenu')
+	set wildmenu
+endif
+
+if s:MaySet('scrolloff')
+	set scrolloff=1
+endif
+if s:MaySet('sidescroll') && s:MaySet('sidescrolloff')
+	set sidescroll=1
+	set sidescrolloff=2
+endif
+set display+=lastline
+if has('patch-7.4.2109')
+	set display+=truncate
+endif
+
+if s:MaySet('listchars')
+	set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
+endif
+
+" Delete comment character when joining commented lines.
+if v:version > 703 || v:version == 703 && has("patch541")
+	set formatoptions+=j
+endif
+
+" Replace the check for a tags file in the parent directory of the current
+" file with a check in every ancestor directory.
+if has('path_extra') && (',' . &g:tags . ',') =~# ',\./tags,'
+	setglobal tags-=./tags tags-=./tags; tags^=./tags;
+endif
+
+if s:MaySet('autoread')
+	set autoread
+endif
+
+if s:MaySet('history')
+	set history=1000
+endif
+if s:MaySet('tabpagemax')
+	set tabpagemax=50
+endif
+
+" Persist g:UPPERCASE variables, used by some plugins, in .viminfo.
+if !empty(&viminfo)
+	set viminfo^=!
+endif
+" Saving options in session and view files causes more problems than it
+" solves, so disable it.
+set sessionoptions-=options
+set viewoptions-=options
+
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^Eterm'
+	set t_Co=16
+endif
+
+" If the running Vim lacks support for the Fish shell, use Bash instead.
+if &shell =~# 'fish$' && (v:version < 704 || v:version == 704 && !has('patch276'))
+	set shell=/usr/bin/env\ bash
+endif
+
+" Disable a legacy behavior that can break plugin maps.
+if has('langmap') && exists('+langremap') && &langremap && s:MaySet('langremap')
+	set nolangremap
+endif
+
+if !(exists('g:did_load_filetypes') && exists('g:did_load_ftplugin') && exists('g:did_indent_on'))
+	filetype plugin indent on
+endif
+if has('syntax') && !exists('g:syntax_on')
+	syntax enable
+endif
+
+if empty(mapcheck('<C-U>', 'i'))
+	inoremap <C-U> <C-G>u<C-U>
+endif
+if empty(mapcheck('<C-W>', 'i'))
+	inoremap <C-W> <C-G>u<C-W>
+endif
+
+" From `:help :DiffOrig`.
+if exists(":DiffOrig") != 2
+	command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
+				\ | diffthis | wincmd p | diffthis
+endif
+
+" Correctly highlight $() and other modern affordances in filetype=sh.
+if !exists('g:is_posix') && !exists('g:is_bash') && !exists('g:is_kornshell') && !exists('g:is_dash')
+	let g:is_posix = 1
+endif
+
+" Load matchit.vim, but only if the user hasn't installed a newer version.
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+	runtime! macros/matchit.vim
+endif
+
+" Enable the :Man command shipped inside Vim's man filetype plugin.
+if exists(':Man') != 2 && !exists('g:loaded_man') && &filetype !=? 'man' && !has('nvim')
+	runtime ftplugin/man.vim
+endif
+
+" 	Added functionality:
+" Configure custom path so not to mess with default vim path, and keep
+" tempfiles and other stuff organized.
+let g:customrtp = expand('~/.config/cvim')
+
+let rtp = &runtimepath
+let &runtimepath = g:customrtp . ',' . rtp . ',' . g:customrtp . '/after'
+execute 'set directory=' . g:customrtp . '/swap//,.,~/tmp,/var/tmp,/tmp'
+execute 'set backupdir=' . g:customrtp . '/backup//,.,~/tmp,~/'
+execute 'set spellfile=' . g:customrtp . '/spell/en.utf-8.add'
+execute 'set viminfo+=n' . g:customrtp . '/viminfo'
+execute 'set viewdir='   . g:customrtp . '/view/'
+execute 'set undodir='   . g:customrtp . '/undo//,.'
+
+for dir in ['swap', 'backup', 'spell', 'view', 'undo', 'after']
+	call mkdir(g:customrtp . '/' . dir, 'p', 0700)
+endfor
+
+if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
+	if (has("nvim"))
+		let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+	endif
+	if (has("termguicolors"))
+		set termguicolors
+	endif
+endif
+
+" :MakeTags
+" If inside a Git repository, generate tags for the project into
+" /tmp/tags/<project> and set the tags variable accordingly.
+" This is done on a per-buffer basis.
+function! SetupProjectTags()
+	let l:buf_dir = expand('%:p:h')
+	if empty(l:buf_dir)
+		echoerr 'Could not determine buffer directory.'
+		return
+	endif
+
+	let l:git_root = systemlist('git -C ' . shellescape(l:buf_dir) . ' rev-parse --show-toplevel')
+	if v:shell_error != 0 || empty(l:git_root)
+		echoerr 'Not inside a Git repository.'
+		return
+	endif
+
+	let l:git_root = l:git_root[0]
+	let l:project_name = substitute(fnamemodify(l:git_root, ':t'), '[^A-Za-z0-9]', '_', 'g')
+	let l:tags_file = '/tmp/tags/' . l:project_name . '.tags'
+
+	if !isdirectory('/tmp/tags')
+		call mkdir('/tmp/tags', 'p')
+	endif
+
+	let l:cmd = 'ctags -R -f ' . shellescape(l:tags_file) . ' ' . shellescape(l:git_root)
+	let l:output = system(l:cmd)
+
+	if v:shell_error != 0
+		echoerr l:output
+		return
+	endif
+
+	let &l:tags = l:tags_file
+endfunction
+command! MakeTags call SetupProjectTags()
+
+" Netrw configuration
+let g:netrw_banner=0
+let g:netrw_liststyle=3
 
 " QuickFix
 autocmd QuickFixCmdPost [^l]* nested cwindow
@@ -66,149 +238,74 @@ autocmd QuickFixCmdPost    l* nested lwindow
 autocmd QuickFixCmdPost     * if &ft ==# 'qf' | wincmd J | endif
 
 function! WrapQuickfixNext()
-    try
-        execute 'cnext'
-    catch /^Vim\%((\a\+)\)\=:E553/
-        cfirst
-    endtry
+	try
+		execute 'cnext'
+	catch /^Vim\%((\a\+)\)\=:E553/
+		cfirst
+	endtry
 endfunction
 function! WrapQuickfixPrev()
-    try
-        execute 'cprevious'
-    catch /^Vim\%((\a\+)\)\=:E553/
-        clast
-    endtry
+	try
+		execute 'cprevious'
+	catch /^Vim\%((\a\+)\)\=:E553/
+		clast
+	endtry
 endfunction
 
 nnoremap <silent> <Leader>n :call WrapQuickfixNext()<CR>
 nnoremap <silent> <Leader>p :call WrapQuickfixPrev()<CR>
-nnoremap <leader>m :make<CR><CR>
 nnoremap <F9> :make<CR><CR>
 
-" c/c++
-autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
-autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
+" Colorscheme
+function! s:Curl(url, dest) abort
+  if filereadable(a:dest)
+    return
+  endif
 
-" groff
-autocmd FileType troff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
-autocmd FileType troff noremap <buffer> <C-s> :w<CR> :!grofftex %<CR><CR>
+  let l:dir = fnamemodify(a:dest, ':h')
+  if !isdirectory(l:dir)
+    call mkdir(l:dir, 'p')
+  endif
 
-" Python
-autocmd FileType python noremap <buffer> <F9> :!python %<CR>
+  let l:cmd = 'curl -fLo ' . shellescape(a:dest) . ' --create-dirs ' . shellescape(a:url)
+  call system(l:cmd)
 
-function! SetMakeprg()
-    if filereadable('Makefile')
-        set makeprg=make
-    else
-    endif
+  if v:shell_error
+    echoerr "Failed to download: " . a:url
+  endif
 endfunction
-autocmd VimEnter * call SetMakeprg()
 
-" Functions
+let s:baseurl = 'https://raw.githubusercontent.com/morhetz/gruvbox/refs/heads/master/'
+let s:paths = [
+  \ 'autoload/gruvbox.vim',
+  \ 'autoload/lightline/colorscheme/gruvbox.vim',
+  \ 'autoload/airline/themes/gruvbox.vim',
+  \ 'colors/gruvbox.vim'
+  \ ]
 
-"Open a shell on a vertical split
-set splitright
-function OpenTerminal()
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
+let s:rtp = substitute(&runtimepath, ',.*', '', '')
 
-    let bufNum = bufnr("%")
-    let bufType = getbufvar(bufNum, "&buftype", "not found")
+for relpath in s:paths
+  let url = s:baseurl . relpath
+  let dest = s:rtp . '/' . relpath
+  call s:Curl(url, dest)
+endfor
 
-    if bufType == "terminal"
-        execute "q"
-    else
-        execute "bot sp term://bash"
-        execute "resize -8"
-        execute "set nonu"
-        execute "set nornu"
-        silent au BufLeave <buffer> stopinsert!
-        silent au BufWinEnter,WinEnter <buffer> startinsert!
-        execute "tnoremap <buffer> <C-h> <C-\\><C-n><C-w><C-h>"
-        execute "tnoremap <buffer> <C-t> <C-\\><C-n>:q<CR>"
-        execute "tnoremap <buffer> <C-\\><C-\\> <C-\\><C-n>"
-        execute "IndentLinesDisable"
-
-        startinsert!
-    endif
-endfunction
-nnoremap <C-t> :call OpenTerminal()<CR>
-
-" Plugins
-if empty(glob('~/.config/cvim/autoload/plug.vim'))
-    silent !curl -fLo ~/.config/cvim/autoload/plug.vim --create-dirs
-                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source '~/.config/cvim/vimrc'
-endif
-
-call plug#begin()
-Plug 'vim-airline/vim-airline-themes'
-Plug 'norcalli/nvim-colorizer.lua'
-Plug 'vim-scripts/AutoComplPop'
-Plug 'vim-airline/vim-airline'
-Plug 'ryanoasis/vim-devicons'
-Plug 'airblade/vim-gitgutter'
-Plug 'rhysd/vim-clang-format'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-commentary'
-Plug 'Yggdroot/indentLine'
-Plug 'preservim/nerdtree'
-Plug 'godlygeek/tabular'
-Plug 'Gavinok/vim-troff'
-Plug 'ibhagwan/fzf-lua'
-Plug 'preservim/tagbar'
-" Plug 'morhetz/gruvbox'
-" Plug 'sainnhe/gruvbox-material'
-Plug 'sainnhe/everforest'
-Plug 'jceb/vim-orgmode'
-Plug 'mikelue/vim-maven-plugin'
-call plug#end()
-
-" theme
+" Misc
+let mapleader = "\<Space>"
+colorscheme gruvbox
 set background=dark
-let g:everforest_background = 'hard'
-colorscheme everforest
-
-" AutoComplPop
-inoremap <expr> <Tab> pumvisible() ? "<C-y>" : "<Tab>"
-set completeopt=menuone,longest
-set complete+=kspell
-
-" Airline
-let g:airline#extensions#tabline#buffer_min_count = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-set ttimeout ttimeoutlen=0
-set laststatus=2
-set noshowmode
-
-" NERDTree
-nnoremap <C-f> :NERDTreeToggle<CR>
-
-" IndentLine
-let g:indentLine_enabled = 1
-let g:indentLine_char = '⎸'
-
-" fzf-lua
-noremap <A-b> :FzfLua git_branches<CR>
-noremap <A-c> :FzfLua git_commits<CR>
-noremap <A-s> :FzfLua git_status<CR>
-noremap <A-f> :FzfLua files<CR>
-noremap gb :FzfLua git_branches<CR>
-noremap gs :FzfLua git_status<CR>
-noremap gf :FzfLua files<CR>
-
-" git-gutter
-highlight GitGutterChange guifg=#7daea3 ctermfg=3
-highlight GitGutterDelete guifg=#ea6962 ctermfg=1
-highlight GitGutterAdd    guifg=#a9b665 ctermfg=2
-highlight SignColumn guibg=NONE ctermbg=NONE
-let g:gitgutter_set_sign_backgrounds = 1
-noremap gd :GitGutterToggle<CR>
-set signcolumn=yes
-set updatetime=100
-
-" vim-clang-format
-let g:clang_format#code_style = 'llvm'
+set list
+set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:+
+set cursorline
+set ignorecase
+set smartcase
+set hlsearch
+set swapfile
+set undofile
+set mouse=a
+set showcmd
+set number
+set hidden
+set nowrap
+set colorcolumn=81
