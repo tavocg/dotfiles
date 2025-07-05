@@ -171,6 +171,7 @@ let g:customrtp = expand('~/.config/cvim')
 
 let rtp = &runtimepath
 let &runtimepath = g:customrtp . ',' . rtp . ',' . g:customrtp . '/after'
+let &packpath = &runtimepath
 execute 'set directory=' . g:customrtp . '/swap//,.,~/tmp,/var/tmp,/tmp'
 execute 'set backupdir=' . g:customrtp . '/backup//,.,~/tmp,~/'
 execute 'set spellfile=' . g:customrtp . '/spell/en.utf-8.add'
