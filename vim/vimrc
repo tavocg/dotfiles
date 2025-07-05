@@ -1,137 +1,14 @@
-" XDG Specifications
-let rtp=&runtimepath
-set runtimepath=~/.config/vim
-let &runtimepath.=','.rtp.',~/.config/vim/after'
-set directory=~/.config/vim/swap//,.,~/tmp,/var/tmp,/tmp
-set backupdir=~/.config/vim/backup//,.,~/tmp,~/
-set spellfile=~/.config/vim/spell/en.utf-8.add
-set viminfo+=n~/.config/vim/viminfo
-set viewdir=~/.config/vim/view/
-set undodir=~/.config/vim/undo//,.
+let g:customrtp = expand('~/.config/vim')
 
-" Preferences
-let mapleader = "\<Space>"
-set list listchars=tab:⎸\ ,trail:~
-set clipboard=unnamedplus
-set gp=git\ grep\ -n
-set shellcmdflag=-c
-set encoding=utf-8
-set relativenumber
-filetype plugin on
-set shiftwidth=4
-set nocompatible
-set cursorline
-set ignorecase
-set smartcase
-set expandtab
-set autoread
-set wildmenu
-set hlsearch
-set swapfile
-set undofile
-set mouse=a
-set showcmd
-set number
-syntax on
+let rtp = &runtimepath
+let &runtimepath = g:customrtp . ',' . rtp . ',' . g:customrtp . '/after'
+execute 'set directory=' . g:customrtp . '/swap//,.,~/tmp,/var/tmp,/tmp'
+execute 'set backupdir=' . g:customrtp . '/backup//,.,~/tmp,~/'
+execute 'set spellfile=' . g:customrtp . '/spell/en.utf-8.add'
+execute 'set viminfo+=n' . g:customrtp . '/viminfo'
+execute 'set viewdir='   . g:customrtp . '/view/'
+execute 'set undodir='   . g:customrtp . '/undo//,.'
 
-if (empty($TMUX) && getenv('TERM_PROGRAM') != 'Apple_Terminal')
-    if (has("nvim"))
-        let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    endif
-    if (has("termguicolors"))
-        set termguicolors
-    endif
-endif
-
-" Keybinds
-noremap <F5> :setlocal spell! spelllang=en<CR>
-noremap <F6> :setlocal spell! spelllang=es<CR>
-noremap <F8> :TagbarToggle<CR>
-noremap <C-e> !!$SHELL<CR>
-noremap <tab> :bn<CR>
-noremap <C-c> :bd<CR>
-noremap <C-s> :w<CR>
-noremap <A-h> 5<C-w><
-noremap <A-j> 5<C-w>-
-noremap <A-k> 5<C-w>+
-noremap <A-l> 5<C-w>>
-noremap H :nohl<CR>
-noremap <leader><Space> za
-
-autocmd BufWinLeave *.* mkview
-
-" QuickFix
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-autocmd QuickFixCmdPost     * if &ft ==# 'qf' | wincmd J | endif
-
-function! WrapQuickfixNext()
-    try
-        execute 'cnext'
-    catch /^Vim\%((\a\+)\)\=:E553/
-        cfirst
-    endtry
-endfunction
-function! WrapQuickfixPrev()
-    try
-        execute 'cprevious'
-    catch /^Vim\%((\a\+)\)\=:E553/
-        clast
-    endtry
-endfunction
-
-nnoremap <silent> <Leader>n :call WrapQuickfixNext()<CR>
-nnoremap <silent> <Leader>p :call WrapQuickfixPrev()<CR>
-nnoremap <leader>m :make<CR><CR>
-nnoremap <F9> :make<CR><CR>
-
-" c/c++
-autocmd FileType c :compiler gcc | setlocal makeprg=gcc\ -Wall\ -c\ %
-autocmd FileType cpp :compiler gcc | setlocal makeprg=g++\ -Wall\ -c\ %
-
-" groff
-autocmd FileType troff noremap <buffer> <silent> <F9> :!zathura --fork %:r.pdf<CR> & disown
-autocmd FileType troff noremap <buffer> <C-s> :w<CR> :!grofftex %<CR><CR>
-
-" Python
-autocmd FileType python noremap <buffer> <F9> :!python %<CR>
-
-function! SetMakeprg()
-    if filereadable('Makefile')
-        set makeprg=make
-    else
-    endif
-endfunction
-autocmd VimEnter * call SetMakeprg()
-
-" Functions
-
-"Open a shell on a vertical split
-set splitright
-function OpenTerminal()
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-    execute "normal \<C-l>"
-
-    let bufNum = bufnr("%")
-    let bufType = getbufvar(bufNum, "&buftype", "not found")
-
-    if bufType == "terminal"
-        execute "q"
-    else
-        execute "bot sp term://bash"
-        execute "resize -8"
-        execute "set nonu"
-        execute "set nornu"
-        silent au BufLeave <buffer> stopinsert!
-        silent au BufWinEnter,WinEnter <buffer> startinsert!
-        execute "tnoremap <buffer> <C-h> <C-\\><C-n><C-w><C-h>"
-        execute "tnoremap <buffer> <C-t> <C-\\><C-n>:q<CR>"
-        execute "tnoremap <buffer> <C-\\><C-\\> <C-\\><C-n>"
-        execute "IndentLinesDisable"
-
-        startinsert!
-    endif
-endfunction
-nnoremap <C-t> :call OpenTerminal()<CR>
+for dir in ['swap', 'backup', 'spell', 'view', 'undo', 'after']
+	call mkdir(g:customrtp . '/' . dir, 'p', 0700)
+endfor
