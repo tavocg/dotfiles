@@ -309,3 +309,4 @@ set number
 set hidden
 set nowrap
 set colorcolumn=81
+set path+=**
