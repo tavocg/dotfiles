@@ -3,4 +3,4 @@ autoload/
 viminfo
 colors/
 undo/
-plugins/
+pack/
