@@ -14,7 +14,7 @@ case "$mime" in
     inode/directory)
         (cd "$file" && /usr/bin/ls -A1Fx --color --group-directories-first) ;;
     image/*)
-        magick "$file" -geometry $((COLS*8))x$((ROWS*18)) sixel:-
+        convert "$file" -geometry $((COLS*8))x$((ROWS*18)) sixel:-
         echo ;;
     video/*)
         tt="$(ffprobe -v error -show_entries format=duration -of \
@@ -22,7 +22,7 @@ case "$mime" in
         ft="5" ;
         if [ "$ft" -ge "${tt%%.*}" ] ; then ft="0" ; fi
         ffmpeg -hide_banner -loglevel error -ss "$ft" -i "$file" -vframes 1 \
-            -f image2pipe - | magick - -geometry $((COLS*8))x$((ROWS*18)) sixel:- ;
+            -f image2pipe - | convert - -geometry $((COLS*8))x$((ROWS*18)) sixel:- ;
         echo ;;
     audio/*)
         rfile "$file" ;;
