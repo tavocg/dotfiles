@@ -102,7 +102,7 @@ bindsym $mod+Shift+5 move container to workspace "  5  "
 bindsym $mod+comma workspace next_on_output
 bindsym $mod+period workspace prev_on_output
 # -
-bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+t layout toggle tabbed split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 # -
