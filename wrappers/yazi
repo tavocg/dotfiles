@@ -21,30 +21,34 @@ _error() {
     printf "[YAZI MANAGER] \033[31merror: %s\033[0m\n" "$1"
 }
 
-# Cleans $YAZI_DIR
-_clean_yazi_versions() {
-    if [ -d "$YAZI_DIR" ]; then
-        rm -rf "$YAZI_DIR"/*
-    fi
-}
-
 # Check if $YAZI_DIR exists, if it doesn't, create it.
 # If there is an error, return 1.
 _yazi_dir_check() {
     if ! [ -d "$YAZI_DIR" ]; then
-        _prompt "Installation directory '$YAZI_DIR' does not exist, create?"
-        if [ "$?" -eq 1 ]; then
-            return 1
-        fi
-        mkdir -p "$YAZI_DIR"
+        return 1
+    fi
+}
+
+# Cleans $YAZI_DIR
+_clean_yazi_versions() {
+    if [ -d "$YAZI_DIR" ]; then
+        rm -rf "${YAZI_DIR:?}"/*
     fi
 }
 
 # Echoes list of yazi versions.
 _list_yazi_versions() {
+    preferred="$1"
+
     for v in "$YAZI_DIR"/*; do
         if [ -d "$v" ]; then
-            echo "${v##*yazi-}"
+            version="${v##*yazi-}"
+
+            if [ "$preferred" = "$version" ]; then
+                echo "$version*"
+            else
+                echo "$version"
+            fi
         fi
     done
 }
@@ -60,11 +64,39 @@ _latest_local() {
     echo "$latest_local"
 }
 
+# Sets the preferred yazi version
+# If there is an error, return 1.
+_set_preferred_version() {
+    version="$1"
+
+    if [ -z "$version" ]; then
+        _error "provide a version to set. e.g. 25.5.31"
+       return 1
+    fi
+
+    echo "$version" > "$YAZI_DIR"/yazi_version
+}
+
+# Echoes current set yazi version. e.g. 25.5.31
+# If there is an error, return 1.
+_current_local() {
+    if [ -f "$YAZI_DIR"/yazi_version ]; then
+        cat "$YAZI_DIR"/yazi_version
+    else
+        return 1
+    fi
+}
+
 # Get the latest installed yazi binary path.
 # If there is a problem with the binary, return 1.
 _yazi_bin() {
-    latest_local="$(_latest_local)"
-    bin="$YAZI_DIR/yazi-$latest_local/yazi-x86_64-unknown-linux-gnu/yazi"
+    preferred="$1"
+
+    if [ -z "$preferred" ]; then
+        preferred="$(_latest_local)"
+    fi
+
+    bin="$YAZI_DIR/yazi-$preferred/yazi-x86_64-unknown-linux-gnu/yazi"
 
     if [ -x "$bin" ]; then
         echo "$bin"
@@ -76,6 +108,7 @@ _yazi_bin() {
 # Echoes the latest remote available yazi version. e.g. 25.5.31
 # If there is an error, return 1.
 _latest_remote() {
+    # shellcheck disable=SC1083
     release_url="$(curl -Ls -o /dev/null -w %{url_effective} "$YAZI_GITHUB"/releases/latest)"
     if [ "$?" -eq 1 ]; then
         return 1
@@ -87,13 +120,23 @@ _latest_remote() {
 # If there is an error, return 1.
 _download_yazi() {
     version="$1"
-    target="$YAZI_DIR/yazi-$version.zip"
-    download_url="$YAZI_GITHUB/releases/download/v$version/yazi-x86_64-unknown-linux-gnu.zip"
-
     if [ -z "$version" ]; then
-        _error "provide a version to download. e.g. 25.5.31"
+        _error "provide a version to download. e.g. 25.5.31 or latest"
        return 1
     fi
+
+    case "$version" in
+        latest) version="$(_latest_remote)"
+                if [ "$?" -eq 1 ]; then
+                    _error "failed get latest"
+                    return 1
+                fi
+            ;;
+        *) ;;
+    esac
+
+    target="$YAZI_DIR/yazi-$version.zip"
+    download_url="$YAZI_GITHUB/releases/download/v$version/yazi-x86_64-unknown-linux-gnu.zip"
 
     curl -sLo "$target" "$download_url"
     if [ "$?" -eq 1 ]; then
@@ -112,9 +155,12 @@ _download_yazi() {
         return 1
     fi
 
+    _set_preferred_version "$version"
     rm -f "$target"
 }
 
+# Updates to latest remote available version.
+# If there is an error, return 1.
 _update_yazi() {
     latest_remote="$(_latest_remote)"
     if [ "$?" -eq 1 ]; then
@@ -129,35 +175,56 @@ _update_yazi() {
     fi
 
     if [ "$latest_local" != "$latest_remote" ]; then
-        _msg "installing yazi ${latest_local:-none} -> $latest_remote..."
+        _msg "updating yazi ${latest_local:-none} -> $latest_remote..."
         _download_yazi "$latest_remote"
         if [ "$?" -eq 1 ]; then
             _error "failed installation"
             return 1
         fi
+        _set_preferred_version "$latest_remote"
     else
         _msg "already up-to-date"
     fi
 }
 
-YAZI_BIN="$(_yazi_bin)"
+if [ -d "$YAZI_DIR" ]; then
+    YAZI_BIN="$(_yazi_bin "$(_current_local)")"
+    if [ "$?" -eq 1 ] && [ "$1" != "--manager-download" ] ; then
+        _prompt "no version of yazi installed, download latest?"
 
-if [ -x "$YAZI_BIN" ]; then
+        if [ "$?" -eq 1 ]; then
+            _error "no version of yazi installed, download via '--manager-download x.x.x'"
+            return 1
+        fi
+
+        _download_yazi "latest"
+        if [ "$?" -eq 1 ]; then
+            _error "error downloading latest version"
+            return 1
+        fi
+    fi
+
     # shellcheck disable=SC2068
     case "$1" in
         --manager-update)   _update_yazi ;;
-        --manager-download) _download_yazi $2 ;;
-        --manager-list)     _list_yazi_versions $2 ;;
+        --manager-download) _download_yazi "$2" ;;
+	--manager-list)     _list_yazi_versions "$(_current_local)" ;;
+        --manager-set)      _set_preferred_version "$2" ;;
         --manager-clean)    _clean_yazi_versions ;;
         *)  $YAZI_BIN $@ ;;
     esac
 else
     _yazi_dir_check
-
-    _prompt "yazi not installed, download?"
     if [ "$?" -eq 1 ]; then
-        return 1
+        _prompt "Installation directory '$YAZI_DIR' does not exist, create?"
+        if [ "$?" -eq 1 ]; then
+            return 1
+        fi
+        mkdir -p "$YAZI_DIR"
     fi
 
-    _update_yazi
+    _prompt "yazi not installed, download latest?"
+    if ! [ "$?" -eq 1 ]; then
+        _update_yazi
+    fi
 fi
