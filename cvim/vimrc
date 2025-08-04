@@ -292,9 +292,10 @@ for relpath in s:paths
   call s:Curl(url, dest)
 endfor
 
+colorscheme gruvbox
+
 " Misc
 let mapleader = "\<Space>"
-colorscheme gruvbox
 set background=dark
 set list
 set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:+
@@ -311,3 +312,4 @@ set hidden
 set nowrap
 set colorcolumn=81
 set path+=**
+set clipboard=unnamedplus

@@ -34,4 +34,6 @@ export \
     PYTHON_HISTORY="$XDG_CACHE_HOME/python_history" \
     SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history" \
     PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass" \
-    XDG_DATA_DIRS="$XDG_DATA_HOME/flatpak/exports/share${XDG_DATA_DIRS:+:${XDG_DATA_DIRS}}"
+    XDG_DATA_DIRS="$XDG_DATA_HOME/flatpak/exports/share${XDG_DATA_DIRS:+:${XDG_DATA_DIRS}}" \
+    UNISON="$XDG_DATA_HOME"/unison
+

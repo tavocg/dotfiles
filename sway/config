@@ -108,6 +108,7 @@ bindsym $mod+Shift+f floating toggle
 # -
 bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
 bindsym $mod+n split horizontal; layout tabbed
+bindsym $mod+s sticky toggle
 
 # Layout
 client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
