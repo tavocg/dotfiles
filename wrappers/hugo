@@ -1,10 +1,10 @@
 #!/bin/sh
-YAZI_GITHUB="https://github.com/sxyazi/yazi"
-YAZI_DIR_PREFIX="${XDG_DATA_HOME:=$HOME/.local/share}"
-YAZI_DIR="${YAZI_DIR:=$YAZI_DIR_PREFIX/yazi}"
+HUGO_GITHUB="https://github.com/gohugoio/hugo"
+HUGO_DIR_PREFIX="${XDG_DATA_HOME:=$HOME/.local/share}"
+HUGO_DIR="${HUGO_DIR:=$HUGO_DIR_PREFIX/hugo}"
 
 _prompt() {
-    printf "[YAZI MANAGER] \033[34m%s\033[0m \033[1m[y/n]:\033[0m " "$1"
+    printf "[HUGO MANAGER] \033[34m%s\033[0m \033[1m[y/n]:\033[0m " "$1"
     read -r opt
 
     case "$opt" in
@@ -15,35 +15,35 @@ _prompt() {
 }
 
 _msg() {
-    printf "[YAZI MANAGER] \033[0m%s\033[0m\n" "$1"
+    printf "[HUGO MANAGER] \033[0m%s\033[0m\n" "$1"
 }
 
 _error() {
-    printf "[YAZI MANAGER] \033[31merror: %s\033[0m\n" "$1"
+    printf "[HUGO MANAGER] \033[31merror: %s\033[0m\n" "$1"
 }
 
-# Check if $YAZI_DIR exists, if it doesn't, create it.
+# Check if $HUGO_DIR exists, if it doesn't, create it.
 # If there is an error, return 1.
-_yazi_dir_check() {
-    if ! [ -d "$YAZI_DIR" ]; then
+_hugo_dir_check() {
+    if ! [ -d "$HUGO_DIR" ]; then
         return 1
     fi
 }
 
-# Cleans $YAZI_DIR
-_clean_yazi_versions() {
-    if [ -d "$YAZI_DIR" ]; then
-        rm -rf "${YAZI_DIR:?}"/*
+# Cleans $HUGO_DIR
+_clean_hugo_versions() {
+    if [ -d "$HUGO_DIR" ]; then
+        rm -rf "${HUGO_DIR:?}"/*
     fi
 }
 
-# Echoes list of yazi versions.
-_list_yazi_versions() {
+# Echoes list of hugo versions.
+_list_hugo_versions() {
     preferred="$1"
 
-    for v in "$YAZI_DIR"/*; do
+    for v in "$HUGO_DIR"/*; do
         if [ -d "$v" ]; then
-            version="${v##*yazi-}"
+            version="${v##*hugo-}"
 
             if [ "$preferred" = "$version" ]; then
                 echo "$version*"
@@ -54,10 +54,10 @@ _list_yazi_versions() {
     done
 }
 
-# Echoes latest installed yazi version. e.g. 25.5.31
+# Echoes latest installed hugo version. e.g. 25.5.31
 # If there is an error, return 1.
 _latest_local() {
-    versions="$(_list_yazi_versions)"
+    versions="$(_list_hugo_versions)"
     for v in $versions ; do
         latest_local="$v"
     done
@@ -65,7 +65,7 @@ _latest_local() {
     echo "$latest_local"
 }
 
-# Sets the preferred yazi version
+# Sets the preferred hugo version
 # If there is an error, return 1.
 _set_preferred_version() {
     version="$1"
@@ -75,29 +75,29 @@ _set_preferred_version() {
        return 1
     fi
 
-    echo "$version" > "$YAZI_DIR"/yazi_version
+    echo "$version" > "$HUGO_DIR"/hugo_version
 }
 
-# Echoes current set yazi version. e.g. 25.5.31
+# Echoes current set hugo version. e.g. 25.5.31
 # If there is an error, return 1.
 _current_local() {
-    if [ -f "$YAZI_DIR"/yazi_version ]; then
-        cat "$YAZI_DIR"/yazi_version
+    if [ -f "$HUGO_DIR"/hugo_version ]; then
+        cat "$HUGO_DIR"/hugo_version
     else
         return 1
     fi
 }
 
-# Get the latest installed yazi binary path.
+# Get the latest installed hugo binary path.
 # If there is a problem with the binary, return 1.
-_yazi_bin() {
+_hugo_bin() {
     preferred="$1"
 
     if [ -z "$preferred" ]; then
         preferred="$(_latest_local)"
     fi
 
-    bin="$YAZI_DIR/yazi-$preferred/yazi-x86_64-unknown-linux-gnu/yazi"
+    bin="$HUGO_DIR/hugo-$preferred/hugo"
 
     if [ -x "$bin" ]; then
         echo "$bin"
@@ -106,20 +106,20 @@ _yazi_bin() {
     fi
 }
 
-# Echoes the latest remote available yazi version. e.g. 25.5.31
+# Echoes the latest remote available hugo version. e.g. 25.5.31
 # If there is an error, return 1.
 _latest_remote() {
     # shellcheck disable=SC1083
-    release_url="$(curl -Ls -o /dev/null -w %{url_effective} "$YAZI_GITHUB"/releases/latest)"
+    release_url="$(curl -Ls -o /dev/null -w %{url_effective} "$HUGO_GITHUB"/releases/latest)"
     if [ "$?" -eq 1 ]; then
         return 1
     fi
     echo "${release_url##*/v}"
 }
 
-# Downloads a given yazi version. e.g. _download_yazi 25.5.31
+# Downloads a given hugo version. e.g. _download_hugo 25.5.31
 # If there is an error, return 1.
-_download_yazi() {
+_download_hugo() {
     version="$1"
     if [ -z "$version" ]; then
         _error "provide a version to download. e.g. 25.5.31 or latest"
@@ -136,8 +136,11 @@ _download_yazi() {
         *) ;;
     esac
 
-    target="$YAZI_DIR/yazi-$version.zip"
-    download_url="$YAZI_GITHUB/releases/download/v$version/yazi-x86_64-unknown-linux-gnu.zip"
+    target_dir="$HUGO_DIR/hugo-$version"
+    target="$target_dir/hugo-$version.tar.gz"
+    download_url="$HUGO_GITHUB/releases/download/v$version/hugo_${version}_linux-amd64.tar.gz"
+
+    mkdir -p "$target_dir"
 
     curl -sLo "$target" "$download_url"
     if [ "$?" -eq 1 ]; then
@@ -150,7 +153,7 @@ _download_yazi() {
         return 1
     fi
 
-    unzip -o "$target" -d "${target%.zip}" >/dev/null
+    tar -C "$target_dir" -xf "$target" >/dev/null
     if [ "$?" -eq 1 ]; then
         _error "failed to extract"
         return 1
@@ -162,7 +165,7 @@ _download_yazi() {
 
 # Updates to latest remote available version.
 # If there is an error, return 1.
-_update_yazi() {
+_update_hugo() {
     latest_remote="$(_latest_remote)"
     if [ "$?" -eq 1 ]; then
         _error "failed to look up latest version"
@@ -176,8 +179,8 @@ _update_yazi() {
     fi
 
     if [ "$latest_local" != "$latest_remote" ]; then
-        _msg "updating yazi ${latest_local:-none} -> $latest_remote..."
-        _download_yazi "$latest_remote"
+        _msg "updating hugo ${latest_local:-none} -> $latest_remote..."
+        _download_hugo "$latest_remote"
         if [ "$?" -eq 1 ]; then
             _error "failed installation"
             return 1
@@ -188,17 +191,17 @@ _update_yazi() {
     fi
 }
 
-if [ -d "$YAZI_DIR" ]; then
-    YAZI_BIN="$(_yazi_bin "$(_current_local)")"
+if [ -d "$HUGO_DIR" ]; then
+    HUGO_BIN="$(_hugo_bin "$(_current_local)")"
     if [ "$?" -eq 1 ] && [ "$1" != "--manager-download" ] ; then
-        _prompt "no version of yazi installed, download latest?"
+        _prompt "no version of hugo installed, download latest?"
 
         if [ "$?" -eq 1 ]; then
-            _error "no version of yazi installed, download via '--manager-download x.x.x'"
+            _error "no version of hugo installed, download via '--manager-download x.x.x'"
             return 1
         fi
 
-        _download_yazi "latest"
+        _download_hugo "latest"
         if [ "$?" -eq 1 ]; then
             _error "error downloading latest version"
             return 1
@@ -207,25 +210,25 @@ if [ -d "$YAZI_DIR" ]; then
 
     # shellcheck disable=SC2068
     case "$1" in
-        --manager-update)   _update_yazi ;;
-        --manager-download) _download_yazi "$2" ;;
-	--manager-list)     _list_yazi_versions "$(_current_local)" ;;
+        --manager-update)   _update_hugo ;;
+        --manager-download) _download_hugo "$2" ;;
+	--manager-list)     _list_hugo "$(_current_local)" ;;
         --manager-set)      _set_preferred_version "$2" ;;
-        --manager-clean)    _clean_yazi_versions ;;
-        *)  $YAZI_BIN $@ ;;
+        --manager-clean)    _clean_hugo ;;
+        *)  $HUGO_BIN $@ ;;
     esac
 else
-    _yazi_dir_check
+    _hugo_dir_check
     if [ "$?" -eq 1 ]; then
-        _prompt "Installation directory '$YAZI_DIR' does not exist, create?"
+        _prompt "Installation directory '$HUGO_DIR' does not exist, create?"
         if [ "$?" -eq 1 ]; then
             return 1
         fi
-        mkdir -p "$YAZI_DIR"
+        mkdir -p "$HUGO_DIR"
     fi
 
-    _prompt "yazi not installed, download latest?"
+    _prompt "hugo not installed, download latest?"
     if ! [ "$?" -eq 1 ]; then
-        _update_yazi
+        _update_hugo
     fi
 fi
