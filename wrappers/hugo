@@ -214,7 +214,7 @@ if [ -d "$HUGO_DIR" ]; then
         --manager-download) _download_hugo "$2" ;;
 	--manager-list)     _list_hugo "$(_current_local)" ;;
         --manager-set)      _set_preferred_version "$2" ;;
-        --manager-clean)    _clean_hugo ;;
+        --manager-clean)    _clean_hugo_versions ;;
         *)  $HUGO_BIN $@ ;;
     esac
 else
