@@ -212,7 +212,7 @@ if [ -d "$HUGO_DIR" ]; then
     case "$1" in
         --manager-update)   _update_hugo ;;
         --manager-download) _download_hugo "$2" ;;
-	--manager-list)     _list_hugo "$(_current_local)" ;;
+	--manager-list)     _list_hugo_versions "$(_current_local)" ;;
         --manager-set)      _set_preferred_version "$2" ;;
         --manager-clean)    _clean_hugo_versions ;;
         *)  $HUGO_BIN $@ ;;
