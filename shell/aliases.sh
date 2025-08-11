@@ -50,4 +50,5 @@ alias \
     ssh="ssh ${SSH_CONFIG}" \
     scp="scp ${SSH_CONFIG}" \
     rsync="rsync --rsh \"ssh ${SSH_CONFIG}\"" \
-    lg="lazygit"
+    lg="lazygit" \
+    lvim="VIMINIT= nvim" \
