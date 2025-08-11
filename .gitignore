@@ -269,3 +269,9 @@ syncthing/
 rclone-browser/
 gnome-xdg-terminals.list
 yazi/
+# Ignore lazyvim repo except custom configs
+nvim/*
+!nvim/lua/
+nvim/lua/*
+!nvim/lua/plugins/
+nvim/lua/plugins/example.lua
