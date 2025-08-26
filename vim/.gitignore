@@ -1,4 +1,4 @@
 .netrwhist
 autoload/
-viminfo
+viminfo*
 view/

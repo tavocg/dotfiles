@@ -1,0 +1,77 @@
+" Self-contained ViM configuration
+
+" Set up custom runtime path to isolate this configuration
+let g:customrtp = expand('~/.config/cvim')
+let rtp = &runtimepath
+let &runtimepath = g:customrtp . ',' . rtp . ',' . g:customrtp . '/after'
+let &packpath = &runtimepath
+execute 'set directory=' . g:customrtp . '/swap//,.,~/tmp,/var/tmp,/tmp'
+execute 'set backupdir=' . g:customrtp . '/backup//,.,~/tmp,~/'
+execute 'set spellfile=' . g:customrtp . '/spell/en.utf-8.add'
+execute 'set viminfo+=n' . g:customrtp . '/viminfo'
+execute 'set viewdir='   . g:customrtp . '/view/'
+execute 'set undodir='   . g:customrtp . '/undo//,.'
+for dir in ['swap', 'backup', 'spell', 'view', 'undo', 'after']
+	call mkdir(g:customrtp . '/' . dir, 'p', 0700)
+endfor
+
+function! s:Curl(url, dest) abort
+	let l:dir = fnamemodify(a:dest, ':h')
+	if !isdirectory(l:dir)
+		call mkdir(l:dir, 'p')
+	endif
+	let l:cmd = 'curl -fLo ' . shellescape(a:dest) . ' --create-dirs ' . shellescape(a:url)
+	call system(l:cmd)
+	if v:shell_error
+		echoerr "Failed to download: " . a:url
+	endif
+endfunction
+
+" junegunn/vim-plug
+let s:plug_url  = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+let s:plug_path = g:customrtp . '/autoload/plug.vim'
+if !filereadable(s:plug_path)
+  call s:Curl(s:plug_url, s:plug_path)
+  augroup PlugBootstrap
+    autocmd!
+    autocmd VimEnter * ++once PlugInstall --sync | execute 'source ' . fnameescape(g:customrtp . '/vimrc')
+  augroup END
+endif
+
+" Plugins
+call plug#begin(g:customrtp . '/plugged')
+Plug 'tpope/vim-sensible'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'sainnhe/gruvbox-material'
+" Plug 'https://github.com/preservim/nerdtree'
+call plug#end()
+
+" Appearance
+colorscheme gruvbox-material
+set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:+
+set background=dark
+set colorcolumn=81
+set termguicolors
+set cursorline
+set number
+set nowrap
+
+" netrw
+let g:netrw_banner=0
+let g:netrw_liststyle=3
+
+" Misc
+set ignorecase
+set smartcase
+set hlsearch
+set swapfile
+set undofile
+set path+=**
+set mouse=a
+set showcmd
+set hidden
+set list
+
+" Keybinds
+let mapleader = "\<Space>"
