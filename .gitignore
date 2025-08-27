@@ -275,3 +275,6 @@ nvim/*
 nvim/lua/*
 !nvim/lua/plugins/
 nvim/lua/plugins/example.lua
+cvim/
+!cvim/vimrc
+tailscale/
