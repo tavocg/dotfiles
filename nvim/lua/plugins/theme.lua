@@ -1,12 +1,10 @@
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
-  },
+	'sainnhe/everforest',
+	lazy = false,
+	priority = 1000,
+	config = function()
+		vim.g.everforest_enable_italic = true
+		vim.g.everforest_background = 'hard'
+		vim.cmd.colorscheme('everforest')
+	end
 }
