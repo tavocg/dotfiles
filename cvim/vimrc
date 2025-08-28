@@ -31,11 +31,11 @@ endfunction
 let s:plug_url  = 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 let s:plug_path = g:customrtp . '/autoload/plug.vim'
 if !filereadable(s:plug_path)
-  call s:Curl(s:plug_url, s:plug_path)
-  augroup PlugBootstrap
-    autocmd!
-    autocmd VimEnter * ++once PlugInstall --sync | execute 'source ' . fnameescape(g:customrtp . '/vimrc')
-  augroup END
+	call s:Curl(s:plug_url, s:plug_path)
+	augroup PlugBootstrap
+		autocmd!
+		autocmd VimEnter * ++once PlugInstall --sync | execute 'source ' . fnameescape(g:customrtp . '/vimrc')
+	augroup END
 endif
 
 " Plugins
@@ -43,19 +43,20 @@ call plug#begin(g:customrtp . '/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'sainnhe/gruvbox-material'
-" Plug 'https://github.com/preservim/nerdtree'
+Plug 'sainnhe/everforest'
 call plug#end()
 
 " Appearance
-colorscheme gruvbox-material
+colorscheme everforest
+let g:everforest_background = "hard"
 set listchars=tab:\|\ ,trail:~,extends:>,precedes:<,nbsp:+
 set background=dark
-set colorcolumn=81
 set termguicolors
 set cursorline
 set number
 set nowrap
+set laststatus=2
+set noshowmode
 
 " netrw
 let g:netrw_banner=0
