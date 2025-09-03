@@ -2,7 +2,8 @@
 # Example initialization script.
 #
 # In order to run commands on start, create scripts such
-# as this one in the .config/X11/init.d directory.
+# as this one in the .config/X11/init.d directory and make
+# them executable.
 
 # Keyboard configuration
 #xset r rate 300 70
