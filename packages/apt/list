@@ -1,0 +1,47 @@
+# Axiom default packages
+
+# Window Manager
+xorg
+i3-wm
+xdg-desktop-portal-gtk
+alacritty
+bemenu
+suckless-tools
+
+# Audio
+pipewire
+pipewire-alsa
+pipewire-pulse
+pulseaudio-utils
+pipewire-jack
+wireplumber
+alsa-tools
+alsa-utils
+
+# Media
+mpv
+vlc
+zathura
+zathura-cb
+zathura-djvu
+zathura-pdf-poppler
+zathura-ps
+
+# Tools
+curl
+fzf
+eza
+fd-find
+ripgrep
+pass
+pass-otp
+zbar-tools
+
+# Dev
+build-essential
+git
+lazygit
+
+# Extra
+flatpak
+xdg-desktop-portal
