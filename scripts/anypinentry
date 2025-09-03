@@ -24,8 +24,8 @@ error__password_mismatch="Passwords don't match";
 AP_YES="Yes";
 AP_NO="No";
 
-prompt_action='/home/tavo/.config/scripts/menu/menu "$AP_PROMPT" pass';
-confirm_action='echo -e "$AP_YES\n$AP_NO" | /home/tavo/.config/scripts/menu/menu "$AP_PROMPT"';
+prompt_action='/home/tavo/.config/scripts/menu/menu "pass" "$AP_PROMPT"';
+confirm_action='echo -e "$AP_YES\n$AP_NO" | /home/tavo/.config/scripts/menu/menu "dmenu" "$AP_PROMPT"';
 display_error_action='notify-send -a "Pinentry" "$AP_ERROR"';
 
 # :: Prompt string (default if empty)
