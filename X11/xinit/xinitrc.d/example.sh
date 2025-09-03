@@ -1,4 +1,5 @@
 #!/bin/sh
+#
 # Example initialization script.
 #
 # In order to run commands on start, create scripts such

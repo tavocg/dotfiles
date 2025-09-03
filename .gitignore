@@ -279,5 +279,7 @@ cvim/
 !cvim/vimrc
 tailscale/
 X11/xinit/xinitrc.d/
+!X11/xinit/xinitrc.d/default.sh
+!X11/xinit/xinitrc.d/example.sh
 *.bak
 lazydocker/

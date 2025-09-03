@@ -1,5 +1,7 @@
 #!/bin/sh
+#
 # Default initialization script
+#
 # These commands are required at startup,
 # If removed, you might run into errors.
 
