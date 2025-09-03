@@ -2,8 +2,8 @@
 # `/etc/X11/xinit/xinitrc`:
 #
 # #!/bin/sh
-# if [ -f ~/.config/X11/xinitrc ] ; then
-#     . ~/.config/X11/xinitrc
+# if [ -f ~/.config/X11/xinit/xinitrc ] ; then
+#     . ~/.config/X11/xinit/xinitrc
 # else
 #     . /etc/X11/Xsession
 # fi
@@ -37,8 +37,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
     unset f
 fi
 
-if [ -d ~/.config/X11/init.d ] ; then
-    for f in ~/.config/X11/init.d/?*.sh ; do
+if [ -d ~/.config/X11/xinit/xinitrc.d ] ; then
+    for f in ~/.config/X11/xinit/xinitrc.d/?*.sh ; do
         [ -x "$f" ] && . "$f"
     done
     unset f

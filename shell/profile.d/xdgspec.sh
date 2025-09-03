@@ -17,7 +17,7 @@ export \
     XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
     MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
     XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
-    XINITRC="$XDG_CONFIG_HOME/X11/xinitrc" \
+    XINITRC="$XDG_CONFIG_HOME/X11/xinit/xinitrc" \
     LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
     ELECTRUMDIR="$XDG_DATA_HOME/electrum" \
     CUDA_CACHE_PATH="$XDG_CACHE_HOME/nv" \

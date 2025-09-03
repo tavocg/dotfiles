@@ -51,6 +51,8 @@ zbar-tools
 trash-cli
 xdotool
 unzip
+imagemagick
+tmux
 
 # Appearance
 gnome-themes-extra
@@ -59,6 +61,7 @@ gnome-themes-extra
 build-essential
 git
 lazygit
+golang
 
 # Extra
 flatpak
