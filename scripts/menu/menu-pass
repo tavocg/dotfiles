@@ -3,6 +3,6 @@
 PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
 MENU="$HOME/.config/scripts/menu/menu"
 
-password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | $MENU "Pass:")"
+password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | $MENU "dmenu" "Pass:")"
 
-! [ -z "$password" ] && printf '%s' "$password"
+! [ -z "$password" ] && printf '%s' "$password" || exit 1

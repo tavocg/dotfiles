@@ -1,12 +1,7 @@
 #!/bin/sh
-PROMPT="$1" MODE="$2"
-if [ "$PROMPT" = "" -o "$PROMPT" = "-h" ] ; then printf "Usage: menu [prompt] [run/pass]\n" ; return 0 ; fi
-[ "$MODE" = "pass" ] && BPASS="-x" DPASS="-P" WPASS="-P"
-BRUN="-run" DRUN="_run" TRUN="-run" FRUN="" WRUN="--show drun -I"
-[ "$MODE" != "run" ] && BRUN="" DRUN="" TRUN="" FRUN="" WRUN="--show dmenu"
+MENU_BACKEND="${MENU_BACKEND:-menu_bemenu}"
 
 # Configuration
-menu="menu_wofi"
 font="JetbrainsMono"
 font_size="10"
 col_white="#ebdbb2" # White
@@ -14,6 +9,10 @@ col_nb="#1e2326"    # Normal background
 col_nf="#374145"    # Normal foreground
 col_sb="#7fbbb3"    # Selected background
 col_sf="#1e2326"    # Selected foreground
+
+_help() {
+	printf "Usage: menu [run/dmenu/pass] [prompt]\nDefault backend: %s\n" "$MENU_BACKEND"
+}
 
 menu_bemenu() {
 bemenu$BRUN \
@@ -73,4 +72,26 @@ wofi $WRUN \
     $WPASS
 }
 
-$menu
+MODE="$1" PROMPT="$2"
+case "$MODE" in
+	run)
+		BRUN="-run"
+		DRUN="_run"
+		TRUN="-run"
+		FRUN=""
+		WRUN="--show drun -I"
+		$MENU_BACKEND ;;
+	dmenu)
+		BRUN=""
+		DRUN=""
+		TRUN=""
+		FRUN=""
+		WRUN="--show dmenu"
+		$MENU_BACKEND ;;
+	pass)
+		BPASS="-x"
+		DPASS="-P"
+		WPASS="-P"
+		$MENU_BACKEND ;;
+	*) _help ; exit 0;;
+esac

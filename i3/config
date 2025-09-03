@@ -1,0 +1,142 @@
+# Preferences
+#output * {
+#    bg ~/.config/backgrounds/default.jpg fill
+#}
+
+#output HDMI-A-1 pos 0 0
+
+#input type:touchpad {
+#    natural_scroll enabled
+#    dwt disabled
+#    tap enabled
+#}
+
+#input type:pointer {
+#    accel_profile flat
+#}
+
+#input type:keyboard {
+#    xkb_layout latam,us
+#    xkb_options grp:win_space_toggle
+#    repeat_delay 300
+#    repeat_rate 70
+#}
+
+#set $opacity 0.9
+
+set $mod Mod4
+set $alt Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+# -
+set $term alacritty
+set $menu ~/.config/scripts/menu/menu run "Run:"
+set $menu-input ~/.config/scripts/menu/menu-input
+set $menu-output ~/.config/scripts/menu/menu-output
+set $passmgr alacritty
+set $passotp alacritty
+set $filemgr thunar
+set $browser firefox
+# -
+# -
+set $col_fg #7a8478
+set $col_bg #121212
+set $col_ac #606060
+
+# Keybinds
+#floating_modifier $mod normal
+# -
+bindsym $mod+Return exec $term
+bindsym $mod+r exec $menu
+bindsym $mod+Shift+p exec $passmgr
+bindsym $mod+Shift+o exec $passotp
+bindsym $mod+e exec $filemgr
+bindsym $mod+w exec $browser
+bindsym $mod+i exec $menu-input
+bindsym $mod+o exec $menu-output
+bindsym XF86AudioRaiseVolume exec volup
+bindsym XF86AudioLowerVolume exec voldown
+bindsym XF86AudioMute exec mute
+bindsym Shift+XF86AudioRaiseVolume exec micup
+bindsym Shift+XF86AudioLowerVolume exec micdown
+bindsym Shift+XF86AudioMute exec micmute
+bindsym XF86MonBrightnessUp exec brightup
+bindsym XF86MonBrightnessDown exec brightdown
+#bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+# -
+bindsym $mod+Shift+q reload
+bindsym $mod+p exec menu-power
+bindsym $mod+c kill
+# -
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+# -
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+# -
+bindsym $mod+1 workspace "  1  "
+bindsym $mod+2 workspace "  2  "
+bindsym $mod+3 workspace "  3  "
+bindsym $mod+4 workspace "  4  "
+bindsym $mod+5 workspace "  5  "
+bindsym $mod+Shift+1 move container to workspace "  1  "
+bindsym $mod+Shift+2 move container to workspace "  2  "
+bindsym $mod+Shift+3 move container to workspace "  3  "
+bindsym $mod+Shift+4 move container to workspace "  4  "
+bindsym $mod+Shift+5 move container to workspace "  5  "
+# -
+bindsym $mod+comma workspace next_on_output
+bindsym $mod+period workspace prev_on_output
+# -
+bindsym $mod+Shift+t layout toggle tabbed split
+bindsym $mod+f fullscreen
+bindsym $mod+Shift+f floating toggle
+# -
+#bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
+bindsym $mod+n split horizontal; layout tabbed
+bindsym $mod+s sticky toggle
+
+# Layout
+client.focused $col_fg $col_fg $col_bg $col_fg $col_fg
+client.unfocused $col_bg $col_bg $col_ac $col_bg $col_bg
+default_border pixel 1
+#titlebar_border_thickness 2
+#titlebar_padding 2
+gaps inner 5
+font pango:JetBrainsMono Medium 8
+
+bar {
+    position bottom
+    font pango:JetBrainsMono Medium 8
+    status_command ~/.config/scripts/sway/swaystatus
+    tray_padding 4
+
+    colors {
+        background #00000000
+        statusline #7a847890
+        focused_workspace $col_fg $col_fg $col_bg
+        inactive_workspace #00000000 #00000000 #ebdbb270
+    }
+}
+
+for_window [class="Display-im6.q16"] floating enable
+
+# Autostart
+#exec wl-paste -t text --watch clipman store
+#exec wl-paste -p -t text --watch clipman store --histpath="~/.local/share/clipman.json"
+#exec_always dbus-update-activation-environment WAYLAND_DISPLAY
+#exec_always --no-startup-id /usr/libexec/xdg-desktop-portal -r

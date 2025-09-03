@@ -45,5 +45,5 @@ if [ -d ~/.config/X11/init.d ] ; then
 fi
 
 while true; do
-	dwm >/dev/null 2>&1
+	i3 >/dev/null 2>&1
 done
