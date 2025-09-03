@@ -61,7 +61,6 @@ gnome-themes-extra
 build-essential
 git
 lazygit
-golang
 
 # Extra
 flatpak
