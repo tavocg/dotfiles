@@ -7,8 +7,8 @@ if [ "$(tty)" = "/dev/tty1" ] ; then
     ## DWM
     #sleep 0.5
     #amixer &
-    #XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
+    XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
 
     ## SWAY
-    exec sway
+    #exec sway
 fi

@@ -1,0 +1,11 @@
+#!/bin/sh
+RELEASE_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download"
+FONTS_PREFIX="/usr/local/share/fonts"
+NERD_FONT="${NERD_FONT:-JetBrainsMono}"
+
+_out_dir="$FONTS_PREFIX"/"$NERD_FONT"
+_archive="$_out_dir"/"$NERD_FONT".tar.xz
+
+sudo mkdir -p "$_out_dir"
+sudo curl -L "$RELEASE_URL"/"$NERD_FONT".tar.xz -o "$_archive"
+sudo tar xvf "$_archive" -C "$_out_dir"

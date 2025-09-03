@@ -1,7 +1,7 @@
 #!/bin/sh
 # Prompt for power options using dmenu
 
-option=$(printf "Shutdown\nRestart\nLog out" | ~/.config/scripts/menu/menu "Power:")
+option=$(printf "Shutdown\nRestart\nLog out" | ~/.config/scripts/menu/menu "dmenu" "Power:")
 
 _logout() {
     if ps -a | grep -q 'tty1.*xinit' ; then

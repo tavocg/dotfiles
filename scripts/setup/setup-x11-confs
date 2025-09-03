@@ -1,0 +1,3 @@
+#!/bin/sh
+
+sudo cp "$XDG_CONFIG_HOME"/X11/*.conf /etc/X11/xorg.conf.d/

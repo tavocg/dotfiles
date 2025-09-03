@@ -1,11 +1,23 @@
 # Axiom default packages
 
+# System
+xdg-desktop-portal
+lxpolkit
+udisks2
+gnome-disk-utility
+
+# Shared
+fonts-jetbrains-mono
+
 # Window Manager
 xorg
 i3-wm
 xdg-desktop-portal-gtk
 alacritty
 bemenu
+libbemenu-curses
+libbemenu-wayland
+libbemenu-x11
 suckless-tools
 
 # Audio
@@ -36,6 +48,12 @@ ripgrep
 pass
 pass-otp
 zbar-tools
+trash-cli
+xdotool
+unzip
+
+# Appearance
+gnome-themes-extra
 
 # Dev
 build-essential
@@ -44,4 +62,4 @@ lazygit
 
 # Extra
 flatpak
-xdg-desktop-portal
+steam-devices

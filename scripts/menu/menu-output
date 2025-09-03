@@ -2,10 +2,12 @@
 # Set default output device
 
 # Get proper name from sinks
-output=$(pactl list short sinks | cut -f 2 | menu "Output:")
+output=$(pactl list short sinks | cut -f 2 | menu "dmenu" "Output:")
 
 # Set audio device, notify command success
-pactl set-default-sink "$output" && notify-send -r 10 "󰕾 Default Output" "Set to '$output'" || notify-send -r 10 "󰕾 Default Output" "Didn't change"
+pactl set-default-sink "$output"
 
 # Reload statusbar module (dwm & dwmblocks)
-kill -44 "$(pidof dwmblocks)"
+if pidof dwmblocks >/dev/null; then
+	kill -44 "$(pidof dwmblocks)"
+fi

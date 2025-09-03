@@ -32,11 +32,11 @@ set $up k
 set $right l
 # -
 set $term alacritty
-set $menu ~/.config/scripts/menu/menu run "Run:"
+set $menu exec $(~/.config/scripts/menu/menu run "Run:")
 set $menu-input ~/.config/scripts/menu/menu-input
 set $menu-output ~/.config/scripts/menu/menu-output
-set $passmgr alacritty
-set $passotp alacritty
+set $passmgr ~/.config/scripts/dwm/dwmpass
+set $passotp ~/.config/scripts/dwm/dwmotp
 set $filemgr thunar
 set $browser firefox
 # -
@@ -122,7 +122,7 @@ font pango:JetBrainsMono Medium 8
 bar {
     position bottom
     font pango:JetBrainsMono Medium 8
-    status_command ~/.config/scripts/sway/swaystatus
+    status_command ~/.config/scripts/i3/i3status
     tray_padding 4
 
     colors {

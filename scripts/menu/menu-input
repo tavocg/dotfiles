@@ -5,7 +5,9 @@
 input=$(pactl list short sources | cut -f 2 | grep input | menu "dmenu" "Input:")
 
 # Set audio device, notify command success
-pactl set-default-source "$input" && notify-send -r 11 "󰕾 Default Input" "Set to '$input'" || notify-send -r 11 "󰕾 Default Input" "Didn't change"
+pactl set-default-source "$input"
 
 # Reload statusbar volume module (dwm & dwmblocks)
-kill -45 "$(pidof dwmblocks)"
+if pidof dwmblocks >/dev/null; then
+	kill -45 "$(pidof dwmblocks)"
+fi

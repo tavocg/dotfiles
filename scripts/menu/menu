@@ -3,7 +3,7 @@ MENU_BACKEND="${MENU_BACKEND:-menu_bemenu}"
 
 # Configuration
 font="JetbrainsMono"
-font_size="10"
+font_size="11"
 col_white="#ebdbb2" # White
 col_nb="#1e2326"    # Normal background
 col_nf="#374145"    # Normal foreground

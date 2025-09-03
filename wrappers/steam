@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-HOME=$HOME/.local/share/Steam/xdgspec
-mkdir -p "$HOME"
-
-[ -e "/usr/bin/steam" ] && exec /usr/bin/steam "$@"
-[ -e "/usr/games/steam" ] && exec /usr/games/steam "$@"

@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-HOME=$HOME/.local/share/brave
-mkdir -p "$HOME"
-
-[ -e /usr/bin/brave ] && bin="/usr/bin/brave"
-[ -e /usr/bin/brave-browser ] && bin="/usr/bin/brave-browser"
-
-exec "$bin" "$@"

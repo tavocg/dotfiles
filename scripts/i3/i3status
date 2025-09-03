@@ -1,0 +1,45 @@
+#!/bin/sh
+once="$1"
+separator="    "
+
+while true ; do
+    status=""
+
+    #todo="$(get_todo)"
+    ! [ -z "$todo" ] && status="$status$separator$todo"
+
+    #apts="$(get_apts)"
+    ! [ -z "$apts" ] && status="$status$separator$apts"
+
+    volume="$(volstat)"
+    ! [ -z "$volume" ] && status="$status$separator$volume"
+
+    microphone="$(micstat)"
+    ! [ -z "$microphone" ] && status="$status$separator$microphone"
+
+    cpu="$(cpustat)"
+    ! [ -z "$cpu" ] && status="$status$separator $cpu"
+
+    ram="$(memorystat)"
+    ! [ -z "$ram" ] && status="$status$separator $ram"
+
+    network="$(netstat)"
+    ! [ -z "$network" ] && status="$status$separator$network"
+
+    battery="$(batstat)"
+    ! [ -z "$battery" ] && status="$status$separator$battery"
+
+    layout="$(layoutstat)"
+    ! [ -z "$layout" ] && status="$status$separator󰌌 $layout"
+
+    date_time="$(date "+%I:%M%p$separator󰃮 %a %Y-%m-%d")"
+    ! [ -z "$date_time" ] && status="$status$separator󰥔 $date_time"
+
+    printf "%s\n" "$status"
+
+    if [ -n "$once" ]; then
+        exit 0
+    fi
+
+    sleep 0.4
+done

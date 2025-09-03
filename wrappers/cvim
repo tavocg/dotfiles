@@ -1,3 +1,0 @@
-#!/bin/sh
-
-VIMINIT="source $HOME/.config/cvim/vimrc" vim $@

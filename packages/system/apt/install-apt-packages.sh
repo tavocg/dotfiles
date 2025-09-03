@@ -1,5 +1,5 @@
 #!/bin/sh
-PKG_LIST="${PKG_LIST:-$XDG_CONFIG_HOME/apt/packages}"
+PKG_LIST="${PKG_LIST:-$XDG_CONFIG_HOME/packages/system/apt/list}"
 
 if ! [ -f "$PKG_LIST" ]; then
 	echo "No package list found at PKG_LIST=$PKG_LIST"
