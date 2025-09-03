@@ -279,5 +279,3 @@ cvim/
 !cvim/vimrc
 tailscale/
 X11/init.d/
-!X11/init.d/example.sh
-!X11/init.d/default.sh
