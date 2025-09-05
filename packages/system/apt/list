@@ -53,6 +53,9 @@ xdotool
 unzip
 imagemagick
 tmux
+bat
+nnn
+exiftool
 
 # Appearance
 gnome-themes-extra
