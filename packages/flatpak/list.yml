@@ -11,3 +11,5 @@ steam: com.valvesoftware.Steam
 flatseal: com.github.tchx84.Flatseal
 loupe: org.gnome.Loupe
 citations: org.gnome.World.Citations
+libreoffice: org.libreoffice.LibreOffice
+qbittorrent: org.qbittorrent.qBittorrent
