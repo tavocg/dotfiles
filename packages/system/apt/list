@@ -1,10 +1,9 @@
-# Axiom default packages
-
 # System
 xdg-desktop-portal
 lxpolkit
 udisks2
 gnome-disk-utility
+perl
 
 # Shared
 fonts-jetbrains-mono
@@ -56,6 +55,8 @@ tmux
 bat
 nnn
 exiftool
+groff
+grap
 
 # Appearance
 gnome-themes-extra
