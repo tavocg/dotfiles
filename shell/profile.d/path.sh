@@ -1,3 +1,6 @@
+#!/bin/sh
+# shellcheck disable=SC2123
+
 PATH="$HOME/.config/scripts/status${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts/menu${PATH:+:${PATH}}"
 PATH="$HOME/.config/scripts/menu/xclipmenu${PATH:+:${PATH}}"
