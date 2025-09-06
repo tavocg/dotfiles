@@ -49,6 +49,7 @@ set $col_ac #606060
 # Keybinds
 #floating_modifier $mod normal
 # -
+bindsym $mod+space exec setxkbmap-next
 bindsym $mod+Return exec $term
 bindsym $mod+r exec $menu
 bindsym $mod+Shift+p exec $passmgr
