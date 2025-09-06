@@ -36,7 +36,7 @@ set $filemgr thunar
 set $browser firefox
 set $browserh firefox-hardened
 # -
-set $menu wofi --show drun -I
+set $menu exec $(~/.config/scripts/menu/menu run "Run:")
 set $passmgr ~/.config/scripts/sway/swaypass
 set $passotp ~/.config/scripts/sway/swayotp
 # -
@@ -121,7 +121,7 @@ font pango:JetBrainsMono Medium 8
 
 bar {
     position bottom
-    font pango:JetBrainsMono Bold 9
+    font pango:JetBrainsMono Bold 8
     status_command ~/.config/scripts/sway/swaystatus
     tray_padding 4
 

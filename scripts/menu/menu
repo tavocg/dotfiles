@@ -3,7 +3,7 @@ MENU_BACKEND="${MENU_BACKEND:-menu_bemenu}"
 
 # Configuration
 font="JetbrainsMono"
-font_size="11"
+font_size="10"
 col_white="#ebdbb2" # White
 col_nb="#1e2326"    # Normal background
 col_nf="#374145"    # Normal foreground
@@ -11,11 +11,11 @@ col_sb="#7fbbb3"    # Selected background
 col_sf="#1e2326"    # Selected foreground
 
 _help() {
-	printf "Usage: menu [run/dmenu/pass] [prompt]\nDefault backend: %s\n" "$MENU_BACKEND"
+  printf "Usage: menu [run/dmenu/pass] [prompt]\nDefault backend: %s\n" "$MENU_BACKEND"
 }
 
 menu_bemenu() {
-bemenu$BRUN \
+  bemenu$BRUN \
     --no-exec \
     -i \
     -c \
@@ -24,25 +24,25 @@ bemenu$BRUN \
     -B 2 \
     --cw 1 \
     --tb $col_sb \
-    --tf $col_sf  \
-    --fb $col_nb  \
-    --ff $col_nf  \
-    --cb $col_nb  \
+    --tf $col_sf \
+    --fb $col_nb \
+    --ff $col_nf \
+    --cb $col_nb \
     --cf $col_white \
-    --nb $col_nb  \
-    --nf $col_nf  \
-    --hb $col_sb  \
-    --hf $col_sf  \
-    --ab $col_nb  \
-    --af $col_nf  \
-    --bdr $col_sb  \
-    --fn "$font $font_size"  \
+    --nb $col_nb \
+    --nf $col_nf \
+    --hb $col_sb \
+    --hf $col_sf \
+    --ab $col_nb \
+    --af $col_nf \
+    --bdr $col_sb \
+    --fn "$font $font_size" \
     -p "$PROMPT" \
     $BPASS
 }
 
 menu_dmenu() {
-dmenu$DRUN \
+  dmenu$DRUN \
     -i \
     -l 10 \
     -nb $col_nb \
@@ -55,18 +55,18 @@ dmenu$DRUN \
 }
 
 menu_tofi() {
-tofi$TRUN \
+  tofi$TRUN \
     --prompt-text "$PROMPT"
 }
 
 menu_fzf() {
-fzf \
+  fzf \
     --cycle \
     --reverse
 }
 
 menu_wofi() {
-wofi $WRUN \
+  wofi $WRUN \
     -i \
     --prompt "$PROMPT" \
     $WPASS
@@ -74,24 +74,30 @@ wofi $WRUN \
 
 MODE="$1" PROMPT="$2"
 case "$MODE" in
-	run)
-		BRUN="-run"
-		DRUN="_run"
-		TRUN="-run"
-		FRUN=""
-		WRUN="--show drun -I"
-		$MENU_BACKEND ;;
-	dmenu)
-		BRUN=""
-		DRUN=""
-		TRUN=""
-		FRUN=""
-		WRUN="--show dmenu"
-		$MENU_BACKEND ;;
-	pass)
-		BPASS="-x"
-		DPASS="-P"
-		WPASS="-P"
-		$MENU_BACKEND ;;
-	*) _help ; exit 0;;
+run)
+  BRUN="-run"
+  DRUN="_run"
+  TRUN="-run"
+  FRUN=""
+  WRUN="--show drun -I"
+  $MENU_BACKEND
+  ;;
+dmenu)
+  BRUN=""
+  DRUN=""
+  TRUN=""
+  FRUN=""
+  WRUN="--show dmenu"
+  $MENU_BACKEND
+  ;;
+pass)
+  BPASS="-x"
+  DPASS="-P"
+  WPASS="-P"
+  $MENU_BACKEND
+  ;;
+*)
+  _help
+  exit 0
+  ;;
 esac
