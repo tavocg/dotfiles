@@ -58,6 +58,7 @@ exiftool
 groff
 grap
 zoxide
+tokei
 
 # Appearance
 gnome-themes-extra
