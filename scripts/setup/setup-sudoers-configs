@@ -1,0 +1,14 @@
+#!/bin/sh
+
+SUDOERS_D_CONFIGS="$XDG_CONFIG_HOME"/sudoers/sudoers.d
+SUDOERS_D_SYSTEM="/etc/sudoers.d"
+
+if [ -d "$SUDOERS_D_CONFIGS" ]; then
+  for f in "$SUDOERS_D_CONFIGS"/*; do
+    if [ -f "$f" ]; then
+      sudo cp "$f" "$SUDOERS_D_SYSTEM"/
+    fi
+  done
+
+  unset f
+fi

@@ -47,7 +47,7 @@ set $col_bg #121212
 set $col_ac #606060
 
 # Keybinds
-#floating_modifier $mod normal
+floating_modifier $mod
 # -
 bindsym $mod+space exec setxkbmap-next
 bindsym $mod+Return exec $term

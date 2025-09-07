@@ -39,6 +39,7 @@ zathura-pdf-poppler
 zathura-ps
 
 # Tools
+neovim
 curl
 fzf
 eza
@@ -59,15 +60,16 @@ groff
 grap
 zoxide
 tokei
+git
+lazygit
+shellcheck
+jq
 
 # Appearance
 gnome-themes-extra
 
 # Dev
 build-essential
-git
-lazygit
-shellcheck
 
 # Extra
 flatpak
