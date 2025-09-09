@@ -1,6 +1,7 @@
 # System
 xdg-desktop-portal
 lxpolkit
+pkexec
 udisks2
 gnome-disk-utility
 perl
