@@ -1,0 +1,11 @@
+#!/bin/sh
+RELEASE_URL="https://github.com/pythops/impala/releases/latest/download"
+BIN_PREFIX="$HOME/.local/bin"
+REMOTE_NAME="impala-x86_64-unknown-linux-gnu"
+BIN_NAME="impala"
+
+target="$BIN_PREFIX"/"$BIN_NAME"
+
+mkdir -p "$BIN_PREFIX"
+curl -sL "$RELEASE_URL"/"$REMOTE_NAME" -o "$target"
+chmod +x "$target"

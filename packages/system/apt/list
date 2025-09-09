@@ -5,6 +5,10 @@ udisks2
 gnome-disk-utility
 perl
 blueman
+upower
+
+# WiFi
+iwd
 
 # Shared
 fonts-jetbrains-mono
