@@ -2,6 +2,6 @@
 
 export \
   TERM="xterm-256color" \
-  BROWSER="firefox-hardened" \
-  EDITOR="cvim" \
-  VISUAL="cvim"
+  BROWSER="firefox" \
+  EDITOR="lvim" \
+  VISUAL="lvim"

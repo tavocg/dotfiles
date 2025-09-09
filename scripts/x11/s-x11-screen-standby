@@ -1,4 +1,25 @@
 #!/bin/sh
+# s-x11-screen-standby - set x11 screen standby time
+#
+# *SYNOPSIS*
+# ```sh
+# s-x11-screen-standby [seconds]
+# ```
+#
+# *DESCRIPTION*
+# Screen shuts off after specified time in seconds.
+#
+# *EXAMPLES*
+# ```sh
+# s-x11-screen-standby 3600 # 1h time-out to standby
+# ```
+# ```sh
+# s-x11-screen-standby # No argument, brings up menu
+# ```
+
+if [ -n "$1" ]; then
+  xset dpms "$1"
+fi
 
 opts="0=none 900=15min 1800=30min 3600=1h 7200=2h 14400=4h 28800=8h 43200=12h 86400=24h"
 

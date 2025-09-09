@@ -23,7 +23,8 @@
 #}
 
 #set $opacity 0.9
-# smart_gaps on
+smart_gaps on
+hide_edge_borders smart
 
 set $mod Mod4
 set $alt Mod1
@@ -36,6 +37,7 @@ set $term alacritty
 set $menu exec $(~/.config/scripts/menu/menu run "Run:")
 set $menu-input ~/.config/scripts/menu/menu-input
 set $menu-output ~/.config/scripts/menu/menu-output
+set $menu-open-bookmark ~/.config/scripts/menu/menu-open-bookmark
 set $passmgr ~/.config/scripts/dwm/dwmpass
 set $passotp ~/.config/scripts/dwm/dwmotp
 set $filemgr thunar
@@ -56,6 +58,7 @@ bindsym $mod+Shift+p exec $passmgr
 bindsym $mod+Shift+o exec $passotp
 bindsym $mod+e exec $filemgr
 bindsym $mod+w exec $browser
+bindsym $mod+b exec $menu-open-bookmark
 bindsym $mod+i exec $menu-input
 bindsym $mod+o exec $menu-output
 bindsym XF86AudioRaiseVolume exec volup
@@ -107,6 +110,7 @@ bindsym $mod+period workspace prev_on_output
 bindsym $mod+Shift+t layout toggle tabbed split
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+b bar mode toggle
 # -
 #bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
 bindsym $mod+n split horizontal; layout tabbed

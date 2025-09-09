@@ -1,0 +1,9 @@
+#!/bin/sh
+
+_config_file="$XDG_CONFIG_HOME"/systemd/system/getty@tty1.service.d
+
+if [ -d "$_config_file" ]; then
+  sudo cp -rf "$_config_file" /etc/systemd/system/
+else
+  echo 'Error "$XDG_CONFIG_HOME" not defined'
+fi

@@ -1,0 +1,25 @@
+#!/bin/sh
+LATEST_API_URL="https://api.github.com/repos/Diolinux/PhotoGIMP/releases/latest"
+
+DOWNLOAD_URL=
+curl -sL "$LATEST_API_URL" | while read line; do
+  case "$line" in
+  *browser*PhotoGIMP-linux*)
+    DOWNLOAD_URL=${line%\"*}
+    DOWNLOAD_URL=${DOWNLOAD_URL##*\"}
+    DOWNLOAD_FILE="${DOWNLOAD_URL##*/}"
+    ;;
+  *) ;;
+  esac
+
+  if [ -n "$DOWNLOAD_URL" ]; then
+    tempdir="$(mktemp -d XXX-photogimp)"
+    curl -sL "$DOWNLOAD_URL" -o "$tempdir"/"$DOWNLOAD_FILE"
+    (cd "$tempdir" && unzip "$DOWNLOAD_FILE")
+    cp -ru "$tempdir"/"${DOWNLOAD_FILE%.*}"/.config/GIMP ~/.config/
+    cp -ru "$tempdir"/"${DOWNLOAD_FILE%.*}"/.local/share/* ~/.local/share/
+    rm -rf "$tempdir"
+
+    break
+  fi
+done

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+systemversion=
+nvidia-smi --version | while read line; do
+  case "$line" in
+  DRIVER*)
+    FOUND_NV_DRIVER=1
+    systemversion="${line#*: }" systemversion="${systemversion%% *}" # 550.163.01
+    firstnumber="${systemversion%%.*}"
+    secondnumber="${systemversion#*.}" secondnumber="${secondnumber%.*}"
+    thirdnumber="${systemversion##*.}"
+    systemversion="$firstnumber-$secondnumber-$thirdnumber" # 550-163-01
+
+    flatpak install "org.freedesktop.Platform.GL.nvidia-$systemversion"
+
+    break
+    ;;
+  *) ;;
+  esac
+done

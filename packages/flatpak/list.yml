@@ -13,3 +13,6 @@ loupe: org.gnome.Loupe
 citations: org.gnome.World.Citations
 libreoffice: org.libreoffice.LibreOffice
 qbittorrent: org.qbittorrent.qBittorrent
+prismlauncher: org.prismlauncher.PrismLauncher
+obs: com.obsproject.Studio
+: com.obsproject.Studio.Plugin.DroidCam

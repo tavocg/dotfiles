@@ -1,0 +1,7 @@
+#!/bin/sh
+
+bm="$(menu-bookmarks)"
+
+if [ -n "$bm" ]; then
+  xdg-open "$bm"
+fi

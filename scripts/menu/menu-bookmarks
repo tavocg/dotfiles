@@ -1,10 +1,41 @@
 #!/bin/sh
 # Open URLs from bookmarks file
-BOOKMARKS="$HOME/Documents/bookmarks"
+BOOKMARKS="$HOME/Documents/bookmarks.json"
 
-# Print site names, then get URL based on the name. Exit if empty
-name="$(sed '/^Watch\slater:\s/d;/^\s*$/d;/^#/d;s/-.*$//g' "$BOOKMARKS" | menu "Site:")"
-[ -z "$name" ] && exit
+_folders() {
+  jq -r '.children[] | select(.root == "unfiledBookmarksFolder") | .children[] | select(.type == "text/x-moz-place-container") | .title' "$BOOKMARKS"
+}
 
-grep "$name" $BOOKMARKS | sed -z 's/^.*-//g;s/\n//g' |
-    xsel -ib && notify-send "󰃀 Bookmarks" "'$name' copied to clipboard"
+_bookmarks_in_folder() {
+  jq -r --arg title "$1" '
+  .. | select(.type? == "text/x-moz-place-container" and .title? == $title)
+  | .children[]? 
+  | select(.type == "text/x-moz-place") 
+  | .title
+  ' "$BOOKMARKS"
+}
+
+_bookmarks() {
+  jq -r '
+  .. | select(.type? == "text/x-moz-place") | .title
+  ' "$BOOKMARKS"
+}
+
+_uri_from_title() {
+  jq -r --arg title "$1" '
+  .. | select(.type? == "text/x-moz-place" and .title? == $title) | .uri
+  ' "$BOOKMARKS"
+}
+
+opt="$1"
+
+case "$opt" in
+folders)
+  folder="$(_folders | menu "dmenu" "Folder:")"
+  _bookmarks_in_folder "$folder"
+  ;;
+*)
+  title="$(_bookmarks | menu "dmenu" "Bookmark:")"
+  _uri_from_title "$title"
+  ;;
+esac

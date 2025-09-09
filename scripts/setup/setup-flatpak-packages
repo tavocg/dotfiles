@@ -11,7 +11,11 @@ while read line; do
   bin="${line%%:*}"
   app="${line##*:}"
   app="${app##* }"
-  ln -sf "$FLATPAK_BIN_PREFIX"/"$app" "$EXPORTS_BIN_PREFIX"/"$bin"
+
+  if [ "$bin" != "" ]; then
+    ln -sf "$FLATPAK_BIN_PREFIX"/"$app" "$EXPORTS_BIN_PREFIX"/"$bin"
+  fi
+
   app_list="$app_list $app"
 done <"$FLATPAK_LIST"
 

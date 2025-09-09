@@ -7,6 +7,7 @@ perl
 
 # Shared
 fonts-jetbrains-mono
+ttf-mscorefonts-installer
 
 # Window Manager
 xorg
