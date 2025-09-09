@@ -73,6 +73,7 @@ git
 lazygit
 shellcheck
 jq
+android-sdk-platform-tools
 
 # Appearance
 gnome-themes-extra

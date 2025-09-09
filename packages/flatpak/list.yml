@@ -15,3 +15,5 @@ libreoffice: org.libreoffice.LibreOffice
 qbittorrent: org.qbittorrent.qBittorrent
 prismlauncher: org.prismlauncher.PrismLauncher
 thunderbird: org.mozilla.Thunderbird
+android-studio: com.google.AndroidStudio
+rustdesk: com.rustdesk.RustDesk
