@@ -4,6 +4,7 @@ lxpolkit
 udisks2
 gnome-disk-utility
 perl
+blueman
 
 # Shared
 fonts-jetbrains-mono
@@ -27,6 +28,8 @@ pipewire-pulse
 pulseaudio-utils
 pipewire-jack
 wireplumber
+libspa-0.2-libcamera
+libspa-0.2-bluetooth
 alsa-tools
 alsa-utils
 
@@ -38,6 +41,7 @@ zathura-cb
 zathura-djvu
 zathura-pdf-poppler
 zathura-ps
+obs-studio
 
 # Tools
 neovim
