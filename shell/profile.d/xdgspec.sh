@@ -39,4 +39,6 @@ export \
   PYTHON_HISTORY="$XDG_CACHE_HOME/python_history" \
   SQLITE_HISTORY="$XDG_CACHE_HOME/sqlite_history" \
   PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass" \
+  CARGO_HOME="$XDG_DATA_HOME"/cargo \
+  RUSTUP_HOME="$XDG_DATA_HOME"/rustup \
   UNISON="$XDG_DATA_HOME"/unison
