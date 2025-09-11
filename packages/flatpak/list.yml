@@ -17,3 +17,4 @@ prismlauncher: org.prismlauncher.PrismLauncher
 thunderbird: org.mozilla.Thunderbird
 android-studio: com.google.AndroidStudio
 rustdesk: com.rustdesk.RustDesk
+lutris: net.lutris.Lutris
