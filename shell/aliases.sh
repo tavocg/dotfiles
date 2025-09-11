@@ -45,10 +45,15 @@ alias \
   df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
   qr-png="qrencode -s 16 -o qr.png" \
   qr="qrencode -t ansiutf8" \
-  clip="xsel -ib" \
   wget="wget --hsts-file=$XDG_DATA_HOME/wget/wget-hsts" \
   ssh="ssh ${SSH_CONFIG}" \
   scp="scp ${SSH_CONFIG}" \
   rsync="rsync --rsh \"ssh ${SSH_CONFIG}\"" \
   lg="lazygit" \
   lvim="VIMINIT= nvim"
+
+if [ "$GDK_BACKEND" = "x11" ]; then
+  alias clip='xclip -selection clipboard'
+elif [ "$GDK_BACKEND" = "wayland" ]; then
+  alias clip='wl-copy'
+fi

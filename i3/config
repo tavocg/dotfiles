@@ -40,6 +40,7 @@ set $menu-output ~/.config/scripts/menu/menu-output
 set $menu-open-bookmark ~/.config/scripts/menu/menu-open-bookmark
 set $passmgr ~/.config/scripts/dwm/dwmpass
 set $passotp ~/.config/scripts/dwm/dwmotp
+set $prtsc exec ~/.config/scripts/prtsc
 set $filemgr thunar
 set $browser firefox
 # -
@@ -69,7 +70,7 @@ bindsym Shift+XF86AudioLowerVolume exec micdown
 bindsym Shift+XF86AudioMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
-#bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+bindsym Print exec $prtsc
 # -
 bindsym $mod+Shift+q reload
 bindsym $mod+p exec menu-power
@@ -139,7 +140,7 @@ bar {
     }
 }
 
-for_window [class="Display-im6.q16"] floating enable
+for_window [class="Display-im*"] floating enable
 
 # Autostart
 #exec wl-paste -t text --watch clipman store

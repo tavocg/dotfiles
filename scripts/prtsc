@@ -1,4 +1,10 @@
 #!/bin/sh
-# Command alias to reference easily
+SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
 
-scrot -s '/home/tavo/Pictures/Screenshots/%Y-%m-%d.png' -e 'xclip -selection clipboard -t image/png -i $f'
+mkdir -p "$SCREENSHOTS_DIR"
+
+if [ "$GDK_BACKEND" = "x11" ]; then
+  scrot -s "$SCREENSHOTS_DIR/%Y-%m-%d.png" -e 'xclip -selection clipboard -t image/png -i $f'
+elif [ "$GDK_BACKEND" = "wayland" ]; then
+  grim -g "$(slurp -d)" - | wl-copy
+fi
