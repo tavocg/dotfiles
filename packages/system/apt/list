@@ -5,7 +5,7 @@ pkexec
 udisks2
 gnome-disk-utility
 perl
-blueman
+bluez
 upower
 
 # WiFi
