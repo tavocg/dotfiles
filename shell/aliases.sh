@@ -50,10 +50,5 @@ alias \
   scp="scp ${SSH_CONFIG}" \
   rsync="rsync --rsh \"ssh ${SSH_CONFIG}\"" \
   lg="lazygit" \
+  adb='HOME="$XDG_DATA_HOME"/android adb' \
   lvim="VIMINIT= nvim"
-
-if [ "$GDK_BACKEND" = "x11" ]; then
-  alias clip='xclip -selection clipboard'
-elif [ "$GDK_BACKEND" = "wayland" ]; then
-  alias clip='wl-copy'
-fi

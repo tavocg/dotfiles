@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$GDK_BACKEND" = "x11" ]; then
+  xclip -selection clipboard
+elif [ "$GDK_BACKEND" = "wayland" ]; then
+  wl-copy
+fi
