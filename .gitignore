@@ -244,7 +244,7 @@ go/
 org.gnome.Ptyxis/
 connections.db
 emacs/
-systemd/
+systemd/user/
 balenaEtcher/
 ParaView/
 VirtualBox/
