@@ -47,7 +47,6 @@ zathura-ps
 obs-studio
 
 # Tools
-neovim
 curl
 fzf
 eza
@@ -73,6 +72,7 @@ lazygit
 shellcheck
 jq
 android-sdk-platform-tools
+scrot
 
 # Appearance
 gnome-themes-extra

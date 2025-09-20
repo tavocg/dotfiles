@@ -1,0 +1,28 @@
+#!/bin/sh
+
+options="󰀻:Run 󰌾:Password 󰦯:OTP 󰕾:Output 󰍬:Input 󰱱:Emoji 󰃀:Open_Bookmark 󰆏:Copy_Bookmark 󰐥:Power"
+separator=" "
+
+chosen="$(for o in $options; do
+  printf '%s%s%s\n' "${o%%:*}" "$separator" "${o##*:}"
+done | menu dmenu '')"
+chosen="${chosen#*"$separator"}"
+
+case "$chosen" in
+Run) menu "run" "" ;;
+
+Password) menu-pass ;;
+OTP) menu-otp ;;
+
+Output) menu-output ;;
+Input) menu-input ;;
+
+Emoji) menu-copy-emoji ;;
+
+Open_Bookmark) menu-open-bookmark ;;
+Copy_Bookmark) menu-copy-bookmark ;;
+
+Power) menu-power ;;
+
+*) ;;
+esac

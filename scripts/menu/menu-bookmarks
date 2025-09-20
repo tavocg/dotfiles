@@ -1,5 +1,5 @@
 #!/bin/sh
-# Open URLs from bookmarks file
+# Echo URI from bookmark's name
 BOOKMARKS="$HOME/Documents/bookmarks.json"
 
 _folders() {
@@ -28,14 +28,19 @@ _uri_from_title() {
 }
 
 opt="$1"
+output=
 
 case "$opt" in
 folders)
   folder="$(_folders | menu "dmenu" "Folder:")"
-  _bookmarks_in_folder "$folder"
+  output="$(_bookmarks_in_folder "$folder")"
   ;;
 *)
   title="$(_bookmarks | menu "dmenu" "Bookmark:")"
-  _uri_from_title "$title"
+  output="$(_uri_from_title "$title")"
   ;;
 esac
+
+if [ -n "$output" ]; then
+  echo "$output"
+fi

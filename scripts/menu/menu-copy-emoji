@@ -1,0 +1,7 @@
+#!/bin/sh
+
+e="$(menu-emoji)"
+
+if [ -n "$e" ]; then
+  printf '%s' "$e" | clip
+fi

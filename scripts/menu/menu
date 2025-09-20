@@ -2,13 +2,13 @@
 MENU_BACKEND="${MENU_BACKEND:-menu_bemenu}"
 
 # Configuration
-font="JetbrainsMono"
-font_size="10"
+font="JetbrainsMono Medium"
+font_size="12"
 col_white="#ebdbb2" # White
-col_nb="#1e2326"    # Normal background
-col_nf="#374145"    # Normal foreground
 col_sb="#7fbbb3"    # Selected background
 col_sf="#1e2326"    # Selected foreground
+col_nb="#1e2326"    # Normal background
+col_nf="#374145"    # Normal foreground
 
 _help() {
   printf "Usage: menu [run/dmenu/pass] [prompt]\nDefault backend: %s\n" "$MENU_BACKEND"
@@ -22,6 +22,7 @@ menu_bemenu() {
     -l 10 \
     -W 0.4 \
     -B 2 \
+    -H 30 \
     --cw 1 \
     --tb $col_sb \
     --tf $col_sf \
