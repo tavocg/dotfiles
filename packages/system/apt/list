@@ -7,10 +7,7 @@ gnome-disk-utility
 perl
 bluez
 upower
-
-# WiFi
-iwd
-systemd-resolved
+libavcodec-extra
 
 # Shared
 fonts-jetbrains-mono

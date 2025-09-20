@@ -1,0 +1,20 @@
+#!/bin/sh
+
+bsys="/etc/bash.bashrc"
+busr="$HOME/.config/shell/bashrc"
+
+psys="/etc/profile.d/custom.sh"
+pusr="$HOME/.config/shell/profile.d"
+
+printf 'if [ -f "%s" ]; then
+	. "%s"
+fi
+' "$busr" "$busr" | sudo tee -a "$bsys"
+
+printf 'for p in %s/*; do
+	if [ -f "$p" ]; then
+		. "$p"
+	fi
+done
+unset p
+' "$pusr" | sudo tee -a "$psys"
