@@ -1,8 +1,92 @@
 #!/bin/sh
-# menu for 'pass'
-PASSWORD_STORE_DIR="$HOME/.local/share/password-store"
-MENU="$HOME/.config/scripts/menu/menu"
+PASSWORD_STORE_DIR=
+PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-"$XDG_DATA_HOME"/password-store}"
+MENU="menu "dmenu" """
 
-password="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s@$PASSWORD_STORE_DIR/@@g ; s@.gpg@@g" | $MENU "dmenu" "Pass:")"
+if ! [ -d "$PASSWORD_STORE_DIR" ]; then
+  echo "error: could not find password-store directory"
+  exit 1
+fi
 
-! [ -z "$password" ] && printf '%s' "$password" || exit 1
+passw="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | while read s; do
+  name="${s#"$PASSWORD_STORE_DIR"/}"
+  name="${name%.gpg}"
+  echo "$name"
+done | $MENU)"
+
+if [ -z "$passw" ]; then
+  exit 0
+fi
+
+contents="$(pass "$passw")"
+
+counter=0
+field="$(echo "$contents" | while read -r line; do
+  counter=$((counter + 1))
+  if [ "$counter" -eq 1 ]; then
+    echo "󰌾 Password"
+    echo "󰦨 All"
+  fi
+
+  case "$line" in
+  user:* | User:* | USER:*)
+    echo " Username"
+    ;;
+  email:* | Email:* | EMAIL:*)
+    echo "󰇮 Email"
+    ;;
+  otpauth:* | Otpauth:* | OTPAUTH:*)
+    echo "󰦯 OTP"
+    ;;
+  *) ;;
+  esac
+done | $MENU)"
+
+counter=0
+echo "$contents" | while read -r line; do
+  counter=$((counter + 1))
+  if [ "$counter" -eq 1 ]; then
+    case "$field" in
+    *Password)
+      echo "$line"
+      exit 0
+      ;;
+    *All)
+      echo "$contents"
+      exit 0
+      ;;
+    esac
+  fi
+
+  case "$line" in
+  user:* | User:* | USER:*)
+    case "$field" in
+    *Username)
+      c="${line#*:}"
+      c="${c# }"
+      echo "$c"
+      exit 0
+      ;;
+    esac
+    ;;
+  email:* | Email:* | EMAIL:*)
+    case "$field" in
+    *Email)
+      c="${line#*:}"
+      c="${c# }"
+      echo "$c"
+      exit 0
+      ;;
+    esac
+    ;;
+  otpauth:* | Otpauth:* | OTPAUTH:*)
+    case "$field" in
+    *OTP)
+      pass otp "$passw"
+      exit 0
+      ;;
+    esac
+    ;;
+  *) ;;
+  esac
+done

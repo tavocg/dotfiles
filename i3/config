@@ -31,7 +31,7 @@ bindsym Shift+XF86AudioLowerVolume exec micdown
 bindsym Shift+XF86AudioMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
-bindsym Print exec $prtsc
+bindsym Print exec prtsc
 #bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
 
 bindsym $mod+1 workspace "  1  "
@@ -48,7 +48,6 @@ bindsym $mod+comma workspace next_on_output
 bindsym $mod+period workspace prev_on_output
 
 bindsym $mod+Shift+q reload
-bindsym $mod+p exec menu-power
 bindsym $mod+c kill
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down

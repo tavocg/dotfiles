@@ -1,6 +1,6 @@
 #!/bin/sh
 
-options="󰀻:Run 󰌾:Password 󰦯:OTP 󰕾:Output 󰍬:Input 󰱱:Emoji 󰃀:Open_Bookmark 󰆏:Copy_Bookmark 󰐥:Power"
+options="󰀻:Run 󰌾:Password 󰕾:Output 󰍬:Input 󰱱:Emoji 󰃀:Open_Bookmark 󰆏:Copy_Bookmark 󰐥:Power"
 separator=" "
 
 chosen="$(for o in $options; do
@@ -11,16 +11,15 @@ chosen="${chosen#*"$separator"}"
 case "$chosen" in
 Run) menu "run" "" ;;
 
-Password) menu-pass ;;
-OTP) menu-otp ;;
+Password) menu-pass-gtype ;;
 
 Output) menu-output ;;
 Input) menu-input ;;
 
-Emoji) menu-copy-emoji ;;
+Emoji) menu-emoji-copy ;;
 
-Open_Bookmark) menu-open-bookmark ;;
-Copy_Bookmark) menu-copy-bookmark ;;
+Open_Bookmark) menu-bookmarks-open ;;
+Copy_Bookmark) menu-bookmarks-copy ;;
 
 Power) menu-power ;;
 

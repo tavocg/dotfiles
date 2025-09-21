@@ -1,0 +1,7 @@
+#!/bin/sh
+pinentry_script="$HOME/.config/scripts/anypinentry"
+gpg_conf_file="$HOME/.local/share/gnupg/gpg-agent.conf"
+
+printf 'pinentry-program %s\n' "$pinentry_script" >"$gpg_conf_file"
+chmod 600 "$gpg_conf_file"
+gpg-agent reload

@@ -1,0 +1,7 @@
+#!/bin/sh
+
+p="$(menu-pass)"
+
+if [ -n "$p" ]; then
+  printf '%s' "$p" | clip
+fi

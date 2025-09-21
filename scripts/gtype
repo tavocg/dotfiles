@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "$GDK_BACKEND" = "x11" ]; then
+  xdotool type --file -
+elif [ "$GDK_BACKEND" = "wayland" ]; then
+  echo "add wtype"
+fi
