@@ -73,6 +73,7 @@ shellcheck
 jq
 android-sdk-platform-tools
 scrot
+btop
 
 # Appearance
 gnome-themes-extra
