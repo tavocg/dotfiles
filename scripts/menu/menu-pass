@@ -19,6 +19,10 @@ if [ -z "$passw" ]; then
 fi
 
 contents="$(pass "$passw")"
+if [ "$?" != 0 ] || [ "$contents" == "" ]; then
+  echo "error decrypting password"
+  exit 1
+fi
 
 counter=0
 field="$(echo "$contents" | while read -r line; do
