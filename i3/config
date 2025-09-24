@@ -20,6 +20,10 @@ set $right l
 bindsym $mod+space exec setxkbmap-next
 bindsym $mod+Return exec $term
 bindsym $mod+r exec $(menu run "")
+bindsym $mod+p exec menu-power
+bindsym $mod+Shift+p exec menu-pass-gtype
+bindsym $mod+o exec menu-output
+bindsym $mod+i exec menu-input
 bindsym $mod+e exec $filemgr
 bindsym $mod+w exec $browser
 bindsym $mod+b exec menu-start
@@ -32,7 +36,7 @@ bindsym Shift+XF86AudioMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
 bindsym Print exec prtsc
-#bindsym $mod+Shift+c exec clipman pick -t wofi -T'--show dmenu -I'
+bindsym $mod+Shift+c exec --no-startup-id $term -e "$SHELL" -c "i3-msg 'floating enable' && clipse"
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "

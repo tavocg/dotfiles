@@ -20,5 +20,5 @@
 # Startup programs
 #STATUS_BLOCKS="tray vol mic net bat kbd time date" dwmstatus & # Status bar
 #emacs --daemon &
-#clipmenud &
+#clipse -listen &
 #dunst
