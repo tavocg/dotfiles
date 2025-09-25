@@ -77,6 +77,7 @@ android-sdk-platform-tools
 btop
 emacs
 python3-venv
+7zip
 
 # Appearance
 gnome-themes-extra

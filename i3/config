@@ -1,4 +1,4 @@
-set $term alacritty
+set $term st
 set $filemgr thunar
 set $browser firefox
 
