@@ -1,5 +1,5 @@
 set $term st
-set $filemgr thunar
+set $filemgr dolphin
 set $browser firefox
 
 set $col_nb #1e2326
