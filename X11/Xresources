@@ -1,2 +1,3 @@
-Sxiv.background: #1d2021
-Sxiv.foreground: #fabd2f
+#include "Xresources.d/xterm"
+#include "Xresources.d/sxiv"
+#include "Xresources.d/st"
