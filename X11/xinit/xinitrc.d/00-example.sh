@@ -3,11 +3,10 @@
 # Example initialization script.
 #
 # In order to run commands on start, create scripts such
-# as this one in the .config/X11/init.d directory and make
+# as this one in the .config/X11/xinit/xinitrc.d directory and make
 # them executable.
 
-# Keyboard configuration
-#xset r rate 300 70
+# English keymap
 #setxkbmap en
 
 # Monitors
@@ -20,5 +19,4 @@
 # Startup programs
 #STATUS_BLOCKS="tray vol mic net bat kbd time date" dwmstatus & # Status bar
 #emacs --daemon &
-#clipse -listen &
 #dunst

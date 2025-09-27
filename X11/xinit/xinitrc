@@ -8,42 +8,51 @@
 #     . /etc/X11/Xsession
 # fi
 
-userresources=$XDG_CONFIG_HOME/X11/Xresources
-ERRFILE=$XDG_CACHE_HOME/X11/xsession-errors
-usermodmap=$XDG_CONFIG_HOME/X11/Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
+OPTIONFILE=/etc/X11/Xsession.options
 
-if [ -f $sysresources ] ; then
-    xrdb -merge $sysresources
+SYSRESOURCES=/etc/X11/Xresources
+USRRESOURCES="$XDG_CONFIG_HOME"/X11/Xresources
+
+SYSSESSIONDIR=/etc/X11/Xsession.d
+USERXSESSION="$XDG_DATA_HOME"/xsession
+USERXSESSIONRC="$XDG_CONFIG_HOME"/xsessionrc
+ALTUSERXSESSION="$XDG_DATA_HOME"/Xsession
+ERRFILE="$XDG_CACHE_HOME"/X11/xsession-errors
+
+if ! [ -d "${ERRFILE%/*}" ] || ! touch "$ERRFILE"; then
+  if mkdir -p "${ERRFILE%/*}"; then
+    if ! touch "$ERRFILE"; then
+      return 1
+    fi
+  else
+    return 1
+  fi
 fi
 
-if [ -f $sysmodmap ] ; then
-    xmodmap $sysmodmap
-fi
+exec >>"$ERRFILE" 2>&1
 
-if [ -f "$userresources" ] ; then
-    xrdb -merge "$userresources"
-fi
+for res in "$SYSRESOURCES" "$USRRESOURCES"; do
+  if [ -f "$res" ]; then
+    xrdb -merge "$res"
+  fi
+done
+unset res
 
-if [ -f "$usermodmap" ] ; then
-    xmodmap "$usermodmap"
-fi
+sys_xinit_d="/etc/X11/xinit/xinitrc.d"
+usr_xinit_d="$XDG_CONFIG_HOME/X11/xinit/xinitrc.d"
 
-if [ -d /etc/X11/xinit/xinitrc.d ] ; then
-    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-        [ -x "$f" ] && . "$f"
+for dir in "$sys_xinit_d" "$usr_xinit_d"; do
+  if [ -d "$dir" ]; then
+    for f in "$dir"/?*.sh; do
+      if [ -x "$f" ]; then
+        . "$f"
+      fi
     done
     unset f
-fi
-
-if [ -d ~/.config/X11/xinit/xinitrc.d ] ; then
-    for f in ~/.config/X11/xinit/xinitrc.d/?*.sh ; do
-        [ -x "$f" ] && . "$f"
-    done
-    unset f
-fi
+  fi
+done
+unset dir
 
 while true; do
-	i3 >/dev/null 2>&1
+  i3 >/dev/null 2>&1
 done
