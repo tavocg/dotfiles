@@ -20,7 +20,6 @@ fi
 
 contents="$(pass "$passw")"
 if [ "$?" != 0 ] || [ "$contents" == "" ]; then
-  echo "error decrypting password"
   exit 1
 fi
 
