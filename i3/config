@@ -108,3 +108,5 @@ bar {
 
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
+
+exec --no-startup-id clipse -listen
