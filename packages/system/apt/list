@@ -10,6 +10,9 @@ bluez
 upower
 libavcodec-extra
 
+# Network
+resolvconf
+
 # Shared
 fonts-jetbrains-mono
 ttf-mscorefonts-installer
@@ -47,6 +50,7 @@ zathura-cb
 zathura-djvu
 zathura-pdf-poppler
 zathura-ps
+poppler-utils
 obs-studio
 
 # Tools
