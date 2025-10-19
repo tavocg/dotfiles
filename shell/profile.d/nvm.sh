@@ -2,11 +2,30 @@
 
 export NVM_DIR="$HOME/.config/nvm"
 
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-  # nvm.sh is a very large file that causes shell startup to slow
-  # down, this wrapper sources nvm.sh only after calling nvm.
-  nvm() {
+_nvm_lazy_load() {
+  unset -f nvm npm npx node
+
+  if [ -s "$NVM_DIR/nvm.sh" ]; then
     . "$NVM_DIR/nvm.sh"
-    nvm "$@"
-  }
-fi
+  fi
+}
+
+nvm() {
+  _nvm_lazy_load
+  nvm $@
+}
+
+npm() {
+  _nvm_lazy_load
+  npm $@
+}
+
+npx() {
+  _nvm_lazy_load
+  npx $@
+}
+
+node() {
+  _nvm_lazy_load
+  node $@
+}
