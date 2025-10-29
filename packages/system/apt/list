@@ -9,6 +9,7 @@ perl
 bluez
 upower
 libavcodec-extra
+libfuse2
 
 # Network
 resolvconf
