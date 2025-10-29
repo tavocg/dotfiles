@@ -3,5 +3,5 @@
 export \
   TERM="xterm-256color" \
   BROWSER="firefox" \
-  EDITOR="lvim" \
-  VISUAL="lvim"
+  EDITOR="e" \
+  VISUAL="em"

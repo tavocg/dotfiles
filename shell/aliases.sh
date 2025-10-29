@@ -50,5 +50,4 @@ alias \
   scp="scp ${SSH_CONFIG}" \
   rsync="rsync --rsh \"ssh ${SSH_CONFIG}\"" \
   lg="lazygit" \
-  adb='HOME="$XDG_DATA_HOME"/android adb' \
-  lvim="VIMINIT= nvim"
+  adb='HOME="$XDG_DATA_HOME"/android adb'
