@@ -22,3 +22,5 @@ bluejay: io.github.ebonjaeger.bluejay
 bazaar: io.github.kolunmi.Bazaar
 blender: org.blender.Blender
 darktable: org.darktable.Darktable
+localsend: org.localsend.localsend_app
+: com.freerdp.FreeRDP
