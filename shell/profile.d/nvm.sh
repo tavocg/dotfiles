@@ -3,29 +3,15 @@
 export NVM_DIR="$HOME/.config/nvm"
 
 _nvm_lazy_load() {
-  unset -f nvm npm npx node
+  if ! [ -f "package-lock.json" ] && ! [ -f "package.json" ] && ! [ -d "node_modules" ]; then
+    return
+  fi
+
+  if command -v nvm >/dev/null 2>&1; then
+    return
+  fi
 
   if [ -s "$NVM_DIR/nvm.sh" ]; then
     . "$NVM_DIR/nvm.sh"
   fi
-}
-
-nvm() {
-  _nvm_lazy_load
-  nvm $@
-}
-
-npm() {
-  _nvm_lazy_load
-  npm $@
-}
-
-npx() {
-  _nvm_lazy_load
-  npx $@
-}
-
-node() {
-  _nvm_lazy_load
-  node $@
 }

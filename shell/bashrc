@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ -d ~/.config/shell/profile.d ] ; then
-    for p in ~/.config/shell/profile.d/*.sh; do
-        [ -f "$p" ] && . "$p"
-    done
-    unset p
+if [ -d ~/.config/shell/profile.d ]; then
+  for p in ~/.config/shell/profile.d/*.sh; do
+    [ -f "$p" ] && . "$p"
+  done
+  unset p
 fi
 
 BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc"
@@ -14,15 +14,15 @@ HISTIZE=
 HISTFILESIZE=
 
 case $- in
-    *i*) ;;
-      *) return;;
+*i*) ;;
+*) return ;;
 esac
 
 if ! shopt -oq posix; then
-    [ -f /usr/share/bash-completion/bash_completion ] &&
-        . /usr/share/bash-completion/bash_completion
-    [ -f /etc/bash_completion ] &&
-        . /etc/bash_completion
+  [ -f /usr/share/bash-completion/bash_completion ] &&
+    . /usr/share/bash-completion/bash_completion
+  [ -f /etc/bash_completion ] &&
+    . /etc/bash_completion
 fi
 
 bind "set completion-ignore-case on"
@@ -32,16 +32,16 @@ shopt -s cdspell
 shopt -s autocd
 set -o vi
 
-if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ] ; then
-    mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ]; then
+  mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
 fi
 
 _prompt_git_branch() {
-    GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
-    [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
+  GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
+  [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
 }
 
-PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
+PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi; if command -v _nvm_lazy_load >/dev/null 2>&1; then _nvm_lazy_load; fi'
 PS1='\
 \[\033[2m\]\A\[\033[0m\] \
 \[\033[34m\]\w\[\033[0m\] \
@@ -49,14 +49,14 @@ PS1='\
 \[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] \
 '
 
-if [ -f ~/.config/shell/aliases.sh ] ; then
-    . ~/.config/shell/aliases.sh
+if [ -f ~/.config/shell/aliases.sh ]; then
+  . ~/.config/shell/aliases.sh
 fi
 
-if [ -f ~/.config/shell/gui.sh ] ; then
-    . ~/.config/shell/gui.sh
+if [ -f ~/.config/shell/gui.sh ]; then
+  . ~/.config/shell/gui.sh
 fi
 
-if [ -s "$NVM_DIR/bash_completion" ] ; then
-    . "$NVM_DIR/bash_completion"
+if [ -s "$NVM_DIR/bash_completion" ]; then
+  . "$NVM_DIR/bash_completion"
 fi
