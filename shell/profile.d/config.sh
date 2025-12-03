@@ -1,5 +1,7 @@
 #!/bin/sh
 
-#export GTK_THEME="Adwaita-dark"
-#export XCURSOR_THEME="Adwaita"
-#export QT_QPA_PLATFORMTHEME="qt5ct"
+# export GTK_THEME=Adwaita:dark
+# export GTK2_RC_FILES=/usr/share/themes/Adwaita-dark/gtk-2.0/gtkrc
+# export QT_STYLE_OVERRIDE=Adwaita-Dark
+# export XCURSOR_THEME="Adwaita"
+# export QT_QPA_PLATFORMTHEME="qt5ct"
