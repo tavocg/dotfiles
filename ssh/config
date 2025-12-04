@@ -23,3 +23,8 @@ Host dev
 Host directoriofeucr
     HostName 163.178.171.4
     User directoriofeucr
+
+Host sifeucr
+    HostName 172.16.48.7
+    User sifeucr
+    port 22
