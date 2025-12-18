@@ -1,0 +1,34 @@
+# Mount drives and then run
+#         CT id    proxmox path         CT path
+# pct set 100 -mp0 /mnt/pve/wd4drive,mp=/home/drive
+# then reboot
+
+# ----------------------------------
+
+# /etc/systemd/system/mnt-pve-wd4jellyfin.mount
+[Install]
+WantedBy=multi-user.target
+
+[Mount]
+Options=defaults
+Type=ext4
+What=/dev/disk/by-uuid/xxx
+Where=/mnt/pve/wd4jellyfin
+
+[Unit]
+Description=Mount storage 'wd4jellyfin' under /mnt/pve
+
+# ----------------------------------
+
+# /etc/systemd/system/mnt-pve-wd4drive.mount
+[Install]
+WantedBy=multi-user.target
+
+[Mount]
+Options=defaults
+Type=ext4
+What=/dev/disk/by-uuid/xxx
+Where=/mnt/pve/wd4drive
+
+[Unit]
+Description=Mount storage 'wd4drive' under /mnt/pve
