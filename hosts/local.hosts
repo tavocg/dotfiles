@@ -1,0 +1,7 @@
+# Local-only
+192.168.100.2 pve.home
+192.168.100.2 dns.home
+
+# No need to access via VPN when local
+192.168.100.139 private.home
+192.168.100.142 public.home
