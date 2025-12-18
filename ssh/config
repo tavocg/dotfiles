@@ -2,23 +2,11 @@ Host *
     IdentityFile       ${XDG_DATA_HOME}/ssh/id_ed25519
     UserKnownHostsFile ${XDG_DATA_HOME}/ssh/known_hosts
 
-Host home
+Host server
     AddressFamily inet
-    #HostName 192.168.100.83
-    HostName tavo.one
-    User gustavo
-
-Host tavo.one
-    AddressFamily inet
+    HostName 168.197.96.20
     port 21
-    User gustavo
-
-Host dev
-    AddressFamily inet
-    #HostName 192.168.100.83
-    HostName tavo.one
-    Port 2222
-    User dev
+    User tavo
 
 Host directoriofeucr
     HostName 163.178.171.4
