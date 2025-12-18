@@ -54,22 +54,31 @@ return {
         },
       },
       setup = {
-        gopls = function(_, opts)
+        gopls = function(_, _)
           -- workaround for gopls not supporting semanticTokensProvider
           -- https://github.com/golang/go/issues/54531#issuecomment-1464982242
-          LazyVim.lsp.on_attach(function(client, _)
-            if not client.server_capabilities.semanticTokensProvider then
-              local semantic = client.config.capabilities.textDocument.semanticTokens
-              client.server_capabilities.semanticTokensProvider = {
-                full = true,
-                legend = {
-                  tokenTypes = semantic.tokenTypes,
-                  tokenModifiers = semantic.tokenModifiers,
-                },
-                range = true,
-              }
+          Snacks.util.lsp.on({ name = "gopls" }, function(_, client)
+            if client.server_capabilities.semanticTokensProvider then
+              return
             end
-          end, "gopls")
+
+            local caps = client.config.capabilities
+            local td = caps and caps.textDocument
+            local semantic = td and td.semanticTokens
+
+            if not semantic or not semantic.tokenTypes or not semantic.tokenModifiers then
+              return
+            end
+
+            client.server_capabilities.semanticTokensProvider = {
+              full = true,
+              range = true,
+              legend = {
+                tokenTypes = semantic.tokenTypes,
+                tokenModifiers = semantic.tokenModifiers,
+              },
+            }
+          end)
           -- end workaround
         end,
       },
