@@ -41,7 +41,7 @@ _prompt_git_branch() {
   [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
 }
 
-PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi; if command -v _nvm_lazy_load >/dev/null 2>&1; then _nvm_lazy_load; fi'
+PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi; if command -v _nvm_cd_callback >/dev/null 2>&1; then _nvm_cd_callback; fi'
 PS1='\
 \[\033[2m\]\A\[\033[0m\] \
 \[\033[34m\]\w\[\033[0m\] \
