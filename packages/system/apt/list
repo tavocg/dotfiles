@@ -90,6 +90,7 @@ gnome-themes-extra
 
 # Dev
 build-essential
+python-is-python3
 
 # Extra
 flatpak
