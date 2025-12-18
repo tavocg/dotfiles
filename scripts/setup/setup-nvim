@@ -1,0 +1,32 @@
+#!/bin/sh
+NVIM_PREFIX="${NVIM_PREFIX:-"/opt"}"
+NVIM_DIR="${NVIM_DIR:-"nvim-linux-x86_64"}"
+
+die() {
+  errMsg="$1"
+  tmpFile="$2"
+
+  echo "$errMsg"
+
+  if [ -f "$tmpFile" ]; then
+    rm -rf "$tmpFile"
+  fi
+
+  exit 1
+}
+
+_tmp="$(mktemp)"
+if [ "$?" != 0 ]; then
+  die "failed to create tmpfile"
+fi
+
+_latest="https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz"
+curl -sLo "$_tmp" "$_latest" || die "failed to download" "$_tmp"
+
+if [ -n "$NVIM_PREFIX" ] && [ -n "$NVIM_DIR" ]; then
+  sudo rm -rf "$NVIM_PREFIX"/"$NVIM_DIR" || die "failed to delete previous version at '$NVIM_PREFIX/$NVIM_DIR'" "$_tmp"
+fi
+
+sudo tar -C "$NVIM_PREFIX" -xzf "$_tmp" || die "failed to extract" "$_tmp"
+
+rm -rf "$_tmp" || die "failed to delete '$_tmp'"
