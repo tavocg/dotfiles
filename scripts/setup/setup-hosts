@@ -1,0 +1,30 @@
+#!/bin/sh
+
+HOSTS_FILE="/etc/hosts"
+
+_prompt() {
+  printf '%s [y/N]: ' "$1"
+  read -r opt
+
+  case "$opt" in
+  y | Y) return 1 ;;
+  esac
+}
+
+_setup_host_file() {
+  file="$1"
+
+  while read -r line; do
+    if ! grep -q "$line" "$HOSTS_FILE"; then
+      echo "$line" | sudo tee -a "$HOSTS_FILE"
+    fi
+  done <"$file"
+}
+
+for file in "$XDG_CONFIG_HOME"/hosts/*; do
+  _prompt "setup hostfile '$file'?"
+
+  if [ "$?" = 1 ]; then
+    _setup_host_file "$file"
+  fi
+done
