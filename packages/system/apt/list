@@ -84,6 +84,8 @@ emacs
 python3-venv
 7zip
 imv
+r-base
+r-base-dev
 
 # Appearance
 gnome-themes-extra
