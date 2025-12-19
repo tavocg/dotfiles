@@ -1,7 +1,10 @@
-# Local-only
+# ~/.config/hosts/local.hosts
 192.168.100.2 pve.home
-192.168.100.2 dns.home
 
-# No need to access via VPN when local
-192.168.100.139 private.home
-192.168.100.142 public.home
+192.168.100.3 private.home
+192.168.100.3 radicale.home
+
+192.168.100.4 public.home
+192.168.100.4 jellyfin.home
+
+192.168.100.21 portainer.home

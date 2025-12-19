@@ -1,7 +1,0 @@
-# Local-only
-192.168.100.2 pve.home
-192.168.100.2 dns.home
-
-# Use VPN
-69.0.1.2 private.home
-69.0.1.3 public.home
