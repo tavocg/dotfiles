@@ -1,30 +1,64 @@
 #!/bin/sh
+set -u
+set -o pipefail
 
-HOSTS_FILE="/etc/hosts"
+HOSTS_FILE=${HOSTS_FILE:-"/etc/hosts"}
 
-_prompt() {
-  printf '%s [y/N]: ' "$1"
+prompt() {
+  printf '%s [y/N]: ' "$1" >&2
   read -r opt
 
   case "$opt" in
-  y | Y) return 1 ;;
+  y | Y) echo "1" ;;
   esac
+}
+
+die() {
+  printf '\e[2m[setup-hosts]\e[m \e[31merror:\e[m %s\n' "$1"
+  exit 1
 }
 
 _setup_host_file() {
   file="$1"
+  tag="${file##*/}"
 
   while read -r line; do
-    if ! grep -q "$line" "$HOSTS_FILE"; then
-      echo "$line" | sudo tee -a "$HOSTS_FILE"
+    # this line is already configured, continue
+    if grep -q "$line" "$HOSTS_FILE"; then
+      continue
     fi
+
+    host="${line##* }"
+    ip="${line%% *}"
+    old_line="$(grep "$host" "$HOSTS_FILE" | tail -n 1)"
+
+    # if a host already has a mapped ip,
+    # and it is different to the new ip,
+    # replace old line with the new one,
+    # and continue
+    if [ "$old_line" ] && [ "${old_line%% *}" != "$ip" ]; then
+      sed "s/$old_line/$line #$tag/" "$HOSTS_FILE" | sudo tee "$HOSTS_FILE" >/dev/null || die "failed to update line '$line' from hosts"
+      printf '\e[33m> \e[9m%s\e[m \e[36m%s %s\e[m\n' "${old_line%% *}" "$ip" "$host"
+      continue
+    fi
+
+    # no host found, append to hosts
+    echo "$line #$tag" | sudo tee -a "$HOSTS_FILE" >/dev/null || die "failed to append '$line' to hosts"
+    printf '\e[36m+ %s %s\e[m\n' "$ip" "$host"
   done <"$file"
+
+  grep "$tag" "$HOSTS_FILE" | while read -r line; do
+    if ! grep -q "${line%" #$tag"}" "$file"; then
+      grep -v "$line" "$HOSTS_FILE" | sudo tee "$HOSTS_FILE" >/dev/null || die "failed to remove '$line' from hosts"
+      printf '\e[31m- \e[9m%s\e[m\n' "$line"
+    fi
+  done
 }
 
 for file in "$XDG_CONFIG_HOME"/hosts/*; do
-  _prompt "setup hostfile '$file'?"
+  ok="$(prompt "setup hostfile '$file'?")"
 
-  if [ "$?" = 1 ]; then
+  if [ "$ok" ]; then
     _setup_host_file "$file"
   fi
 done
