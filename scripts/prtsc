@@ -1,10 +1,19 @@
 #!/bin/sh
+set -e
+set -o pipefail
+
 SCREENSHOTS_DIR="$HOME/Pictures/Screenshots"
 
 mkdir -p "$SCREENSHOTS_DIR"
+date="$(date +%Y%m%d%H%M%S%N)"
+date="${date%[0-9][0-9][0-9][0-9][0-9][0-9]}"
+consecutive="$SCREENSHOTS_DIR"/"$date".png
 
-if [ "$GDK_BACKEND" = "x11" ]; then
-  scrot -s "$SCREENSHOTS_DIR/%Y-%m-%d.png" -e 'xclip -selection clipboard -t image/png -i $f'
-elif [ "$GDK_BACKEND" = "wayland" ]; then
-  grim -g "$(slurp -d)" - | wl-copy
+if [ "$XDG_SESSION_TYPE" = "x11" ]; then
+  scrot -F "$consecutive" -e 'xclip -selection clipboard -t image/png -i $f'
+elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+  grim -g "$(slurp -d)" "$consecutive"
+  if [ -f "$consecutive" ]; then
+    cat "$consecutive" | wl-copy
+  fi
 fi

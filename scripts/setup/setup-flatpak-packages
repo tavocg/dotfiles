@@ -8,6 +8,10 @@ if ! [ -d "$EXPORTS_BIN_PREFIX" ]; then
 fi
 
 while read line; do
+  if [ -z "${line%%\#*}" ]; then
+    continue
+  fi
+
   bin="${line%%:*}"
   app="${line##*:}"
   app="${app##* }"

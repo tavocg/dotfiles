@@ -1,25 +1,34 @@
+# system
+bazaar: io.github.kolunmi.Bazaar
+flatseal: com.github.tchx84.Flatseal
+bluejay: io.github.ebonjaeger.bluejay
 dolphin: org.kde.dolphin
+loupe: org.gnome.Loupe
 firefox: org.mozilla.firefox
+
+# creative
 gimp: org.gimp.GIMP
-vscodium: com.vscodium.codium
+darktable: org.darktable.Darktable
 kdenlive: org.kde.kdenlive
 krita: org.kde.krita
 inkscape: org.inkscape.Inkscape
 rnote: com.github.flxzt.rnote
-kalgebra: org.kde.kalgebra
-steam: com.valvesoftware.Steam
-flatseal: com.github.tchx84.Flatseal
-loupe: org.gnome.Loupe
-citations: org.gnome.World.Citations
-libreoffice: org.libreoffice.LibreOffice
-qbittorrent: org.qbittorrent.qBittorrent
-prismlauncher: org.prismlauncher.PrismLauncher
-thunderbird: org.mozilla.Thunderbird
-android-studio: com.google.AndroidStudio
-rustdesk: com.rustdesk.RustDesk
-lutris: net.lutris.Lutris
-bluejay: io.github.ebonjaeger.bluejay
-bazaar: io.github.kolunmi.Bazaar
 blender: org.blender.Blender
-darktable: org.darktable.Darktable
+
+# games
+steam: com.valvesoftware.Steam
+lutris: net.lutris.Lutris
+prismlauncher: org.prismlauncher.PrismLauncher
+
+# office
+libreoffice: org.libreoffice.LibreOffice
+thunderbird: org.mozilla.Thunderbird
+
+# dev
+android-studio: com.google.AndroidStudio
+
+# utils
+kalgebra: org.kde.kalgebra
+qbittorrent: org.qbittorrent.qBittorrent
 localsend: org.localsend.localsend_app
+obsidian: md.obsidian.Obsidian

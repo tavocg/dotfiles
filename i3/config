@@ -17,7 +17,6 @@ set $down j
 set $up k
 set $right l
 
-bindsym $mod+space exec setxkbmap-next
 bindsym $mod+Return exec $term
 bindsym $mod+r exec $(menu run "")
 bindsym $mod+p exec menu-power
@@ -33,10 +32,13 @@ bindsym XF86AudioMute exec mute
 bindsym Shift+XF86AudioRaiseVolume exec micup
 bindsym Shift+XF86AudioLowerVolume exec micdown
 bindsym Shift+XF86AudioMute exec micmute
+bindsym XF86AudioMicMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
 bindsym Print exec prtsc
-bindsym $mod+Shift+c exec --no-startup-id $term -e "$SHELL" -c "i3-msg 'floating enable' && clipse"
+
+# X11-specific
+bindsym $mod+space exec setxkbmap-next
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
@@ -113,5 +115,3 @@ bar {
 
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
-
-exec --no-startup-id clipse -listen

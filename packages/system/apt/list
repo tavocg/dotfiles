@@ -1,6 +1,7 @@
 # System
 xdg-desktop-portal
 xdg-desktop-portal-gtk
+libglib2.0-bin
 lxpolkit
 pkexec
 udisks2
@@ -10,6 +11,7 @@ bluez
 upower
 libavcodec-extra
 libfuse2
+brightnessctl
 
 # Network
 resolvconf
@@ -22,14 +24,18 @@ ttf-mscorefonts-installer
 xorg
 i3-wm
 alacritty
-bemenu
-libbemenu-curses
-libbemenu-wayland
-libbemenu-x11
 suckless-tools
 scrot
 xdotool
 arandr
+
+# Window Manager - Wayland
+xdg-desktop-portal-wlr
+xwayland
+sway
+foot
+grim
+slurp
 
 # Audio
 pipewire
@@ -55,6 +61,10 @@ poppler-utils
 obs-studio
 
 # Tools
+bemenu
+libbemenu-curses
+libbemenu-wayland
+libbemenu-x11
 curl
 fzf
 eza
