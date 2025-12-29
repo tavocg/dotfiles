@@ -1,5 +1,4 @@
 # system
-bazaar: io.github.kolunmi.Bazaar
 flatseal: com.github.tchx84.Flatseal
 bluejay: io.github.ebonjaeger.bluejay
 dolphin: org.kde.dolphin
@@ -24,11 +23,12 @@ prismlauncher: org.prismlauncher.PrismLauncher
 libreoffice: org.libreoffice.LibreOffice
 thunderbird: org.mozilla.Thunderbird
 
-# dev
-android-studio: com.google.AndroidStudio
-
 # utils
 kalgebra: org.kde.kalgebra
 qbittorrent: org.qbittorrent.qBittorrent
 localsend: org.localsend.localsend_app
 obsidian: md.obsidian.Obsidian
+handbrake: fr.handbrake.ghb
+
+# dev
+android-studio: com.google.AndroidStudio

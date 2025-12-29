@@ -96,6 +96,7 @@ python3-venv
 imv
 r-base
 r-base-dev
+rsync
 
 # Appearance
 gnome-themes-extra
