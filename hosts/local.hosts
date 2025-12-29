@@ -1,3 +1,7 @@
 192.168.100.2 pve.home
 192.168.100.100 private.home
 192.168.100.101 portainer.home
+192.168.100.101 radicale.home
+192.168.100.101 jellyfin.home
+192.168.100.101 n8n.home
+192.168.100.101 pdf.home
