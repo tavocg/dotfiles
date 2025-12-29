@@ -3,5 +3,5 @@
 if [ "$XDG_SESSION_TYPE" = "x11" ]; then
   xdotool type --file -
 elif [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-  echo "add wtype"
+  wtype -
 fi

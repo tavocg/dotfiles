@@ -1,7 +1,5 @@
 #!/bin/sh
 
-p="$(menu-pass)"
+set -o pipefail
 
-if [ -n "$p" ]; then
-  printf '%s' "$p" | gtype
-fi
+menu-pass | gtype
