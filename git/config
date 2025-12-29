@@ -5,3 +5,5 @@
     email = tavo@tavo.one
     name = tavo
     signingKey = tavo@tavo.one
+[safe]
+	directory = /storage/emulated/0/Documents
