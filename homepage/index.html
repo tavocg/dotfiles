@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Home</title>
+    <style>
+      body {
+        color: white;
+        background-color: black;
+        font-family: mono;
+        margin: 0 auto;
+        padding: 1rem 3rem;
+        max-width: 72rem;
+      }
+      ul.grid {
+        display: flex;
+        flex-wrap: wrap;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      ul.cards > li {
+        display: flex;
+        border: 1px solid white;
+        border-radius: 0.4rem;
+        padding: 0.5rem 1rem;
+        margin-right: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      ul.cards > li > a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul.cards > li > a > header {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: green;
+        margin: 0.4rem 0;
+      }
+      ul.cards > li > a > span {
+        font-size: 0.8rem;
+        margin: 0.4rem 0;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Home</h1>
+      </header>
+      <ul class="cards grid">
+        <li>
+          <a href="https://pve.home">
+            <header>🖥️ Proxmox VE</header>
+            <span>Virtualization</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://portainer.home">
+            <header>🚢 Portainer CE</header>
+            <span>Containers</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://jellyfin.home">
+            <header>📺 Jellyfin</header>
+            <span>Entertainment</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://radicale.home">
+            <header>🗓️ Radicale</header>
+            <span>Calendar, Tasks, Journal, Contacts</span>
+          </a>
+        </li>
+        <li>
+          <a href="https://n8n.home">
+            <header>🤖 n8n</header>
+            <span>AI Automation</span>
+          </a>
+        </li>
+      </ul>
+    </main>
+  </body>
+</html>
