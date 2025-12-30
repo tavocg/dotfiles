@@ -90,7 +90,6 @@ shellcheck
 jq
 android-sdk-platform-tools
 btop
-emacs
 python3-venv
 7zip
 imv

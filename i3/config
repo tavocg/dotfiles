@@ -106,12 +106,13 @@ bar {
   tray_padding 4
 
   colors {
-      background #000000
-      statusline $col_nf
-      focused_workspace $col_sb $col_sb $col_sf
-      inactive_workspace $col_nf $col_nb $col_nf
+    background #000000
+    statusline $col_nf
+    focused_workspace $col_sb $col_sb $col_sf
+    inactive_workspace $col_nf $col_nb $col_nf
   }
 }
 
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
+for_window [title="Picture-in-Picture"] floating enable

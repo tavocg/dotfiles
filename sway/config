@@ -131,5 +131,6 @@ bar {
 
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
+for_window [title="Picture-in-Picture"] floating enable
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
