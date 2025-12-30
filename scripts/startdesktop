@@ -1,6 +1,32 @@
 #!/bin/sh
 
+gpu_available() {
+  device=/dev/dri/card0
+  tries=5
+  sleep_ms=200
+
+  if ! command -v fuser 2>&1 >/dev/null; then
+    return 1
+  fi
+
+  for i in $(seq 1 $tries); do
+    if ! fuser "$device" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 0."$sleep_ms"
+  done
+
+  echo "device '$device' still busy after $((tries * sleep_ms))s"
+  return 1
+}
+
 if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ -z "$DISPLAY" ]; then
+  gpu_available
+  if [ "$?" != 0 ]; then
+    echo "could not find device"
+    exit 1
+  fi
+
   case "$XDG_SESSION_DESKTOP" in
   kde)
     exec /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
@@ -10,9 +36,14 @@ if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ -z "$DISPLAY" ]; then
     amixer &
     XDG_SESSION_DESKTOP=dwm XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
     ;;
+  i3)
+    sleep 0.5
+    amixer &
+    XDG_SESSION_DESKTOP=i3 XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
+    ;;
   sway)
     XDG_SESSION_DESKTOP=sway XDG_SESSION_TYPE=wayland GDK_BACKEND=wayland exec sway
     ;;
-  *) echo "error: current \$XDG_SESSION_DESKTOP not supported (kde, dwm, sway)" ;;
+  *) echo "error: current \$XDG_SESSION_DESKTOP not supported (kde, dwm, i3, sway)" ;;
   esac
 fi
