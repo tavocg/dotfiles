@@ -116,17 +116,17 @@ default_border pixel 1
 font $font
 
 bar {
-    position bottom
-    font $font
-    status_command ~/.config/scripts/sway/swaystatus
-    tray_padding 4
+  position bottom
+  font $font
+  status_command ~/.config/scripts/sway/swaystatus
+  tray_padding 4
 
-    colors {
-        background #000000
-        statusline $col_nf
-        focused_workspace $col_sb $col_sb $col_sf
-        inactive_workspace $col_nf $col_nb $col_nf
-    }
+  colors {
+    background #000000
+    statusline $col_nf
+    focused_workspace $col_sb $col_sb $col_sf
+    inactive_workspace $col_nf $col_nb $col_nf
+  }
 }
 
 for_window [class="Display-im*"] floating enable
