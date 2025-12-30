@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ]; then
+if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ -z "$DISPLAY" ]; then
   case "$XDG_SESSION_DESKTOP" in
   kde)
     exec /usr/lib/plasma-dbus-run-session-if-needed /usr/bin/startplasma-wayland
@@ -13,6 +13,6 @@ if [ "$(tty)" = "/dev/tty1" ] && [ -z "$DISPLAY" ]; then
   sway)
     XDG_SESSION_DESKTOP=sway XDG_SESSION_TYPE=wayland GDK_BACKEND=wayland exec sway
     ;;
-  "") echo "error: current \$XDG_SESSION_DESKTOP not supported (kde, dwm, sway)" ;;
+  *) echo "error: current \$XDG_SESSION_DESKTOP not supported (kde, dwm, sway)" ;;
   esac
 fi
