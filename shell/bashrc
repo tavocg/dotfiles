@@ -49,14 +49,14 @@ PS1='\
 \[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] \
 '
 
+if [ -s "$NVM_DIR/bash_completion" ]; then
+  . "$NVM_DIR/bash_completion"
+fi
+
 if [ -f ~/.config/shell/aliases.sh ]; then
   . ~/.config/shell/aliases.sh
 fi
 
-if [ -f ~/.config/shell/gui.sh ]; then
-  . ~/.config/shell/gui.sh
-fi
-
-if [ -s "$NVM_DIR/bash_completion" ]; then
-  . "$NVM_DIR/bash_completion"
+if [ "$LOAD_DESKTOP" ] && [ "$XDG_SESSION_DESKTOP" ]; then
+  startdesktop
 fi
