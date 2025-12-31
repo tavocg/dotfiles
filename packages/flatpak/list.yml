@@ -32,3 +32,4 @@ handbrake: fr.handbrake.ghb
 
 # dev
 android-studio: com.google.AndroidStudio
+beekeeperstudio: io.beekeeperstudio.Studio
