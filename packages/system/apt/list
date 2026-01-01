@@ -96,6 +96,7 @@ imv
 r-base
 r-base-dev
 rsync
+ledger
 
 # Appearance
 gnome-themes-extra
