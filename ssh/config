@@ -1,18 +1,1 @@
-Host *
-    IdentityFile       ${XDG_DATA_HOME}/ssh/id_ed25519
-    UserKnownHostsFile ${XDG_DATA_HOME}/ssh/known_hosts
-
-Host server
-    AddressFamily inet
-    HostName 168.197.96.20
-    port 21
-    User tavo
-
-Host directoriofeucr
-    HostName 163.178.171.4
-    User directoriofeucr
-
-Host sifeucr
-    HostName 172.16.48.7
-    User sifeucr
-    port 22
+Include ${XDG_CONFIG_HOME}/ssh/*.conf
