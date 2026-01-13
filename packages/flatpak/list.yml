@@ -29,7 +29,6 @@ qbittorrent: org.qbittorrent.qBittorrent
 localsend: org.localsend.localsend_app
 obsidian: md.obsidian.Obsidian
 handbrake: fr.handbrake.ghb
-okular: org.kde.okular
 
 # dev
 android-studio: com.google.AndroidStudio
