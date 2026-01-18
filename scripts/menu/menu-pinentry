@@ -1,0 +1,5 @@
+#!/bin/sh
+PINENTRY=${PINENTRY:-anypinentry}
+PIN_DESC="$1"
+
+printf 'SETPROMPT Password:\nSETDESC %s\nGETPIN\nBYE\n' "$PIN_DESC" | "$PINENTRY" | awk '/^D / {print substr($0,3)}'
