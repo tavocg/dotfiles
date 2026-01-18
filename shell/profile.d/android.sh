@@ -2,10 +2,10 @@
 
 if [ -n "$XDG_DATA_HOME" ]; then
   export ANDROID_USER_HOME="$XDG_DATA_HOME"/android
-  export ANDROID_HOME="$XDG_DATA_HOME"/Android/Sdk
+  export ANDROID_HOME="$XDG_DATA_HOME"/android/sdk
 else
   export ANDROID_USER_HOME="$HOME"/.local/share/android
-  export ANDROID_HOME="$HOME"/.local/share/Android/Sdk
+  export ANDROID_HOME="$HOME"/.local/share/android/sdk
 fi
 
 if ! [ -f "$ANDROID_USER_HOME" ]; then

@@ -48,4 +48,5 @@ export \
   PGPASSFILE="$XDG_CONFIG_HOME/pg/pgpass" \
   CARGO_HOME="$XDG_DATA_HOME"/cargo \
   RUSTUP_HOME="$XDG_DATA_HOME"/rustup \
-  UNISON="$XDG_DATA_HOME"/unison
+  UNISON="$XDG_DATA_HOME"/unison \
+  DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
