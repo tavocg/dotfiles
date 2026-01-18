@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if ! command -v "$TERMINAL" >/dev/null 2>&1; then
+  echo 'no available terminal in "$TERMINAL"'
+  exit 1
+fi
+
+$TERMINAL bash -c "
+echo '▌ ▌▛▀▖▛▀▖▞▀▖▀▛▘▜▘▙ ▌▞▀▖'
+echo '▌ ▌▙▄▘▌ ▌▙▄▌ ▌ ▐ ▌▌▌▌▄▖'
+echo '▌ ▌▌  ▌ ▌▌ ▌ ▌ ▐ ▌▝▌▌ ▌'
+echo '▝▀ ▘  ▀▀ ▘ ▘ ▘ ▀▘▘ ▘▝▀'
+if command -v pacman >/dev/null 2>&1; then sudo sudo pacman -Syyu --noconfirm; fi && \
+if command -v apt >/dev/null 2>&1; then sudo apt update && sudo apt upgrade -y; fi && \
+if command -v flatpak >/dev/null 2>&1; then flatpak update -y; fi ; \
+bash
+"
