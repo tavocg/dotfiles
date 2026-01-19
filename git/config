@@ -1,10 +1,10 @@
 [init]
-  defaultBranch = main
+   defaultBranch = main
 
 [user]
-  email = gustavo.calvo.cr@gmail.com
-  name = tavo
-  signingKey = tavo@tavo.one
-
+    email = tavo@tavo.one
+    name = tavo
+    signingKey = tavo@tavo.one
 [safe]
-  directory = /storage/emulated/0/Documents
+	directory = /storage/emulated/0/Documents
+	directory = /storage/emulated/0/Documents/blog
