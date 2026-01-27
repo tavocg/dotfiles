@@ -2,7 +2,7 @@
    defaultBranch = main
 
 [user]
-    email = tavo@tavo.one
+    email = gustavo.calvo.cr@gmail.com
     name = tavo
     signingKey = tavo@tavo.one
 [safe]
