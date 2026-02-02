@@ -1,0 +1,78 @@
+#!/bin/sh
+set -x
+
+build_cmake() {
+  REPO="$1"
+  DEPS="$2"
+
+  if [ -n "$DEPS" ]; then
+    sudo apt-get install -y "$DEPS" || return 1
+  fi
+
+  TEMP_FOLDER="$(mktemp -d)"
+  git clone --depth 1 "$REPO" "$TEMP_FOLDER" || return 1
+
+  (
+    cd "$TEMP_FOLDER" &&
+      cmake --no-warn-unused-cli -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_INSTALL_PREFIX:PATH=/usr -S . -B ./build &&
+      cmake --build ./build --config Release --target all -j$(nproc 2>/dev/null || getconf NPROCESSORS_CONF) &&
+      sudo cmake --install build
+  )
+
+  if [ "$?" != 0 ]; then
+    rm -rf "$TEMP_FOLDER"
+    return 1
+  fi
+
+  rm -rf "$TEMP_FOLDER"
+}
+
+scanner_install() {
+  DEPS="libpugixml-dev"
+  REPO="https://github.com/hyprwm/hyprwayland-scanner"
+  build_cmake "$REPO" "$DEPS" || return 1
+}
+
+hyprutils_install() {
+  REPO="https://github.com/hyprwm/hyprwayland-scanner"
+  build_cmake "$REPO" || return 1
+}
+
+aqua_install() {
+  scanner_install || return 1
+  hyprutils_install || return 1
+
+  DEPS="libwayland-dev wayland-protocols libgbm-dev libdisplay-info-dev hwdata"
+  REPO="https://github.com/hyprwm/aquamarine"
+  build_cmake "$REPO" "$DEPS" || return 1
+}
+
+hyprlang_install() {
+  REPO="https://github.com/hyprwm/hyprlang"
+  build_cmake "$REPO" || return 1
+}
+
+hyprcursor_install() {
+  DEPS="libtomlplusplus-dev libzip-dev librsvg2-dev"
+  REPO="https://github.com/hyprwm/hyprcursor"
+  build_cmake "$REPO" "$DEPS" || return 1
+}
+
+hyprgraphics_install() {
+  DEPS="libmagic-dev"
+  REPO="https://github.com/hyprwm/hyprgraphics"
+  build_cmake "$REPO" "$DEPS" || return 1
+}
+
+hypr_install() {
+  aqua_install || return 1
+  hyprlang_install || return 1
+  hyprcursor_install || return 1
+  hyprgraphics_install || return 1
+
+  DEPS="meson wget build-essential ninja-build cmake-extras cmake gettext gettext-base fontconfig libfontconfig-dev libffi-dev libxml2-dev libdrm-dev libxkbcommon-x11-dev libxkbregistry-dev libxkbcommon-dev libpixman-1-dev libudev-dev libseat-dev seatd libxcb-dri3-dev libegl-dev libgles2 libegl1-mesa-dev glslang-tools libinput-bin libinput-dev libxcb-composite0-dev libavutil-dev libavcodec-dev libavformat-dev libxcb-ewmh2 libxcb-ewmh-dev libxcb-present-dev libxcb-icccm4-dev libxcb-render-util0-dev libxcb-res0-dev libxcb-xinput-dev libtomlplusplus3 libre2-dev xdg-desktop-portal-wlr libmuparser-dev libxcursor-dev"
+  REPO="https://github.com/hyprwm/Hyprland"
+  build_cmake "$REPO" "$DEPS" || return 1
+}
+
+hypr_install || exit 1
