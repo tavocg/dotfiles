@@ -4,6 +4,7 @@ bluejay: io.github.ebonjaeger.bluejay
 dolphin: org.kde.dolphin
 loupe: org.gnome.Loupe
 firefox: org.mozilla.firefox
+brave: com.brave.Browser
 
 # creative
 gimp: org.gimp.GIMP
