@@ -97,6 +97,7 @@ r-base
 r-base-dev
 rsync
 ledger
+resvg
 
 # Appearance
 gnome-themes-extra
