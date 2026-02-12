@@ -2,18 +2,13 @@
 flatseal: com.github.tchx84.Flatseal
 bluejay: io.github.ebonjaeger.bluejay
 dolphin: org.kde.dolphin
-loupe: org.gnome.Loupe
 firefox: org.mozilla.firefox
-brave: com.brave.Browser
 
 # creative
 gimp: org.gimp.GIMP
 darktable: org.darktable.Darktable
 kdenlive: org.kde.kdenlive
-krita: org.kde.krita
 inkscape: org.inkscape.Inkscape
-rnote: com.github.flxzt.rnote
-blender: org.blender.Blender
 
 # games
 steam: com.valvesoftware.Steam
@@ -25,12 +20,11 @@ libreoffice: org.libreoffice.LibreOffice
 thunderbird: org.mozilla.Thunderbird
 
 # utils
-kalgebra: org.kde.kalgebra
 qbittorrent: org.qbittorrent.qBittorrent
 localsend: org.localsend.localsend_app
 obsidian: md.obsidian.Obsidian
 handbrake: fr.handbrake.ghb
 
 # dev
-android-studio: com.google.AndroidStudio
+android-studio: 
 beekeeperstudio: io.beekeeperstudio.Studio
