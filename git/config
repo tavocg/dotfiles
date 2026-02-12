@@ -3,7 +3,7 @@
 
 [user]
     email = gustavo.calvo.cr@gmail.com
-    name = tavo
+    name = tavocg
     signingKey = tavo@tavo.one
 [safe]
 	directory = /storage/emulated/0/Documents
