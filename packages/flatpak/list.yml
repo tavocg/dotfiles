@@ -26,5 +26,4 @@ obsidian: md.obsidian.Obsidian
 handbrake: fr.handbrake.ghb
 
 # dev
-android-studio: 
 beekeeperstudio: io.beekeeperstudio.Studio
