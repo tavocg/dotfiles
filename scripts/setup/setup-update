@@ -1,17 +1,139 @@
 #!/bin/sh
+set -u
+
+: "${TERMINAL:?Set TERMINAL (e.g. export TERMINAL=kitty)}"
 
 if ! command -v "$TERMINAL" >/dev/null 2>&1; then
-  echo 'no available terminal in "$TERMINAL"'
+  echo "Terminal not found: $TERMINAL"
   exit 1
 fi
 
-$TERMINAL bash -c "
-echo '▌ ▌▛▀▖▛▀▖▞▀▖▀▛▘▜▘▙ ▌▞▀▖'
-echo '▌ ▌▙▄▘▌ ▌▙▄▌ ▌ ▐ ▌▌▌▌▄▖'
-echo '▌ ▌▌  ▌ ▌▌ ▌ ▌ ▐ ▌▝▌▌ ▌'
-echo '▝▀ ▘  ▀▀ ▘ ▘ ▘ ▀▘▘ ▘▝▀'
-if command -v pacman >/dev/null 2>&1; then sudo sudo pacman -Syyu --noconfirm; fi && \
-if command -v apt >/dev/null 2>&1; then sudo apt update && sudo apt upgrade -y; fi && \
-if command -v flatpak >/dev/null 2>&1; then flatpak update -y; fi ; \
-bash
-"
+# Run the updater logic in POSIX sh (not $SHELL), then drop into the user's shell.
+CMD='
+set -u
+
+_update_pacman() {
+  if ! command -v pacman >/dev/null 2>&1; then
+    return 0
+  fi
+
+  sudo pacman -Syyu --noconfirm
+}
+
+_update_apt() {
+  if ! command -v apt >/dev/null 2>&1; then
+    return 0
+  fi
+
+  sudo apt update && sudo apt upgrade -y
+}
+
+_update_flatpak() {
+  if ! command -v flatpak >/dev/null 2>&1; then
+    return 0
+  fi
+
+  flatpak update -y
+}
+
+_update_rust() {
+  if ! command -v rustup >/dev/null 2>&1; then
+    return 0
+  fi
+
+  _tc="$(rustup show active-toolchain)"
+  if [ "$_tc" != "" ]; then
+    echo "[rust] no default toolchain; setting stable"
+    rustup default stable
+  fi
+
+  rustup self update >/dev/null 2>&1 || echo "[rust] rustup self update disabled (ok)"
+
+  rustup update
+}
+
+_update_cargo() {
+  command -v cargo >/dev/null 2>&1 || return 0
+
+  if ! command -v cargo-install-update >/dev/null 2>&1; then
+    echo "[cargo] installing cargo-update"
+    cargo install cargo-update
+  fi
+
+  cargo install-update -a
+}
+
+_update_npm() {
+  if command -v npm >/dev/null 2>&1; then
+    npm install -g npm@latest
+
+    npm outdated -g --depth=0 \
+      | awk "NR>1 {print \$1}" \
+      | while IFS= read -r pkg; do
+          [ -n "$pkg" ] && npm install -g "$pkg@latest"
+        done
+  fi
+}
+
+_update_gems() {
+  command -v gem >/dev/null 2>&1 || return 0
+  command -v ruby >/dev/null 2>&1 || return 0
+  gem update --user-install
+  gem cleanup --user-install
+}
+
+_update_manual() {
+  for script in ~/.config/packages/manual/*; do
+    if [ -f "$script" ]; then
+      . "$script"
+    fi
+  done
+}
+
+echo "▌ ▌▛▀▖▛▀▖▞▀▖▀▛▘▜▘▙ ▌▞▀▖"
+echo "▌ ▌▙▄▘▌ ▌▙▄▌ ▌ ▐ ▌▌▌▌▄▖"
+echo "▌ ▌▌  ▌ ▌▌ ▌ ▌ ▐ ▌▝▌▌ ▌"
+echo "▝▀ ▘  ▀▀ ▘ ▘ ▘ ▀▘▘ ▘▝▀"
+
+_update_apt
+_update_pacman
+_update_npm
+_update_flatpak
+_update_rust
+_update_cargo
+_update_gems
+_update_manual
+
+exec "${SHELL:-/bin/sh}" -l
+'
+
+case "$TERMINAL" in
+kitty)
+  kitty sh -c "$CMD"
+  ;;
+alacritty)
+  alacritty -e sh -c "$CMD"
+  ;;
+foot)
+  foot sh -c "$CMD"
+  ;;
+st)
+  st -e sh -c "$CMD"
+  ;;
+xterm)
+  xterm -e sh -c "$CMD"
+  ;;
+konsole)
+  konsole -e sh -c "$CMD"
+  ;;
+gnome-terminal)
+  gnome-terminal -- sh -c "$CMD"
+  ;;
+xfce4-terminal)
+  xfce4-terminal --command="sh -c $(printf %s "$CMD" | sed "s/'/'\\\\''/g")"
+  ;;
+*)
+  echo "Unsupported terminal: $TERMINAL"
+  exit 1
+  ;;
+esac

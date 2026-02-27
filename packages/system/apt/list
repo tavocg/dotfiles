@@ -105,6 +105,16 @@ gnome-themes-extra
 # Dev
 build-essential
 python-is-python3
+python3-pip
+luarocks
+lua5.4
+libssl-dev # some rust dependency requires this (f rust)
+rustup
+ruby-full
+composer
+php-cli
+python3-pynvim
+libyaml-dev
 
 # Extra
 flatpak
