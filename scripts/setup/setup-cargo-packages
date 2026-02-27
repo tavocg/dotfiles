@@ -1,6 +1,12 @@
 #!/bin/sh
 PKG_LIST="${PKG_LIST:-$XDG_CONFIG_HOME/packages/cargo/list}"
 
+_tc="$(rustup show active-toolchain)"
+if [ -z "$_tc" ]; then
+  echo "[rust] no default toolchain; setting stable"
+  rustup default stable
+fi
+
 if ! [ -f "$PKG_LIST" ]; then
   echo "No package list found at PKG_LIST=$PKG_LIST"
   exit 1
