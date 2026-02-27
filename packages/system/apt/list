@@ -116,6 +116,8 @@ php-cli
 python3-pynvim
 libyaml-dev
 libffi-dev # required for some ruby gem
+default-jdk
+default-jre
 
 # Extra
 flatpak
