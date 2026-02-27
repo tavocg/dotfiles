@@ -42,7 +42,7 @@ _update_rust() {
   fi
 
   _tc="$(rustup show active-toolchain)"
-  if [ "$_tc" != "" ]; then
+  if [ -z "$_tc" ]; then
     echo "[rust] no default toolchain; setting stable"
     rustup default stable
   fi
