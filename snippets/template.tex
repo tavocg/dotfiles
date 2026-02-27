@@ -1,15 +1,34 @@
 \documentclass[12pt]{article}
+\usepackage{setspace}
+\onehalfspacing
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{lmodern}
+\else
+  \usepackage{fontspec}
+\fi
+
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{microtype}
+
 \usepackage[margin=1in]{geometry}
-\usepackage{multicol}
-% \usepackage[spanish]{babel}
-% \AtBeginDocument{\selectlanguage{spanish}}
-\usepackage{xcolor}
-\usepackage{amsmath}
-\usepackage{gensymb}
-\usepackage{cancel}
-\usepackage{tikz}
-\usetikzlibrary{calc}
+\usepackage[spanish]{babel}
+\AtBeginDocument{\selectlanguage{spanish}}
+
+\usepackage{lipsum}
+
+\title{Title}
+\author{Author}
+\date{\today}
 
 \begin{document}
-$body$
+
+\maketitle
+
+\lipsum
+
 \end{document}
