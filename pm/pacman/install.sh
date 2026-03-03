@@ -4,5 +4,4 @@ list="./list.sh"
 
 . "$list"
 
-set -ex
-npm install -g $PACKAGES
+sudo pacman -S $PACKAGES

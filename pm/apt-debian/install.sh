@@ -1,10 +1,5 @@
 #!/bin/sh
 
-. "/etc/os-release"
-if [ "$ID" != "debian" ]; then
-  exit 0
-fi
-
 list="./list.sh"
 
 . "$list"

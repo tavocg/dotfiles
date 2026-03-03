@@ -3,10 +3,6 @@ FLATPAK_EXPORTS="${FLATPAK_EXPORTS:-$HOME/.local/bin}"
 FLATPAK_BIN_PREFIX="${FLATPAK_BIN_PREFIX:-/var/lib/flatpak/exports/bin}"
 list="./list.sh"
 
-if ! command -v flatpak >/dev/null 2>&1; then
-  exit 0
-fi
-
 if ! [ -d "$FLATPAK_EXPORTS" ]; then
   mkdir -p "$FLATPAK_EXPORTS"
 fi
