@@ -15,15 +15,17 @@ fi
 
 for package_manager in *; do
   if [ -d "$package_manager" ]; then
-    (
-      cd "$package_manager"
-      if [ -f "./install.sh" ]; then
-        _info "installing packages for $package_manager..."
-        if ! . "./install.sh" >>"$LOGS" 2>&1; then
-          _error "error installing packages for $package_manager, see logs in $LOGS"
-          exit 1
-        fi
+    if [ -f "$package_manager/install.sh" ]; then
+      _info "installing packages for $package_manager..."
+      if ! (
+        cd "$package_manager" || exit 1
+        sh ./install.sh
+      ) >>"$LOGS" 2>&1; then
+        _error "error installing packages for $package_manager, see logs in $LOGS" >&2
+        exit 1
       fi
-    )
+    fi
   fi
 done
+
+_info "done!"

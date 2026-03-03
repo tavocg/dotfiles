@@ -2,7 +2,7 @@
 LOGS="$XDG_STATE_HOME"/pm/install.log
 
 _info() {
-  printf '\e[2m[%s]\e[0m \e[32m[%s]\e[0m %s\n' "pm" "INFO" "$1"
+  printf '\e[2m[%s]\e[0m \e[34m[%s]\e[0m %s\n' "pm" "INFO" "$1"
 }
 
 _error() {
@@ -15,15 +15,17 @@ fi
 
 for package_manager in *; do
   if [ -d "$package_manager" ]; then
-    (
-      cd "$package_manager"
-      if [ -f "./update.sh" ]; then
-        _info "updating packages for $package_manager..."
-        if ! . "./update.sh" >>"$LOGS" 2>&1; then
-          _error "error updating packages for $package_manager, see logs in $LOGS"
-          exit 1
-        fi
+    if [ -f "$package_manager/update.sh" ]; then
+      _info "updating packages for $package_manager..."
+      if ! (
+        cd "$package_manager" || exit 1
+        sh ./update.sh
+      ) >>"$LOGS" 2>&1; then
+        _error "error updating packages for $package_manager, see logs in $LOGS" >&2
+        exit 1
       fi
-    )
+    fi
   fi
 done
+
+_info "done!"
