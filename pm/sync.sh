@@ -18,6 +18,7 @@ if ! [ -d "${LOGS%/*}" ]; then
 fi
 
 for package_manager in *; do
+  _info "starting sync..."
   if [ -d "$package_manager" ]; then
     if [ -f "$package_manager/pre-sync.sh" ]; then
       if ! (

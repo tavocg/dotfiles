@@ -18,23 +18,24 @@ if ! [ -d "${LOGS%/*}" ]; then
 fi
 
 for package_manager in *; do
+  _info "starting update..."
   if [ -d "$package_manager" ]; then
-    if [ -f "$package_manager/pre-install.sh" ]; then
+    if [ -f "$package_manager/pre-update.sh" ]; then
       if ! (
         cd "$package_manager" || exit 1
-        sh ./pre-install.sh
+        sh ./pre-update.sh
       ) >>"$LOGS" 2>&1; then
         _warn "$package_manager is supported but not available, skipping"
         continue
       fi
     fi
-    if [ -f "$package_manager/install.sh" ]; then
-      _info "installing packages for $package_manager..."
+    if [ -f "$package_manager/update.sh" ]; then
+      _info "updating packages for $package_manager..."
       if ! (
         cd "$package_manager" || exit 1
-        sh ./install.sh
+        sh ./update.sh
       ) >>"$LOGS" 2>&1; then
-        _error "error installing packages for $package_manager, see logs in $LOGS" >&2
+        _error "error updating packages for $package_manager, see logs in $LOGS" >&2
         exit 1
       fi
     fi

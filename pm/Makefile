@@ -1,13 +1,13 @@
 all: update-all
 
-sync-all:
-	@. "./sync-all.sh"
+sync:
+	@. "./sync.sh"
 
-update-all: sync-all
-	@. "./update-all.sh"
+update: sync
+	@. "./update.sh"
 
-install-all: sync-all
-	@. "./install-all.sh"
+install: sync
+	@. "./install.sh"
 
 actions:
 	@sed '/^[A-Za-z/\-]*:/!d;s/:.*$$//g' Makefile
