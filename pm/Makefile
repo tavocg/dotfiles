@@ -1,4 +1,4 @@
-all: update-all
+all: update
 
 sync:
 	@. "./sync.sh"
