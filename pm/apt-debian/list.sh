@@ -133,6 +133,7 @@ ruby-full
 composer
 php-cli
 python3-pynvim
+python3-numpy
 libyaml-dev
 libffi-dev
 default-jdk
