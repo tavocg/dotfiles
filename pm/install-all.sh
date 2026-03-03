@@ -24,7 +24,7 @@ for package_manager in *; do
         cd "$package_manager" || exit 1
         sh ./pre-install.sh
       ) >>"$LOGS" 2>&1; then
-        _warn "$package_manager is not available"
+        _warn "$package_manager is supported but not available, skipping"
         continue
       fi
     fi

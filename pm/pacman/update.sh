@@ -1,4 +1,4 @@
 #!/bin/sh
 
 set -ex
-flatpak update -y
+sudo pacman -Su
