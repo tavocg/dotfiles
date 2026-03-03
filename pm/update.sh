@@ -17,8 +17,9 @@ if ! [ -d "${LOGS%/*}" ]; then
   mkdir -p "${LOGS%/*}"
 fi
 
+_info "starting update..."
+
 for package_manager in *; do
-  _info "starting update..."
   if [ -d "$package_manager" ]; then
     if [ -f "$package_manager/pre-update.sh" ]; then
       if ! (

@@ -17,8 +17,9 @@ if ! [ -d "${LOGS%/*}" ]; then
   mkdir -p "${LOGS%/*}"
 fi
 
+_info "starting installation..."
+
 for package_manager in *; do
-  _info "starting installation..."
   if [ -d "$package_manager" ]; then
     if [ -f "$package_manager/pre-install.sh" ]; then
       if ! (
