@@ -2,7 +2,7 @@
 LOGS="$XDG_STATE_HOME"/pm/install.log
 
 _info() {
-  printf '\e[2m[%s]\e[0m \e[32m[%s]\e[0m %s\n' "pm" "INFO" "$1"
+  printf '\e[2m[%s]\e[0m \e[34m[%s]\e[0m %s\n' "pm" "INFO" "$1"
 }
 
 _error() {
