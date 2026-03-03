@@ -43,4 +43,4 @@ for package_manager in *; do
   fi
 done
 
-_info "done!"
+_info "done syncing!"
