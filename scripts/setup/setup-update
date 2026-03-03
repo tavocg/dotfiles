@@ -1,0 +1,53 @@
+#!/bin/sh
+set -u
+
+: "${TERMINAL:?Set TERMINAL (e.g. export TERMINAL=kitty)}"
+
+if ! command -v "$TERMINAL" >/dev/null 2>&1; then
+  echo "Terminal not found: $TERMINAL"
+  exit 1
+fi
+
+CMD='
+set -u
+
+echo "▌ ▌▛▀▖▛▀▖▞▀▖▀▛▘▜▘▙ ▌▞▀▖"
+echo "▌ ▌▙▄▘▌ ▌▙▄▌ ▌ ▐ ▌▌▌▌▄▖"
+echo "▌ ▌▌  ▌ ▌▌ ▌ ▌ ▐ ▌▝▌▌ ▌"
+echo "▝▀ ▘  ▀▀ ▘ ▘ ▘ ▀▘▘ ▘▝▀"
+
+pm update-all
+
+exec "${SHELL:-/bin/sh}" -l
+'
+
+case "$TERMINAL" in
+kitty)
+  kitty sh -c "$CMD"
+  ;;
+alacritty)
+  alacritty -e sh -c "$CMD"
+  ;;
+foot)
+  foot sh -c "$CMD"
+  ;;
+st)
+  st -e sh -c "$CMD"
+  ;;
+xterm)
+  xterm -e sh -c "$CMD"
+  ;;
+konsole)
+  konsole -e sh -c "$CMD"
+  ;;
+gnome-terminal)
+  gnome-terminal -- sh -c "$CMD"
+  ;;
+xfce4-terminal)
+  xfce4-terminal --command="sh -c $(printf %s "$CMD" | sed "s/'/'\\\\''/g")"
+  ;;
+*)
+  echo "Unsupported terminal: $TERMINAL"
+  exit 1
+  ;;
+esac
