@@ -138,6 +138,11 @@ libyaml-dev
 libffi-dev
 default-jdk
 default-jre
+r-cran-data.table
+r-cran-openxlsx
+r-cran-knitr
+r-cran-rmarkdown
+r-cran-tinytex
 "
 
 # Extra
