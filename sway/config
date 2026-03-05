@@ -1,23 +1,6 @@
-input type:touchpad {
-    natural_scroll enabled
-    dwt disabled
-    tap enabled
-}
-
-input type:pointer {
-    accel_profile flat
-}
-
-input type:keyboard {
-    xkb_layout latam,us
-    xkb_options grp:win_space_toggle
-    repeat_delay 300
-    repeat_rate 70
-}
-
-set $term foot
-set $filemgr dolphin
-set $browser firefox
+set $term ${TERMINAL:-alacritty}
+set $filemgr ${FILE_MANAGER:-dolphin}
+set $browser ${BROWSER:-firefox}
 
 set $col_nb #1e2326
 set $col_nf #374145
@@ -52,7 +35,7 @@ bindsym Shift+XF86AudioMute exec micmute
 bindsym XF86AudioMicMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
-bindsym Print exec grim -g "$(slurp -d)" - | wl-copy
+bindsym Print exec prtsc
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
@@ -111,14 +94,12 @@ hide_edge_borders smart
 client.focused $col_sb $col_sb $col_sf $col_nb $col_sb
 client.unfocused $col_nf $col_nb $col_nf $col_nb $col_nb
 default_border pixel 1
-# titlebar_border_thickness 2
-# titlebar_padding 2
 font $font
 
 bar {
   position bottom
   font $font
-  status_command ~/.config/scripts/sway/swaystatus
+  status_command statusbar
   tray_padding 4
 
   colors {
@@ -132,5 +113,24 @@ bar {
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
 for_window [title="Picture-in-Picture"] floating enable
+
+# sway-specific
+
+input type:touchpad {
+    natural_scroll enabled
+    dwt disabled
+    tap enabled
+}
+
+input type:pointer {
+    accel_profile flat
+}
+
+input type:keyboard {
+    xkb_layout latam,us
+    xkb_options grp:win_space_toggle
+    repeat_delay 300
+    repeat_rate 70
+}
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway

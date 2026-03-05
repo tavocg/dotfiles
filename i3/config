@@ -1,6 +1,6 @@
-set $term st
-set $filemgr dolphin
-set $browser firefox
+set $term ${TERMINAL:-alacritty}
+set $filemgr ${FILE_MANAGER:-dolphin}
+set $browser ${BROWSER:-firefox}
 
 set $col_nb #1e2326
 set $col_nf #374145
@@ -36,9 +36,6 @@ bindsym XF86AudioMicMute exec micmute
 bindsym XF86MonBrightnessUp exec brightup
 bindsym XF86MonBrightnessDown exec brightdown
 bindsym Print exec prtsc
-
-# X11-specific
-bindsym $mod+space exec setxkbmap-next
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
@@ -102,7 +99,7 @@ font $font
 bar {
   position bottom
   font $font
-  status_command ~/.config/scripts/i3/i3status
+  status_command statusbar
   tray_padding 4
 
   colors {
@@ -116,3 +113,6 @@ bar {
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
 for_window [title="Picture-in-Picture"] floating enable
+
+# X11-specific
+bindsym $mod+space exec setxkbmap-next
