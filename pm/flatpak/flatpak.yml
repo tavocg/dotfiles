@@ -1,0 +1,37 @@
+managers:
+  - id: "flatpak"
+    name: "Flatpak"
+    description: "Linux application sandboxing and distribution framework"
+    depends:
+      - "flatpak"
+    cli:
+      - intent: "check-remote"
+        description: "Check if a remote is installed"
+        privileged: false
+        cmd: "flatpak remotes | grep -q $REMOTE_ID"
+        env:
+          - "REMOTE_ID"
+      - intent: "update-single"
+        description: "Update the specified flatpak application"
+        privileged: false
+        cmd: "flatpak update -y $PACKAGE_ID"
+        env:
+          - "PACKAGE_ID"
+      - intent: "update-all"
+        description: "Update all installed flatpak applications"
+        cmd: "flatpak update -y"
+        privileged: false
+      - intent: "install-single"
+        description: "Install a flatpak application"
+        cmd: "flatpak install -y $PACKAGE_ID && ln -sf /var/lib/flatpak/exports/bin/$PACKAGE_ID ~/.local/bin/$PACKAGE_PROG"
+        privileged: false
+        env:
+          - "PACKAGE_ID"
+          - "PACKAGE_PROG"
+      - intent: "add-remote"
+        description: "Add remote"
+        cmd: "flatpak remote-add --if-not-exists $REMOTE_ID $REMOTE_URI"
+        privileged: false
+        env:
+          - "REMOTE_ID"
+          - "REMOTE_URI"

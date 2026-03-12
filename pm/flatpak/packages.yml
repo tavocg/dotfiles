@@ -1,0 +1,62 @@
+managers:
+  - id: "flatpak"
+    remotes:
+      - id: "flathub"
+        packages:
+          # System
+          - id: "com.github.tchx84.Flatseal"
+            progs:
+              - "flatseal"
+          - id: "io.github.ebonjaeger.bluejay"
+            progs:
+              - "bluejay"
+          - id: "org.mozilla.firefox"
+            progs:
+              - "firefox"
+          # Creative
+          - id: "org.gimp.gimp"
+            progs:
+              - "gimp"
+          - id: "org.darktable.Darktable"
+            progs:
+              - "darktable"
+          - id: "org.kde.kdenlive"
+            progs:
+              - "kdenlive"
+          - id: "org.inkscape.Inkscape"
+            progs:
+              - "inkscape"
+          # Games
+          - id: "com.valvesoftware.Steam"
+            progs:
+              - "steam"
+          - id: "net.lutris.Lutris"
+            progs:
+              - "lutris"
+          - id: "org.prismlauncher.PrismLauncher"
+            progs:
+              - "prismlauncher"
+          # Office
+          - id: "org.libreoffice.LibreOffice"
+            progs:
+              - "libreoffice"
+          - id: "org.mozilla.Thunderbird"
+            progs:
+              - "thunderbird"
+          # Utils
+          - id: "org.qbittorrent.qBittorrent"
+            progs:
+              - "qbittorrent"
+          - id: "org.localsend.localsend_app"
+            progs:
+              - "localsend"
+          - id: "md.obsidian.Obsidian"
+            progs:
+              - "obsidian"
+          - id: "fr.handbrake.ghb"
+            progs:
+              - "handbrake"
+          # Dev
+          - id: "io.beekeeperstudio.Studio"
+            progs:
+              - "beekeeperstudio"

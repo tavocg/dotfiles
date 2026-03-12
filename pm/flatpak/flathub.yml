@@ -1,0 +1,29 @@
+managers:
+  - id: "flatpak"
+    remotes:
+      - id: "flathub"
+        name: "Flathub"
+        uri: "https://dl.flathub.org/repo/flathub.flatpakrepo"
+        description: "The Linux App Store"
+        cli:
+          - intent: "update-single"
+            description: "Update the specified flathub application"
+            cmd: "flatpak update --appstream flathub -y $PACKAGE_ID"
+            privileged: false
+            env:
+              - "PACKAGE_ID"
+          - intent: "update-all"
+            description: "Update all installed flathub applications"
+            cmd: "flatpak update --appstream flathub -y"
+            privileged: false
+          - intent: "install-single"
+            description: "Install a flathub application"
+            cmd: "flatpak install --appstream flathub -y $PACKAGE_ID && ln -sf /var/lib/flatpak/exports/bin/$PACKAGE_ID ~/.local/bin/$PACKAGE_PROG"
+            privileged: false
+            env:
+              - "PACKAGE_ID"
+              - "PACKAGE_PROG"
+        packages:
+          - id: "org.gimp.gimp"
+            progs:
+              - "gimp"
