@@ -138,6 +138,8 @@ libyaml-dev
 libffi-dev
 default-jdk
 default-jre
+markdownlint
+glow
 r-cran-data.table
 r-cran-openxlsx
 r-cran-knitr
