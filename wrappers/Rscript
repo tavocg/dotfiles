@@ -1,0 +1,5 @@
+#!/bin/sh
+
+HOME=$HOME/.local/share/R
+mkdir -p "$HOME"
+exec /usr/bin/Rscript "$@"
