@@ -2,7 +2,6 @@
 PACKAGES="
 flatseal:com.github.tchx84.Flatseal
 bluejay:io.github.ebonjaeger.bluejay
-dolphin:org.kde.dolphin
 firefox:org.mozilla.firefox
 "
 
