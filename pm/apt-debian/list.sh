@@ -145,6 +145,8 @@ r-cran-openxlsx
 r-cran-knitr
 r-cran-rmarkdown
 r-cran-tinytex
+nodejs
+npm
 "
 
 # Extra
