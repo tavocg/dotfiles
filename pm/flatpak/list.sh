@@ -3,6 +3,7 @@ PACKAGES="
 flatseal:com.github.tchx84.Flatseal
 bluejay:io.github.ebonjaeger.bluejay
 firefox:org.mozilla.firefox
+dolphin:org.kde.dolphin
 "
 
 # creative
@@ -29,7 +30,6 @@ thunderbird:org.mozilla.Thunderbird
 # utils
 PACKAGES="$PACKAGES
 qbittorrent:org.qbittorrent.qBittorrent
-localsend:org.localsend.localsend_app
 obsidian:md.obsidian.Obsidian
 handbrake:fr.handbrake.ghb
 "

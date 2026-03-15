@@ -8,7 +8,7 @@ pkexec
 udisks2
 gnome-disk-utility
 perl
-bluez
+bluetooth
 upower
 libavcodec-extra
 libfuse2
