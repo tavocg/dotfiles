@@ -2,22 +2,64 @@ managers:
   - id: "flatpak"
     remotes:
       - id: "flathub"
-        name: "Flathub"
-        uri: "https://dl.flathub.org/repo/flathub.flatpakrepo"
-        description: "The Linux App Store"
         cli:
           - intent: "update-all"
-            description: "Update all installed flathub applications"
-            cmd: "flatpak update --appstream flathub -y"
-            privileged: false
-          - intent: "install-single"
-            description: "Install a flathub application"
-            cmd: "flatpak install --appstream flathub -y $PACKAGE_ID && ln -sf /var/lib/flatpak/exports/bin/$PACKAGE_ID ~/.local/bin/$PACKAGE_PROG"
-            privileged: false
-            env:
-              - "PACKAGE_ID"
-              - "PACKAGE_PROG"
+            cmd: "flatpak update --noninteractive --appstream flathub -y"
         packages:
-          - id: "org.gimp.gimp"
+          # system
+          - id: "com.github.tchx84.Flatseal"
+            env:
+              - FLATPAK_PROG: "flatseal"
+          - id: "io.github.ebonjaeger.bluejay"
+            env:
+              - FLATPAK_PROG: "bluejay"
+          - id: "org.mozilla.firefox"
+            env:
+              - FLATPAK_PROG: "firefox"
+          - id: "org.kde.dolphin"
+            env:
+              - FLATPAK_PROG: "dolphin"
+          # creative
+          - id: "org.gimp.GIMP"
             env:
               - FLATPAK_PROG: "gimp"
+          - id: "org.darktable.Darktable"
+            env:
+              - FLATPAK_PROG: "darktable"
+          - id: "org.kde.kdenlive"
+            env:
+              - FLATPAK_PROG: "kdenlive"
+          - id: "org.inkscape.Inkscape"
+            env:
+              - FLATPAK_PROG: "inkscape"
+          # games
+          - id: "com.valvesoftware.Steam"
+            env:
+              - FLATPAK_PROG: "steam"
+          - id: "net.lutris.Lutris"
+            env:
+              - FLATPAK_PROG: "lutris"
+          - id: "org.prismlauncher.PrismLauncher"
+            env:
+              - FLATPAK_PROG: "prismlauncher"
+          # office
+          - id: "org.libreoffice.LibreOffice"
+            env:
+              - FLATPAK_PROG: "libreoffice"
+          - id: "org.mozilla.Thunderbird"
+            env:
+              - FLATPAK_PROG: "thunderbird"
+          # utils
+          - id: "org.qbittorrent.qBittorrent"
+            env:
+              - FLATPAK_PROG: "qbittorrent"
+          - id: "md.obsidian.Obsidian"
+            env:
+              - FLATPAK_PROG: "obsidian"
+          - id: "fr.handbrake.ghb"
+            env:
+              - FLATPAK_PROG: "handbrake"
+          # dev
+          - id: "io.beekeeperstudio.Studio"
+            env:
+              - FLATPAK_PROG: "beekeeperstudio"
