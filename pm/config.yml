@@ -1,0 +1,200 @@
+- manager: "apt-get"
+  remotes:
+    - remote: "all"
+      cli:
+        - task: "update-all"
+          cmd: "apt-get upgrade -y"
+          privileged: true
+        - task: "sync"
+          cmd: "apt-get update"
+          privileged: true
+      packages:
+        # system
+        - id: "xdg-desktop-portal"
+        - id: "xdg-desktop-portal-gtk"
+        - id: "libglib2.0-bin"
+        - id: "lxpolkit"
+        - id: "pkexec"
+        - id: "udisks2"
+        - id: "gnome-disk-utility"
+        - id: "perl"
+        - id: "bluetooth"
+        - id: "upower"
+        - id: "libavcodec-extra"
+        - id: "libfuse2"
+        - id: "brightnessctl"
+        # network
+        - id: "resolvconf"
+        # shared
+        - id: "fonts-jetbrains-mono"
+        - id: "ttf-mscorefonts-installer"
+        # window manager - x11
+        - id: "xorg"
+        - id: "i3-wm"
+        - id: "alacritty"
+        - id: "suckless-tools"
+        - id: "scrot"
+        - id: "xdotool"
+        - id: "arandr"
+        # window manager - wayland
+        - id: "xdg-desktop-portal-wlr"
+        - id: "xwayland"
+        - id: "sway"
+        - id: "foot"
+        - id: "grim"
+        - id: "slurp"
+        # audio
+        - id: "pipewire"
+        - id: "pipewire-alsa"
+        - id: "pipewire-pulse"
+        - id: "pulseaudio-utils"
+        - id: "pipewire-jack"
+        - id: "wireplumber"
+        - id: "libspa-0.2-libcamera"
+        - id: "libspa-0.2-bluetooth"
+        - id: "alsa-tools"
+        - id: "alsa-utils"
+        # media
+        - id: "mpv"
+        - id: "vlc"
+        - id: "zathura"
+        - id: "zathura-cb"
+        - id: "zathura-djvu"
+        - id: "zathura-pdf-poppler"
+        - id: "zathura-ps"
+        - id: "poppler-utils"
+        - id: "obs-studio"
+        # tools
+        - id: "bemenu"
+        - id: "libbemenu-curses"
+        - id: "libbemenu-wayland"
+        - id: "libbemenu-x11"
+        - id: "curl"
+        - id: "fzf"
+        - id: "eza"
+        - id: "fd-find"
+        - id: "ripgrep"
+        - id: "pass"
+        - id: "pass-otp"
+        - id: "zbar-tools"
+        - id: "trash-cli"
+        - id: "unzip"
+        - id: "imagemagick"
+        - id: "tmux"
+        - id: "bat"
+        - id: "nnn"
+        - id: "exiftool"
+        - id: "groff"
+        - id: "grap"
+        - id: "zoxide"
+        - id: "tokei"
+        - id: "git"
+        - id: "lazygit"
+        - id: "shellcheck"
+        - id: "jq"
+        - id: "android-sdk-platform-tools"
+        - id: "btop"
+        - id: "python3-venv"
+        - id: "7zip"
+        - id: "imv"
+        - id: "r-base"
+        - id: "r-base-dev"
+        - id: "rsync"
+        - id: "ledger"
+        - id: "resvg"
+        # appearance
+        - id: "gnome-themes-extra"
+        # dev
+        - id: "build-essential"
+        - id: "python-is-python3"
+        - id: "python3-pip"
+        - id: "luarocks"
+        - id: "lua5.4"
+        - id: "libssl-dev"
+        - id: "rustup"
+        - id: "ruby-full"
+        - id: "composer"
+        - id: "php-cli"
+        - id: "python3-pynvim"
+        - id: "python3-numpy"
+        - id: "libyaml-dev"
+        - id: "libffi-dev"
+        - id: "default-jdk"
+        - id: "default-jre"
+        - id: "markdownlint"
+        - id: "glow"
+        - id: "r-cran-data.table"
+        - id: "r-cran-openxlsx"
+        - id: "r-cran-knitr"
+        - id: "r-cran-rmarkdown"
+        - id: "r-cran-tinytex"
+        - id: "nodejs"
+        - id: "npm"
+        # extra
+        - id: "flatpak"
+        - id: "steam-devices"
+
+- manager: "flatpak"
+  remotes:
+    - remote: "flathub"
+      cli:
+        - task: "update-all"
+          cmd: "flatpak update --noninteractive --appstream flathub -y"
+      packages:
+        # system
+        - package: "com.github.tchx84.Flatseal"
+          env:
+            - FLATPAK_PROG: "flatseal"
+        - package: "io.github.ebonjaeger.bluejay"
+          env:
+            - FLATPAK_PROG: "bluejay"
+        - package: "org.mozilla.firefox"
+          env:
+            - FLATPAK_PROG: "firefox"
+        - package: "org.kde.dolphin"
+          env:
+            - FLATPAK_PROG: "dolphin"
+        # creative
+        - package: "org.gimp.GIMP"
+          env:
+            - FLATPAK_PROG: "gimp"
+        - package: "org.darktable.Darktable"
+          env:
+            - FLATPAK_PROG: "darktable"
+        - package: "org.kde.kdenlive"
+          env:
+            - FLATPAK_PROG: "kdenlive"
+        - package: "org.inkscape.Inkscape"
+          env:
+            - FLATPAK_PROG: "inkscape"
+        # games
+        - package: "com.valvesoftware.Steam"
+          env:
+            - FLATPAK_PROG: "steam"
+        - package: "net.lutris.Lutris"
+          env:
+            - FLATPAK_PROG: "lutris"
+        - package: "org.prismlauncher.PrismLauncher"
+          env:
+            - FLATPAK_PROG: "prismlauncher"
+        # office
+        - package: "org.libreoffice.LibreOffice"
+          env:
+            - FLATPAK_PROG: "libreoffice"
+        - package: "org.mozilla.Thunderbird"
+          env:
+            - FLATPAK_PROG: "thunderbird"
+        # utils
+        - package: "org.qbittorrent.qBittorrent"
+          env:
+            - FLATPAK_PROG: "qbittorrent"
+        - package: "md.obsidian.Obsidian"
+          env:
+            - FLATPAK_PROG: "obsidian"
+        - package: "fr.handbrake.ghb"
+          env:
+            - FLATPAK_PROG: "handbrake"
+        # dev
+        - package: "io.beekeeperstudio.Studio"
+          env:
+            - FLATPAK_PROG: "beekeeperstudio"
