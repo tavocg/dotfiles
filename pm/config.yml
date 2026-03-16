@@ -1,4 +1,6 @@
 - manager: "apt-get"
+  depends:
+    - "apt-get"
   remotes:
     - remote: "all"
       cli:
@@ -135,6 +137,8 @@
         - id: "steam-devices"
 
 - manager: "flatpak"
+  depends:
+    - "flatpak"
   remotes:
     - remote: "flathub"
       cli:
