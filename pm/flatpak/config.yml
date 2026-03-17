@@ -1,0 +1,10 @@
+- manager: flatpak
+  depends:
+    - flatpak
+  remotes:
+    - remote: flathub
+      cli:
+        - task: update-all
+          cmd: flatpak update --noninteractive -y
+      packages:
+        list: list.yml

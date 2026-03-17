@@ -1,7 +1,0 @@
-PACKAGES="
-@ast-grep/cli
-@openai/codex
-@railway/cli
-neovim
-@mermaid-js/mermaid-cli
-"

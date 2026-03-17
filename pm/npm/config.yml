@@ -1,0 +1,14 @@
+- manager: "npm"
+  depends:
+    - "npm"
+  remotes:
+    - remote: "npm"
+      cli:
+        - task: "update-all"
+          script: "update.sh"
+      packages:
+        - package: "@ast-grep/cli"
+        - package: "@openai/codex"
+        - package: "@railway/cli"
+        - package: "neovim"
+        - package: "@mermaid-js/mermaid-cli"
