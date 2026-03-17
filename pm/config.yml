@@ -4,11 +4,11 @@
   remotes:
     - remote: "all"
       cli:
-        - task: "update-all"
-          cmd: "apt-get upgrade -y"
-          privileged: true
         - task: "sync"
           cmd: "apt-get update"
+          privileged: true
+        - task: "update-all"
+          cmd: "apt-get full-upgrade -y"
           privileged: true
       packages:
         # system
@@ -143,7 +143,7 @@
     - remote: "flathub"
       cli:
         - task: "update-all"
-          cmd: "flatpak update --noninteractive --appstream flathub -y"
+          cmd: "flatpak update --noninteractive -y"
       packages:
         # system
         - package: "com.github.tchx84.Flatseal"
