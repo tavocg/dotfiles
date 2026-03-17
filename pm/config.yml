@@ -119,6 +119,7 @@
         - id: "php-cli"
         - id: "python3-pynvim"
         - id: "python3-numpy"
+        - id: "python3-docx"
         - id: "libyaml-dev"
         - id: "libffi-dev"
         - id: "default-jdk"
