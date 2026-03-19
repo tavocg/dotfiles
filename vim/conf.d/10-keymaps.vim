@@ -6,9 +6,14 @@ function! Sanitize()
   call winrestview(l:view)
 endfunction
 
-nnoremap <C-s> :call Sanitize()<Bar>update<CR>
-inoremap <C-s> <Esc>:call Sanitize()<Bar>update<CR>a
-vnoremap <C-s> <Esc>:call Sanitize()<Bar>update<CR>gv
+augroup sanitize_on_save
+  autocmd!
+  autocmd BufWritePre * call Sanitize()
+augroup END
+
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>a
+vnoremap <C-s> <Esc>:w<CR>gv
 
 nnoremap Y y$
 
