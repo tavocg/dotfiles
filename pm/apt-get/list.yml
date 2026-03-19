@@ -45,6 +45,9 @@
 - package: emacs
   when:
     - XDG_SESSION_TYPE=x11
+- package: libbemenu-x11
+  when:
+    - XDG_SESSION_TYPE=x11
 
   # window manager - wayland
 - package: xdg-desktop-portal-wlr
@@ -66,6 +69,9 @@
   when:
     - XDG_SESSION_TYPE=wayland
 - package: emacs-pgtk
+  when:
+    - XDG_SESSION_TYPE=wayland
+- package: libbemenu-wayland
   when:
     - XDG_SESSION_TYPE=wayland
 
@@ -95,8 +101,6 @@
   # tools
 - package: bemenu
 - package: libbemenu-curses
-- package: libbemenu-wayland
-- package: libbemenu-x11
 - package: curl
 - package: fzf
 - package: eza
