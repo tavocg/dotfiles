@@ -1,12 +1,15 @@
+let s:is_nvim = has('nvim')
+let s:appname = s:is_nvim ? 'nvim' : 'vim'
+
 let s:config_home = empty($XDG_CONFIG_HOME) ? expand('~/.config')      : $XDG_CONFIG_HOME
 let s:data_home   = empty($XDG_DATA_HOME)   ? expand('~/.local/share') : $XDG_DATA_HOME
 let s:state_home  = empty($XDG_STATE_HOME)  ? expand('~/.local/state') : $XDG_STATE_HOME
 let s:cache_home  = empty($XDG_CACHE_HOME)  ? expand('~/.cache')       : $XDG_CACHE_HOME
 
-let s:config = s:config_home . '/vim'
-let s:data   = s:data_home   . '/vim'
-let s:state  = s:state_home  . '/vim'
-let s:cache  = s:cache_home  . '/vim'
+let s:config = s:config_home . '/' . s:appname
+let s:data   = s:data_home   . '/' . s:appname
+let s:state  = s:state_home  . '/' . s:appname
+let s:cache  = s:cache_home  . '/' . s:appname
 
 for dir in [
       \ s:config . '/after',
@@ -34,26 +37,32 @@ if isdirectory(s:config)
 endif
 
 if isdirectory(s:cache . '/swap')
-  execute 'set directory=' . s:cache . '/swap//,.,/tmp'
+  execute 'set directory=' . fnameescape(s:cache . '/swap') . '//,.,/tmp'
 endif
 
 if isdirectory(s:cache . '/backup')
-  execute 'set backupdir=' . s:cache . '/backup//,.,/tmp'
+  execute 'set backupdir=' . fnameescape(s:cache . '/backup') . '//,.,/tmp'
 endif
 
 if isdirectory(s:data . '/undo')
-  execute 'set undodir=' . s:data . '/undo//'
+  execute 'set undodir=' . fnameescape(s:data . '/undo') . '//'
   set undofile
 endif
 
 if isdirectory(s:data . '/spell')
-  execute 'set spellfile=' . s:data . '/spell/en.utf-8.add'
+  execute 'set spellfile=' . fnameescape(s:data . '/spell/en.utf-8.add')
 endif
 
 if isdirectory(s:state . '/view')
-  execute 'set viewdir=' . s:state . '/view/'
+  execute 'set viewdir=' . fnameescape(s:state . '/view') . '/'
 endif
 
-if isdirectory(s:state)
-  execute 'set viminfo+=n' . s:state . '/viminfo'
+if s:is_nvim
+  if isdirectory(s:state)
+    execute 'set shadafile=' . fnameescape(s:state . '/shada/main.shada')
+  endif
+else
+  if isdirectory(s:state)
+    execute 'set viminfo+=n' . fnameescape(s:state . '/viminfo')
+  endif
 endif
