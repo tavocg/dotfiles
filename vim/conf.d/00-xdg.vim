@@ -66,3 +66,22 @@ else
     execute 'set viminfo+=n' . fnameescape(s:state . '/viminfo')
   endif
 endif
+
+" Share vim's pack directory with nvim
+if s:is_nvim
+  let s:vim_config = s:config_home . '/vim'
+  if isdirectory(s:vim_config . '/pack')
+    let s:rtp = split(&runtimepath, ',')
+    let s:insert_pos = 1
+    call insert(s:rtp, s:vim_config, s:insert_pos)
+    if isdirectory(s:vim_config . '/after') && index(s:rtp, s:vim_config . '/after') < 0
+      call add(s:rtp, s:vim_config . '/after')
+    endif
+    let &runtimepath = join(s:rtp, ',')
+    let s:pp = split(&packpath, ',')
+    if index(s:pp, s:vim_config) < 0
+      call insert(s:pp, s:vim_config, 0)
+    endif
+    let &packpath = join(s:pp, ',')
+  endif
+endif
