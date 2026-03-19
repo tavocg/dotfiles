@@ -37,6 +37,24 @@
 
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
 
+(with-eval-after-load 'org
+  (add-to-list 'org-preview-latex-process-alist
+               '(tectonic
+                 :programs ("tectonic" "convert")
+                 :description "pdf > png"
+                 :message "You need tectonic and imagemagick."
+                 :image-input-type "pdf"
+                 :image-output-type "png"
+                 :image-size-adjust (1.0 . 1.0)
+                 :latex-compiler
+                 ("tectonic -Z shell-escape-cwd=%o --outfmt pdf --outdir %o %f")
+                 :image-converter
+                 ("convert -density %D -trim -fuzz 2%% -antialias %f -quality 300 %O")))
+  (setq org-preview-latex-default-process 'tectonic)
+  (setq org-format-latex-options
+        (plist-put org-format-latex-options :scale 1.4)))
+
 (unless (package-installed-p 'evil)
+  (package-refresh-contents)
   (package-install 'evil))
 (evil-mode)
