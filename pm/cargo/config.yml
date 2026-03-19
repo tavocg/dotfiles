@@ -1,0 +1,10 @@
+- manager: cargo
+  depends:
+    - cargo
+  remotes:
+    - remote: all
+      cli:
+        - task: update-all
+          script: update.sh
+      packages:
+        - package: "typstyle"

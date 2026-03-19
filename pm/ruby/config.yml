@@ -1,0 +1,10 @@
+- manager: ruby
+  depends:
+    - gem
+  remotes:
+    - remote: all
+      cli:
+        - task: update-all
+          cmd: ./update.sh
+      packages:
+        package: neovim
