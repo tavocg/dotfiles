@@ -54,6 +54,10 @@
   (setq org-format-latex-options
         (plist-put org-format-latex-options :scale 1.4)))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)))
+
 (unless (package-installed-p 'evil)
   (package-refresh-contents)
   (package-install 'evil))
