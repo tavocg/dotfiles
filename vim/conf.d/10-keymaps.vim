@@ -1,16 +1,3 @@
-function! Sanitize()
-  let l:view = winsaveview()
-  %s/\s\+$//e
-  %s/\n\+\%$//e
-  normal! gg=G
-  call winrestview(l:view)
-endfunction
-
-augroup sanitize_on_save
-  autocmd!
-  autocmd BufWritePre * call Sanitize()
-augroup END
-
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <Esc>:w<CR>a
 vnoremap <C-s> <Esc>:w<CR>gv
