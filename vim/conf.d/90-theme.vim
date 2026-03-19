@@ -2,10 +2,9 @@ if has('termguicolors') && ($COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit'
   set termguicolors
 endif
 
-let g:everforest_background = 'hard'
-set background=dark
-
 try
+  let g:everforest_background = 'hard'
+  set background=dark
   colorscheme everforest
 catch
 endtry
