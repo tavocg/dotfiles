@@ -1,3 +1,11 @@
 #!/bin/sh
+godir="$XDG_DATA_HOME"/go
 
-export PATH="$HOME/.local/share/go/bin${PATH:+:${PATH}}"
+export PATH="$godir/bin${PATH:+:${PATH}}"
+
+export GOTOOLCHAIN=auto
+mkdir -p "$godir"/sdk
+
+for sdk in "$godir"/sdk/go*; do
+  export PATH="$sdk"/bin:$PATH
+done
