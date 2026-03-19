@@ -22,20 +22,52 @@
 
   # window manager - x11
 - package: xorg
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: i3-wm
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: alacritty
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: suckless-tools
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: scrot
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: xdotool
+  when:
+    - XDG_SESSION_TYPE=x11
 - package: arandr
+  when:
+    - XDG_SESSION_TYPE=x11
+- package: emacs
+  when:
+    - XDG_SESSION_TYPE=x11
 
   # window manager - wayland
 - package: xdg-desktop-portal-wlr
+  when:
+    - XDG_SESSION_TYPE=wayland
 - package: xwayland
+  when:
+    - XDG_SESSION_TYPE=wayland
 - package: sway
+  when:
+    - XDG_SESSION_TYPE=wayland
 - package: foot
+  when:
+    - XDG_SESSION_TYPE=wayland
 - package: grim
+  when:
+    - XDG_SESSION_TYPE=wayland
 - package: slurp
+  when:
+    - XDG_SESSION_TYPE=wayland
+- package: emacs-pgtk
+  when:
+    - XDG_SESSION_TYPE=wayland
 
   # audio
 - package: pipewire

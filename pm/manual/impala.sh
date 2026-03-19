@@ -13,6 +13,8 @@ if [ -z "$URL" ]; then
   exit 1
 fi
 
-set -ex
+set -x
 sudo curl -fLsS "$URL" -o "$DESTINATION"/"$TARGET"
+set +x
+
 sudo chmod +x "$DESTINATION"/"$TARGET"
