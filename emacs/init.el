@@ -20,6 +20,7 @@
 (setq warning-minimum-level :error)
 (setq initial-scratch-message nil)
 (setq inhibit-startup-message t)
+(setq use-short-answers t)
 (setq scroll-conservatively 10)
 (setq scroll-step 1)
 (scroll-bar-mode 0)
@@ -34,9 +35,6 @@
 
 (load-theme 'modus-vivendi t)
 
-(set-face-attribute 'default nil
-  :font "JetBrains Mono"
-  :height 110)
 (add-to-list 'default-frame-alist '(font . "JetBrains Mono-11"))
 
 (unless (package-installed-p 'evil)
