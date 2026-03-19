@@ -43,6 +43,7 @@ endif
 
 if isdirectory(s:data . '/undo')
   execute 'set undodir=' . s:data . '/undo//'
+  set undofile
 endif
 
 if isdirectory(s:data . '/spell')
