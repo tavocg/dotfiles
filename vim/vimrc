@@ -1,14 +1,3 @@
-let g:customrtp = expand('~/.config/vim')
-
-let rtp = &runtimepath
-let &runtimepath = g:customrtp . ',' . rtp . ',' . g:customrtp . '/after'
-execute 'set directory=' . g:customrtp . '/swap//,.,~/tmp,/var/tmp,/tmp'
-execute 'set backupdir=' . g:customrtp . '/backup//,.,~/tmp,~/'
-execute 'set spellfile=' . g:customrtp . '/spell/en.utf-8.add'
-execute 'set viminfo+=n' . g:customrtp . '/viminfo'
-execute 'set viewdir='   . g:customrtp . '/view/'
-execute 'set undodir='   . g:customrtp . '/undo//,.'
-
-for dir in ['swap', 'backup', 'spell', 'view', 'undo', 'after']
-	call mkdir(g:customrtp . '/' . dir, 'p', 0700)
+for file in split(glob('~/.config/vim/conf.d/*.vim'), '\n')
+  execute 'source' fnameescape(file)
 endfor
