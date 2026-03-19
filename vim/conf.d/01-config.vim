@@ -1,4 +1,5 @@
 set number
+set relativenumber
 set cursorline
 set smartcase
 set wildmode=list:longest
