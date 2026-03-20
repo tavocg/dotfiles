@@ -4,3 +4,6 @@
 [submodule "vim/pack/plugins/start/sensible"]
 	path = vim/pack/plugins/start/sensible
 	url = https://github.com/tpope/vim-sensible
+[submodule "vim/pack/plugins/start/xdg"]
+	path = vim/pack/plugins/start/xdg
+	url = https://github.com/tavocg/vim-xdg
