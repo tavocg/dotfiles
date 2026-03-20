@@ -28,5 +28,5 @@ endfunction
 
 augroup sanitize_on_save
   autocmd!
-  autocmd BufWritePre * call Sanitize()
+  autocmd BufWritePre * if &filetype !~# '^\(txt\|markdown\)$' | call Sanitize() | endif
 augroup END
