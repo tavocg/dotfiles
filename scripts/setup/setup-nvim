@@ -24,7 +24,7 @@ fi
 tmp="$(mktemp)" ||
   die "failed to create tmpfile"
 
-curl -sLo "$tmp" "$latest" ||
+curl -fsSL -o "$tmp" "$latest" ||
   die "failed to download" "$tmp"
 
 tar -xzf "$tmp" --strip-components=1 -C "$NVIM_PREFIX" 2>/dev/null ||

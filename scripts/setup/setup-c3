@@ -1,0 +1,39 @@
+#!/bin/sh
+C3_PREFIX="${C3_PREFIX:-"/usr/local"}"
+
+archive="c3-linux.tar.gz"
+latest="https://github.com/c3lang/c3c/releases/latest/download/$archive"
+
+die() {
+  errMsg="$1"
+  tmpDir="$2"
+
+  echo "$errMsg"
+
+  if [ -d "$tmpDir" ]; then
+    rm -rf "$tmpDir"
+  fi
+
+  exit 1
+}
+
+if ! [ -d "$C3_PREFIX" ]; then
+  die "invalid installation prefix (\$C3_PREFIX=$C3_PREFIX)"
+fi
+
+tmp="$(mktemp -d)" ||
+  die "failed to create tmpdir"
+
+curl -fsSL -o "$tmp"/"$archive" "$latest" ||
+  die "failed to download" "$tmp"
+
+(
+  cd "$tmp" &&
+    tar -xzf "$archive" &&
+    install -d "$C3_PREFIX"/bin "$C3_PREFIX"/lib &&
+    install -m 755 c3/c3c "$C3_PREFIX"/bin/ &&
+    cp -r c3/lib/. "$C3_PREFIX"/lib/
+) || die "failed to install" "$tmp"
+
+rm -rf "$tmp" ||
+  die "failed to delete '$tmp'"
