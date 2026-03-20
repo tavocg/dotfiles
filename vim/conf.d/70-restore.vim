@@ -1,11 +1,19 @@
 set undofile
 
 " Restore cursor position
-autocmd BufReadPost * normal! g`"
+augroup RestoreCursor
+  autocmd!
+  autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line('$') |
+        \   execute 'normal! g`"' |
+        \ endif
+augroup END
 
 " Restore folds
 augroup SaveView
   autocmd!
-  autocmd BufWinLeave * if &buftype == '' && expand('%') != '' | mkview | endif
-  autocmd BufWinEnter * if &buftype == '' && expand('%') != '' | silent! loadview | endif
+  autocmd BufWinLeave *
+        \ if &buftype == '' && expand('%') != '' | mkview | endif
+  autocmd BufWinEnter *
+        \ if &buftype == '' && expand('%') != '' | silent! loadview | endif
 augroup END
