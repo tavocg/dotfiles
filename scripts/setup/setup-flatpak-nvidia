@@ -1,5 +1,11 @@
 #!/bin/sh
 
+printf ' %s\n' "------------------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - nvidia (flatpak)"
+printf ' %s\n' "------------------------"
+
+set -e
+
 systemversion=
 nvidia-smi --version | while read line; do
   case "$line" in
@@ -11,8 +17,8 @@ nvidia-smi --version | while read line; do
     thirdnumber="${systemversion##*.}"
     systemversion="$firstnumber-$secondnumber-$thirdnumber" # 550-163-01
 
-    flatpak install "org.freedesktop.Platform.GL.nvidia-$systemversion"
-
+    set -x
+    flatpak install "org.freedesktop.Platform.GL.nvidia-$systemversion" >/dev/null 2>&1
     break
     ;;
   *) ;;

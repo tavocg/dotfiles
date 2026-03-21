@@ -1,3 +1,8 @@
 #!/bin/sh
 
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+printf ' %s\n' "---------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - flathub"
+printf ' %s\n' "---------------"
+
+set -ex
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo >/dev/null 2>&1

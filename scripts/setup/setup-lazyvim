@@ -1,5 +1,11 @@
 #!/bin/bash
 
+printf ' %s\n' "---------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - LazyVim"
+printf ' %s\n' "---------------"
+
+set -ex
+
 # required
 mv ~/.config/nvim{,.bak}
 
@@ -7,6 +13,7 @@ mv ~/.config/nvim{,.bak}
 mv ~/.local/share/nvim{,.bak}
 mv ~/.local/state/nvim{,.bak}
 mv ~/.cache/nvim{,.bak}
+mv ~/.local/cache/nvim{,.bak}
 
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git

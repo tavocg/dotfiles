@@ -1,3 +1,12 @@
 #!/bin/sh
 
+printf ' %s\n' "-------------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - xorg.conf.d"
+printf ' %s\n' "-------------------"
+
+set -ex
+
+[ -d "$XDG_CONFIG_HOME"/X11/xorg.conf.d ]
+[ -d /etc/X11/xorg.conf.d ]
+
 sudo cp "$XDG_CONFIG_HOME"/X11/xorg.conf.d/*.conf /etc/X11/xorg.conf.d/

@@ -1,4 +1,9 @@
 #!/bin/sh
+
+printf ' %s\n' "-------------------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - hyprland (debian)"
+printf ' %s\n' "-------------------------"
+
 set -x
 
 build_cmake() {

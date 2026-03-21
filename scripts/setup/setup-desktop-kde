@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "export LOAD_DESKTOP=1 XDG_SESSION_DESKTOP=kde" > ~/.config/shell/profile.d/desktop.sh
+echo "export LOAD_DESKTOP=1 XDG_SESSION_DESKTOP=kde EDITOR=nvim VISUAL=em" >~/.config/shell/profile.d/desktop.sh

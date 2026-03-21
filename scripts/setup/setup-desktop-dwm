@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "export LOAD_DESKTOP=1 XDG_SESSION_DESKTOP=dwm" > ~/.config/shell/profile.d/desktop.sh
+echo "export LOAD_DESKTOP=1 XDG_SESSION_DESKTOP=dwm TERMINAL=st TERM=xterm-256color BROWSER=firefox EDITOR=nvim VISUAL=em" >~/.config/shell/profile.d/desktop.sh

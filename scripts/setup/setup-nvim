@@ -1,37 +1,32 @@
 #!/bin/sh
+
+printf ' %s\n' "--------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - neovim"
+printf ' %s\n' "--------------"
+
 NVIM_PREFIX="${NVIM_PREFIX:-"/usr/local"}"
 
 archive="nvim-linux-x86_64.tar.gz"
 latest="https://github.com/neovim/neovim/releases/latest/download/$archive"
 
 die() {
-  errMsg="$1"
-  tmpFile="$2"
-
-  echo "$errMsg"
-
-  if [ -f "$tmpFile" ]; then
-    rm -rf "$tmpFile"
-  fi
-
+  [ -f "$1" ] && rm -rf "$1"
   exit 1
 }
 
-if ! [ -d "$NVIM_PREFIX" ]; then
-  die "invalid installation prefix (\$NVIM_PREFIX=$NVIM_PREFIX)"
-fi
+set -x
 
-tmp="$(mktemp)" ||
-  die "failed to create tmpfile"
+[ -d "$NVIM_PREFIX" ] || die
 
-curl -fsSL -o "$tmp" "$latest" ||
-  die "failed to download" "$tmp"
+tmp="$(mktemp)" || die
+
+curl -fsSL -o "$tmp" "$latest" || die "$tmp"
 
 tar -xzf "$tmp" --strip-components=1 -C "$NVIM_PREFIX" 2>/dev/null ||
-  die "failed to extract into '$NVIM_PREFIX' (use sudo?)" "$tmp"
+  die "$tmp"
 
 rm -rf "$tmp" ||
-  die "failed to delete '$tmp'"
+  die
 
 ln -sf "$NVIM_PREFIX"/bin/nvim "$NVIM_PREFIX"/bin/vim ||
-  die "failed to create symbolic link"
+  die

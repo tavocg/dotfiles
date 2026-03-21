@@ -1,7 +1,16 @@
 #!/bin/sh
+
+printf ' %s\n' "-------------------"
+printf ' \e[1m%s\e[0m\n' "SETUP - anypinentry"
+printf ' %s\n' "-------------------"
+
 pinentry_script="$HOME/.config/scripts/anypinentry"
 gpg_conf_file="$HOME/.local/share/gnupg/gpg-agent.conf"
 
+set -ex
+
+[ -x "$pinentry_script" ]
+[ -d "${gpg_conf_file%/*}" ]
 printf 'pinentry-program %s\n' "$pinentry_script" >"$gpg_conf_file"
 chmod 600 "$gpg_conf_file"
 gpg-agent reload
