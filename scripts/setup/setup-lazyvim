@@ -6,16 +6,12 @@ printf ' %s\n' "---------------"
 
 set -ex
 
-# required
-mv ~/.config/nvim{,.bak}
-
-# optional but recommended
-mv ~/.local/share/nvim{,.bak}
-mv ~/.local/state/nvim{,.bak}
-mv ~/.cache/nvim{,.bak}
-mv ~/.local/cache/nvim{,.bak}
+for dir in ~/.config/nvim ~/.local/share/nvim ~/.local/state/nvim ~/.cache/nvim ~/.local/cache/nvim; do
+  if [ -d "$dir" ]; then
+    mv "$dir"{,.bak}
+  fi
+done
 
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 rm -rf ~/.config/nvim/.git
-
 git -C ~/.config restore nvim

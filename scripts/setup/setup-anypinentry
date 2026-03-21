@@ -4,8 +4,8 @@ printf ' %s\n' "-------------------"
 printf ' \e[1m%s\e[0m\n' "SETUP - anypinentry"
 printf ' %s\n' "-------------------"
 
-pinentry_script="$HOME/.config/scripts/anypinentry"
-gpg_conf_file="$HOME/.local/share/gnupg/gpg-agent.conf"
+pinentry_script="$XDG_CONFIG_HOME/scripts/anypinentry"
+gpg_conf_file="$XDG_DATA_HOME/gnupg/gpg-agent.conf"
 
 set -ex
 
