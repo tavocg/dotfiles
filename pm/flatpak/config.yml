@@ -6,5 +6,5 @@
       cli:
         - task: update-all
           cmd: flatpak update --noninteractive -y
-      packages:
-        list: list.yml
+      package-lists:
+        - list.yml
