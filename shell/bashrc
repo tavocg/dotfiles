@@ -55,6 +55,6 @@ y() {
   rm -f -- "$tmp"
 }
 
-if [ "$LOAD_DESKTOP" ] && [ "$XDG_SESSION_DESKTOP" ]; then
+if command -v startdesktop >/dev/null 2>&1; then
   startdesktop
 fi

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ -z "$DISPLAY" ]; then
+if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ "$XDG_SESSION_DESKTOP" ] && [ -z "$DISPLAY" ]; then
   # Give time to stop via SIGINT
   # Also, sway startup misbehaves without this
   sleep 0.2
@@ -11,14 +11,20 @@ if [ "$(tty)" = "/dev/tty1" ] && [ "$LOAD_DESKTOP" ] && [ -z "$DISPLAY" ]; then
     ;;
   dwm)
     amixer &
-    XDG_SESSION_DESKTOP=dwm XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
+    XDG_SESSION_TYPE=x11 \
+      GDK_BACKEND=x11 \
+      exec startx
     ;;
   i3)
     amixer &
-    XDG_SESSION_DESKTOP=i3 XDG_SESSION_TYPE=x11 GDK_BACKEND=x11 exec startx
+    XDG_SESSION_TYPE=x11 \
+      GDK_BACKEND=x11 \
+      exec startx
     ;;
   sway)
-    XDG_SESSION_DESKTOP=sway XDG_SESSION_TYPE=wayland GDK_BACKEND=wayland exec sway
+    XDG_SESSION_TYPE=wayland \
+      GDK_BACKEND=wayland \
+      exec sway
     ;;
   *) echo "error: current \$XDG_SESSION_DESKTOP not supported (kde, dwm, i3, sway)" ;;
   esac
