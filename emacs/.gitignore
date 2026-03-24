@@ -1,2 +1,7 @@
-*
-!init.el
+custom.el
+eln-cache/
+elpa/
+auto-save-list/
+tree-sitter/
+undo-fu-session/
+history
