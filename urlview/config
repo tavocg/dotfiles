@@ -1,2 +1,0 @@
-COMMAND printf "%s" | sed "s/^'//;s/'$//" | xsel -ib
-EXPERT
