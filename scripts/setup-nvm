@@ -20,3 +20,5 @@ git clone -q https://github.com/nvm-sh/nvm.git "$NVM_DIR" >/dev/null
 set +x
 
 . "$NVM_DIR/nvm.sh"
+
+nvm install --lts
