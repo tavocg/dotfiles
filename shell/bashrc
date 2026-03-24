@@ -38,14 +38,6 @@ _prompt_git_branch() {
 PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
 PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
 
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh ]; then
-  . "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh
-fi
-
-if ! command -v sudo >/dev/null 2>&1 && command -v doas >/dev/null 2>&1; then
-  complete -cf doas
-fi
-
 y() {
   local tmp cwd
   tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -55,6 +47,20 @@ y() {
   rm -f -- "$tmp"
 }
 
+if ! command -v sudo >/dev/null 2>&1 && command -v doas >/dev/null 2>&1; then
+  complete -cf doas
+fi
+
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh ]; then
+  . "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh
+fi
+
+if [[ ":$PATH:" != *":${XDG_CONFIG_HOME:-$HOME/.config}/scripts:"* ]]; then
+  export PATH="${XDG_CONFIG_HOME:-$HOME/.config}/scripts:$PATH"
+fi
+
 if command -v startdesktop >/dev/null 2>&1; then
   startdesktop
+else
+  echo hi
 fi
