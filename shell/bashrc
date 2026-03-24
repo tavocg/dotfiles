@@ -1,12 +1,7 @@
 #!/bin/bash
 BASH_ENV="${XDG_CONFIG_HOME:-$HOME/.config/}/shell/bashrc"
 
-case $- in
-*i*) ;;
-*) return ;;
-esac
-
-for d in ~/.config/shell/aliases.d ~/.config/shell/desktop.d ~/.config/shell/functions.d; do
+for d in ~/.config/shell/profile.d; do
   if [ -d "$d" ]; then
     for s in "$d"/*.sh; do
       if [ -f "$s" ]; then
@@ -15,6 +10,11 @@ for d in ~/.config/shell/aliases.d ~/.config/shell/desktop.d ~/.config/shell/fun
     done
   fi
 done
+
+case $- in
+  *i*) ;;
+  *) return ;;
+esac
 
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/shell/bash_history"
 HISTCONTROL=ignoreboth
@@ -47,6 +47,6 @@ _prompt_git_branch() {
 PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
 PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
 
-if [ -x ~/.config/shell/start-desktop.sh ]; then
-  ~/.config/shell/start-desktop.sh
+if command -v startdesktop >/dev/null 2>&1; then
+  startdesktop
 fi

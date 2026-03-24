@@ -3,8 +3,8 @@
 
 export \
   LOAD_DESKTOP=1 \
-  XDG_SESSION_DESKTOP=i3 \
-  TERMINAL=st \
+  XDG_SESSION_DESKTOP=sway \
+  TERMINAL=foot \
   TERM=xterm-256color \
   BROWSER=firefox \
   EDITOR=nvim \
