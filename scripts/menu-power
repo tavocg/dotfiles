@@ -1,0 +1,46 @@
+#!/bin/sh
+# Prompt for power options using dmenu
+
+option=$(printf "Shutdown\nRestart\nLog out" | menu "dmenu" "Power:")
+
+_logout() {
+  if ps -a | grep -q 'tty1.*xinit'; then
+    pkill xinit
+    return 0
+  fi
+  if ps -a | grep -q 'tty1.*sway'; then
+    pkill sway
+    return 0
+  fi
+}
+
+_shutdown() {
+  if [ -e "/bin/shutdown" ]; then
+    sd="/bin/shutdown"
+  elif [ -e "/sbin/shutdown" ]; then
+    sd="/sbin/shutdown"
+  else
+    sd="$(command -v shutdown)"
+  fi
+
+  "$sd" now
+}
+
+_reboot() {
+  if [ -e "/bin/shutdown" ]; then
+    sd="/bin/shutdown"
+  elif [ -e "/sbin/shutdown" ]; then
+    sd="/sbin/shutdown"
+  else
+    sd="$(command -v shutdown)"
+  fi
+
+  "$sd" -r 0
+}
+
+case "$option" in
+"Shutdown") _shutdown ;;
+"Restart") _reboot ;;
+"Log out") _logout ;;
+*) exit 1 ;;
+esac

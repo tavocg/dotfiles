@@ -1,4 +1,4 @@
-#!/bin/sh
+# shellcheck shell=sh
 
 GEM_BASE="$HOME/.local/share/gem/ruby"
 latest_bin=""
@@ -12,5 +12,5 @@ done
 
 if [ -n "$latest_bin" ]; then
   export GEM_HOME="$latest_home"
-  export PATH="$latest_bin:$PATH"
+  export PATH="$latest_bin${PATH:+:${PATH}}"
 fi

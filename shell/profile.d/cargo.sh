@@ -1,3 +1,3 @@
-#!/bin/sh
+# shellcheck shell=sh
 
-export PATH="$HOME/.local/share/cargo/bin:$PATH"
+export PATH="$HOME/.local/share/cargo/bin${PATH:+:${PATH}}"

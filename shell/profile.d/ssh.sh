@@ -1,3 +1,5 @@
+# shellcheck shell=sh
+
 if [ -e "$XDG_CONFIG_HOME"/ssh/config ]; then
   export SSH_CONFIG="-F ${XDG_CONFIG_HOME}/ssh/config"
 

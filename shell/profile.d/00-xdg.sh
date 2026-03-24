@@ -1,4 +1,4 @@
-#!/bin/sh
+# shellcheck shell=sh
 
 # For some reason, this breaks xdg-desktop-portal
 # XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share/applications:/usr/share/applications:$XDG_DATA_DIRS" \

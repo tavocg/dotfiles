@@ -1,6 +1,6 @@
-#!/bin/sh
+# shellcheck shell=sh
 
-export NODE_REPL_HISTORY="$HOME"/.local/state/node_repl_history
+export NODE_REPL_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}"/node_repl_history
 
 if ! [ -d "${NODE_REPL_HISTORY%/*}" ]; then
   mkdir -p "${NODE_REPL_HISTORY%/*}"

@@ -1,22 +1,20 @@
 #!/bin/bash
 
-if [ -d ~/.config/shell/profile.d ]; then
-  for p in ~/.config/shell/profile.d/*.sh; do
-    [ -f "$p" ] && . "$p"
-  done
-  unset p
-fi
-
-BASH_ENV="$XDG_CONFIG_HOME/shell/bashrc"
-HISTFILE="$XDG_STATE_HOME/shell/bash_history"
-HISTCONTROL=ignoreboth
-HISTIZE=
-HISTFILESIZE=
+BASH_ENV="${XDG_CONFIG_HOME:-$HOME/.config/}/shell/bashrc"
 
 case $- in
 *i*) ;;
 *) return ;;
 esac
+
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/shell/bash_history"
+HISTCONTROL=ignoreboth
+HISTIZE=
+HISTFILESIZE=
+
+if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ]; then
+  mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
+fi
 
 if ! shopt -oq posix; then
   [ -f /usr/share/bash-completion/bash_completion ] &&
@@ -32,10 +30,6 @@ shopt -s cdspell
 shopt -s autocd
 set -o vi
 
-if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ]; then
-  mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
-fi
-
 _prompt_git_branch() {
   GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
   [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
@@ -44,13 +38,22 @@ _prompt_git_branch() {
 PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
 PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
 
-if [ -s "$NVM_DIR/bash_completion" ]; then
-  . "$NVM_DIR/bash_completion"
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh ]; then
+  . "${XDG_CONFIG_HOME:-$HOME/.config}"/shell/aliases.sh
 fi
 
-if [ -f ~/.config/shell/aliases.sh ]; then
-  . ~/.config/shell/aliases.sh
+if ! command -v sudo >/dev/null 2>&1 && command -v doas >/dev/null 2>&1; then
+  complete -cf doas
 fi
+
+y() {
+  local tmp cwd
+  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd <"$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd" || return
+  rm -f -- "$tmp"
+}
 
 if [ "$LOAD_DESKTOP" ] && [ "$XDG_SESSION_DESKTOP" ]; then
   startdesktop

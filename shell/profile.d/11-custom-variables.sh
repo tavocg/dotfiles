@@ -1,4 +1,4 @@
-#!/bin/sh
+# shellcheck shell=sh
 
 export \
   GL="git@gitlab.com:tavocg" \

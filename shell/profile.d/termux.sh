@@ -1,4 +1,4 @@
-#!/bin/sh
+# shellcheck shell=sh
 
 if [ -d /data/data/com.termux ]; then
   export \
