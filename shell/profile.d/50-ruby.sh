@@ -1,6 +1,6 @@
 # shellcheck shell=sh
 
-GEM_BASE="$HOME/.local/share/gem/ruby"
+GEM_BASE="${XDG_DATA_HOME:-$HOME/.local/share}/gem/ruby"
 latest_bin=""
 latest_home=""
 
