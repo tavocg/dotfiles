@@ -12,5 +12,8 @@ done
 
 if [ -n "$latest_bin" ]; then
   export GEM_HOME="$latest_home"
-  export PATH="$latest_bin${PATH:+:${PATH}}"
+  case ":$PATH:" in
+  *":$latest_bin:"*) ;;
+  *) export PATH="$latest_bin${PATH:+:${PATH}}" ;;
+  esac
 fi

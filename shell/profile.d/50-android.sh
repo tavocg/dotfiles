@@ -11,5 +11,12 @@ if ! [ -d "$ANDROID_HOME" ]; then
   mkdir -p "$ANDROID_HOME"
 fi
 
-export PATH="$ANDROID_HOME/emulator${PATH:+:${PATH}}"
-export PATH="$ANDROID_HOME/platform-tools${PATH:+:${PATH}}"
+case ":$PATH:" in
+*":$ANDROID_HOME/emulator:"*) ;;
+*) export PATH="$ANDROID_HOME/emulator${PATH:+:${PATH}}" ;;
+esac
+
+case ":$PATH:" in
+*":$ANDROID_HOME/platform-tools:"*) ;;
+*) export PATH="$ANDROID_HOME/platform-tools${PATH:+:${PATH}}" ;;
+esac
