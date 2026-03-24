@@ -1,0 +1,22 @@
+#!/bin/sh
+
+printf ' %s\n' "-----------"
+printf ' \e[1m%s\e[0m\n' "SETUP - nvm"
+printf ' %s\n' "-----------"
+
+NVM_DIR="${NVM_DIR:-${XDG_CONFIG_HOME:-$HOME/.config}/nvm}"
+
+set -ex
+
+git clone -q https://github.com/nvm-sh/nvm.git "$NVM_DIR" >/dev/null
+
+(
+  cd "$NVM_DIR"
+  git fetch --tags origin
+  git config advice.detachedHead false
+  git checkout $(git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1))
+)
+
+set +x
+
+. "$NVM_DIR/nvm.sh"
