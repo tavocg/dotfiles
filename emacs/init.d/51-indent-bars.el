@@ -7,10 +7,13 @@
 ;;; Code:
 
 (use-package indent-bars
-  :functions (indent-bars-mode)
-  :custom
-  (indent-bars-treesit-support t)
   :hook
-  (prog-mode . indent-bars-mode))
+  (prog-mode . indent-bars-mode)
+  :functions
+  (indent-bars-mode)
+  :custom
+  (indent-bars-prefer-character
+   (memq initial-window-system '(pgtk ns)))
+  (indent-bars-treesit-support t))
 
 ;;; 51-indent-bars.el ends here
