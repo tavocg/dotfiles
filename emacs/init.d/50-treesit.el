@@ -11,6 +11,6 @@
   (treesit-auto-install 'prompt)
   :config
   (treesit-auto-add-to-auto-mode-alist 'all)
-  (global-treesit-auto-mode 1))
+  (global-treesit-auto-mode))
 
 ;;; 50-treesit.el ends here
