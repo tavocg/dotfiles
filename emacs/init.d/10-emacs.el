@@ -32,7 +32,8 @@
    'variable-pitch nil
    :family "Liberation Serif"
    :height 160)
-  (scroll-bar-mode 0)
+  (when (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode 0))
   (menu-bar-mode 0)
   (tool-bar-mode 0)
   (global-display-line-numbers-mode 1)
