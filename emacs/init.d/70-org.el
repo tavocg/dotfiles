@@ -21,10 +21,24 @@
 
   (setq org-confirm-babel-evaluate nil)
 
-  (setq org-babel-jupyter-command "~/.local/share/venv/global/bin/jupyter")
+  (setq org-babel-default-header-args:python
+        '((:python . "~/.local/share/venv/global/bin/python")
+          (:session . "python")))
 
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((shell . t)
-     (python . t)
-     (jupyter . t))))
+     (python . t))))
+
+(use-package org-appear
+  :config
+  (setq org-hide-emphasis-markers t
+        org-appear-autoemphasis t
+        org-appear-autolinks t
+        org-appear-autosubmarkers t))
+
+(use-package org-fragtog
+  :hook (org-mode-hook . org-fragtog-mode))
+
+(use-package olivetti
+  :hook (org-mode-hook . olivetti-mode))
