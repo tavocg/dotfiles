@@ -20,4 +20,3 @@
 #+latex_header: \usepackage{enumitem}
 #+latex_header: \usepackage{hyperref}
 #+latex_header: \usepackage{microtype}
-#+property: header-args:python :python ~/.local/share/venv/global/bin/python :session python
