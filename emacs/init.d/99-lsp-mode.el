@@ -6,8 +6,27 @@
 
 ;;; Code:
 
+(declare-function lsp-deferred "lsp-mode")
+(declare-function lsp-feature? "lsp-mode")
+(declare-function lsp-format-buffer "lsp-mode")
+
+(defun my/lsp-format-buffer-maybe ()
+  "Format the current buffer when LSP formatting is available."
+  (when (and (bound-and-true-p lsp-mode)
+             (lsp-feature? "textDocument/formatting"))
+    (lsp-format-buffer)))
+
+(defun my/lsp-prog-mode-setup ()
+  "Start LSP lazily in programming buffers and format them on save."
+  (lsp-deferred)
+  ;; Keep the formatting hook buffer-local so non-programming buffers stay
+  ;; untouched.
+  (add-hook 'before-save-hook #'my/lsp-format-buffer-maybe nil t))
+
 (use-package lsp-mode
-  :commands (lsp lsp-deferred lsp-enable-which-key-integration)
+  :commands (lsp lsp-deferred lsp-enable-which-key-integration lsp-feature?)
+  :hook
+  (prog-mode . my/lsp-prog-mode-setup)
   :custom
   ;; lsp-mode can publish diagnostics through Flycheck, which already exists in
   ;; this config.
