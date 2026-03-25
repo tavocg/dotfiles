@@ -5,3 +5,7 @@ auto-save-list/
 tree-sitter/
 undo-fu-session/
 history
+.org-id-locations
+bookmarks
+ltximg/
+org-roam.db

@@ -2,17 +2,31 @@
   :ensure nil
   :defer t
   :config
-  (add-to-list 'org-preview-latex-process-alist
-               '(tectonic
-                 :programs ("tectonic" "convert")
-                 :description "pdf > png"
-                 :message "You need tectonic and imagemagick."
-                 :image-input-type "pdf"
-                 :image-output-type "png"
-                 :latex-compiler
-                 ("tectonic -Z shell-escape-cwd=%o --outfmt pdf --outdir %o %f")
-                 :image-converter
-                 ("convert -density %D -trim -fuzz 2%% %f %O")))
-  (setq org-preview-latex-default-process 'tectonic)
+  (setq org-latex-pdf-process '("tectonic %f"))
+  (setq org-preview-latex-image-directory (concat user-emacs-directory "ltximg/"))
   (setq org-format-latex-options
-        (plist-put org-format-latex-options :scale 1.4)))
+        (plist-put org-format-latex-options :scale 1.4))
+  (setq org-capture-templates
+        '(("d" "Document" entry (file+headline "~/.config/templates/document.org" "Documents")
+           "* %? :DOCUMENT:\n  %i\n  %a")))
+  (global-set-key (kbd "C-c c") 'org-capture))
+
+(use-package org-roam
+  :ensure t
+  :custom
+  (org-roam-directory "~/Documents/roam")
+  (org-roam-capture-templates
+   '(("d" "Document" plain
+      (file "~/.config/templates/document.org")
+      :target (file "%<%Y%m%d%T>-${slug}.org")
+      :unnarrowed t)))
+  :bind
+  (("C-c n l" . org-roam-buffer-toggle)
+   ("C-c n f" . org-roam-node-find)
+   ("C-c n g" . org-roam-graph)
+   ("C-c n i" . org-roam-node-insert)
+   ("C-c n c" . org-roam-capture)
+   ("C-c n j" . org-roam-dailies-capture-today))
+  :config
+  (org-roam-db-autosync-mode)
+  (require 'org-roam-protocol))
