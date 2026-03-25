@@ -18,6 +18,14 @@
    'default nil
    :family "JetBrains Mono"
    :height 110)
+  (set-face-attribute
+   'fixed-pitch nil
+   :family "JetBrains Mono"
+   :height 110)
+  (set-face-attribute
+   'variable-pitch nil
+   :family "Liberation Serif"
+   :height 160)
   (scroll-bar-mode 0)
   (menu-bar-mode 0)
   (tool-bar-mode 0)
@@ -25,6 +33,4 @@
   (global-hl-line-mode)
   (electric-pair-mode)
   (column-number-mode)
-  (cua-mode)
-
-  )
+  (cua-mode))
