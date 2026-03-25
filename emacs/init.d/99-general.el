@@ -1,40 +1,49 @@
-;;; 99-general.el --- Key-binds configuration ;;; -*- lexical-binding: t -*-
+;;; 99-general.el --- Keybinding helpers and leader keys -*- lexical-binding: t; -*-
 
 ;;; Commentary:
-;; Configuration for general package.
+;; Define the main leader-key layout used across the rest of the config.
 
 ;;; Code:
+
+(defun my/kill-current-buffer ()
+  "Kill the current buffer."
+  (interactive)
+  (kill-buffer (current-buffer)))
+
+(defun my/reload-init-file ()
+  "Reload the active init file."
+  (interactive)
+  (load-file user-init-file))
 
 (use-package general
   :after evil
   :demand t
+  :functions (general-def general-evil-setup)
   :config
   (general-evil-setup)
 
-  (general-create-definer my/leader-keys
+  ;; Keep the leader map definition in one place so later additions stay easy
+  ;; to scan.
+  (general-def
     :states '(normal insert visual emacs)
     :keymaps 'override
     :prefix "SPC"
-    :global-prefix "M-SPC")
+    :global-prefix "M-SPC"
 
-  (my/leader-keys
     "b" '(:ignore t :wk "buffer")
     "bb" '(switch-to-buffer :wk "Switch buffer")
-    "bd" '((lambda () (interactive) (kill-buffer (current-buffer))) :wk "Kill this buffer")
+    "bd" '(my/kill-current-buffer :wk "Kill this buffer")
     "bn" '(next-buffer :wk "Next buffer")
     "bp" '(previous-buffer :wk "Previous buffer")
-    "ff" '(find-file :wk "Find file")
-    "fs" '(save-buffer :wk "Save buffer"))
 
-  ;; Help
-  (my/leader-keys
-    "h" '(:ignore t :wk "Help")
+    "f" '(:ignore t :wk "file")
+    "ff" '(find-file :wk "Find file")
+    "fs" '(save-buffer :wk "Save buffer")
+
+    "h" '(:ignore t :wk "help")
     "hf" '(describe-function :wk "Describe function")
     "hv" '(describe-variable :wk "Describe variable")
-    )
 
-  ;; Org-Roam
-  (my/leader-keys
     "n" '(:ignore t :wk "notes")
     "nl" '(org-roam-buffer-toggle :wk "Roam buffer toggle")
     "nf" '(org-roam-node-find :wk "Find node")
@@ -42,12 +51,8 @@
     "ni" '(org-roam-node-insert :wk "Insert node")
     "nc" '(org-roam-capture :wk "Capture")
     "nj" '(org-roam-dailies-capture-today :wk "Daily journal")
-    )
 
-  ;; Configuration
-  (my/leader-keys
     "c" '(:ignore t :wk "config")
-    "cr" '((lambda () (interactive) (load-file user-init-file)) :wk "Reload config"))
-  )
+    "cr" '(my/reload-init-file :wk "Reload config")))
 
 ;;; 99-general.el ends here
