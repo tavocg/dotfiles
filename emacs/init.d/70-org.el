@@ -1,7 +1,9 @@
 (use-package org
   :ensure nil
-  :defer t
+  :after evil
   :config
+  (evil-define-key 'normal org-mode-map (kbd "TAB") #'org-cycle)
+  (evil-define-key 'normal org-mode-map (kbd "RET") #'org-open-at-point)
   (setq org-latex-pdf-process '("tectonic %f"))
   (setq org-preview-latex-image-directory (concat user-emacs-directory "ltximg/"))
   (setq org-format-latex-options
