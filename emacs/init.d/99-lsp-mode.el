@@ -28,11 +28,14 @@
   :hook
   (prog-mode . my/lsp-prog-mode-setup)
   :custom
-  ;; lsp-mode can publish diagnostics through Flycheck, which already exists in
-  ;; this config.
-  (lsp-prefer-flymake nil)
+  ;; Keep lsp-mode's standard buffer setup, but disable its company-mode path
+  ;; since completion already goes through CAPF and Corfu here.
+  (lsp-auto-configure t)
+  (lsp-completion-enable t)
+  (lsp-completion-provider :none)
+  (lsp-diagnostics-provider :flycheck)
+  (lsp-warn-no-matched-clients nil)
   (lsp-keymap-prefix "C-c l")
-  (lsp-completion-provider :capf)
   (lsp-headerline-breadcrumb-enable nil)
   (lsp-enable-snippet t)
   (lsp-idle-delay 0.6)
