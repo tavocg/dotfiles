@@ -1,3 +1,4 @@
+# -*- ispell-dictionary: "spanish" -*-
 #+title: ${title}
 #+author: ${author}
 #+date: \today
