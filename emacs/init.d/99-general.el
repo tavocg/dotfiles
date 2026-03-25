@@ -1,3 +1,10 @@
+;;; 99-general.el --- Key-binds configuration ;;; -*- lexical-binding: t -*-
+
+;;; Commentary:
+;; Configuration for general package.
+
+;;; Code:
+
 (use-package general
   :after evil
   :demand t
@@ -37,8 +44,10 @@
     "nj" '(org-roam-dailies-capture-today :wk "Daily journal")
     )
 
-  ;; Config
+  ;; Configuration
   (my/leader-keys
     "c" '(:ignore t :wk "config")
     "cr" '((lambda () (interactive) (load-file user-init-file)) :wk "Reload config"))
   )
+
+;;; 99-general.el ends here
