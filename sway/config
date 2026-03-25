@@ -1,6 +1,7 @@
 set $term ${TERMINAL:-alacritty}
 set $filemgr ${FILE_MANAGER:-dolphin}
 set $browser ${BROWSER:-firefox}
+set $visual ${VISUAL:-emacs}
 
 set $col_nb #1e2326
 set $col_nf #374145
@@ -23,7 +24,8 @@ bindsym $mod+p exec menu-power
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec menu-output
 bindsym $mod+i exec menu-input
-bindsym $mod+e exec $filemgr
+bindsym $mod+e exec $visual
+bindsym $mod+Shift+e exec $filemgr
 bindsym $mod+w exec $browser
 bindsym $mod+b exec menu-start
 bindsym XF86AudioRaiseVolume exec volup
