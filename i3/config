@@ -19,7 +19,7 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec $term
-bindsym $mod+r exec $(menu run "")
+bindsym $mod+r exec $(menu run "Run:")
 bindsym $mod+p exec menu-power
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec menu-output
