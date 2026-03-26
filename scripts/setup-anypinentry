@@ -5,7 +5,7 @@ printf ' \e[1m%s\e[0m\n' "SETUP - anypinentry"
 printf ' %s\n' "-------------------"
 
 raw="https://raw.githubusercontent.com/tavocg/anypinentry/refs/heads/master"
-PREFIX="/usr/local"
+PREFIX="/usr/local/bin"
 
 set -ex
 
