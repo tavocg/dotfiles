@@ -52,6 +52,12 @@
     "nc" '(org-roam-capture :wk "Capture")
     "nj" '(org-roam-dailies-capture-today :wk "Daily journal")
 
+    "w" '(:ignore t :wk "window")
+    "wd" '(delete-window :wk "Delete window")
+
+    "-" '(split-window-below :wk "Split below")
+    "|" '(split-window-right :wk "Split right")
+
     "c" '(:ignore t :wk "config")
     "cr" '(my/reload-init-file :wk "Reload config")))
 
