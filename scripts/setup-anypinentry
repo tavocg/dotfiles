@@ -4,13 +4,18 @@ printf ' %s\n' "-------------------"
 printf ' \e[1m%s\e[0m\n' "SETUP - anypinentry"
 printf ' %s\n' "-------------------"
 
-pinentry_script="$XDG_CONFIG_HOME/scripts/anypinentry"
-gpg_conf_file="$XDG_DATA_HOME/gnupg/gpg-agent.conf"
+raw="https://raw.githubusercontent.com/tavocg/anypinentry/refs/heads/master"
+PREFIX="/usr/local"
 
 set -ex
 
-[ -x "$pinentry_script" ]
-[ -d "${gpg_conf_file%/*}" ]
-printf 'pinentry-program %s\n' "$pinentry_script" >"$gpg_conf_file"
-chmod 600 "$gpg_conf_file"
-gpg-agent reload
+[ -d "$PREFIX" ]
+
+for p in menu anypinentry; do
+  curl -fsSL "$raw/$p" -o "$PREFIX/$p"
+  chmod +x "$PREFIX/$p"
+done
+
+if [ -d /etc/alternatives ]; then
+  ln -sf "$PREFIX/anypinentry" /etc/alternatives/pinentry
+fi
