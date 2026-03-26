@@ -1,14 +1,15 @@
 # shellcheck shell=sh
 
+# See: https://yazi-rs.github.io/docs/quick-start#shell-wrapper
 y() {
-  tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
-  yazi "$@" --cwd-file="$tmp"
-
-  cwd=""
-  while IFS= read -r line; do
-    cwd="$cwd$line"
-  done <"$tmp"
-
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd" || return
-  rm -f -- "$tmp"
+  set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
+  command yazi "$@"
+  shift $(($# - 1))
+  set -- "$(
+    command cat <"$1"
+    printf .
+    rm -f -- "$1"
+  )"
+  set -- "${1%.}"
+  [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
 }
