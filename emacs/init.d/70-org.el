@@ -81,13 +81,6 @@
   :hook
   (org-mode . org-fragtog-mode))
 
-;;(use-package olivetti
-;;  :functions (olivetti-mode)
-;;  :hook
-;;  (org-mode . olivetti-mode)
-;;  :config
-;;  (setq olivetti-body-width 80))
-
 (use-package visual-fill-column
   :defines
   (visual-fill-column-width
