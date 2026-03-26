@@ -27,6 +27,15 @@
   (general-def
     :states '(normal insert visual emacs)
     :keymaps 'override
+
+    "C-h" '(windmove-left :wk "Window left")
+    "C-j" '(windmove-down :wk "Window down")
+    "C-k" '(windmove-up :wk "Window up")
+    "C-l" '(windmove-right :wk "Window right"))
+
+  (general-def
+    :states '(normal insert visual emacs)
+    :keymaps 'override
     :prefix "SPC"
     :global-prefix "M-SPC"
 
