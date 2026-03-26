@@ -5,9 +5,21 @@
 
 ;;; Code:
 
+(defvar visual-fill-column-center-text)
+(defvar visual-fill-column-width)
+
+(declare-function visual-fill-column-mode "visual-fill-column")
+
 (defun my/org-mode-setup ()
   "Apply per-buffer defaults for Org buffers."
-  (display-line-numbers-mode 0))
+  (display-line-numbers-mode -1))
+
+(defun my/org-visual-fill-column-setup ()
+  "Apply centered soft-wrapping for Org buffers."
+  (setq-local visual-fill-column-width 81
+              visual-fill-column-center-text t)
+  (visual-line-mode 1)
+  (visual-fill-column-mode 1))
 
 (use-package org
   :ensure nil
@@ -76,21 +88,12 @@
 ;;  :config
 ;;  (setq olivetti-body-width 80))
 
-(setq-default visual-fill-column-center-text t)
-
-(setq-default visual-fill-column-center-text t)
-
 (use-package visual-fill-column
   :defines
   (visual-fill-column-width
    visual-fill-column-center-text)
+  :functions (visual-fill-column-mode)
   :hook
-  (org-mode . (lambda ()
-                (visual-fill-column-mode)
-                (visual-line-mode)
-                (setq visual-fill-column-width 81
-                      visual-fill-column-center-text t)))
-  :config
-  (setq org-image-actual-width nil))
+  (org-mode . my/org-visual-fill-column-setup))
 
 ;;; 70-org.el ends here
