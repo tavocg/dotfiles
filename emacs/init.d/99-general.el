@@ -21,6 +21,7 @@
   :functions (general-def general-evil-setup)
   :config
   (general-evil-setup)
+  (global-set-key (kbd "C-s") #'save-buffer)
 
   ;; Keep the leader map definition in one place so later additions stay easy
   ;; to scan.
