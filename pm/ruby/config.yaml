@@ -3,8 +3,8 @@
     - gem
   remotes:
     - remote: all
-      cli:
+      tasks:
         - task: update-all
-          cmd: ./update.sh
+          cmd: $HOME/.config/pm/ruby/update.sh
       packages:
-        package: neovim
+        - package: neovim

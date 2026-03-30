@@ -3,8 +3,8 @@
     - cargo
   remotes:
     - remote: all
-      cli:
+      tasks:
         - task: update-all
-          script: update.sh
+          cmd: $HOME/.config/pm/cargo/update.sh
       packages:
         - package: "typstyle"

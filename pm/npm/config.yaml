@@ -3,9 +3,9 @@
     - npm
   remotes:
     - remote: npm
-      cli:
+      tasks:
         - task: update-all
-          script: update.sh
+          cmd: $HOME/.config/pm/npm/update.sh
       packages:
         - package: "@ast-grep/cli"
         - package: "@openai/codex"

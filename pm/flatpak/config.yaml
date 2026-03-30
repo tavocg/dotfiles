@@ -3,8 +3,6 @@
     - flatpak
   remotes:
     - remote: flathub
-      cli:
+      tasks:
         - task: update-all
           cmd: flatpak update --noninteractive -y
-      package-lists:
-        - list.yml
