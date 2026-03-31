@@ -1,8 +1,0 @@
-- manager: flatpak
-  depends:
-    - flatpak
-  remotes:
-    - remote: flathub
-      tasks:
-        - task: update-all
-          cmd: flatpak update --noninteractive -y
