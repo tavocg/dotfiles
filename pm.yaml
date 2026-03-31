@@ -142,113 +142,111 @@ managers:
           - package: r-cran-knitr
           - package: r-cran-rmarkdown
           - package: r-cran-tinytex
-          - package: nodejs
-          - package: npm
 
           # extra
           - package: flatpak
           - package: steam-devices
 
-      - manager: cargo
-        depends: [cargo, rustup]
-        tasks:
-          - task: update-remotes
-            cmd: $HOME/.config/pm/cargo/update.sh
-        remotes:
-          - remote: all
-            packages:
-              - package: "typstyle"
+  - manager: cargo
+    depends: [cargo, rustup]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/cargo/update.sh
+    remotes:
+      - remote: all
+        packages:
+          - package: "typstyle"
 
-      - manager: flatpak
-        depends: [flatpak]
-        tasks:
-          - task: update-remotes
-            cmd: flatpak update --noninteractive -y
-        remotes:
-          - remote: flathub
-            packages:
-              # system
-              - package: "com.github.tchx84.Flatseal"
-                env:
-                  - FLATPAK_PROG=flatseal
-              - package: "io.github.ebonjaeger.bluejay"
-                env:
-                  - FLATPAK_PROG=bluejay
-              - package: "org.mozilla.firefox"
-                env:
-                  - FLATPAK_PROG=firefox
-              - package: "org.kde.dolphin"
-                env:
-                  - FLATPAK_PROG=dolphin
+  - manager: flatpak
+    depends: [flatpak]
+    tasks:
+      - task: update-remotes
+        cmd: flatpak update --noninteractive -y
+    remotes:
+      - remote: flathub
+        packages:
+          # system
+          - package: "com.github.tchx84.Flatseal"
+            env:
+              - FLATPAK_PROG=flatseal
+          - package: "io.github.ebonjaeger.bluejay"
+            env:
+              - FLATPAK_PROG=bluejay
+          - package: "org.mozilla.firefox"
+            env:
+              - FLATPAK_PROG=firefox
+          - package: "org.kde.dolphin"
+            env:
+              - FLATPAK_PROG=dolphin
 
-              # creative
-              - package: "org.gimp.GIMP"
-                env:
-                  - FLATPAK_PROG=gimp
-              - package: "org.darktable.Darktable"
-                env:
-                  - FLATPAK_PROG=darktable
-              - package: "org.kde.kdenlive"
-                env:
-                  - FLATPAK_PROG=kdenlive
-              - package: "org.inkscape.Inkscape"
-                env:
-                  - FLATPAK_PROG=inkscape
+          # creative
+          - package: "org.gimp.GIMP"
+            env:
+              - FLATPAK_PROG=gimp
+          - package: "org.darktable.Darktable"
+            env:
+              - FLATPAK_PROG=darktable
+          - package: "org.kde.kdenlive"
+            env:
+              - FLATPAK_PROG=kdenlive
+          - package: "org.inkscape.Inkscape"
+            env:
+              - FLATPAK_PROG=inkscape
 
-              # games
-              - package: "com.valvesoftware.Steam"
-                env:
-                  - FLATPAK_PROG=steam
-              - package: "net.lutris.Lutris"
-                env:
-                  - FLATPAK_PROG=lutris
-              - package: "org.prismlauncher.PrismLauncher"
-                env:
-                  - FLATPAK_PROG=prismlauncher
+          # games
+          - package: "com.valvesoftware.Steam"
+            env:
+              - FLATPAK_PROG=steam
+          - package: "net.lutris.Lutris"
+            env:
+              - FLATPAK_PROG=lutris
+          - package: "org.prismlauncher.PrismLauncher"
+            env:
+              - FLATPAK_PROG=prismlauncher
 
-              # office
-              - package: "org.libreoffice.LibreOffice"
-                env:
-                  - FLATPAK_PROG=libreoffice
-              - package: "org.mozilla.Thunderbird"
-                env:
-                  - FLATPAK_PROG=thunderbird
+          # office
+          - package: "org.libreoffice.LibreOffice"
+            env:
+              - FLATPAK_PROG=libreoffice
+          - package: "org.mozilla.Thunderbird"
+            env:
+              - FLATPAK_PROG=thunderbird
 
-              # utils
-              - package: "org.qbittorrent.qBittorrent"
-                env:
-                  - FLATPAK_PROG=qbittorrent
-              - package: "md.obsidian.Obsidian"
-                env:
-                  - FLATPAK_PROG=obsidian
-              - package: "fr.handbrake.ghb"
-                env:
-                  - FLATPAK_PROG=handbrake
+          # utils
+          - package: "org.qbittorrent.qBittorrent"
+            env:
+              - FLATPAK_PROG=qbittorrent
+          - package: "md.obsidian.Obsidian"
+            env:
+              - FLATPAK_PROG=obsidian
+          - package: "fr.handbrake.ghb"
+            env:
+              - FLATPAK_PROG=handbrake
 
-              # dev
-              - package: "io.beekeeperstudio.Studio"
-                env:
-                  - FLATPAK_PROG=beekeeperstudio
+          # dev
+          - package: "io.beekeeperstudio.Studio"
+            env:
+              - FLATPAK_PROG=beekeeperstudio
 
-      - manager: npm
-        depends: [npm]
-        tasks:
-          - task: update-remotes
-            cmd: $HOME/.config/pm/npm/update.sh
-        remotes:
-          - remote: npm
-            packages:
-              - package: "@ast-grep/cli"
-              - package: "@openai/codex"
-              - package: "neovim"
-              - package: "@mermaid-js/mermaid-cli"
+  - manager: npm
+    depends: [npm]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/npm/update.sh
+    remotes:
+      - remote: npm
+        packages:
+          - package: "@ast-grep/cli"
+          - package: "@openai/codex"
+          - package: "neovim"
+          - package: "@mermaid-js/mermaid-cli"
 
-      - manager: ruby
-        depends: [gem]
-        tasks:
-          - task: update-remotes
-            cmd: $HOME/.config/pm/ruby/update.sh
-        remotes:
-          - remote: all
-            packages:
-              - package: neovim
+  - manager: ruby
+    depends: [gem]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/ruby/update.sh
+    remotes:
+      - remote: all
+        packages:
+          - package: neovim
