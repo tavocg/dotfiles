@@ -1,4 +1,4 @@
-set $term ${TERMINAL:-alacritty}
+set $term ${TERMINAL:-foot}
 set $filemgr ${FILE_MANAGER:-dolphin}
 set $browser ${BROWSER:-firefox}
 
