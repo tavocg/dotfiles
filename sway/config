@@ -133,4 +133,12 @@ input type:keyboard {
     repeat_rate 70
 }
 
+input "1386:827:Wacom_Intuos_S_2_Pen" {
+    map_to_output eDP-1
+}
+
+input type:tablet_tool {
+    tool_mode pen absolute
+}
+
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
