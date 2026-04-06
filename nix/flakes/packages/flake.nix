@@ -10,8 +10,10 @@
         name = "my-packages";
         paths = with pkgs; [
           git
+          lazygit
           htop
           neovim
+          rnote
         ];
       };
   };
