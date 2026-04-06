@@ -13,6 +13,7 @@
           lazygit
           htop
           neovim
+          gcc
           rnote
         ];
       };
