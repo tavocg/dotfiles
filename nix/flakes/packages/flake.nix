@@ -14,6 +14,7 @@
           htop
           neovim
           gcc
+          tmux
           rnote
         ];
       };
