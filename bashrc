@@ -20,7 +20,7 @@ case $- in
 *) return ;;
 esac
 
-HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/shell/bash_history"
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash_history"
 HISTCONTROL=ignoreboth
 # shellcheck disable=SC2034
 HISTIZE=
