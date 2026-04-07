@@ -5,7 +5,7 @@
 # Not sure if this is required
 #BASH_ENV="${XDG_CONFIG_HOME:-$HOME/.config/}/bashrc"
 
-for d in ~/.config/shell/profile.d; do
+for d in ~/.config/profile.d; do
   if [ -d "$d" ]; then
     for p in "$d"/*.sh; do
       if [ -r "$p" ]; then
