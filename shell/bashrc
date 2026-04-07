@@ -3,17 +3,17 @@ BASH_ENV="${XDG_CONFIG_HOME:-$HOME/.config/}/shell/bashrc"
 
 for d in ~/.config/shell/profile.d; do
   if [ -d "$d" ]; then
-    for s in "$d"/*.sh; do
-      if [ -f "$s" ]; then
-        . "$s"
+    for p in "$d"/*.sh; do
+      if [ -r "$p" ]; then
+        . "$p"
       fi
     done
   fi
 done
 
 case $- in
-  *i*) ;;
-  *) return ;;
+*i*) ;;
+*) return ;;
 esac
 
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/shell/bash_history"
