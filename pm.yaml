@@ -1,0 +1,252 @@
+managers:
+  - manager: apt-get
+    depends: [apt-get]
+    tasks:
+      - task: sync-remotes
+        cmd: apt-get update
+        privileged: true
+      - task: update-remotes
+        cmd: apt-get full-upgrade -y
+        privileged: true
+    remotes:
+      - remote: all
+        packages:
+          # system
+          - package: xdg-desktop-portal
+          - package: xdg-desktop-portal-gtk
+          - package: libglib2.0-bin
+          - package: lxpolkit
+          - package: pkexec
+          - package: udisks2
+          - package: gnome-disk-utility
+          - package: perl
+          - package: bluetooth
+          - package: upower
+          - package: libavcodec-extra
+          - package: libfuse2
+          - package: brightnessctl
+
+          # network
+          - package: resolvconf
+
+          # shared
+          - package: fonts-jetbrains-mono
+          - package: ttf-mscorefonts-installer
+
+          # window manager - x11
+          - package: xorg
+          - package: i3-wm
+          - package: alacritty
+          - package: suckless-tools
+          - package: scrot
+          - package: xdotool
+          - package: arandr
+          - package: emacs
+          - package: libbemenu-x11
+
+          # window manager - wayland
+          - package: xdg-desktop-portal-wlr
+          - package: xwayland
+          - package: sway
+          - package: foot
+          - package: grim
+          - package: slurp
+          - package: emacs-pgtk
+          - package: libbemenu-wayland
+
+          # audio
+          - package: pipewire
+          - package: pipewire-alsa
+          - package: pipewire-pulse
+          - package: pulseaudio-utils
+          - package: pipewire-jack
+          - package: wireplumber
+          - package: libspa-0.2-libcamera
+          - package: libspa-0.2-bluetooth
+          - package: alsa-tools
+          - package: alsa-utils
+
+          # media
+          - package: mpv
+          - package: vlc
+          - package: zathura
+          - package: zathura-cb
+          - package: zathura-djvu
+          - package: zathura-pdf-poppler
+          - package: zathura-ps
+          - package: poppler-utils
+          - package: obs-studio
+
+          # tools
+          - package: bemenu
+          - package: libbemenu-curses
+          - package: curl
+          - package: fzf
+          - package: eza
+          - package: fd-find
+          - package: ripgrep
+          - package: pass
+          - package: pass-otp
+          - package: zbar-tools
+          - package: trash-cli
+          - package: unzip
+          - package: imagemagick
+          - package: tmux
+          - package: bat
+          - package: nnn
+          - package: exiftool
+          - package: groff
+          - package: grap
+          - package: zoxide
+          - package: tokei
+          - package: git
+          - package: lazygit
+          - package: shellcheck
+          - package: jq
+          - package: android-sdk-platform-tools
+          - package: btop
+          - package: python3-venv
+          - package: 7zip
+          - package: imv
+          - package: r-base
+          - package: r-base-dev
+          - package: rsync
+          - package: ledger
+          - package: resvg
+
+          # appearance
+          - package: gnome-themes-extra
+
+          # dev
+          - package: build-essential
+          - package: python-is-python3
+          - package: python3-pip
+          - package: luarocks
+          - package: lua5.4
+          - package: libssl-dev
+          - package: rustup
+          - package: ruby-full
+          - package: composer
+          - package: php-cli
+          - package: python3-pynvim
+          - package: python3-numpy
+          - package: python3-docx
+          - package: libyaml-dev
+          - package: libffi-dev
+          - package: default-jdk
+          - package: default-jre
+          - package: markdownlint
+          - package: glow
+          - package: r-cran-data.table
+          - package: r-cran-openxlsx
+          - package: r-cran-knitr
+          - package: r-cran-rmarkdown
+          - package: r-cran-tinytex
+
+          # extra
+          - package: flatpak
+          - package: steam-devices
+
+  - manager: cargo
+    depends: [cargo, rustup]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/cargo/update.sh
+    remotes:
+      - remote: all
+        packages:
+          - package: "typstyle"
+
+  - manager: flatpak
+    depends: [flatpak]
+    tasks:
+      - task: update-remotes
+        cmd: flatpak update --noninteractive -y
+    remotes:
+      - remote: flathub
+        packages:
+          # system
+          - package: "com.github.tchx84.Flatseal"
+            env:
+              - FLATPAK_PROG=flatseal
+          - package: "io.github.ebonjaeger.bluejay"
+            env:
+              - FLATPAK_PROG=bluejay
+          - package: "org.mozilla.firefox"
+            env:
+              - FLATPAK_PROG=firefox
+          - package: "org.kde.dolphin"
+            env:
+              - FLATPAK_PROG=dolphin
+
+          # creative
+          - package: "org.gimp.GIMP"
+            env:
+              - FLATPAK_PROG=gimp
+          - package: "org.darktable.Darktable"
+            env:
+              - FLATPAK_PROG=darktable
+          - package: "org.kde.kdenlive"
+            env:
+              - FLATPAK_PROG=kdenlive
+          - package: "org.inkscape.Inkscape"
+            env:
+              - FLATPAK_PROG=inkscape
+
+          # games
+          - package: "com.valvesoftware.Steam"
+            env:
+              - FLATPAK_PROG=steam
+          - package: "net.lutris.Lutris"
+            env:
+              - FLATPAK_PROG=lutris
+          - package: "org.prismlauncher.PrismLauncher"
+            env:
+              - FLATPAK_PROG=prismlauncher
+
+          # office
+          - package: "org.libreoffice.LibreOffice"
+            env:
+              - FLATPAK_PROG=libreoffice
+          - package: "org.mozilla.Thunderbird"
+            env:
+              - FLATPAK_PROG=thunderbird
+
+          # utils
+          - package: "org.qbittorrent.qBittorrent"
+            env:
+              - FLATPAK_PROG=qbittorrent
+          - package: "md.obsidian.Obsidian"
+            env:
+              - FLATPAK_PROG=obsidian
+          - package: "fr.handbrake.ghb"
+            env:
+              - FLATPAK_PROG=handbrake
+
+          # dev
+          - package: "io.beekeeperstudio.Studio"
+            env:
+              - FLATPAK_PROG=beekeeperstudio
+
+  - manager: npm
+    depends: [npm]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/npm/update.sh
+    remotes:
+      - remote: npm
+        packages:
+          - package: "@ast-grep/cli"
+          - package: "@openai/codex"
+          - package: "neovim"
+          - package: "@mermaid-js/mermaid-cli"
+
+  - manager: ruby
+    depends: [gem]
+    tasks:
+      - task: update-remotes
+        cmd: $HOME/.config/pm/ruby/update.sh
+    remotes:
+      - remote: all
+        packages:
+          - package: neovim

@@ -1,0 +1,142 @@
+managers:
+  - manager: apt-get
+    remotes:
+      - remote: all
+        packages:
+          # system
+          - package: xdg-desktop-portal
+          - package: xdg-desktop-portal-gtk
+          - package: libglib2.0-bin
+          - package: lxpolkit
+          - package: pkexec
+          - package: udisks2
+          - package: gnome-disk-utility
+          - package: perl
+          - package: bluetooth
+          - package: upower
+          - package: libavcodec-extra
+          - package: libfuse2
+          - package: brightnessctl
+
+          # network
+          - package: resolvconf
+
+          # shared
+          - package: fonts-jetbrains-mono
+          - package: ttf-mscorefonts-installer
+
+          # window manager - x11
+          - package: xorg
+          - package: i3-wm
+          - package: alacritty
+          - package: suckless-tools
+          - package: scrot
+          - package: xdotool
+          - package: arandr
+          - package: emacs
+          - package: libbemenu-x11
+
+          # window manager - wayland
+          - package: xdg-desktop-portal-wlr
+          - package: xwayland
+          - package: sway
+          - package: foot
+          - package: grim
+          - package: slurp
+          - package: emacs-pgtk
+          - package: libbemenu-wayland
+
+          # audio
+          - package: pipewire
+          - package: pipewire-alsa
+          - package: pipewire-pulse
+          - package: pulseaudio-utils
+          - package: pipewire-jack
+          - package: wireplumber
+          - package: libspa-0.2-libcamera
+          - package: libspa-0.2-bluetooth
+          - package: alsa-tools
+          - package: alsa-utils
+
+          # media
+          - package: mpv
+          - package: vlc
+          - package: zathura
+          - package: zathura-cb
+          - package: zathura-djvu
+          - package: zathura-pdf-poppler
+          - package: zathura-ps
+          - package: poppler-utils
+          - package: obs-studio
+
+          # tools
+          - package: bemenu
+          - package: libbemenu-curses
+          - package: curl
+          - package: fzf
+          - package: eza
+          - package: fd-find
+          - package: ripgrep
+          - package: pass
+          - package: pass-otp
+          - package: zbar-tools
+          - package: trash-cli
+          - package: unzip
+          - package: imagemagick
+          - package: tmux
+          - package: bat
+          - package: nnn
+          - package: exiftool
+          - package: groff
+          - package: grap
+          - package: zoxide
+          - package: tokei
+          - package: git
+          - package: lazygit
+          - package: shellcheck
+          - package: jq
+          - package: android-sdk-platform-tools
+          - package: btop
+          - package: python3-venv
+          - package: 7zip
+          - package: imv
+          - package: r-base
+          - package: r-base-dev
+          - package: rsync
+          - package: ledger
+          - package: resvg
+
+          # appearance
+          - package: gnome-themes-extra
+
+          # dev
+          - package: build-essential
+          - package: python-is-python3
+          - package: python3-pip
+          - package: luarocks
+          - package: lua5.4
+          - package: libssl-dev
+          - package: rustup
+          - package: ruby-full
+          - package: composer
+          - package: php-cli
+          - package: python3-pynvim
+          - package: python3-numpy
+          - package: python3-docx
+          - package: libyaml-dev
+          - package: libffi-dev
+          - package: default-jdk
+          - package: default-jre
+          - package: markdownlint
+          - package: glow
+          - package: r-cran-data.table
+          - package: r-cran-openxlsx
+          - package: r-cran-knitr
+          - package: r-cran-rmarkdown
+          - package: r-cran-tinytex
+          - package: nodejs
+          - package: npm
+
+          # extra
+          - package: flatpak
+          - package: steam-devices

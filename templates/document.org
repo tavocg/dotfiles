@@ -1,0 +1,23 @@
+# -*- ispell-dictionary: "spanish" -*-
+#+title: ${title}
+#+author: ${author}
+#+date: \today
+#+startup: overview
+#+latex_class: article
+#+latex_class_options: [12pt]
+#+latex_header: \usepackage{setspace}
+#+latex_header: \onehalfspacing
+#+latex_header: \usepackage{iftex}
+#+latex_header: \ifPDFTeX
+#+latex_header:   \usepackage[T1]{fontenc}
+#+latex_header:   \usepackage[utf8]{inputenc}
+#+latex_header:   \usepackage{lmodern}
+#+latex_header: \else
+#+latex_header:   \usepackage{fontspec}
+#+latex_header: \fi
+#+latex_header: \usepackage[margin=1in]{geometry}
+#+latex_header: \usepackage[spanish, es-tabla]{babel}
+#+latex_header: \AtBeginDocument{\selectlanguage{spanish}}
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \usepackage{hyperref}
+#+latex_header: \usepackage{microtype}

@@ -17,12 +17,20 @@ alias \
   img='cd "$HOME"/Pictures/ && ls' \
   vid='cd "$HOME"/Videos/ && ls'
 
-if command -v exa >/dev/null 2>&1 || command -v eza 2>/dev/null 2>&1; then
-  export EZA_OPTS="--git --group-directories-first --icons --time-style=long-iso"
-  alias la='exa $EZA_OPTS -alghUum'
-  alias lt='exa $EZA_OPTS -T -L 2'
-  alias ll='exa $EZA_OPTS -alg'
-  alias ls='exa $EZA_OPTS -1'
+if command -v exa >/dev/null 2>&1; then
+  EZA_PROG="exa"
+fi
+
+if command -v eza >/dev/null 2>&1; then
+  EZA_PROG="eza"
+fi
+
+if [ "$EZA_PROG" ]; then
+  EZA_OPTS="--git --group-directories-first --icons --time-style=long-iso"
+  alias la="$EZA_PROG $EZA_OPTS -alghUum"
+  alias lt="$EZA_PROG $EZA_OPTS -T -L 2"
+  alias ll="$EZA_PROG $EZA_OPTS -alg"
+  alias ls="$EZA_PROG $EZA_OPTS -1"
 fi
 
 if command -v trash >/dev/null 2>&1; then
