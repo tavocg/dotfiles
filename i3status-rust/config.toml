@@ -14,7 +14,7 @@ button = "left"
 [[block]]
 block = "time"
 interval = 5
-format = " $timestamp.datetime(f:'%R') "
+format = " $timestamp.datetime(f:'%I:%M %p') "
 
 [[block]]
 block = "time"
