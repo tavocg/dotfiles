@@ -1,12 +1,12 @@
-set $term ${TERMINAL:-alacritty}
+set $term ${TERMINAL:-foot}
 set $filemgr ${FILE_MANAGER:-dolphin}
 set $browser ${BROWSER:-firefox}
 set $visual ${VISUAL:-emacs}
 
-set $col_nb #1e2326
-set $col_nf #374145
-set $col_sb #7fbbb3
-set $col_sf #1e2326
+set $col_nb "#1e2326"
+set $col_nf "#374145"
+set $col_sb "#7fbbb3"
+set $col_sf "#1e2326"
 
 set $font pango:JetBrainsMono Medium 8
 
@@ -19,25 +19,25 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec $term
-bindsym $mod+r exec $(menu run "Run:")
-bindsym $mod+p exec menu-power
+bindsym $mod+r exec bemenu-run -p "Run" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs swaymsg exec
+bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs sh -c
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec menu-output
 bindsym $mod+i exec menu-input
 bindsym $mod+e exec $visual
 bindsym $mod+Shift+e exec $filemgr
 bindsym $mod+w exec $browser
-bindsym $mod+b exec menu-start
-bindsym XF86AudioRaiseVolume exec volup
-bindsym XF86AudioLowerVolume exec voldown
-bindsym XF86AudioMute exec mute
-bindsym Shift+XF86AudioRaiseVolume exec micup
-bindsym Shift+XF86AudioLowerVolume exec micdown
-bindsym Shift+XF86AudioMute exec micmute
-bindsym XF86AudioMicMute exec micmute
-bindsym XF86MonBrightnessUp exec brightup
-bindsym XF86MonBrightnessDown exec brightdown
-bindsym Print exec prtsc
+bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+
+bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%-
+bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
+bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%+
+bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%-
+bindsym Shift+XF86AudioMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
+bindsym Print exec grim -g "$(slurp -d)" - | tee "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" | wl-copy -t image/png
+bindsym $mod+Shift+s exec grim -g "$(slurp -d)" - | tee "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" | wl-copy -t image/png
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
@@ -101,14 +101,14 @@ font $font
 bar {
   position bottom
   font $font
-  status_command statusbar
+  status_command i3status-rs
   tray_padding 4
 
   colors {
     background #000000
-    statusline $col_nf
-    focused_workspace $col_sb $col_sb $col_sf
-    inactive_workspace $col_nf $col_nb $col_nf
+      statusline $col_nf
+      focused_workspace $col_sb $col_sb $col_sf
+      inactive_workspace $col_nf $col_nb $col_nf
   }
 }
 
@@ -119,20 +119,20 @@ for_window [title="Picture-in-Picture"] floating enable
 # sway-specific
 
 input type:touchpad {
-    natural_scroll enabled
-    dwt disabled
-    tap enabled
+  natural_scroll enabled
+  dwt disabled
+  tap enabled
 }
 
 input type:pointer {
-    accel_profile flat
+  accel_profile flat
 }
 
 input type:keyboard {
-    xkb_layout latam,us
-    xkb_options grp:win_space_toggle
-    repeat_delay 300
-    repeat_rate 70
+  xkb_layout latam,us
+  xkb_options grp:win_space_toggle
+  repeat_delay 300
+  repeat_rate 70
 }
 
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway

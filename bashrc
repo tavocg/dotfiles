@@ -1,10 +1,14 @@
 #!/bin/bash
+
+# Not sure if this is necessary
 #BASH_ENV="${XDG_CONFIG_HOME:-$HOME/.config/}/shell/bashrc"
 
+# shellcheck disable=SC2043
 for d in ~/.config/profile.d; do
   if [ -d "$d" ]; then
     for p in "$d"/*.sh; do
       if [ -r "$p" ]; then
+        # shellcheck source=/dev/null
         . "$p"
       fi
     done
@@ -18,6 +22,7 @@ esac
 
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/shell/bash_history"
 HISTCONTROL=ignoreboth
+# shellcheck disable=SC2034
 HISTIZE=
 HISTFILESIZE=
 
@@ -26,10 +31,12 @@ if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ]; then
 fi
 
 if ! shopt -oq posix; then
-  [ -f /usr/share/bash-completion/bash_completion ] &&
-    . /usr/share/bash-completion/bash_completion
-  [ -f /etc/bash_completion ] &&
-    . /etc/bash_completion
+  for comp in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
+    if [ -r "$comp" ]; then
+      # shellcheck source=/dev/null
+      . "$comp"
+    fi
+  done
 fi
 
 bind "set completion-ignore-case on"
