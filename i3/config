@@ -32,6 +32,7 @@ bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym Print exec scrot -s "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" -e 'xclip -selection clipboard -t image/png -i $f'
+bindsym $mod+Shift+s exec scrot -s "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" -e 'xclip -selection clipboard -t image/png -i $f'
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
