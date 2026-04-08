@@ -14,8 +14,8 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec ${TERMINAL:-st}
-bindsym $mod+r exec bemenu-run -p "Run" | xargs i3-msg exec
-bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" | xargs sh -c
+bindsym $mod+r exec menu run "Run" | xargs i3-msg exec
+bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec menu-output
 bindsym $mod+i exec menu-input
