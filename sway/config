@@ -96,7 +96,7 @@ font $font
 bar {
   position bottom
   font $font
-  status_command shtatus
+  status_command SHTATUS_BLOCKS="vol mic cpu ram net bat kb time date" shtatus
   tray_padding 4
 
   colors {
