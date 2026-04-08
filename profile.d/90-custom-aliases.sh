@@ -30,6 +30,7 @@ if [ "$EZA_PROG" ]; then
   alias la="$EZA_PROG $EZA_OPTS -alghUum"
   alias lt="$EZA_PROG $EZA_OPTS -T -L 2"
   alias ll="$EZA_PROG $EZA_OPTS -alg"
+  alias l="$EZA_PROG $EZA_OPTS -alg"
   alias ls="$EZA_PROG $EZA_OPTS -1"
 fi
 
