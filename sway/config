@@ -101,7 +101,7 @@ font $font
 bar {
   position bottom
   font $font
-  status_command i3status-rs
+  status_command i3status
   tray_padding 4
 
   colors {
