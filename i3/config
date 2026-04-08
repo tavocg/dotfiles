@@ -5,6 +5,14 @@ set $col_sf "#1e2326"
 
 set $font pango:JetBrainsMono Medium 8
 
+set $mod Mod4
+floating_modifier $mod
+set $alt Mod1
+set $left h
+set $down j
+set $up k
+set $right l
+
 bindsym $mod+Return exec ${TERMINAL:-st}
 bindsym $mod+r exec bemenu-run -p "Run" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs i3-msg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs sh -c
@@ -24,14 +32,6 @@ bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym Print exec scrot -s "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" -e 'xclip -selection clipboard -t image/png -i $f'
-
-set $mod Mod4
-floating_modifier $mod
-set $alt Mod1
-set $left h
-set $down j
-set $up k
-set $right l
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
