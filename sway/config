@@ -90,7 +90,7 @@ smart_gaps on
 hide_edge_borders smart
 client.focused $col_sb $col_sb $col_sf $col_nb $col_sb
 client.unfocused $col_nf $col_nb $col_nf $col_nb $col_nb
-default_border pixel 1
+default_border pixel 2
 font $font
 
 bar {
