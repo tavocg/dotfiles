@@ -25,8 +25,8 @@ bindsym $mod+w exec ${BROWSER:-firefox}
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%- && wpctl set-mute @DEFAULT_SINK@ 0
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
-bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0
-bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%- && wpctl set-mute @DEFAULT_SINK@ 0
+bindsym Shift+XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%+ && wpctl set-mute @DEFAULT_SOURCE@ 0
+bindsym Shift+XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SOURCE@ 5%- && wpctl set-mute @DEFAULT_SOURCE@ 0
 bindsym Shift+XF86AudioMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
