@@ -14,8 +14,8 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec ${TERMINAL:-st}
-bindsym $mod+r exec bemenu-run -p "Run" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs i3-msg exec
-bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" --no-exec -i -c -l 10 -W 0.4 -B 2 -H 30 --cw 1 --tb "$col_sb" --tf "$col_sf" --fb "$col_nb" --ff "$col_nf" --cb "$col_nb" --cf "$col_sb" --nb "$col_nb" --nf "$col_nf" --hb "$col_sb" --hf "$col_sf" --ab "$col_nb" --af "$col_nf" --bdr "$col_sb" --fn "JetBrainsMono Medium 12" | xargs sh -c
+bindsym $mod+r exec BEMENU_OPTS="$BEMENU_OPTS" bemenu-run -p "Run" | xargs i3-msg exec
+bindsym $mod+p exec printf 'poweroff\nreboot\n' | BEMENU_OPTS="$BEMENU_OPTS" bemenu -p "Power" | xargs sh -c
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec menu-output
 bindsym $mod+i exec menu-input
