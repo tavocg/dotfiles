@@ -95,7 +95,7 @@ font $font
 bar {
   position bottom
   font $font
-  status_command shstatus
+  status_command shtatus
   tray_padding 4
 
   colors {

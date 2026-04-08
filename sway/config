@@ -101,9 +101,9 @@ bar {
 
   colors {
     background #000000
-      statusline $col_nf
-      focused_workspace $col_sb $col_sb $col_sf
-      inactive_workspace $col_nf $col_nb $col_nf
+    statusline $col_nf
+    focused_workspace $col_sb $col_sb $col_sf
+    inactive_workspace $col_nf $col_nb $col_nf
   }
 }
 
