@@ -16,3 +16,6 @@ BEMENU_OPTS="$BEMENU_OPTS --hb '$col_sb' --hf '$col_sf'"
 BEMENU_OPTS="$BEMENU_OPTS --ab '$col_nb' --af '$col_nf'"
 BEMENU_OPTS="$BEMENU_OPTS --bdr '$col_sb'"
 BEMENU_OPTS="$BEMENU_OPTS --fn '$font'"
+
+alias bemenu='BEMENU_OPTS="$BEMENU_OPTS" bemenu'
+alias bemenu-run='BEMENU_OPTS="$BEMENU_OPTS" bemenu-run'
