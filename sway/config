@@ -17,8 +17,8 @@ bindsym $mod+Return exec foot
 bindsym $mod+r exec menu run "Run" | xargs swaymsg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
 set $password_store $HOME/.local/share/password-store
-bindsym $mod+Shift+p exec sh -c 'sel="$(find "$1" -type f -name '"'"'*.gpg'"'"' | sed "s#^$1/##; s#\\.gpg\$##" | menu dmenu "Pass" 2>>/tmp/sway-pass.err)"; printf "selection=%s\n" "$sel" > /tmp/sway-pass.meta; [ -n "$sel" ] && pass "$sel" 2>>/tmp/sway-pass.err | tee /tmp/sway-pass.out | head -n 1 | tr -d "\n" | wtype - 2>>/tmp/sway-pass.err' sh $password_store
-bindsym $mod+Shift+o exec find $password_store -type f -name '*.gpg' | sed "s#^$password_store/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+Shift+p exec sh -c 'sel="$(find "$1" -type f -name '"'"'*.gpg'"'"' | sed "s#^$1/##; s#\\.gpg\$##" | menu dmenu "Pass" 2>>/tmp/sway-pass.err)"; printf "selection=%s\n" "$sel" > /tmp/sway-pass.meta; [ -n "$sel" ] && PASSWORD_STORE_DIR="$1" pass "$sel" 2>>/tmp/sway-pass.err | tee /tmp/sway-pass.out | head -n 1 | tr -d "\n" | wtype - 2>>/tmp/sway-pass.err' sh $password_store
+bindsym $mod+Shift+o exec sh -c 'sel="$(find "$1" -type f -name '"'"'*.gpg'"'"' | sed "s#^$1/##; s#\\.gpg\$##" | menu dmenu "Pass")"; [ -n "$sel" ] && PASSWORD_STORE_DIR="$1" pass otp "$sel" | head -n 1 | tr -d "\n" | wtype -' sh $password_store
 bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
 bindsym $mod+i exec foot -a impala -T impala impala
 bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
