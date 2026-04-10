@@ -13,15 +13,14 @@ set $down j
 set $up k
 set $right l
 
-bindsym $mod+Return exec ${TERMINAL:-foot}
+bindsym $mod+Return exec foot
 bindsym $mod+r exec menu run "Run" | xargs swaymsg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
 bindsym $mod+Shift+p exec menu-pass-gtype
 bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
 bindsym $mod+i exec foot -a impala -T impala impala
 bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
-bindsym $mod+e exec ${FILE_MANAGER:-dolphin}
-bindsym $mod+Shift+e exec ${VISUAL:-emacs}
+bindsym $mod+e exec foot -a yazi -T yazi yazi
 bindsym $mod+w exec ${BROWSER:-firefox}
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%- && wpctl set-mute @DEFAULT_SINK@ 0
