@@ -5,7 +5,7 @@ set $col_sf "#1e2326"
 
 set $font pango:JetBrainsMono Medium 8
 
-set $mod Mod4
+set $mod Mod1
 floating_modifier $mod
 set $alt Mod1
 set $left h
@@ -16,8 +16,9 @@ set $right l
 bindsym $mod+Return exec foot
 bindsym $mod+r exec menu run "Run" | xargs swaymsg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
-bindsym $mod+Shift+p exec PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-${XDG_DATA_DIR:-$HOME/.local/share}/password-store}" find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | while read -r line; do p="${line#"$PASSWORD_STORE_DIR"/}"; echo "${p%.gpg}" ; done | menu dmenu "Pass" | xargs pass | while read -r line; do echo "$line" break; done | wtype -
-bindsym $mod+Shift+o exec PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-${XDG_DATA_DIR:-$HOME/.local/share}/password-store}" find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | while read -r line; do p="${line#"$PASSWORD_STORE_DIR"/}"; echo "${p%.gpg}" ; done | menu dmenu "Pass" | xargs pass otp | while read -r line; do echo "$line" break; done | wtype -
+set $password_store $HOME/.local/share/password-store
+bindsym $mod+Shift+p exec find $password_store -type f -name '*.gpg' | sed "s#^$password_store/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+Shift+o exec find $password_store -type f -name '*.gpg' | sed "s#^$password_store/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
 bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
 bindsym $mod+i exec foot -a impala -T impala impala
 bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
