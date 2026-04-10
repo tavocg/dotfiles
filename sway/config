@@ -21,7 +21,6 @@ bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
 bindsym $mod+i exec foot -a impala -T impala impala
 bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
 bindsym $mod+e exec foot -a yazi -T yazi yazi
-bindsym $mod+f exec foot -a yazi -T yazi yazi
 bindsym $mod+w exec ${BROWSER:-firefox}
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0
 bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_SINK@ 5%- && wpctl set-mute @DEFAULT_SINK@ 0
@@ -114,7 +113,6 @@ for_window [title="Picture-in-Picture"] floating enable
 for_window [app_id="wiremix"] floating enable
 for_window [app_id="impala"] floating enable
 for_window [app_id="bluetui"] floating enable
-for_window [app_id="yazi"] floating enable
 
 # sway-specific
 
