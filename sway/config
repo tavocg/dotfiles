@@ -5,7 +5,7 @@ set $col_sf "#1e2326"
 
 set $font pango:JetBrainsMono Medium 8
 
-set $mod Mod1
+set $mod Mod4
 floating_modifier $mod
 set $alt Mod1
 set $left h
