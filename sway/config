@@ -17,8 +17,9 @@ bindsym $mod+Return exec ${TERMINAL:-foot}
 bindsym $mod+r exec menu run "Run" | xargs swaymsg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
 bindsym $mod+Shift+p exec menu-pass-gtype
-bindsym $mod+o exec menu-output
-bindsym $mod+i exec menu-input
+bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
+bindsym $mod+i exec foot -a impala -T impala impala
+bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
 bindsym $mod+e exec ${FILE_MANAGER:-dolphin}
 bindsym $mod+Shift+e exec ${VISUAL:-emacs}
 bindsym $mod+w exec ${BROWSER:-firefox}
@@ -110,6 +111,9 @@ bar {
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
 for_window [title="Picture-in-Picture"] floating enable
+for_window [app_id="wiremix"] floating enable
+for_window [app_id="impala"] floating enable
+for_window [app_id="bluetui"] floating enable
 
 # sway-specific
 
