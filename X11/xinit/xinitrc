@@ -49,3 +49,7 @@ for dir in "$sys_xinit_d" "$usr_xinit_d"; do
     done
   fi
 done
+
+while true; do
+  i3 >/dev/null 2>&1
+done
