@@ -11,13 +11,13 @@
 OPTIONFILE=/etc/X11/Xsession.options
 
 SYSRESOURCES=/etc/X11/Xresources
-USRRESOURCES="$XDG_CONFIG_HOME"/X11/Xresources
+USRRESOURCES="${XDG_CONFIG_HOME:-$HOME/.config}"/X11/Xresources
 
 SYSSESSIONDIR=/etc/X11/Xsession.d
-USERXSESSION="$XDG_DATA_HOME"/xsession
-USERXSESSIONRC="$XDG_CONFIG_HOME"/xsessionrc
-ALTUSERXSESSION="$XDG_DATA_HOME"/Xsession
-ERRFILE="$XDG_CACHE_HOME"/X11/xsession-errors
+USERXSESSION="${XDG_DATA_HOME:-$HOME/.local/share}"/xsession
+USERXSESSIONRC="${XDG_CONFIG_HOME:-$HOME/.config}"/xsessionrc
+ALTUSERXSESSION="${XDG_DATA_HOME:-$HOME/.local/share}"/Xsession
+ERRFILE="${XDG_CACHE_HOME:-$HOME/.local/cache}"/X11/xsession-errors
 
 if ! [ -d "${ERRFILE%/*}" ] || ! touch "$ERRFILE"; then
   if mkdir -p "${ERRFILE%/*}"; then
@@ -32,27 +32,20 @@ fi
 exec >>"$ERRFILE" 2>&1
 
 for res in "$SYSRESOURCES" "$USRRESOURCES"; do
-  if [ -f "$res" ]; then
+  if [ -r "$res" ]; then
     xrdb -merge "$res"
   fi
 done
-unset res
 
 sys_xinit_d="/etc/X11/xinit/xinitrc.d"
-usr_xinit_d="$XDG_CONFIG_HOME/X11/xinit/xinitrc.d"
+usr_xinit_d="${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinit/xinitrc.d"
 
 for dir in "$sys_xinit_d" "$usr_xinit_d"; do
   if [ -d "$dir" ]; then
     for f in "$dir"/?*.sh; do
-      if [ -x "$f" ]; then
+      if [ -r "$f" ]; then
         . "$f"
       fi
     done
-    unset f
   fi
-done
-unset dir
-
-while true; do
-  i3 >/dev/null 2>&1
 done
