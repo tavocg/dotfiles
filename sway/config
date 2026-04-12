@@ -14,10 +14,10 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec foot
-bindsym $mod+r exec menu run "Run" | xargs swaymsg exec
-bindsym $mod+p exec printf 'poweroff\nreboot\n' | menu dmenu "Power" | xargs sh -c
-bindsym $mod+Shift+p exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | wtype -
-bindsym $mod+Shift+o exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+r exec bemenu-run -p "Run" | xargs swaymsg exec
+bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" | xargs sh -c
+bindsym $mod+Shift+p exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | bemenu -p "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+Shift+o exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | bemenu -p "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
 bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
 bindsym $mod+i exec foot -a impala -T impala impala
 bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
