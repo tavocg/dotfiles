@@ -1,9 +1,0 @@
-#!/bin/sh
-
-DROPFOLDER="/home/tavo/Public/dropbox"
-PYTHON="python"
-PORT=5000
-
-if [ -d "${DROPFOLDER}" ] ; then
-    (cd "${DROPFOLDER}" && "${PYTHON}" -m http.server "${PORT}")
-fi

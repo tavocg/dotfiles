@@ -1,8 +1,0 @@
-#!/bin/sh
-# Mute mic
-
-amixer -q set Capture toggle
-
-MICSTAT="$(micstat)"
-notify-send -u low --replace-id=11 "$MICSTAT" 2>/dev/null
-kill -45 "$(pidof dwmblocks)" 2>/dev/null

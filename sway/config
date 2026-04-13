@@ -34,6 +34,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 bindsym Print exec grim -g "$(slurp -d)" - | tee "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" | wl-copy -t image/png
 bindsym $mod+Shift+s exec grim -g "$(slurp -d)" - | tee "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" | wl-copy -t image/png
+bindsym $mod+Shift+c exec grim -g "$(slurp -p)" -t ppm - | magick - -format '%[pixel:p{0,0}]' txt:- | sed '/^#/d;s/^.*#/#/;s/ .*$//' | tr '[:upper:]' '[:lower:]' | tr -d '\n' | wl-copy
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
