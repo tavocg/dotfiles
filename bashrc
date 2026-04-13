@@ -61,18 +61,20 @@ export \
   BOOKMARKS="$HOME/Documents/bookmarks" \
   BIB="$HOME/Documents/bibliography"
 
-y() {
-  set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
-  command yazi "$@"
-  shift $(($# - 1))
-  set -- "$(
-    command cat <"$1"
-    printf .
-    rm -f -- "$1"
-  )"
-  set -- "${1%.}"
-  [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
-}
+if command -v yazi >/dev/null 2>&1; then
+  y() {
+    set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
+    command yazi "$@"
+    shift $(($# - 1))
+    set -- "$(
+      command cat <"$1"
+      printf .
+      rm -f -- "$1"
+    )"
+    set -- "${1%.}"
+    [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
+  }
+fi
 
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init posix --hook prompt)"
@@ -122,21 +124,11 @@ alias \
   diff="diff --color=auto" \
   grep="grep --color=auto" \
   calc="bc -l" \
-  cp="cp -iv" \
-  mv="mv -iv" \
-  df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
-  qr-png="qrencode -s 16 -o qr.png" \
+  cp="cp -ivr" \
+  mv="mv -ivf" \
+  dfh="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
+  qrpng="qrencode -s 16 -o qr.png" \
   qr="qrencode -t ansiutf8" \
   wget='wget --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}"/wget/wget-hsts' \
   lg="lazygit" \
   adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
-
-case ":$PATH:" in
-*":$HOME/.local/bin:"*) ;;
-*) export PATH="$HOME/.local/bin${PATH:+:${PATH}}" ;;
-esac
-
-case ":$LD_LIBRARY_PATH:" in
-*":$HOME/.local/lib:"*) ;;
-*) export LD_LIBRARY_PATH="$HOME/.local/lib${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}" ;;
-esac
