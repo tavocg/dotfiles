@@ -20,6 +20,21 @@ case $- in
 *) return ;;
 esac
 
+_prompt_git_branch() {
+  GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
+  [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
+}
+
+PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
+PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
+
+bind "set completion-ignore-case on"
+shopt -s checkwinsize
+shopt -s histappend
+shopt -s cdspell
+shopt -s autocd
+set -o vi
+
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash_history"
 HISTCONTROL=ignoreboth
 # shellcheck disable=SC2034
@@ -39,46 +54,12 @@ if ! shopt -oq posix; then
   done
 fi
 
-_prompt_git_branch() {
-  GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
-  [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
-}
-
-PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
-PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
-
-bind "set completion-ignore-case on"
-shopt -s checkwinsize
-shopt -s histappend
-shopt -s cdspell
-shopt -s autocd
-set -o vi
-
 export \
   GL="git@gitlab.com:tavocg" \
   GH="git@github.com:tavocg" \
   DRIVE="ssh://drive:/home/drive/drive" \
   BOOKMARKS="$HOME/Documents/bookmarks" \
   BIB="$HOME/Documents/bibliography"
-
-if command -v yazi >/dev/null 2>&1; then
-  y() {
-    set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
-    command yazi "$@"
-    shift $(($# - 1))
-    set -- "$(
-      command cat <"$1"
-      printf .
-      rm -f -- "$1"
-    )"
-    set -- "${1%.}"
-    [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
-  }
-fi
-
-if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init posix --hook prompt)"
-fi
 
 if ! command -v sudo >/dev/null 2>&1 && command -v doas >/dev/null 2>&1; then
   alias sudo="doas"
@@ -119,7 +100,6 @@ if command -v trash >/dev/null 2>&1; then
 fi
 
 alias \
-  cal="calcurse" \
   fzf="fzf --cycle --reverse" \
   diff="diff --color=auto" \
   grep="grep --color=auto" \
@@ -132,3 +112,23 @@ alias \
   wget='wget --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}"/wget/wget-hsts' \
   lg="lazygit" \
   adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
+
+# See: https://yazi-rs.github.io/docs/quick-start#shell-wrapper
+if command -v yazi >/dev/null 2>&1; then
+  y() {
+    set -- "$@" --cwd-file "$(mktemp -t yazi-cwd.XXXXXX)"
+    command yazi "$@"
+    shift $(($# - 1))
+    set -- "$(
+      command cat <"$1"
+      printf .
+      rm -f -- "$1"
+    )"
+    set -- "${1%.}"
+    [ "$1" != "$PWD" ] && [ -d "$1" ] && command cd -- "$1"
+  }
+fi
+
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init posix --hook prompt)"
+fi
