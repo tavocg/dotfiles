@@ -15,6 +15,14 @@ for d in ~/.config/profile.d; do
   fi
 done
 
+_prompt_git_branch() {
+  GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
+  [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
+}
+
+PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
+PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
+
 case $- in
 *i*) ;;
 *) return ;;
@@ -45,14 +53,6 @@ shopt -s histappend
 shopt -s cdspell
 shopt -s autocd
 set -o vi
-
-_prompt_git_branch() {
-  GIT_BRANCH="$(git branch 2>/dev/null | sed '/\*/!d;s/^\*\s*//g;s/\s*$//g')"
-  [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
-}
-
-PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
-PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
 
 export \
   GL="git@gitlab.com:tavocg" \
