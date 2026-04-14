@@ -46,7 +46,7 @@ alias \
   calc="bc -l" \
   cp="cp -iv" \
   mv="mv -iv" \
-  df-short="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
+  dfs="df -h | grep -v '\s/dev.*$\|\s/run.*$\|\s/boot.*$'" \
   qr-png="qrencode -s 16 -o qr.png" \
   qr="qrencode -t ansiutf8" \
   wget='wget --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}"/wget/wget-hsts' \
