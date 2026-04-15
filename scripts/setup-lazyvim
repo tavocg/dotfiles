@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 printf ' %s\n' "---------------"
 printf ' \e[1m%s\e[0m\n' "SETUP - LazyVim"
