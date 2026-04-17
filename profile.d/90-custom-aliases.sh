@@ -52,3 +52,8 @@ alias \
   wget='wget --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}"/wget/wget-hsts' \
   lg="lazygit" \
   adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
+
+pandoc-md2pdf() {
+  file="$1"
+  pandoc -f markdown+tex_math_single_backslash --pdf-engine=tectonic "$file" -o "${file%.md}.pdf"
+}
