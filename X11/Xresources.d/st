@@ -1,4 +1,4 @@
-st.font: JetbrainsMono:size=11.5:antialias=true:autohint=true
+st.font: JetbrainsMono:size=11:antialias=true:autohint=true
 st.bold_font: 1
 st.termname: xterm-256color
 st.bellvolume: 0
