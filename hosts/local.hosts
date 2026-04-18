@@ -1,10 +1,1 @@
-192.168.100.2 pve.home
-192.168.100.100 private.home
-192.168.100.101 portainer.home
-192.168.100.101 radicale.home
-192.168.100.101 jellyfin.home
-192.168.100.101 n8n.home
-192.168.100.101 pdf.home
-192.168.100.101 ai.home
-192.168.100.101 torrent.home
-192.168.100.200 smp
+192.168.100.2 pve.local
