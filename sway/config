@@ -136,4 +136,8 @@ input type:keyboard {
   repeat_rate 70
 }
 
+input type:tablet_tool {
+  map_to_output DVI-D-1
+}
+
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP=sway XDG_SESSION_DESKTOP=sway
