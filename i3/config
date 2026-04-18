@@ -18,10 +18,9 @@ bindsym $mod+r exec bemenu-run -p "Run" | xargs swaymsg exec
 bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" | xargs sh -c
 bindsym $mod+Shift+p exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | xdotool type --clearmodifiers --file -
 bindsym $mod+Shift+o exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | menu dmenu "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | xdotool type --clearmodifiers --file -
-# bindsym $mod+o exec foot -a wiremix -T wiremix wiremix
-# bindsym $mod+i exec foot -a impala -T impala impala
-# bindsym $mod+u exec foot -a bluetui -T bluetui bluetui
-# bindsym $mod+e exec foot -a yazi -T yazi yazi
+bindsym $mod+o exec st -t floating-wiremix -e wiremix
+bindsym $mod+i exec st -t floating-impala -e impala
+bindsym $mod+u exec st -t floating-bluetui -e bluetui
 bindsym $mod+e exec thunderbird
 bindsym $mod+w exec ${BROWSER:-firefox}
 bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_SINK@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0
@@ -77,6 +76,7 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 bindsym $mod+Shift+t layout toggle tabbed split
+bindsym F11 fullscreen
 bindsym $mod+f fullscreen
 bindsym $mod+Shift+f floating toggle
 bindsym $mod+Shift+b bar mode toggle
@@ -112,9 +112,8 @@ bar {
 for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
 for_window [title="Picture-in-Picture"] floating enable
-for_window [app_id="wiremix"] floating enable
-for_window [app_id="impala"] floating enable
-for_window [app_id="bluetui"] floating enable
+for_window [title="^floating-.*$"] floating enable
+# for_window [instance="^yazi$"] floating enable
 
 # X11-specific
 
