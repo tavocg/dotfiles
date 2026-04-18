@@ -1,0 +1,26 @@
+#!/usr/bin/env sh
+# use this until Bug 735285 is resolved
+# https://bugzilla.mozilla.org/show_bug.cgi?id=735285
+TARGET="steam"
+HOME=$HOME/.local/share/Steam
+
+mkdir -p "$HOME"
+
+wrapper="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)/$(basename "$0")"
+
+prog=""
+IFS=":"
+for p in $PATH; do
+  b="$p/$TARGET"
+  if [ "$b" != "$wrapper" ] && [ -x "$b" ]; then
+    prog="$b"
+    break
+  fi
+done
+
+if [ -z "$prog" ]; then
+  echo "'$TARGET' not found in PATH" >&2
+  exit 1
+fi
+
+"$prog" "$@"
