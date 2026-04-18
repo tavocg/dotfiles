@@ -10,7 +10,7 @@
 #setxkbmap en
 
 # Monitors
-#xrandr --output DVI-D-0 --right-of HDMI-0
+#xrandr --output DVI-D-1 --right-of HDMI-1
 
 # Appearance
 #picom --experimental-backends --animation-for-open-window=zoom &
