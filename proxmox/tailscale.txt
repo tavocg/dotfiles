@@ -1,0 +1,5 @@
+CT_ID=100
+CT_FILE="/etc/pve/lxc/$CT_ID.conf"
+echo "lxc.cgroup2.devices.allow: c 10:200 rwm" >> "$CT_FILE"
+echo "lxc.mount.entry: /dev/net/tun dev/net/tun none bind,create=file" >> "$CT_FILE"
+pct reboot "$CT_ID"
