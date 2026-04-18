@@ -1,6 +1,6 @@
 # Mount drives and then run
 #         CT id    proxmox path         CT path
-# pct set 100 -mp0 /mnt/pve/wd4drive,mp=/home/drive
+# pct set 100 -mp0 /mnt/pve/wd4drive,mp=/home/drive/drive
 # then reboot
 
 # ----------------------------------
