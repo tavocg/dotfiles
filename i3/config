@@ -113,7 +113,6 @@ for_window [class="Display-im*"] floating enable
 for_window [title="Steam Settings"] floating enable
 for_window [title="Picture-in-Picture"] floating enable
 for_window [title="^floating-.*$"] floating enable
-# for_window [instance="^yazi$"] floating enable
 
 # X11-specific
 
