@@ -14,10 +14,10 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec foot
-bindsym $mod+r exec bemenu-run -p "Run" | xargs swaymsg exec
-bindsym $mod+p exec printf 'poweroff\nreboot\n' | bemenu -p "Power" | xargs sh -c
-bindsym $mod+Shift+p exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | bemenu -p "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | wtype -
-bindsym $mod+Shift+o exec find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed "s#^$PASSWORD_STORE_DIR/##; s#\\.gpg\$##" | bemenu -p "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+r exec --no-startup-id bemenu-run -p "Run" | xargs swaymsg exec
+bindsym $mod+p exec --no-startup-id printf 'poweroff\nreboot\n' | bemenu -p "Power" | xargs sh -c
+bindsym $mod+Shift+p exec --no-startup-id find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\\.gpg$##' | bemenu -p "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | wtype -
+bindsym $mod+Shift+o exec --no-startup-id find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\\.gpg$##' | bemenu -p "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | wtype -
 bindsym $mod+o exec foot -T floating-wiremix wiremix
 bindsym $mod+i exec foot -T floating-impala impala
 bindsym $mod+u exec foot -T floating-bluetui bluetui
@@ -57,7 +57,7 @@ bindsym $mod+Shift+9 move container to workspace "  9  "
 bindsym $mod+comma workspace prev_on_output
 bindsym $mod+period workspace next_on_output
 
-bindsym $mod+Shift+q reload
+bindsym $mod+Shift+q exec swaymsg reload
 bindsym $mod+c kill
 bindsym $mod+$left focus left
 bindsym $mod+$down focus down
