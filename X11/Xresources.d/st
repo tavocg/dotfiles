@@ -7,7 +7,7 @@ st.chscale: 1.0
 st.cwscale: 1.0
 
 /* Everforest Dark (soft) */
-st.background: #2b3339
+st.background: #2d353b
 st.foreground: #d3c6aa
 st.cursorColor: #d3c6aa
 
