@@ -25,6 +25,13 @@ if command -v eza >/dev/null 2>&1; then
   EZA_PROG="eza"
 fi
 
+if [ "$DISPLAY" ]; then
+  alias clip="xclip -selection clipboard"
+elif [ "$WAYLAND_DISPLAY" ]; then
+  alias clip="wl-copy"
+fi
+
+
 if [ "$EZA_PROG" ]; then
   EZA_OPTS="--git --group-directories-first --icons --time-style=long-iso"
   alias la="$EZA_PROG $EZA_OPTS -alghUum"
