@@ -1,0 +1,40 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 28,
+  "spacing": 8,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "wireplumber#volume",
+    "wireplumber#mic",
+    "clock#time",
+    "clock#date"
+  ],
+  "hyprland/workspaces": {
+    "format": "{id}",
+    "all-outputs": false
+  },
+  "wireplumber#volume": {
+    "format": "vol {volume}%",
+    "format-muted": "vol mute",
+    "scroll-step": 5,
+    "tooltip": false
+  },
+  "wireplumber#mic": {
+    "node-type": "Audio/Source",
+    "format": "mic {volume}%",
+    "format-muted": "mic mute",
+    "scroll-step": 5,
+    "tooltip": false
+  },
+  "clock#time": {
+    "format": "{:%H:%M}",
+    "tooltip": false
+  },
+  "clock#date": {
+    "format": "{:%Y-%m-%d}",
+    "tooltip": false
+  }
+}
