@@ -7,7 +7,6 @@ set $font pango:JetBrainsMono Medium 8
 
 set $mod Mod4
 floating_modifier $mod
-set $alt Mod1
 set $left h
 set $down j
 set $up k
