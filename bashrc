@@ -25,8 +25,43 @@ _prompt_git_branch() {
   [ -n "$GIT_BRANCH" ] && printf '%s ' "$GIT_BRANCH"
 }
 
-PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\033[32m"; else EXIT_COLOR="\033[31m"; fi'
-PS1='\[\033[2m\]\A\[\033[0m\] \[\033[34m\]\w\[\033[0m\] \[\033[35m\]\[\033[1m\]$(_prompt_git_branch)\[\033[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\033[0m\] '
+_hostname() {
+  h="$HOSTNAME"
+
+  if [ "$IS_TERMUX" ]; then
+    h="android"
+  fi
+
+  case "$h" in
+    desktop) h="󰇅";;
+    laptop) h="󰌢";;
+    drive) h="";;
+    android) h="";;
+  esac
+
+  printf '%s' "$h"
+}
+
+_user() {
+  u="$(id -un)"
+
+  case "$u" in
+    tavo) u="";;
+    u0_*) u="";;
+  esac
+
+  printf '%s' "$u"
+}
+
+_host() {
+  u="$(_user)"
+  h="$(_hostname)"
+  if [ "$u" ]; then u="$u@"; fi
+  printf '%s%s' "$u" "$h"
+}
+
+PROMPT_COMMAND='if [ "$?" = 0 ]; then EXIT_COLOR="\e[32m"; else EXIT_COLOR="\e[31m"; fi'
+PS1='\[\e[2m\]\A $(_host)\[\e[0m\] \[\e[34m\]\w\[\e[0m\] \[\e[35m\]\[\e[1m\]$(_prompt_git_branch)\[\e[0m\]\[$(echo -ne $EXIT_COLOR)\]>\[\e[0m\] '
 
 bind "set completion-ignore-case on"
 shopt -s checkwinsize
