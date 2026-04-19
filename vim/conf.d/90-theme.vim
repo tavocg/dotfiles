@@ -3,7 +3,6 @@ if has('termguicolors') && ($COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit'
 endif
 
 try
-  let g:everforest_background = 'hard'
   set background=dark
   colorscheme everforest
 catch
