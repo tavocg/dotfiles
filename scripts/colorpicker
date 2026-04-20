@@ -9,11 +9,23 @@ has() {
 }
 
 colorpicker_wayland() {
-  if ! has grim slurp magick; then
+  if has grim slurp magick; then
+    USE_MAGICK=1
+  fi
+
+  if has hyprpicker; then
+    USE_HYPRPICKER=1
+  fi
+
+  if [ -z "$USE_MAGICK" ] && [ -z "$USE_HYPRPICKER" ]; then
     return 127
   fi
 
-  col="$(grim -g "$(slurp -p)" -t ppm - | magick - -format '%[pixel:p{0,0}]' txt:- | sed '/^#/d;s/^.*#/#/;s/ .*$//' | tr '[:upper:]' '[:lower:]')"
+  if [ "$USE_HYPRPICKER" ]; then
+    col="$(hyprpicker | tr '[:upper:]' '[:lower:]')"
+  elif [ "$USE_MAGICK" ]; then
+    col="$(grim -g "$(slurp -p)" -t ppm - | magick - -format '%[pixel:p{0,0}]' txt:- | sed '/^#/d;s/^.*#/#/;s/ .*$//' | tr '[:upper:]' '[:lower:]')"
+  fi
 
   echo "$col"
 
