@@ -1,0 +1,44 @@
+#!/bin/sh
+
+has() {
+  for bin in $@; do
+    if ! command -v "$bin" >/dev/null 2>&1; then
+      return 127
+    fi
+  done
+}
+
+prtsc_wayland() {
+  if ! has grim slurp; then
+    return 127
+  fi
+
+  grim -g "$(slurp -d)" "$PIC"
+
+  if has wl-copy; then
+    wl-copy < "$PIC"
+  fi
+}
+
+prtsc_x11() {
+  if ! has scrot; then
+    return 127
+  fi
+
+  scrot -s "$PIC"
+
+  if has xclip; then
+    xclip -selection clipboard -t image/png -i "$PIC"
+  fi
+}
+
+DIR="${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots"
+PIC="$DIR/$(date +%Y%m%d%H%M%2N).png"
+
+mkdir -p "$DIR"
+
+if [ "$WAYLAND_DISPLAY" ]; then
+  prtsc_wayland
+elif [ "$DISPLAY" ]; then
+  prtsc_x11
+fi

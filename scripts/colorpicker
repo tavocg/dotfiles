@@ -1,0 +1,29 @@
+#!/bin/sh
+
+has() {
+  for bin in $@; do
+    if ! command -v "$bin" >/dev/null 2>&1; then
+      return 127
+    fi
+  done
+}
+
+colorpicker_wayland() {
+  if ! has grim slurp magick; then
+    return 127
+  fi
+
+  col="$(grim -g "$(slurp -p)" -t ppm - | magick - -format '%[pixel:p{0,0}]' txt:- | sed '/^#/d;s/^.*#/#/;s/ .*$//' | tr '[:upper:]' '[:lower:]')"
+
+  echo "$col"
+
+  if has wl-copy; then
+    wl-copy "$col"
+  fi
+}
+
+if [ "$WAYLAND_DISPLAY" ]; then
+  colorpicker_wayland
+elif [ "$DISPLAY" ]; then
+  colorpicker_x11
+fi

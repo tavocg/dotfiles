@@ -1,0 +1,25 @@
+#!/bin/sh
+
+type_file() {
+  file="$1"
+  if [ "$WAYLAND_DISPLAY" ]; then
+    wtype "$file"
+  elif [ "$DISPLAY" ]; then
+    xdotool type --clearmodifiers --file "$file"
+  else
+    cat
+  fi
+}
+
+pass="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\.gpg$##' | bemenu -p "Pass")"
+
+if [ -z "$pass" ]; then
+  exit 0
+fi
+
+OPT="$1"
+
+case "$OPT" in
+  otp) pass otp "$pass" | head -n 1 | tr -d '\n' | type_file -;;
+  *) pass "$pass" | head -n 1 | tr -d '\n' | type_file -;;
+esac
