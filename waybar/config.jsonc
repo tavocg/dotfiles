@@ -1,14 +1,18 @@
 {
   "layer": "top",
   "position": "bottom",
-  "height": 28,
-  "spacing": 8,
+  "height": 22,
+  "spacing": 4,
   "modules-left": [
     "hyprland/workspaces"
   ],
   "modules-right": [
     "wireplumber#volume",
     "wireplumber#mic",
+    "cpu",
+    "memory",
+    "network",
+    "battery",
     "clock#time",
     "clock#date"
   ],
@@ -17,24 +21,110 @@
     "all-outputs": false
   },
   "wireplumber#volume": {
-    "format": "vol {volume}%",
-    "format-muted": "vol mute",
-    "scroll-step": 5,
-    "tooltip": false
+    "format": "󰕾 {icon}",
+    "format-muted": "󰝟 ──────────",
+    "format-icons": [
+      "──────────",
+      "━─────────",
+      "━━────────",
+      "━━━───────",
+      "━━━━──────",
+      "━━━━━─────",
+      "━━━━━━────",
+      "━━━━━━━───",
+      "━━━━━━━━──",
+      "━━━━━━━━━─",
+      "━━━━━━━━━━"
+    ]
   },
   "wireplumber#mic": {
     "node-type": "Audio/Source",
-    "format": "mic {volume}%",
-    "format-muted": "mic mute",
-    "scroll-step": 5,
-    "tooltip": false
+    "format": "󰍬 {icon}",
+    "format-muted": "󰍬 ──────────",
+    "format-icons": [
+      "──────────",
+      "━─────────",
+      "━━────────",
+      "━━━───────",
+      "━━━━──────",
+      "━━━━━─────",
+      "━━━━━━────",
+      "━━━━━━━───",
+      "━━━━━━━━──",
+      "━━━━━━━━━─",
+      "━━━━━━━━━━"
+    ]
+  },
+  "cpu": {
+    "interval": 3,
+    "format": " {usage:02}%"
+  },
+  "memory": {
+    "interval": 10,
+    "format": " {used:04.1f}G"
+  },
+  "network": {
+    "interval": 5,
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰛳",
+    "format-linked": "󰈀",
+    "format-disconnected": "󰖪",
+    "format-disabled": "󰖩",
+    "format-icons": [
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "tooltip-format-wifi": "{essid} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} {ipaddr}",
+    "tooltip-format-disconnected": "Disconnected"
+  },
+  "battery": {
+    "interval": 10,
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon}",
+    "format-discharging": "{icon}",
+    "format-charging": "{icon}",
+    "format-plugged": "󰚥",
+    "format-full": "󰁹",
+    "format-icons": {
+      "default": [
+        "󰂎",
+        "󰁺",
+        "󰁻",
+        "󰁼",
+        "󰁽",
+        "󰁾",
+        "󰁿",
+        "󰂀",
+        "󰂁",
+        "󰂂",
+        "󰁹"
+      ],
+      "charging": [
+        "󰂅",
+        "󰂋",
+        "󰂊",
+        "󰢞",
+        "󰂉",
+        "󰢝",
+        "󰂈",
+        "󰂇",
+        "󰂆",
+        "󰢜",
+        "󰢟"
+      ]
+    },
+    "tooltip-format": "{capacity}% {time}"
   },
   "clock#time": {
-    "format": "{:%H:%M}",
-    "tooltip": false
+    "format": "󰥔 {:%I:%M %p}"
   },
   "clock#date": {
-    "format": "{:%Y-%m-%d}",
-    "tooltip": false
+    "format": "󰃮 {:%a %Y-%m-%d}"
   }
 }
