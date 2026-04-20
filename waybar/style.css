@@ -28,6 +28,7 @@ window#waybar {
 #memory,
 #network,
 #battery,
+#language,
 #wireplumber,
 #clock {
   padding: 2px 6px 0 6px;

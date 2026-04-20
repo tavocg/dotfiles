@@ -12,6 +12,7 @@
     "memory",
     "network",
     "battery",
+    "hyprland/language",
     "clock#time",
     "clock#date"
   ],
@@ -118,6 +119,10 @@
       ]
     },
     "tooltip-format": "{capacity}% {time}"
+  },
+  "hyprland/language": {
+    "format": "󰌌 {shortDescription}",
+    "tooltip": false
   },
   "clock#time": {
     "format": "󰥔 {:%I:%M %p}",
