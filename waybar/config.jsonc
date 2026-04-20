@@ -55,15 +55,15 @@
     ]
   },
   "cpu": {
-    "interval": 3,
+    "interval": 2,
     "format": " {usage:02}%"
   },
   "memory": {
-    "interval": 10,
+    "interval": 2,
     "format": " {used:04.1f}G"
   },
   "network": {
-    "interval": 5,
+    "interval": 2,
     "format-wifi": "{icon}",
     "format-ethernet": "󰛳",
     "format-linked": "󰈀",
@@ -80,10 +80,10 @@
     "tooltip-format-disconnected": "Disconnected"
   },
   "battery": {
-    "interval": 10,
+    "interval": 2,
     "states": {
       "warning": 30,
-      "critical": 15
+      "critical": 10
     },
     "format": "{icon}",
     "format-discharging": "{icon}",
@@ -105,17 +105,17 @@
         "󰁹"
       ],
       "charging": [
-        "󰂅",
-        "󰂋",
-        "󰂊",
-        "󰢞",
-        "󰂉",
-        "󰢝",
-        "󰂈",
-        "󰂇",
-        "󰂆",
+        "󰢟",
         "󰢜",
-        "󰢟"
+        "󰂆",
+        "󰂇",
+        "󰂈",
+        "󰢝",
+        "󰂉",
+        "󰢞",
+        "󰂊",
+        "󰂋",
+        "󰂅"
       ]
     },
     "tooltip-format": "{capacity}% {time}"
