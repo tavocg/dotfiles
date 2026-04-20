@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "bottom",
   "height": 22,
-  "spacing": 4,
+  "spacing": 8,
   "modules-left": [
     "hyprland/workspaces"
   ],
@@ -17,8 +17,7 @@
     "clock#date"
   ],
   "hyprland/workspaces": {
-    "format": "{id}",
-    "all-outputs": false
+    "format": "{id}"
   },
   "wireplumber#volume": {
     "format": "󰕾 {icon}",
@@ -40,7 +39,7 @@
   "wireplumber#mic": {
     "node-type": "Audio/Source",
     "format": "󰍬 {icon}",
-    "format-muted": "󰍬 ──────────",
+    "format-muted": "󰍭 ──────────",
     "format-icons": [
       "──────────",
       "━─────────",
@@ -122,9 +121,11 @@
     "tooltip-format": "{capacity}% {time}"
   },
   "clock#time": {
-    "format": "󰥔 {:%I:%M %p}"
+    "format": "󰥔 {:%I:%M %p}",
+    "tooltip": false
   },
   "clock#date": {
-    "format": "󰃮 {:%a %Y-%m-%d}"
+    "format": "󰃮 {:%a %Y-%m-%d}",
+    "tooltip": false
   }
 }
