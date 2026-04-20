@@ -13,10 +13,10 @@ set $up k
 set $right l
 
 bindsym $mod+Return exec st
-bindsym $mod+r exec --no-startup-id bemenu-run -p Run | xargs i3-msg exec
-bindsym $mod+p exec --no-startup-id "printf 'poweroff\nreboot\n' | bemenu -p Power | xargs sh -c"
-bindsym $mod+Shift+p exec --no-startup-id find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\\.gpg$##' | bemenu -p "Pass" | xargs -r pass | head -n 1 | tr -d '\n' | xdotool type --clearmodifiers --file -
-bindsym $mod+Shift+o exec --no-startup-id find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\\.gpg$##' | bemenu -p "Pass" | xargs -r pass otp | head -n 1 | tr -d '\n' | xdotool type --clearmodifiers --file -
+bindsym $mod+r exec bemenu-run -p Run | xargs i3-msg exec
+bindsym $mod+p exec "printf 'poweroff\nreboot\n' | bemenu -p Power | xargs sh -c"
+bindsym $mod+Shift+p exec ~/.config/scripts/passmenu
+bindsym $mod+Shift+o exec ~/.config/scripts/passmenu otp
 bindsym $mod+o exec st -t floating-wiremix -e wiremix
 bindsym $mod+i exec st -t floating-impala -e impala
 bindsym $mod+u exec st -t floating-bluetui -e bluetui
@@ -31,9 +31,9 @@ bindsym Shift+XF86AudioMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
 bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
 bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
-bindsym Print exec scrot -s "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" -e 'xclip -selection clipboard -t image/png -i $f'
-bindsym $mod+Shift+s exec scrot -s "${XDG_PICTURES_DIR:-$HOME/Pictures}/Screenshots/$(date +%Y%m%d%H%M%2N).png" -e 'xclip -selection clipboard -t image/png -i $f'
-bindsym $mod+Shift+c exec xcolor | tr -d '\n' | xclip -selection clipboard
+bindsym Print exec ~/.config/scripts/prtsc
+bindsym $mod+Shift+s exec ~/.config/scripts/prtsc
+bindsym $mod+Shift+c exec ~/.config/scripts/colorpicker
 
 bindsym $mod+1 workspace "  1  "
 bindsym $mod+2 workspace "  2  "
