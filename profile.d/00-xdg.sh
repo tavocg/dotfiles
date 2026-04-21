@@ -21,7 +21,6 @@ export \
 export \
   _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
   MATHEMATICA_USERBASE="$XDG_CONFIG_HOME/mathematica" \
-  XCURSOR_PATH=/usr/share/icons:"$XDG_DATA_HOME"/icons \
   GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" \
   PASSWORD_STORE_DIR="$XDG_DATA_HOME/password-store" \
   TEXMFCONFIG="$XDG_CONFIG_HOME/texlive/texmf-config" \
