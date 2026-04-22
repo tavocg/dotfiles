@@ -62,7 +62,7 @@ alias \
 
 pandoc-md2pdf() {
   for file in "$@"; do
-    if [ -f "$file" ]; then
+    if [ -f "$file" ] && [ "${file##*.}" == "md" ]; then
       titleMeta="$(grep -m1 '^title: .*' "$file")"
       titleMeta="${titleMeta#*: }"
 
