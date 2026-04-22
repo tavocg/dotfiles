@@ -61,10 +61,31 @@ alias \
   adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
 
 pandoc-md2pdf() {
-  files="$@"
-  for file in $files; do
+  for file in "$@"; do
     if [ -f "$file" ]; then
-      pandoc -f markdown+tex_math_single_backslash --pdf-engine=tectonic "$file" -o "${file%.md}.pdf"
+      titleMeta="$(grep -m1 '^title: .*' "$file")"
+      titleMeta="${titleMeta#*: }"
+
+      titleTag="$(grep -m1 '^# .*' "$file")"
+      titleTag="${titleTag#* }"
+
+      titleFile="${file%.md}"
+      title=""
+
+      if [ -n "$titleMeta" ]; then
+        title="$titleMeta"
+      elif [ -n "$titleTag" ]; then
+        title="$titleTag"
+      else
+        title="$titleFile"
+      fi
+
+      pandoc \
+        -V geometry:margin=1in \
+        --metadata title="$title" \
+        --number-sections --shift-heading-level-by=-1 \
+        -f markdown+tex_math_single_backslash \
+        --pdf-engine=tectonic "$file" -o "${file%.md}.pdf"
     fi
   done
 }
