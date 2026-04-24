@@ -48,6 +48,7 @@ _user() {
 
   case "$u" in
     tavo) u="";;
+    gcalvo) u="";;
     u0_*) u="";;
   esac
 
