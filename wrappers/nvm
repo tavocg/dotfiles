@@ -8,17 +8,8 @@ fi
 
 wrapper="$(cd -P -- "$(dirname -- "$(command -v -- "$0")")" && pwd -P)/$(basename "$0")"
 
-prog=""
-IFS=":"
-for p in $PATH; do
-  b="$p/$TARGET"
-  if [ "$b" != "$wrapper" ] && [ -x "$b" ]; then
-    prog="$b"
-    break
-  fi
-done
-
-if [ -z "$prog" ]; then
+prog="$(command -v "$TARGET")"
+if diff "$prog" "$wrapper" >/dev/null 2>&1; then
   echo "'$TARGET' not found in PATH" >&2
   exit 1
 fi
