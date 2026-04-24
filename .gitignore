@@ -286,3 +286,4 @@ ripgrep-all/
 qutebrowser/
 .codex
 gtk-*/
+uv/
