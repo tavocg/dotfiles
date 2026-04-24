@@ -35,8 +35,9 @@ _hostname() {
   case "$h" in
     desktop) h="󰇅";;
     laptop) h="󰌢";;
-    drive) h="";;
     android) h="";;
+    drive) h="";;
+    login-*.cnca) h="󰆧";;
   esac
 
   printf '%s' "$h"
