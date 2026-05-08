@@ -1,0 +1,3 @@
+#!/bin/sh
+
+monerod --data-dir "${XDG_DATA_HOME:-$HOME/.local/share}"/bitmonero
