@@ -287,3 +287,5 @@ qutebrowser/
 .codex
 gtk-*/
 uv/
+.mono/
+Insomnia/
