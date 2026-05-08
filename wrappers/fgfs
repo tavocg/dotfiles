@@ -22,4 +22,4 @@ if [ -z "$prog" ]; then
   exit 1
 fi
 
-"$prog" "$@"
+"$prog" --launcher "$@"
