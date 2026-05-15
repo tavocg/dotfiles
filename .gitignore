@@ -289,3 +289,5 @@ gtk-*/
 uv/
 .mono/
 Insomnia/
+store/
+opentrack*
