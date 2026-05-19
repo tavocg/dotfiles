@@ -1,13 +1,13 @@
 * {
   font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", monospace;
-  font-size: 0.8rem;
-  font-weight: 500;
+  font-size: 0.85rem;
+  font-weight: 600;
   min-height: 0;
+  color: #374145;
 }
 
 window#waybar {
   background: #000;
-  color: #374145;
 }
 
 #workspaces button {
@@ -20,7 +20,10 @@ window#waybar {
   border-radius: 0;
 }
 
-#workspaces,
+#workspaces {
+  margin-left: 0;
+}
+
 #cpu,
 #memory,
 #network,
