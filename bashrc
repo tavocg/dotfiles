@@ -29,15 +29,11 @@ _hostname() {
   h="$HOSTNAME"
 
   if [ "$IS_TERMUX" ]; then
-    h="android"
+    h="phone"
   fi
 
   case "$h" in
-    desktop) h="󰇅";;
-    laptop) h="󰌢";;
-    android) h="";;
-    drive) h="";;
-    login-*.cnca) h="󰆧";;
+  login-*.cnca) h="cluster" ;;
   esac
 
   printf '%s' "$h"
@@ -47,9 +43,9 @@ _user() {
   u="$(id -un)"
 
   case "$u" in
-    tavo) u="";;
-    gcalvo) u="";;
-    u0_*) u="";;
+  tavo) u="" ;;
+  gcalvo) u="" ;;
+  u0_*) u="" ;;
   esac
 
   printf '%s' "$u"
