@@ -33,7 +33,7 @@ _hostname() {
   fi
 
   case "$h" in
-  login-*.cnca) h="cluster" ;;
+  login-*.cnca) h="kabre" ;;
   esac
 
   printf '%s' "$h"
