@@ -7,3 +7,6 @@
 [submodule "vim/pack/plugins/start/xdg"]
 	path = vim/pack/plugins/start/xdg
 	url = https://github.com/tavocg/vim-xdg
+[submodule "emacs"]
+	path = emacs
+	url = https://github.com/doomemacs/doomemacs
