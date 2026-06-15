@@ -77,22 +77,4 @@
 (setq doom-font (font-spec :family "Iosevka" :size 18 :antialias 'subpixel))
 (setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 18 :antialias 'subpixel))
 
-;; Use variable pitch font in org mode
-(add-hook 'org-mode-hook (lambda () (variable-pitch-mode 1)))
-(after! org
-  (custom-set-faces!
-    '(org-block :inherit fixed-pitch)
-    '(org-block-begin-line :inherit fixed-pitch)
-    '(org-block-end-line :inherit fixed-pitch)
-    '(org-code :inherit (shadow fixed-pitch))
-    '(org-date :inherit fixed-pitch)
-    '(org-document-info-keyword :inherit fixed-pitch)
-    '(org-drawer :inherit fixed-pitch)
-    '(org-indent :inherit (org-hide fixed-pitch))
-    '(org-latex-and-related :inherit fixed-pitch)
-    '(org-meta-line :inherit fixed-pitch)
-    '(org-property-value :inherit fixed-pitch)
-    '(org-special-keyword :inherit fixed-pitch)
-    '(org-table :inherit fixed-pitch)
-    '(org-tag :inherit fixed-pitch)
-    '(org-verbatim :inherit (shadow fixed-pitch))))
+(add-hook 'org-mode-hook #'writeroom-mode)
