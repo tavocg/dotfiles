@@ -74,7 +74,9 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
-(setq doom-font (font-spec :family "Iosevka" :size 18 :antialias 'subpixel))
-(setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 18 :antialias 'subpixel))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :antialias 'subpixel))
+(setq doom-variable-pitch-font (font-spec :family "NewComputerModern10" :size 18 :antialias 'subpixel))
 
+(setq +zen-text-scale 1)
+(setq mixed-pitch-set-height t)
 (add-hook 'org-mode-hook #'writeroom-mode)

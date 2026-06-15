@@ -28,7 +28,6 @@ export \
   TEXMFHOME="$XDG_DATA_HOME/texmf" \
   VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc" \
   XSERVERRC="$XDG_CONFIG_HOME/X11/xserverrc" \
-  MBSYNCRC="$XDG_CONFIG_HOME/isync/mbsyncrc" \
   XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" \
   XINITRC="$XDG_CONFIG_HOME/X11/xinit/xinitrc" \
   LESSHISTFILE="$XDG_DATA_HOME/lesshst" \
