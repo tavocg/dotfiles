@@ -1,0 +1,49 @@
+#+title: Custom Doom Emacs Config
+
+** Misc
+
+This determines the style of line numbers in effect. If set to `nil', line numbers are disabled. For relative line numbers, set this to `relative'.
+
+#+begin_src elisp
+(setq display-line-numbers-type t)
+#+end_src
+
+*** Theme
+
+#+begin_src elisp
+(setq doom-theme 'doom-one)
+#+end_src
+
+*** Fonts
+
+#+begin_src elisp
+(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :antialias 'subpixel))
+(setq doom-variable-pitch-font (font-spec :family "NewComputerModern10" :size 18 :antialias 'subpixel))
+#+end_src
+
+** Org mode
+
+#+begin_src elisp
+(setq org-directory "~/Documents/")
+#+end_src
+
+*** Writeroom mode
+
+~writeroom-mode~ is a distraction-free mode for buffers meant mainly for wrinting. It uses ~mixed-pitch-mode~, but it doesn't use the height already set with ~doom-font~ and ~doom-variable-pitch-font~. In order to change this, we set:
+
+#+begin_src elisp
+(setq mixed-pitch-set-height t)
+#+end_src
+
+When enabling ~writeroom-mode~, the default text scaling is ~2~ but we would like to use ~1~. Also, the default width is too wide, so, we customize the default behavior:
+
+#+begin_src elisp
+(setq +zen-text-scale 1)
+(setq writeroom-width 50)
+#+end_src
+
+Finally, auto-enable this mode when entering ~org-mode~:
+
+#+begin_src elisp
+(add-hook 'org-mode-hook #'writeroom-mode)
+#+end_src
