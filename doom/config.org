@@ -37,6 +37,10 @@ Use spanish by default, although one can override this by setting: ~# -*- ispell
 (setq org-agenda-files '("~/Documents/agenda/"))
 #+end_src
 
+#+begin_src elisp
+(add-hook 'org-mode-hook #'doom-disable-line-numbers-h)
+#+end_src
+
 *** Writeroom mode
 
 ~writeroom-mode~ is a distraction-free mode for buffers meant mainly for wrinting. It uses ~mixed-pitch-mode~, but it doesn't use the height already set with ~doom-font~ and ~doom-variable-pitch-font~. In order to change this, we set:
