@@ -25,6 +25,7 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 
 #+begin_src elisp
 (setq org-directory "~/Documents/")
+(setq org-agenda-files '("~/Documents/agenda/"))
 #+end_src
 
 *** Writeroom mode
