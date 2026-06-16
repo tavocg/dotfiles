@@ -1,3 +1,4 @@
+# -*- ispell-local-dictionary: "en"; -*-
 #+title: Custom Doom Emacs Config
 
 ** Misc
@@ -18,10 +19,12 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 
 #+begin_src elisp
 (setq doom-font (font-spec :family "Iosevka" :size 16 :weight 'medium :antialias 'subpixel))
-(setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :antialias 'subpixel))
+(setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :weight 'medium :antialias 'subpixel))
 #+end_src
 
 ** Spell checking
+
+Use spanish by default, although one can override this by setting: ~# -*- ispell-local-dictionary: "en"; -*-~ on top of a file.
 
 #+begin_src elisp
 (setq ispell-dictionary "es")
@@ -45,8 +48,8 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 When enabling ~writeroom-mode~, the default text scaling is ~2~ but we would like to use ~1~. Also, the default width is too wide, so, we customize the default behavior:
 
 #+begin_src elisp
-(setq +zen-text-scale 1)
-(setq writeroom-width 50)
+(setq +zen-text-scale 1.5)
+(setq writeroom-width 30)
 #+end_src
 
 Finally, auto-enable this mode when entering ~org-mode~:
