@@ -17,8 +17,8 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 *** Fonts
 
 #+begin_src elisp
-(setq doom-font (font-spec :family "JetBrains Mono" :size 16 :antialias 'subpixel))
-(setq doom-variable-pitch-font (font-spec :family "NewComputerModern10" :size 18 :antialias 'subpixel))
+(setq doom-font (font-spec :family "Iosevka" :size 16 :weight 'medium :antialias 'subpixel))
+(setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 16 :antialias 'subpixel))
 #+end_src
 
 ** Org mode
@@ -30,16 +30,16 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 
 *** Writeroom mode
 
-~writeroom-mode~ is a distraction-free mode for buffers meant mainly for wrinting. It uses ~mixed-pitch-mode~, but it doesn't use the height already set with ~doom-font~ and ~doom-variable-pitch-font~. In order to change this, we set:
+~writeroom-mode~ is a distraction-free mode for buffers meant mainly for writing. It uses ~mixed-pitch-mode~, but it doesn't use the height already set with ~doom-font~ and ~doom-variable-pitch-font~. In order to change this, we set:
 
 #+begin_src elisp
 (setq mixed-pitch-set-height t)
 #+end_src
 
-When enabling ~writeroom-mode~, the default text scaling is ~2~ but we would like to use ~1~. Also, the default width is too wide, so, we customize the default behavior:
+More ~zen~ customization
 
 #+begin_src elisp
-(setq +zen-text-scale 1)
+;;(setq +zen-text-scale 1)
 (setq writeroom-width 50)
 #+end_src
 
