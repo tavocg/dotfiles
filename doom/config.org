@@ -63,8 +63,8 @@ Finally, auto-enable this mode when entering ~org-mode~:
 ** Citations
 
 #+begin_src elisp
-(setq citar-bibliography '("~/Documents/bibliography.bib")
-      org-cite-csl-styles-dir "~/.config/zotero/styles")
+(setq citar-bibliography (list (expand-file-name "~/Documents/bibliography.bib"))
+      org-cite-csl-styles-dir (expand-file-name "~/.config/zotero/styles"))
 #+end_src
 
 ** LaTeX export
