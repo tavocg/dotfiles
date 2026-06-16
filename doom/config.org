@@ -59,3 +59,10 @@ Finally, auto-enable this mode when entering ~org-mode~:
 #+begin_src elisp
 (add-hook 'org-mode-hook #'writeroom-mode)
 #+end_src
+
+** Citations
+
+#+begin_src elisp
+(setq citar-bibliography '("~/Documents/bibliography.bib")
+      org-cite-csl-styles-dir "~/.config/zotero/styles")
+#+end_src
