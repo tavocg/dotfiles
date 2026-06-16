@@ -21,6 +21,12 @@ This determines the style of line numbers in effect. If set to `nil', line numbe
 (setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :antialias 'subpixel))
 #+end_src
 
+** Spell checking
+
+#+begin_src elisp
+(setq ispell-dictionary "es")
+#+end_src
+
 ** Org mode
 
 #+begin_src elisp
