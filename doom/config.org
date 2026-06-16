@@ -35,6 +35,12 @@ Use Spanish by default, although one can override this by setting: ~# -*- ispell
 (setq org-agenda-files '("~/Documents/agenda/"))
 #+end_src
 
+This will allow syntax highlighting in math equations and other latex environments inside Org mode.
+
+#+begin_src elisp
+(setq org-highlight-latex-and-related '(native script entities))
+#+end_src
+
 #+begin_src elisp
 (add-hook 'org-mode-hook #'doom-disable-line-numbers-h)
 #+end_src
