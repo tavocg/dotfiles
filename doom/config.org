@@ -66,3 +66,12 @@ Finally, auto-enable this mode when entering ~org-mode~:
 (setq citar-bibliography '("~/Documents/bibliography.bib")
       org-cite-csl-styles-dir "~/.config/zotero/styles")
 #+end_src
+
+** LaTeX export
+
+#+begin_src elisp
+(after! ox-latex
+  (setq org-latex-pdf-process '("tectonic -o %o %f")
+        org-latex-remove-logfiles t)
+  (add-to-list 'org-latex-logfiles-extensions "tex"))
+#+end_src
