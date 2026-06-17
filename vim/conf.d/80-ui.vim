@@ -1,6 +1,7 @@
 set number
 set relativenumber
 set cursorline
+set ignorecase
 set smartcase
 set wildmode=list:longest
 set laststatus=2
