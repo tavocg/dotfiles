@@ -21,9 +21,9 @@ groff-install-font -d -c -F CM -f +MA amsfonts/fonts/type1/public/amsfonts/cm/cm
 ```shell
 apt source cm-super
 cd cm-super-*/pfb
-groff-install-font -d -c -F CM -f +R sfrm1000.pfb 
-groff-install-font -d -c -F CM -f +I sfti1000.pfb 
-groff-install-font -d -c -F CM -f +B sfrb1000.pfb 
+groff-install-font -d -c -F CM -f +R sfrm1000.pfb
+groff-install-font -d -c -F CM -f +I sfti1000.pfb
+groff-install-font -d -c -F CM -f +B sfrb1000.pfb
 ```
 
 # Custom fonts & glyphs
