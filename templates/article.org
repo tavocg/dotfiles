@@ -48,6 +48,11 @@ This template does not apply any layout changes, but these are some commonly app
 #+latex_header: \usepackage[margin=1in]{geometry}
 #+latex_header: \usepackage{setspace}
 #+latex_header: \onehalfspacing
+#+end_src
+
+For multicolumns:
+
+#+begin_src org
 #+latex_header: \usepackage{multicol}
 #+end_src
 
