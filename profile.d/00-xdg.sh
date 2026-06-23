@@ -11,12 +11,13 @@ export \
   XDG_CONFIG_HOME="$HOME/.config"
 
 export \
+  XDG_DESKTOP_DIR="$HOME/Desktop" \
   XDG_DOCUMENTS_DIR="$HOME/Documents" \
   XDG_DOWNLOAD_DIR="$HOME/Downloads" \
   XDG_PICTURES_DIR="$HOME/Pictures" \
-  XDG_DESKTOP_DIR="$HOME/Desktop" \
-  XDG_VIDEOS_DIR="$HOME/Videos" \
-  XDG_MUSIC_DIR="$HOME/Music"
+  XDG_PROJECTS_DIR="$HOME/Projects" \
+  XDG_TEMPLATES_DIR="$HOME/Documents/templates" \
+  XDG_VIDEOS_DIR="$HOME/Videos"
 
 export \
   _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME/java" \
