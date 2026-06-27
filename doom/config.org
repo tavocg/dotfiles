@@ -33,6 +33,9 @@ Use Spanish by default, although one can override this by setting: ~# -*- ispell
 #+begin_src elisp
 (setq org-directory "~/Documents/")
 (setq org-agenda-files '("~/Documents/agenda/"))
+(setq org-agenda-span 'week
+      org-agenda-start-on-weekday 1
+      org-agenda-start-day nil)
 #+end_src
 
 This will allow syntax highlighting in math equations and other latex environments inside Org mode.
