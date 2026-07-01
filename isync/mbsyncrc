@@ -1,21 +1,21 @@
-IMAPAccount gmail
+IMAPAccount personal
 Host imap.gmail.com
 User gustavo.calvo.cr@gmail.com
 PassCmd "pass personal/gmail.com/gustavo.calvo.cr@gmail.com-isync"
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
-IMAPStore gmail-remote
-Account gmail
+IMAPStore personal-remote
+Account personal
 
-MaildirStore gmail-local
+MaildirStore personal-local
 SubFolders Verbatim
-Path ~/.local/share/isync/gmail/
-Inbox ~/.local/share/isync/gmail/Inbox
+Path ~/.local/share/isync/personal/
+Inbox ~/.local/share/isync/personal/Inbox
 
-Channel gmail
-Far :gmail-remote:
-Near :gmail-local:
+Channel personal
+Far :personal-remote:
+Near :personal-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash"
 Create Both
 # Sync the movement of messages between folders and deletions, add after making sure the sync works
