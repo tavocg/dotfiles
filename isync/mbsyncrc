@@ -1,7 +1,7 @@
 IMAPAccount gmail
 Host imap.gmail.com
 User gustavo.calvo.cr@gmail.com
-PassCmd "pass personal/gmail.com/gustavo.calvo.cr@gmail.com"
+PassCmd "pass personal/gmail.com/gustavo.calvo.cr@gmail.com-isync"
 TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
