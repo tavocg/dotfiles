@@ -87,7 +87,9 @@ Finally, auto-enable this mode when entering ~org-mode~:
       +mu4e-gmail-accounts '(("gustavo.calvo.cr@gmail.com" . "personal")))
 
 (after! mu4e
-  (add-hook 'mu4e-main-mode-hook #'mu4e-update-mail-and-index))
+  (add-hook 'mu4e-main-mode-hook
+            (lambda ()
+              (mu4e-update-mail-and-index t))))
 
 (set-email-account! "personal"
   '((user-full-name . "Gustavo Calvo")
