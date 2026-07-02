@@ -40,6 +40,16 @@ Use Spanish by default, although one can override this by setting: ~# -*- ispell
         org-agenda-start-day nil))
 #+end_src
 
+** RSS
+
+#+begin_src elisp
+(setq rmh-elfeed-org-files '("rss/news.org"
+                             "rss/youtube.org"))
+#+end_src
+
+The files above are resolved relative to ~org-directory~, so they point to
+~/Documents/rss/news.org~ and ~/Documents/rss/youtube.org~.
+
 This will allow syntax highlighting in math equations and other latex environments inside Org mode.
 
 #+begin_src elisp
