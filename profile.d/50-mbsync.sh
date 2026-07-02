@@ -2,7 +2,7 @@
 
 export MBSYNC_MAILDIR="${MBSYNC_MAILDIR-$HOME/.local/share/isync}"
 
-for maildir in "$MBSYNC_MAILDIR" "$MBSYNC_MAILDIR"/personal "$MBSYNC_MAILDIR"/ucr; do
+for maildir in "$MBSYNC_MAILDIR" "$MBSYNC_MAILDIR"/personal "$MBSYNC_MAILDIR"/ucr "$MBSYNC_MAILDIR"/atlas; do
   if ! [ -d "$maildir" ]; then
     mkdir -p "$maildir"
   fi
