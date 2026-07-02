@@ -1,0 +1,10 @@
+[global]
+    follow = mouse
+    progress_bar = true
+    origin = bottom-right
+    font = JetBrainsMono 11.5
+    frame_width = 0
+    background = "#7ebab1"
+    foreground = "#272e33"
+
+# vim: ft=cfg
