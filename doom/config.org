@@ -118,6 +118,7 @@ We make email sync the moment we open ~mu4e~, I don't like background sync. Addi
                       (mu4e-sent-folder . "/ucr/Enviado")
                       (mu4e-drafts-folder . "/ucr/Borradores")
                       (mu4e-trash-folder . "/ucr/Papelera")
+                      (mu4e-trash-without-flag . t)
                       (mu4e-refile-folder . "/ucr/Archive")
                       (smtpmail-smtp-user . "gustavo.calvogutierrez@ucr.ac.cr")
                       (smtpmail-smtp-server . "smtp.ucr.ac.cr")
