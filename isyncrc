@@ -1,3 +1,4 @@
+# mbsync -a
 # mu init --maildir ~/.local/share/isync --my-address gustavo.calvo.cr@gmail.com --my-address gustavo.calvogutierrez@ucr.ac.cr
 # mu index
 
