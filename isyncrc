@@ -18,6 +18,28 @@ Far :personal-remote:
 Near :personal-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash" "[Gmail]/Drafts"
 Create Both
-# Sync the movement of messages between folders and deletions, add after making sure the sync works
-#Expunge Both
+Expunge Both
+SyncState *
+
+IMAPAccount ucr
+Host imap.ucr.ac.cr
+User gustavo.calvogutierrez@ucr.ac.cr
+PassCmd "pass edu/ucr.ac.cr/gustavo.calvogutierrez@ucr.ac.cr"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore ucr-remote
+Account ucr
+
+MaildirStore ucr-local
+SubFolders Verbatim
+Path ~/.local/share/isync/ucr/
+Inbox ~/.local/share/isync/ucr/Inbox
+
+Channel ucr
+Far :ucr-remote:
+Near :ucr-local:
+Patterns INBOX Borradores Enviado Spam Papelera Archive
+Create Both
+Expunge Both
 SyncState *
