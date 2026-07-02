@@ -1,3 +1,6 @@
+# mu init --maildir ~/.local/share/isync --my-address gustavo.calvo.cr@gmail.com --my-address gustavo.calvogutierrez@ucr.ac.cr
+# mu index
+
 IMAPAccount personal
 Host imap.gmail.com
 User gustavo.calvo.cr@gmail.com
