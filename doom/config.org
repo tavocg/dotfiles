@@ -16,8 +16,8 @@ This setting determines the line number style in effect. Setting it to ~nil~ dis
 *** Fonts
 
 #+begin_src elisp
-(setq doom-font (font-spec :family "Iosevka" :size 16 :weight 'medium :antialias 'subpixel))
-(setq doom-variable-pitch-font (font-spec :family "Iosevka Etoile" :size 14 :weight 'medium :antialias 'subpixel))
+(setq doom-font (font-spec :family "JetBrainsMono" :size 11.5))
+(setq doom-variable-pitch-font (font-spec :family "JetBrainsMono" :size 13))
 #+end_src
 
 ** Spell checking
