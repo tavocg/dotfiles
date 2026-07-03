@@ -1,5 +1,5 @@
 # mbsync -a
-# mu init --maildir ~/.local/share/isync --my-address gustavo.calvo.cr@gmail.com --my-address gustavo.calvogutierrez@ucr.ac.cr
+# mu init --maildir ~/.local/share/isync --my-address gustavo.calvo.cr@gmail.com --my-address gustavo.calvogutierrez@ucr.ac.cr --my-address team@atlascstg.com --my-address g.calvo@atlascstg.com
 # mu index
 
 IMAPAccount personal
@@ -22,7 +22,7 @@ Far :personal-remote:
 Near :personal-local:
 Patterns * ![Gmail]* "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" "[Gmail]/Trash" "[Gmail]/Drafts"
 Create Both
-Expunge Both
+#Expunge Both
 SyncState *
 
 IMAPAccount ucr
@@ -45,5 +45,28 @@ Far :ucr-remote:
 Near :ucr-local:
 Patterns INBOX Borradores Enviado Spam Papelera Archive
 Create Both
-Expunge Both
+#Expunge Both
+SyncState *
+
+IMAPAccount atlas
+Host imap.hostinger.com
+User team@atlascstg.com
+PassCmd "pass work/g.calvo@atlascstg.com"
+TLSType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore atlas-remote
+Account atlas
+
+MaildirStore atlas-local
+SubFolders Verbatim
+Path ~/.local/share/isync/atlas/
+Inbox ~/.local/share/isync/atlas/Inbox
+
+Channel atlas
+Far :atlas-remote:
+Near :atlas-local:
+Patterns *
+Create Both
+#Expunge Both
 SyncState *

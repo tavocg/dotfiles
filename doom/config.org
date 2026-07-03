@@ -139,6 +139,21 @@ We make email sync the moment we open ~mu4e~, I don't like background sync. Addi
                     nil)
 #+end_src
 
+#+begin_src elisp
+(set-email-account! "atlas"
+                    '((user-full-name . "Gustavo Calvo")
+                      (user-mail-address . "g.calvo@atlascstg.com")
+                      (mu4e-sent-folder . "/atlas/Sent")
+                      (mu4e-drafts-folder . "/atlas/Drafts")
+                      (mu4e-trash-folder . "/atlas/Trash")
+                      (smtpmail-smtp-user . "team@atlascstg.com")
+                      (smtpmail-smtp-server . "smtp.hostinger.com")
+                      (smtpmail-smtp-service . 465)
+                      (smtpmail-stream-type . ssl)
+                      (smtpmail-servers-requiring-authorization . "smtp\\.hostinger\\.com"))
+                    nil)
+#+end_src
+
 ** LaTeX export
 
 #+begin_src elisp
