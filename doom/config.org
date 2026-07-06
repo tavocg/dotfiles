@@ -101,7 +101,8 @@ We make email sync the moment we open ~mu4e~, I don't like background sync. Addi
 
 (setq mu4e-maildir (expand-file-name "~/.local/share/isync")
       mu4e-get-mail-command "mbsync -a"
-      mu4e-update-interval nil)
+      mu4e-update-interval nil
+      mu4e-trash-without-flag t)
 #+end_src
 
 #+begin_src elisp
@@ -129,7 +130,6 @@ We make email sync the moment we open ~mu4e~, I don't like background sync. Addi
                       (mu4e-sent-folder . "/ucr/Enviado")
                       (mu4e-drafts-folder . "/ucr/Borradores")
                       (mu4e-trash-folder . "/ucr/Papelera")
-                      (mu4e-trash-without-flag . t)
                       (mu4e-refile-folder . "/ucr/Archive")
                       (smtpmail-smtp-user . "gustavo.calvogutierrez@ucr.ac.cr")
                       (smtpmail-smtp-server . "smtp.ucr.ac.cr")
@@ -137,6 +137,20 @@ We make email sync the moment we open ~mu4e~, I don't like background sync. Addi
                       (smtpmail-stream-type . starttls)
                       (smtpmail-servers-requiring-authorization . "smtp\\.ucr\\.ac\\.cr"))
                     nil)
+#+end_src
+
+The ~+gmail~ flag overrides mu4e's trash action globally and hardcodes ~+T-N~
+for non-Gmail accounts. Keep Doom's Gmail behavior, but let non-Gmail accounts
+honor ~mu4e-trash-without-flag~.
+
+#+begin_src elisp
+(after! mu4e
+  (plist-put (alist-get 'trash mu4e-marks) :action
+             (lambda (docid msg target)
+               (if (+mu4e-msg-gmail-p msg)
+                   (+mu4e--mark-seen docid msg target)
+                 (mu4e--server-move docid (mu4e--mark-check-target target)
+                                    (if mu4e-trash-without-flag "-N" "+T-N"))))))
 #+end_src
 
 #+begin_src elisp
