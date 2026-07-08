@@ -91,14 +91,10 @@ Finally, auto-enable this mode when entering ~org-mode~:
 
 ** Email
 
-We make email sync the moment we open ~mu4e~, I don't like background sync. Additionally, set the proper XDG-compliant folder for isync-synced email.
+Disable automatic email sync entirely. Mail is fetched only when triggered manually.
+Additionally, set the proper XDG-compliant folder for isync-synced email.
 
 #+begin_src elisp
-(after! mu4e
-  (add-hook 'mu4e-main-mode-hook
-            (lambda ()
-              (mu4e-update-mail-and-index t))))
-
 (setq mu4e-maildir (expand-file-name "~/.local/share/isync")
       mu4e-get-mail-command "mbsync -a"
       mu4e-update-interval nil
