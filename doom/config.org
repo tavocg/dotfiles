@@ -135,19 +135,10 @@ Additionally, set the proper XDG-compliant folder for isync-synced email.
                     nil)
 #+end_src
 
-The ~+gmail~ flag overrides mu4e's trash action globally and hardcodes ~+T-N~
-for non-Gmail accounts. Keep Doom's Gmail behavior, but let non-Gmail accounts
-honor ~mu4e-trash-without-flag~.
-
-#+begin_src elisp
-(after! mu4e
-  (plist-put (alist-get 'trash mu4e-marks) :action
-             (lambda (docid msg target)
-               (if (+mu4e-msg-gmail-p msg)
-                   (+mu4e--mark-seen docid msg target)
-                 (mu4e--server-move docid (mu4e--mark-check-target target)
-                                    (if mu4e-trash-without-flag "-N" "+T-N"))))))
-#+end_src
+Previously, one had to manually check Doom's ~+gmail~ trash action because it
+hardcoded ~+T-N~ for non-Gmail accounts, ignoring ~mu4e-trash-without-flag~.
+This was fixed in Doom modules commit
+[[https://github.com/doomemacs/modules/commit/82de4221e][82de4221e]].
 
 #+begin_src elisp
 (set-email-account! "atlas"
