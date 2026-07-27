@@ -1,0 +1,6 @@
+#!/bin/sh
+# Pull up a low latency
+# mpv window with webcam
+
+DEVICE="$1"
+mpv --profile=low-latency --untimed --no-osc "${DEVICE:-/dev/video0}"
