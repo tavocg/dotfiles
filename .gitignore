@@ -266,7 +266,6 @@ tailscale/
 X11/xinit/xinitrc.d/*local.sh
 *.bak
 lazydocker/
-sunshine/
 clipse/
 X11/xinit/xinitrc.d/*
 github-copilot
