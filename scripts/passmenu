@@ -7,19 +7,24 @@ type_file() {
   elif [ "$DISPLAY" ]; then
     xdotool type --clearmodifiers --file "$file"
   else
-    cat
+    cat "$file"
   fi
 }
 
-pass="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\.gpg$##' | bemenu -p "Pass")"
+OPT="$1"
+
+case "$OPT" in
+otp) _prompt="OTP" ;;
+*) _prompt="Pass" ;;
+esac
+
+pass="$(find "$PASSWORD_STORE_DIR" -type f -name '*.gpg' | sed -e "s#^$PASSWORD_STORE_DIR/##" -e 's#\.gpg$##' | bemenu -p "$_prompt")"
 
 if [ -z "$pass" ]; then
   exit 0
 fi
 
-OPT="$1"
-
 case "$OPT" in
-  otp) pass otp "$pass" | head -n 1 | tr -d '\n' | type_file -;;
-  *) pass "$pass" | head -n 1 | tr -d '\n' | type_file -;;
+otp) pass otp "$pass" | head -n 1 | tr -d '\n' | type_file - ;;
+*) pass "$pass" | head -n 1 | tr -d '\n' | type_file - ;;
 esac
