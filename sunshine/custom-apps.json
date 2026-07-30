@@ -32,7 +32,15 @@
     },
     {
       "name": "Steam Big Picture (Gamescope)",
-      "cmd": "steam-gs -w $SUNSHINE_CLIENT_WIDTH -h $SUNSHINE_CLIENT_HEIGHT",
+      "detached": [
+        "setsid steam-gamescope-sunshine"
+      ],
+      "prep-cmd": [
+        {
+          "do": "",
+          "undo": "setsid steam-gamescope-sunshine-stop"
+        }
+      ],
       "image-path": "steam.png"
     }
   ]
