@@ -1,3 +1,4 @@
 *
 !.gitignore
 !sunshine-*.conf
+!custom-apps.json
