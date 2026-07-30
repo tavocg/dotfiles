@@ -1,0 +1,25 @@
+#!/bin/sh
+
+set -eu
+
+WIDTH="${SUNSHINE_CLIENT_WIDTH:-1920}"
+HEIGHT="${SUNSHINE_CLIENT_HEIGHT:-1080}"
+FPS="${SUNSHINE_CLIENT_FPS:-60}"
+HDR="${SUNSHINE_CLIENT_HDR:-false}"
+
+set -- \
+  -f \
+  -e \
+  -w "$WIDTH" \
+  -h "$HEIGHT" \
+  -W "$WIDTH" \
+  -H "$HEIGHT" \
+  -r "$FPS"
+
+case "$HDR" in
+true | TRUE | True | 1)
+  set -- "$@" --hdr-enabled
+  ;;
+esac
+
+exec gamescope "$@" -- steam -gamepadui
