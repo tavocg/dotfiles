@@ -15,7 +15,7 @@
       "prep-cmd": [
         {
           "do": "",
-          "undo": "sh -c \"setsid steam steam://close/bigpicture >/dev/null 2>&1 || true\npkill -f 'gamescope.*-- steam -gamepadui' || true\""
+          "undo": "sh -c \"setsid steam steam://close/bigpicture >/dev/null 2>&1 || true\npkill -f '[g]amescope.*-- steam -gamepadui' || true\""
         }
       ],
       "image-path": "steam.png"
