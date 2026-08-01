@@ -10,12 +10,12 @@
     {
       "name": "Steam",
       "detached": [
-        "exec gamescope -e -f -w \"${SUNSHINE_CLIENT_WIDTH:-1920}\" -h \"${SUNSHINE_CLIENT_HEIGHT:-1080}\" -r \"${SUNSHINE_CLIENT_FPS:-60}\" -- steam -gamepadui"
+        "sh -c \"exec gamescope -e -f -w \\\"${SUNSHINE_CLIENT_WIDTH:-1920}\\\" -h \\\"${SUNSHINE_CLIENT_HEIGHT:-1080}\\\" -r \\\"${SUNSHINE_CLIENT_FPS:-60}\\\" -- steam -gamepadui\""
       ],
       "prep-cmd": [
         {
           "do": "",
-          "undo": "setsid steam steam://close/bigpicture >/dev/null 2>&1 || true\npkill -f 'gamescope.*-- steam -gamepadui' || true"
+          "undo": "sh -c \"setsid steam steam://close/bigpicture >/dev/null 2>&1 || true\npkill -f 'gamescope.*-- steam -gamepadui' || true\""
         }
       ],
       "image-path": "steam.png"
