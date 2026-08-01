@@ -1,4 +1,4 @@
 *
 !.gitignore
-!sunshine-*.conf
-!custom-apps.json
+!sunshine*.conf
+!apps*.json
