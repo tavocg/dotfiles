@@ -8,37 +8,14 @@
       "image-path": "desktop.png"
     },
     {
-      "name": "Low Res Desktop",
-      "image-path": "desktop.png",
-      "prep-cmd": [
-        {
-          "do": "xrandr --output HDMI-1 --mode 1920x1080",
-          "undo": "xrandr --output HDMI-1 --mode 1920x1200"
-        }
-      ]
-    },
-    {
-      "name": "Steam Big Picture",
+      "name": "Steam",
       "detached": [
-        "setsid steam steam://open/bigpicture"
+        "exec gamescope -e -f -w \"${SUNSHINE_CLIENT_WIDTH:-1920}\" -h \"${SUNSHINE_CLIENT_HEIGHT:-1080}\" -r \"${SUNSHINE_CLIENT_FPS:-60}\" -- steam -gamepadui"
       ],
       "prep-cmd": [
         {
           "do": "",
-          "undo": "setsid steam steam://close/bigpicture"
-        }
-      ],
-      "image-path": "steam.png"
-    },
-    {
-      "name": "Steam Big Picture (Gamescope)",
-      "detached": [
-        "setsid steam-gamescope-sunshine"
-      ],
-      "prep-cmd": [
-        {
-          "do": "",
-          "undo": "setsid steam-gamescope-sunshine-stop"
+          "undo": "setsid steam steam://close/bigpicture >/dev/null 2>&1 || true\npkill -f 'gamescope.*-- steam -gamepadui' || true"
         }
       ],
       "image-path": "steam.png"
