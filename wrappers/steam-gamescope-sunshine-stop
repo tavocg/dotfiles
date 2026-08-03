@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-
-setsid steam steam://close/bigpicture >/dev/null 2>&1 || true
-pkill -f 'gamescope.*-- steam -gamepadui' || true
