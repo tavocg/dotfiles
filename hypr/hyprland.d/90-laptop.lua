@@ -1,13 +1,13 @@
 hl.config({
-    input = {
-        touchpad = {
-            natural_scroll = true,
-        },
-    },
+	input = {
+		touchpad = {
+			natural_scroll = true,
+		},
+	},
 })
 
 hl.gesture({
-    fingers = 3,
-    direction = "horizontal",
-    action = "workspace",
+	fingers = 3,
+	direction = "horizontal",
+	action = "workspace",
 })

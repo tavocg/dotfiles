@@ -2,14 +2,14 @@ local vars = require("./hyprland.d/01-vars.lua")
 local mod = vars.mod
 
 hl.config({
-    general = {
-        layout = "master",
-    },
+	general = {
+		layout = "master",
+	},
 
-    master = {
-        new_status = "slave",
-        new_on_top = false,
-    },
+	master = {
+		new_status = "slave",
+		new_on_top = false,
+	},
 })
 
 hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))

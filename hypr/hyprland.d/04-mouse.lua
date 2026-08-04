@@ -1,6 +1,6 @@
 hl.config({
-    input = {
-        sensitivity = 0,
-        accel_profile = "flat",
-    },
+	input = {
+		sensitivity = 0,
+		accel_profile = "flat",
+	},
 })

@@ -2,11 +2,11 @@ local vars = require("./hyprland.d/01-vars.lua")
 local mod = vars.mod
 
 hl.config({
-    general = {
-        layout = "scrolling",
-    },
+	general = {
+		layout = "scrolling",
+	},
 
-    scrolling = {},
+	scrolling = {},
 })
 
 hl.bind(mod .. " + H", hl.dsp.focus({ direction = "left" }))

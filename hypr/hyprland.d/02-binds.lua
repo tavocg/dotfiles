@@ -26,10 +26,10 @@ hl.bind(mod .. " + SHIFT + S", hl.dsp.exec_cmd(vars.prt))
 hl.bind(mod .. " + SHIFT + C", hl.dsp.exec_cmd(vars.colorpicker))
 
 for workspace = 1, 10 do
-    local key = workspace % 10
+	local key = workspace % 10
 
-    hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = workspace }))
-    hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = workspace }))
+	hl.bind(mod .. " + " .. key, hl.dsp.focus({ workspace = workspace }))
+	hl.bind(mod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = workspace }))
 end
 
 hl.bind(mod .. " + SHIFT + Q", hl.dsp.exec_cmd("hyprctl reload"))
