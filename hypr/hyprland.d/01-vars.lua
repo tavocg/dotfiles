@@ -7,7 +7,7 @@ return {
 	right = "l",
 
 	term = "foot",
-	menu = [[bemenu-run -p "Run" | xargs -r hyprctl dispatch exec]],
+	menu = [[bemenu-run --no-exec -p "Run" | xargs -r -I{} hyprctl dispatch 'hl.dsp.exec_cmd("{}")']],
 	power = [[printf 'poweroff\nreboot\n' | bemenu -p Power | xargs sh -c]],
 	pass = "~/.config/scripts/passmenu",
 	passotp = "~/.config/scripts/passmenu otp",
