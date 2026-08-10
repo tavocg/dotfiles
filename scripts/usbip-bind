@@ -1,0 +1,70 @@
+#!/bin/sh
+
+if [ "$(id -u)" != 0 ]; then
+  echo "error: must run as root"
+  exit 1
+fi
+
+: "${USBIPD_PID_FILE:=/var/run/usbipd.pid}"
+
+if ! [ -f "$USBIPD_PID_FILE" ]; then
+  usbipd -D -P "$USBIPD_PID_FILE"
+fi
+
+devices=$(
+  usbip list -l | {
+    busid=
+    while IFS= read -r line; do
+      case "$line" in
+      *busid\ *)
+        busid=${line#*busid }
+        busid=${busid%% *}
+        ;;
+      '')
+        ;;
+      *)
+        set -- $line
+        name=$*
+        name=${name% :*}
+        printf '%s\t%s\n' "$busid" "$name"
+        busid=
+        ;;
+      esac
+    done
+  }
+)
+
+[ "$devices" ] || exit 1
+
+n=0
+IFS='
+'
+for device in $devices; do
+  n=$((n + 1))
+  printf '%s) %s\n' "$n" "${device#*	}"
+done
+unset IFS
+
+printf 'Choose device: '
+read -r selection || exit 1
+[ "$selection" ] || exit 1
+
+n=0
+IFS='
+'
+for device in $devices; do
+  n=$((n + 1))
+  if [ "$n" = "$selection" ]; then
+    busid=${device%%	*}
+    if usbip bind --busid="$busid"; then
+      host=$(hostname 2>/dev/null)
+      [ "$host" ] || host=SERVER
+      printf '\n  \033[32musbip\033[0m \033[34mattach\033[0m \033[33m-r\033[0m \033[35m%s\033[0m \033[33m-b\033[0m \033[35m%s\033[0m\n\n' "$host" "$busid"
+      exit
+    fi
+    exit 1
+  fi
+done
+unset IFS
+
+exit 1
