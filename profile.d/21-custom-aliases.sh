@@ -83,6 +83,10 @@ pandoc-md2pdf() {
   done
 }
 
+if command -v ledger >/dev/null 2>&1; then
+  alias ledger="ledger -f $HOME/Documents/personal/finance/accounting.ledger"
+fi
+
 if [ "$WAYLAND_DISPLAY" ]; then
   alias clip="wl-copy"
 elif [ "$DISPLAY" ]; then
