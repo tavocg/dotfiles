@@ -32,7 +32,10 @@ Use Spanish by default, although one can override this by setting: ~# -*- ispell
 
 #+begin_src elisp
 (setq org-directory "~/Documents/")
-(setq org-agenda-files '("~/Documents/agenda/"))
+(setq org-agenda-files
+      (directory-files-recursively
+       (expand-file-name "agenda/" org-directory)
+       "\\.org\\'"))
 
 (after! org-agenda
   (setq org-agenda-span 'week
