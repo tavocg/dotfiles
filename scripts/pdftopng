@@ -1,0 +1,41 @@
+#!/bin/sh
+
+for p in pdfinfo pdftoppm; do
+  if ! command -v "$p" >/dev/null 2>&1; then
+    echo "error: '$p' not found in \$PATH. Maybe 'poppler-utils' is missing?" >&2
+    exit 1
+  fi
+done
+
+script="$0"
+if [ "$#" -ne 1 ]; then
+  echo "usage: ${script##*/} FILE.pdf" >&2
+  exit 1
+fi
+
+FILE=$1
+
+case "$FILE" in
+*.[Pp][Dd][Ff])
+  OUTPUT=${FILE%.[Pp][Dd][Ff]}
+  ;;
+*)
+  echo "warn: invalid pdf name '$FILE' (not *.pdf), trying anyway" >&2
+  OUTPUT=$FILE
+  ;;
+esac
+
+pages=$(
+  pdfinfo "$FILE" |
+    awk '/^Pages:/ { print $2; exit }'
+)
+
+case "$pages" in
+'' | *[!0-9]*) echo "warn: invalid number of pages '$pages', trying anyway" >&2 ;;
+esac
+
+if [ "$pages" -eq 1 ]; then
+  pdftoppm -png -singlefile "$FILE" "$OUTPUT"
+else
+  pdftoppm -png "$FILE" "$OUTPUT"
+fi
