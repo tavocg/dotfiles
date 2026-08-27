@@ -12,7 +12,7 @@ return {
 	pass = "~/.config/scripts/passmenu",
 	passotp = "~/.config/scripts/passmenu otp",
 	sound = "foot -T wiremix wiremix",
-	wifi = "foot -T impala impala",
+	wifi = "foot -T wlctl wlctl",
 	bluetooth = "foot -T bluetui bluetui",
 	filemanager = "nautilus",
 	browser = os.getenv("BROWSER") or "firefox",
