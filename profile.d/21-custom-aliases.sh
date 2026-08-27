@@ -51,8 +51,8 @@ alias \
   qr="qrencode -t ansiutf8" \
   wget='wget --hsts-file="${XDG_DATA_HOME:-$HOME/.local/share}"/wget/wget-hsts' \
   lg="lazygit" \
-  ffmpeg="ffmpeg -hide_banner" \
-  ffprobe="ffprobe -hide_banner" \
+  ffmpeg="ffmpeg -hide_banner -loglevel error" \
+  ffprobe="ffprobe -hide_banner -loglevel error" \
   adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
 
 pandoc-md2pdf() {
