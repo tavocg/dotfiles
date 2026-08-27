@@ -179,6 +179,6 @@ This was fixed in Doom modules commit
      :latex-compiler
      ("tectonic -Z shell-escape-cwd=%o --outfmt pdf --outdir %o %f")
      :image-converter
-     ("convert -density %D -trim -antialias %f -quality 300 %O")))
+     ("convert -density %D -antialias %f -trim -quality 300 %O")))
   (setq org-preview-latex-default-process 'tectonic))
 #+end_src
