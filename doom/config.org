@@ -165,4 +165,20 @@ This was fixed in Doom modules commit
   (setq org-latex-pdf-process '("tectonic -o %o %f")
         org-latex-remove-logfiles t)
   (add-to-list 'org-latex-logfiles-extensions "tex"))
+
+(after! org
+  (add-to-list
+   'org-preview-latex-process-alist
+   '(tectonic
+     :programs ("tectonic" "convert")
+     :description "pdf > png"
+     :message "You need tectonic and ImageMagick."
+     :image-input-type "pdf"
+     :image-output-type "png"
+     :image-size-adjust (1.0 . 1.0)
+     :latex-compiler
+     ("tectonic -Z shell-escape-cwd=%o --outfmt pdf --outdir %o %f")
+     :image-converter
+     ("convert -density %D -trim -antialias %f -quality 300 %O")))
+  (setq org-preview-latex-default-process 'tectonic))
 #+end_src
