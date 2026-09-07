@@ -11,4 +11,4 @@
 codec="mp3"
 URL="$1"
 
-yt-dlp -x -o "%(playlist_index)s-%(title)s.%(ext)s" --audio-format $codec "$URL"
+yt-dlp -x -o "%(playlist_index)s-%(title)s.%(ext)s" --audio-format $codec "$URL" --js-runtimes node --cookies-from-browser firefox
