@@ -1,0 +1,144 @@
+#!/bin/sh
+# Pull up a low-latency mpv window.
+# Mirror V4L2 webcam devices.
+
+# Print discrete modes: format ascending, pixel count and FPS descending.
+input_options() (
+  LC_ALL=C
+  export LC_ALL
+  listing=$(v4l2-ctl -d "$1" --list-formats-ext) || return
+  set -f
+  set --
+  fmt=''
+  res=''
+  newline='
+'
+  while read -r kind type value rate rest; do
+    case "$kind" in
+    \[*\]:)
+      fmt=${type#\'}
+      fmt=${fmt%\'}
+      res=
+      # A FOURCC packed into an integer has the same order as its name.
+      fmt_key=0
+      chars=$fmt
+      while [ -n "$chars" ]; do
+        code=$(printf '%d' "'$chars")
+        fmt_key=$((fmt_key * 256 + code))
+        chars=${chars#?}
+      done
+      ;;
+    Size:)
+      res=
+      [ "$type" = Discrete ] && res=$value
+      ;;
+    Interval:)
+      [ "$type" = Discrete ] && [ -n "$fmt" ] && [ -n "$res" ] || continue
+      fps=${rate#(}
+      area=$((${res%x*} * ${res#*x}))
+      # v4l2-ctl prints FPS with three decimal places; use fixed point.
+      fps_key=$((${fps%.*} * 1000 + 1${fps#*.} - 1000))
+      entry=$fmt_key:$area:$fps_key:$fmt:$res@$fps
+      sorted=
+      pending=$entry
+      for old; do
+        old_fmt=${old%%:*}
+        tail=${old#*:}
+        old_area=${tail%%:*}
+        tail=${tail#*:}
+        old_fps=${tail%%:*}
+        if [ -n "$pending" ] && {
+          [ "$fmt_key" -lt "$old_fmt" ] || {
+            [ "$fmt_key" -eq "$old_fmt" ] && {
+              [ "$area" -gt "$old_area" ] || {
+                [ "$area" -eq "$old_area" ] && [ "$fps_key" -gt "$old_fps" ]
+              }
+            }
+          }
+        }; then
+          sorted=$sorted$pending$newline
+          pending=
+        fi
+        sorted=$sorted$old$newline
+      done
+      sorted=$sorted$pending
+      IFS=$newline
+      # Deliberately split the sorted records only at newlines.
+      # shellcheck disable=SC2086
+      set -- $sorted
+      unset IFS
+      ;;
+    esac
+  done <<EOF
+$listing
+EOF
+  for entry; do
+    printf '%s\n' "${entry#*:*:*:}"
+  done
+)
+
+DEVICE=${1#av://v4l2:}
+
+set -- \
+  --no-config \
+  --really-quiet \
+  --no-resume-playback \
+  --profile=low-latency \
+  --untimed \
+  --no-osc
+
+# if no device specified, assume one of these
+if [ -z "$DEVICE" ]; then
+  for d in /dev/webcam* /dev/video*; do
+    if [ -c "$d" ]; then
+      case "$d" in
+      /dev/webcam*)
+        set -- "$@" --vf=hflip
+        ;;
+      esac
+
+      DEVICE=$d
+      break
+    fi
+  done
+fi
+
+if [ -z "$DEVICE" ]; then
+  echo "No compatible device found"
+  exit 1
+fi
+
+if command -v v4l2-ctl >/dev/null 2>&1; then
+  modes=$(input_options "$DEVICE")
+  first=${modes%%'
+'*}
+  if [ -n "$first" ]; then
+    input_format=${first%%:*}
+    case "$input_format" in
+    MJPG | JPEG) input_format=mjpeg ;;
+    YUYV) input_format=yuyv422 ;;
+    UYVY) input_format=uyvy422 ;;
+    NV12) input_format=nv12 ;;
+    NV21) input_format=nv21 ;;
+    YU12) input_format=yuv420p ;;
+    GREY) input_format=gray ;;
+    H264) input_format=h264 ;;
+    esac
+    mode=${first#*:}
+    : "${FMT:=$input_format}"
+    : "${RES:=${mode%@*}}"
+    : "${FPS:=${mode#*@}}"
+  fi
+fi
+
+: "${FMT:=mjpeg}"
+: "${RES:=1920x1080}"
+: "${FPS:=30}"
+
+set -- "$@" \
+  "--demuxer-lavf-o=input_format=$FMT,video_size=$RES,framerate=$FPS"
+
+# default API fails
+set -- "$@" --gpu-api=opengl
+
+exec mpv "$@" "av://v4l2:$DEVICE"
