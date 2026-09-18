@@ -77,15 +77,22 @@ EOF
   done
 )
 
-DEVICE=${1#av://v4l2:}
+DEVICE=
+mirror=
 
-set -- \
-  --no-config \
-  --really-quiet \
-  --no-resume-playback \
-  --profile=low-latency \
-  --untimed \
-  --no-osc
+# Accept a device anywhere, preserving all other arguments.
+for arg; do
+  shift
+  case "$arg" in
+  /dev/* | av://v4l2:*)
+    if [ -z "$DEVICE" ]; then
+      DEVICE=${arg#av://v4l2:}
+      continue
+    fi
+    ;;
+  esac
+  set -- "$@" "$arg"
+done
 
 # if no device specified, assume one of these
 if [ -z "$DEVICE" ]; then
@@ -93,7 +100,7 @@ if [ -z "$DEVICE" ]; then
     if [ -c "$d" ]; then
       case "$d" in
       /dev/webcam*)
-        set -- "$@" --vf=hflip
+        mirror=1
         ;;
       esac
 
@@ -135,10 +142,20 @@ fi
 : "${RES:=1920x1080}"
 : "${FPS:=30}"
 
-set -- "$@" \
-  "--demuxer-lavf-o=input_format=$FMT,video_size=$RES,framerate=$FPS"
+# Put caller options last so they can override the defaults.
+set -- \
+  --no-config \
+  --really-quiet \
+  --no-resume-playback \
+  --profile=low-latency \
+  --untimed \
+  --no-osc \
+  ${mirror:+--vf=hflip} \
+  "--demuxer-lavf-o=input_format=$FMT,video_size=$RES,framerate=$FPS" \
+  --gpu-api=opengl \
+  "$@"
 
-# default API fails
+# default api causing trouble
 set -- "$@" --gpu-api=opengl
 
 exec mpv "$@" "av://v4l2:$DEVICE"
