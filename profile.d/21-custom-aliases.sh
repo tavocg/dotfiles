@@ -53,7 +53,8 @@ alias \
   lg="lazygit" \
   ffmpeg="ffmpeg -hide_banner -loglevel error" \
   ffprobe="ffprobe -hide_banner -loglevel error" \
-  adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb'
+  adb='HOME="${XDG_DATA_HOME:-$HOME/.local/share}"/android adb' \
+  tectonic='tectonic -c minimal'
 
 pandoc-md2pdf() {
   for file in "$@"; do
