@@ -3,4 +3,4 @@
 export \
   EDITOR="nvim" \
   VISUAL="em" \
-  BROWSER="chromium"
+  BROWSER="firefox"

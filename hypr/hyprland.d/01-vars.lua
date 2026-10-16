@@ -15,7 +15,7 @@ return {
 	wifi = "foot -T wlctl wlctl",
 	bluetooth = "foot -T bluetui bluetui",
 	filemanager = "nautilus",
-	browser = os.getenv("BROWSER") or "chromium",
+	browser = os.getenv("BROWSER") or "firefox",
 	volup = "wpctl set-volume @DEFAULT_SINK@ 5%+ && wpctl set-mute @DEFAULT_SINK@ 0",
 	voldown = "wpctl set-volume @DEFAULT_SINK@ 5%- && wpctl set-mute @DEFAULT_SINK@ 0",
 	mute = "wpctl set-mute @DEFAULT_SINK@ toggle",
