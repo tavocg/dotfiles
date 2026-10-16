@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
-# use this until Bug 735285 is resolved
-# https://bugzilla.mozilla.org/show_bug.cgi?id=735285
 TARGET="steam"
 HOME=$HOME/.local/share/Steam
 
