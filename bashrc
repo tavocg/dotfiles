@@ -78,6 +78,8 @@ if [ -n "$HISTFILE" ] && ! [ -d "${HISTFILE%/*}" ]; then
   mkdir -p "${HISTFILE%/*}" && touch "$HISTFILE"
 fi
 
+bind -x '"\C-l": clear'
+
 if ! shopt -oq posix; then
   for comp in /usr/share/bash-completion/bash_completion /etc/bash_completion; do
     if [ -r "$comp" ]; then
