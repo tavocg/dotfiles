@@ -11,9 +11,9 @@ vim.api.nvim_create_autocmd("FileType", {
   pattern = { "c", "cpp", "go" },
   callback = function()
     vim.bo.expandtab = false
-    vim.bo.shiftwidth = 8
-    vim.bo.tabstop = 8
-    vim.bo.softtabstop = 0
+    vim.bo.shiftwidth = 4
+    vim.bo.tabstop = 4
+    vim.bo.softtabstop = 4
     vim.wo.colorcolumn = "81"
   end,
 })
