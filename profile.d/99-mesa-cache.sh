@@ -5,3 +5,4 @@ for d in mesa_shader_cache mesa_shader_cache_db; do
     mkdir -p "${XDG_CACHE_HOME:-$HOME/.local/cache}/$d"
   fi
 done
+unset d

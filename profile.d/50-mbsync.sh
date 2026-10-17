@@ -7,6 +7,7 @@ for maildir in "$MBSYNC_MAILDIR" "$MBSYNC_MAILDIR"/personal "$MBSYNC_MAILDIR"/uc
     mkdir -p "$maildir"
   fi
 done
+unset maildir
 
 export MBSYNCRC="${XDG_CONFIG_HOME:-$HOME/.config}/isyncrc"
 alias mbsync="mbsync -c "$MBSYNCRC""

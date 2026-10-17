@@ -19,3 +19,4 @@ for sdk in "$godir"/sdk/go*; do
     esac
   fi
 done
+unset godir sdk

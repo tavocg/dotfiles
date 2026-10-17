@@ -17,3 +17,4 @@ if [ -n "$latest_bin" ]; then
   *) export PATH="$latest_bin${PATH:+:${PATH}}" ;;
   esac
 fi
+unset GEM_BASE latest_bin latest_home d

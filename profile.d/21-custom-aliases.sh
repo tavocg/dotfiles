@@ -33,6 +33,7 @@ if [ "$EZA_PROG" ]; then
   alias l="$EZA_PROG $EZA_OPTS -alg"
   alias ls="$EZA_PROG $EZA_OPTS -1"
 fi
+unset EZA_PROG EZA_OPTS
 
 if command -v trash >/dev/null 2>&1; then
   alias rm="trash"
@@ -84,6 +85,7 @@ pandoc-md2pdf() {
         --pdf-engine=tectonic "$file" -o "${file%.md}.pdf"
     fi
   done
+  unset file titleMeta titleTag titleFile title
 }
 
 if command -v ledger >/dev/null 2>&1; then
