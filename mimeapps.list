@@ -1,56 +1,91 @@
-[Added Associations]
-application/rnote=com.github.flxzt.rnote.desktop;
-application/rss+xml=thunderbird.desktop;
-application/x-extension-rss=thunderbird.desktop;
+[Default Applications]
+inode/directory=org.gnome.Nautilus.desktop;
+
+# Plain
+application/json=emacsclient.desktop;
+application/xml=emacsclient.desktop;
+application/yaml=emacsclient.desktop;
+text/markdown=emacsclient.desktop;
+text/plain=emacsclient.desktop;
+text/x-shellscript=emacsclient.desktop;
+text/xml=emacsclient.desktop;
+text/yaml=emacsclient.desktop;
+
+# Docs
+application/epub+zip=org.pwmt.zathura.desktop;
+application/pdf=org.pwmt.zathura.desktop;
+application/msword=writer.desktop;
+application/vnd.openxmlformats-officedocument.wordprocessingml.document=writer.desktop;
+application/vnd.oasis.opendocument.text=writer.desktop;
+application/rtf=writer.desktop;
+text/rtf=writer.desktop;
+application/vnd.ms-powerpoint=impress.desktop;
+application/vnd.openxmlformats-officedocument.presentationml.presentation=impress.desktop;
+application/vnd.oasis.opendocument.presentation=impress.desktop;
+application/vnd.ms-excel=calc.desktop;
+application/vnd.openxmlformats-officedocument.spreadsheetml.sheet=calc.desktop;
+application/vnd.oasis.opendocument.spreadsheet=calc.desktop;
+text/csv=calc.desktop;
+application/vnd.oasis.opendocument.graphics=draw.desktop;
+
+# Media: Images
+image/avif=imv.desktop;
+image/bmp=imv.desktop;
+image/gif=imv.desktop;
 image/jpeg=imv.desktop;
+image/png=imv.desktop;
+image/tiff=imv.desktop;
+image/webp=imv.desktop;
+image/svg+xml=org.inkscape.Inkscape.desktop;
+image/svg+xml-compressed=org.inkscape.Inkscape.desktop;
+
+# Media: Video
+video/mp4=mpv.desktop;
+video/mpeg=mpv.desktop;
+video/ogg=mpv.desktop;
 video/quicktime=mpv.desktop;
-x-scheme-handler/chrome=firefox.desktop;
-x-scheme-handler/feed=thunderbird.desktop;
-x-scheme-handler/http=firefox.desktop;
-x-scheme-handler/https=firefox.desktop;
+video/webm=mpv.desktop;
+video/x-matroska=mpv.desktop;
+video/x-msvideo=mpv.desktop;
+
+# Media: Audio
+audio/aac=mpv.desktop;
+audio/flac=mpv.desktop;
+audio/mp4=mpv.desktop;
+audio/mpeg=mpv.desktop;
+audio/ogg=mpv.desktop;
+audio/opus=mpv.desktop;
+audio/x-m4a=mpv.desktop;
+audio/x-wav=mpv.desktop;
+
+# Web
+application/x-extension-htm=chromium-browser.desktop;
+application/x-extension-html=chromium-browser.desktop;
+application/x-extension-shtml=chromium-browser.desktop;
+application/x-extension-xht=chromium-browser.desktop;
+application/x-extension-xhtml=chromium-browser.desktop;
+application/xhtml+xml=chromium-browser.desktop;
+text/html=chromium-browser.desktop;
+x-scheme-handler/chrome=chromium-browser.desktop;
+x-scheme-handler/http=chromium-browser.desktop;
+x-scheme-handler/https=chromium-browser.desktop;
+
+# Social
+message/rfc822=thunderbird.desktop;
 x-scheme-handler/mailto=thunderbird.desktop;
 x-scheme-handler/mid=thunderbird.desktop;
+x-scheme-handler/sgnl=signal.desktop;
+x-scheme-handler/signalcaptcha=signal.desktop;
+
+# Calendar / Feed
+application/x-extension-ics=thunderbird.desktop;
+text/calendar=thunderbird.desktop;
 x-scheme-handler/webcal=thunderbird.desktop;
 x-scheme-handler/webcals=thunderbird.desktop;
-x-scheme-handler/sgnl=signal.desktop;
-x-scheme-handler/tg=org.telegram.desktop.desktop;
-x-scheme-handler/tonsite=org.telegram.desktop.desktop;
+application/rss+xml=thunderbird.desktop;
+application/x-extension-rss=thunderbird.desktop;
+x-scheme-handler/feed=thunderbird.desktop;
 
-[Default Applications]
-application/json=emacsclient.desktop
-application/pdf=org.pwmt.zathura.desktop
-application/rss+xml=thunderbird.desktop
-application/x-extension-htm=firefox.desktop
-application/x-extension-html=firefox.desktop
-application/x-extension-ics=thunderbird.desktop
-application/x-extension-rss=thunderbird.desktop
-application/x-extension-shtml=firefox.desktop
-application/x-extension-xht=firefox.desktop
-application/x-extension-xhtml=firefox.desktop
-application/xhtml+xml=firefox.desktop
-audio/flac=mpv.desktop
-audio/mpeg=mpv.desktop
-image/gif=imv.desktop
-image/jpeg=imv.desktop;
-image/png=imv.desktop
-image/webp=imv.desktop
-message/rfc822=thunderbird.desktop
-text/calendar=thunderbird.desktop
-text/html=firefox.desktop
-text/plain=emacsclient.desktop
-video/mp4=mpv.desktop
-video/quicktime=mpv.desktop;
-video/x-matroska=mpv.desktop
-x-scheme-handler/bruno=bruno.desktop
-x-scheme-handler/chrome=firefox.desktop
-x-scheme-handler/feed=thunderbird.desktop
-x-scheme-handler/http=firefox.desktop
-x-scheme-handler/https=firefox.desktop
-x-scheme-handler/mailto=thunderbird.desktop
-x-scheme-handler/mid=thunderbird.desktop
-x-scheme-handler/signalcaptcha=signal.desktop
-x-scheme-handler/webcal=thunderbird.desktop
-x-scheme-handler/webcals=thunderbird.desktop
-x-scheme-handler/sgnl=signal.desktop
-x-scheme-handler/tg=org.telegram.desktop.desktop
-x-scheme-handler/tonsite=org.telegram.desktop.desktop
+# Misc
+application/x-bittorrent=org.qbittorrent.qBittorrent.desktop;
+x-scheme-handler/magnet=org.qbittorrent.qBittorrent.desktop;
