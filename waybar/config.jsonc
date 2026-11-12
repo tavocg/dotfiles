@@ -63,7 +63,7 @@
   },
   "network": {
     "interval": 2,
-    "format-wifi": "{icon}",
+    "format-wifi": "{icon} {essid}",
     "format-ethernet": "󰛳",
     "format-linked": "󰈀",
     "format-disconnected": "󰖪",
@@ -85,8 +85,9 @@
       "critical": 10
     },
     "format": "{icon}",
-    "format-discharging": "{icon}",
-    "format-charging": "{icon}",
+    "format-discharging": "{icon} {time}",
+    "format-charging": "{icon} {time}",
+    "format-time": "{H}h {m}m",
     "format-plugged": "󰚥",
     "format-full": "󰁹",
     "format-icons": {
