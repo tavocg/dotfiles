@@ -37,6 +37,7 @@ hl.bind(mod .. " + C", hl.dsp.window.close())
 hl.bind(mod .. " + SHIFT + F", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen(0))
 hl.bind(mod .. " + SHIFT + t", hl.dsp.group.toggle())
+hl.bind(mod .. " + SHIFT + B", hl.dsp.exec_cmd(vars.togglebar))
 
 hl.bind(mod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
